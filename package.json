@@ -1,0 +1,20 @@
+{
+  "name": "ro-pre-renewal-skill-planner",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "setup-fonts": "node scripts/setup-web-fonts.mjs",
+    "import-skillinfo": "node scripts/import-skillinfo.mjs",
+    "predev": "node scripts/import-skillinfo.mjs",
+    "prebuild": "node scripts/import-skillinfo.mjs",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "iconv-lite": "^0.7.2",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.1"
+  }
+}

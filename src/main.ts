@@ -1,0 +1,1373 @@
+import "./style.css";
+import {
+  listJobsGroupedForPicker,
+  getJobData,
+  buildSkillsForJob,
+  getEdgesForJob,
+  makeSkillMap,
+  GRID_COLS,
+  isQuestColumnTitle,
+  shouldMergeTranscendentIntoSecondPanel,
+  type JobData,
+  type SkillDef,
+  type PrereqEdge,
+} from "./planner-data";
+import { jobPreviewSpriteUrl } from "./job-previews";
+
+const STORAGE_KEY = "ro-planner-state-v2";
+const DEFAULT_JOB = "JT_PRIEST";
+
+/** Client skill icons by SKID (same numeric id as rAthena / planner `skidId`). Divine Pride: singular `skill`, not `skills`. */
+function skillIconUrl(skidId: number): string {
+  return `https://static.divine-pride.net/images/skill/${skidId}.png`;
+}
+
+/** Skill points per tree column when tiers are separate: merged novice+1st, 2nd, third (quest/special excluded). */
+const CLASS_SKILL_CAPS: readonly number[] = [49, 50, 50];
+
+/** Transcendent jobs: second + transcendent columns share one pool (replaces separate 50+50). */
+const TRANSCENDENT_COMBINED_SECOND_CAP = 70;
+
+/** Basic Skill does not consume the per-class skill point budget (matches common planner / in-game treatment). */
+const BASIC_SKILL_ID = "nv_basic";
+
+function exemptFromClassSkillCap(skillId: string): boolean {
+  return skillId === BASIC_SKILL_ID;
+}
+
+type Stored = {
+  lastJob?: string;
+  jobs: Record<string, { levels: Record<string, number>; budget?: number }>;
+};
+
+let currentJob = DEFAULT_JOB;
+let levels: Record<string, number> = {};
+let skills: SkillDef[] = [];
+let edges: PrereqEdge[] = [];
+let skillMap = new Map<string, SkillDef>();
+
+/** While a skill is hovered: which skill, and pip fill counts for transitive prereqs (required levels). */
+let focusHoverSkillId: string | null = null;
+let focusPrereqDisplayLevels: Map<string, number> | null = null;
+
+function loadState(): void {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw) as Stored;
+    if (data.lastJob && getJobData(data.lastJob)) currentJob = data.lastJob;
+  } catch {
+    /* ignore */
+  }
+}
+
+function saveState(): void {
+  let raw: Stored = { jobs: {} };
+  try {
+    raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") as Stored;
+  } catch {
+    raw = { jobs: {} };
+  }
+  if (!raw.jobs) raw.jobs = {};
+  raw.lastJob = currentJob;
+  raw.jobs[currentJob] = { levels };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(raw));
+}
+
+function clampLevelToSkill(s: SkillDef, v: unknown): number {
+  if (typeof v !== "number" || !Number.isFinite(v)) return 0;
+  return Math.max(0, Math.min(Math.floor(v), s.maxLevel));
+}
+
+/**
+ * @param presetLevels When set, levels come from this map (share URL). When omitted, load from localStorage for `jobKey`.
+ */
+function applyJob(jobKey: string, presetLevels?: Record<string, number> | null): void {
+  const j = getJobData(jobKey);
+  if (!j) return;
+  currentJob = jobKey;
+  skills = buildSkillsForJob(jobKey);
+  edges = getEdgesForJob(jobKey);
+  skillMap = makeSkillMap(skills);
+
+  if (presetLevels != null) {
+    levels = {};
+    for (const s of skills) {
+      const v = presetLevels[s.id];
+      levels[s.id] = clampLevelToSkill(s, v);
+    }
+    return;
+  }
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const data = JSON.parse(raw) as Stored;
+      const slot = data.jobs?.[jobKey];
+      if (slot?.levels) {
+        levels = {};
+        for (const s of skills) {
+          const v = slot.levels[s.id];
+          levels[s.id] = clampLevelToSkill(s, v);
+        }
+      } else levels = {};
+    } else {
+      levels = {};
+    }
+  } catch {
+    levels = {};
+  }
+
+  for (const s of skills) {
+    if (levels[s.id] === undefined) levels[s.id] = 0;
+  }
+}
+
+const SHARE_QUERY = "share";
+const SHARE_JSON_VERSION = 1;
+
+function encodeSharePayload(): string {
+  const l: Record<string, number> = {};
+  for (const [id, n] of Object.entries(levels)) {
+    if (n > 0) l[id] = n;
+  }
+  const payload = { v: SHARE_JSON_VERSION, j: currentJob, l };
+  const json = JSON.stringify(payload);
+  const bytes = new TextEncoder().encode(json);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]!);
+  const b64 = btoa(bin);
+  return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function decodeSharePayload(token: string): { j: string; l: Record<string, number> } | null {
+  try {
+    let b64 = token.replace(/-/g, "+").replace(/_/g, "/");
+    while (b64.length % 4) b64 += "=";
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    const json = new TextDecoder().decode(bytes);
+    const o = JSON.parse(json) as {
+      v?: number;
+      j?: string;
+      l?: Record<string, unknown>;
+    };
+    if (!o || typeof o.j !== "string" || !getJobData(o.j)) return null;
+    if (!o.l || typeof o.l !== "object") return null;
+    const l: Record<string, number> = {};
+    for (const [k, v] of Object.entries(o.l)) {
+      const n = typeof v === "number" ? v : Number.parseInt(String(v), 10);
+      if (Number.isFinite(n) && n > 0) l[k] = Math.floor(n);
+    }
+    return { j: o.j, l };
+  } catch {
+    return null;
+  }
+}
+
+function readShareFromUrl(): { j: string; l: Record<string, number> } | null {
+  try {
+    const token = new URL(window.location.href).searchParams.get(SHARE_QUERY);
+    if (!token || !token.trim()) return null;
+    return decodeSharePayload(token.trim());
+  } catch {
+    return null;
+  }
+}
+
+function getSkill(id: string): SkillDef | undefined {
+  return skillMap.get(id);
+}
+
+function skillsByColumn(col: number): SkillDef[] {
+  return skills.filter((s) => s.column === col).sort((a, b) => a.row - b.row);
+}
+
+function totalPointsUsed(lv: Record<string, number>): number {
+  return Object.values(lv).reduce((a, b) => a + b, 0);
+}
+
+function getQuestColumnIndex(job: JobData): number {
+  return job.columns.findIndex((c) => isQuestColumnTitle(c.title));
+}
+
+function getContentColumnIndices(job: JobData): number[] {
+  const q = getQuestColumnIndex(job);
+  if (q < 0) return job.columns.map((_, i) => i);
+  return job.columns.map((_, i) => i).filter((i) => i !== q);
+}
+
+function capForClassTier(tierIndex: number): number {
+  const job = getJobData(currentJob);
+  if (job && shouldMergeTranscendentIntoSecondPanel(job)) {
+    if (tierIndex === 0) return CLASS_SKILL_CAPS[0]!;
+    return TRANSCENDENT_COMBINED_SECOND_CAP;
+  }
+  return CLASS_SKILL_CAPS[Math.min(tierIndex, CLASS_SKILL_CAPS.length - 1)]!;
+}
+
+function pointsUsedPerClassTier(lv: Record<string, number>): number[] {
+  const job = getJobData(currentJob);
+  if (!job) return [];
+  const content = getContentColumnIndices(job);
+  if (shouldMergeTranscendentIntoSecondPanel(job)) {
+    const c0 = content[0]!;
+    const c1 = content[1]!;
+    const c2 = content[2]!;
+    const u0 = skills
+      .filter((s) => s.column === c0 && !exemptFromClassSkillCap(s.id))
+      .reduce((a, s) => a + (lv[s.id] ?? 0), 0);
+    const uCombined = skills
+      .filter((s) => (s.column === c1 || s.column === c2) && !exemptFromClassSkillCap(s.id))
+      .reduce((a, s) => a + (lv[s.id] ?? 0), 0);
+    return [u0, uCombined];
+  }
+  return content.map((col) =>
+    skills
+      .filter((s) => s.column === col && !exemptFromClassSkillCap(s.id))
+      .reduce((a, s) => a + (lv[s.id] ?? 0), 0),
+  );
+}
+
+function questPointsUsed(lv: Record<string, number>): number {
+  const job = getJobData(currentJob);
+  if (!job) return 0;
+  const q = getQuestColumnIndex(job);
+  if (q < 0) return 0;
+  return skills.filter((s) => s.column === q).reduce((a, s) => a + (lv[s.id] ?? 0), 0);
+}
+
+function prereqsFor(skillId: string): PrereqEdge[] {
+  return edges.filter((e) => e.toId === skillId);
+}
+
+/** All skills that are (recursive) prerequisites of `skillId` (includes `skillId`). */
+function transitivePrereqClosure(skillId: string): Set<string> {
+  const closure = new Set<string>([skillId]);
+  const queue: string[] = [skillId];
+  while (queue.length) {
+    const t = queue.shift()!;
+    for (const e of edges) {
+      if (e.toId !== t) continue;
+      if (closure.has(e.fromId)) continue;
+      closure.add(e.fromId);
+      queue.push(e.fromId);
+    }
+  }
+  return closure;
+}
+
+/** Skills that (transitively) depend on `skillId` — edges go from prereq → skill (includes `skillId`). */
+function transitivePostreqClosure(skillId: string): Set<string> {
+  const closure = new Set<string>([skillId]);
+  const queue: string[] = [skillId];
+  while (queue.length) {
+    const t = queue.shift()!;
+    for (const e of edges) {
+      if (e.fromId !== t) continue;
+      if (closure.has(e.toId)) continue;
+      closure.add(e.toId);
+      queue.push(e.toId);
+    }
+  }
+  return closure;
+}
+
+/** Zero any skill whose prerequisites are unmet; repeat until stable (used after lowering a prereq). */
+function stabilizePrereqViolations(lv: Record<string, number>): void {
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const s of skills) {
+      if ((lv[s.id] ?? 0) === 0) continue;
+      for (const p of prereqsFor(s.id)) {
+        if ((lv[p.fromId] ?? 0) < p.requiredLevel) {
+          lv[s.id] = 0;
+          changed = true;
+          break;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * For each prereq in `closure`, the max required level on any edge from that prereq
+ * into another skill also in `closure` (what you must train to satisfy the chain).
+ */
+function maxRequiredLevelAmongEdgesInClosure(closure: Set<string>): Map<string, number> {
+  const m = new Map<string, number>();
+  for (const e of edges) {
+    if (!closure.has(e.fromId) || !closure.has(e.toId)) continue;
+    const prev = m.get(e.fromId) ?? 0;
+    m.set(e.fromId, Math.max(prev, e.requiredLevel));
+  }
+  return m;
+}
+
+function canRaise(skillId: string): boolean {
+  const skill = getSkill(skillId);
+  if (!skill) return false;
+  const current = levels[skillId] ?? 0;
+  if (current >= skill.maxLevel) return false;
+  for (const p of prereqsFor(skillId)) {
+    if ((levels[p.fromId] ?? 0) < p.requiredLevel) return false;
+  }
+  return true;
+}
+
+function edgeSatisfied(edge: { fromId: string; requiredLevel: number }): boolean {
+  return (levels[edge.fromId] ?? 0) >= edge.requiredLevel;
+}
+
+function prereqsAllMet(skillId: string): boolean {
+  return prereqsFor(skillId).every((p) => edgeSatisfied(p));
+}
+
+const tooltip = document.querySelector("#tooltip") as HTMLElement;
+
+function escapeHtml(s: string): string {
+  const d = document.createElement("div");
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+const TOOLTIP_LV_LINE = /^\s*\[Lv\s*\d+\]:/i;
+const TOOLTIP_COMMENTS_LINE = /^\s*Comments:/i;
+const TOOLTIP_DESCRIPTION_LINE = /^\s*Description:/i;
+
+/** First line of skilldescript.lub is the skill name — same as the tooltip `<h3>`, so drop it. */
+function stripLeadingDuplicateTitle(description: string, title: string): string {
+  const norm = (s: string) => s.trim().toLowerCase();
+  const want = norm(title);
+  if (!want) return description;
+  const lines = description.replace(/\r\n/g, "\n").split("\n");
+  let i = 0;
+  while (i < lines.length && lines[i]!.trim() === "") i++;
+  if (i >= lines.length || norm(lines[i]!) !== want) return description;
+  return lines
+    .slice(i + 1)
+    .join("\n")
+    .replace(/^\n+/, "");
+}
+
+/**
+ * skilldescript.lub text: header, optional Description: block, [Lv n]: lines, optional Comments: footer.
+ * Rules before Description (when present), before the level list, and before Comments.
+ */
+function skillDescriptionToHtml(description: string): string {
+  const lines = description.replace(/\r\n/g, "\n").split("\n");
+  const out: string[] = [];
+  let i = 0;
+  let beforeFirstLv = true;
+  let beforeComments = true;
+  let commentsDivOpen = false;
+  let beforeDescriptionBlock = true;
+  let proseOpen = false;
+
+  const closeProse = (): void => {
+    if (!proseOpen) return;
+    out.push("</div>");
+    proseOpen = false;
+  };
+
+  while (i < lines.length) {
+    const raw = lines[i]!;
+    const t = raw.trim();
+
+    if (beforeComments && TOOLTIP_COMMENTS_LINE.test(t)) {
+      closeProse();
+      out.push('<hr class="tooltip-desc-sep" aria-hidden="true" />');
+      out.push('<div class="tooltip-desc-comments">');
+      commentsDivOpen = true;
+      beforeComments = false;
+    }
+
+    if (beforeFirstLv && TOOLTIP_LV_LINE.test(t)) {
+      closeProse();
+      out.push('<hr class="tooltip-desc-sep" aria-hidden="true" />');
+      beforeFirstLv = false;
+    }
+
+    if (beforeDescriptionBlock && TOOLTIP_DESCRIPTION_LINE.test(t)) {
+      out.push('<hr class="tooltip-desc-sep" aria-hidden="true" />');
+      out.push('<div class="tooltip-desc-prose">');
+      proseOpen = true;
+      beforeDescriptionBlock = false;
+    }
+
+    out.push(escapeHtml(raw));
+    out.push("<br/>");
+    i++;
+  }
+
+  closeProse();
+  let html = out.join("");
+  if (commentsDivOpen) html += "</div>";
+  return html.replace(/(?:<br\/>)+$/, "");
+}
+
+/** Novice + first job share one 7-col client grid (unique slot indices); merge into one panel. */
+function mergeNoviceWithFirstJob(job: JobData): boolean {
+  const idx = getContentColumnIndices(job);
+  if (idx.length < 2) return false;
+  return job.columns[idx[0]]?.title === "Novice";
+}
+
+/** Transcendent jobs: second + transcendent trees use the same client grid slots; one combined panel. */
+function mergeTranscendentIntoSecond(job: JobData): boolean {
+  return shouldMergeTranscendentIntoSecondPanel(job);
+}
+
+function fillEmptyGridSlots(grid: HTMLElement, panelSkills: SkillDef[]): void {
+  if (panelSkills.length === 0) return;
+  const occupied = new Set(panelSkills.map((s) => `${s.gridCol},${s.gridRow}`));
+  let maxC = 1;
+  let maxR = 1;
+  for (const s of panelSkills) {
+    maxC = Math.max(maxC, s.gridCol);
+    maxR = Math.max(maxR, s.gridRow);
+  }
+  for (let r = 1; r <= maxR; r++) {
+    for (let c = 1; c <= maxC; c++) {
+      if (occupied.has(`${c},${r}`)) continue;
+      const ph = document.createElement("div");
+      ph.className = "skill-slot--empty";
+      ph.setAttribute("aria-hidden", "true");
+      ph.style.gridColumn = String(c);
+      ph.style.gridRow = String(r);
+      grid.appendChild(ph);
+    }
+  }
+}
+
+function formatPrereqTabLine(skillId: string): string {
+  const pre = prereqsFor(skillId);
+  if (!pre.length) return "";
+  return pre
+    .map((p) => {
+      const n = getSkill(p.fromId)?.name ?? p.fromId;
+      return `${n} ${p.requiredLevel}`;
+    })
+    .join(" · ");
+}
+
+/** Grid cell: optional prereq tab above the skill card. */
+function skillCell(skill: SkillDef): HTMLElement {
+  const cell = document.createElement("div");
+  cell.className = "skill-cell";
+  const tab = document.createElement("div");
+  tab.className = "skill-prereq-tab";
+  const line = formatPrereqTabLine(skill.id);
+  if (!line) {
+    tab.classList.add("skill-prereq-tab--none");
+    tab.setAttribute("aria-hidden", "true");
+  } else {
+    tab.textContent = line;
+    tab.setAttribute("aria-label", `Prerequisites: ${line}`);
+  }
+  cell.appendChild(tab);
+  cell.appendChild(skillNodeEl(skill));
+  return cell;
+}
+
+function renderSkillGrid(panelSkills: SkillDef[]): HTMLElement {
+  const grid = document.createElement("div");
+  grid.className = "skill-grid";
+  let maxRow = 1;
+  for (const skill of panelSkills) {
+    const el = skillCell(skill);
+    el.style.gridColumn = String(skill.gridCol);
+    el.style.gridRow = String(skill.gridRow);
+    maxRow = Math.max(maxRow, skill.gridRow);
+    grid.appendChild(el);
+  }
+  fillEmptyGridSlots(grid, panelSkills);
+  grid.style.gridTemplateRows = `repeat(${maxRow}, auto)`;
+  return grid;
+}
+
+function renderColumns(root: HTMLElement): void {
+  const board = root.querySelector("#tree-board") as HTMLElement | null;
+  const job = getJobData(currentJob);
+  if (!board || !job) return;
+
+  board.innerHTML = "";
+  const questIdx = getQuestColumnIndex(job);
+  const contentIdx = getContentColumnIndices(job);
+
+  const body = document.createElement("div");
+  body.className = "tree-body";
+
+  const main = document.createElement("div");
+  main.className = "tree-main";
+
+  if (mergeNoviceWithFirstJob(job)) {
+    const sec = document.createElement("section");
+    sec.className = "skill-panel skill-panel--merged";
+    sec.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${escapeHtml(job.label)}</span><span class="panel-title__stats" id="panel-class-pts-merged" aria-label="Skill points per class column"></span></h2><p class="panel-sub">Same ${GRID_COLS}-column grid as the client <code>skilltree.lua</code> / in-game window.</p>`;
+    const panelSkills: SkillDef[] = [];
+    for (const c of contentIdx) {
+      panelSkills.push(...skillsByColumn(c));
+    }
+    sec.appendChild(renderSkillGrid(panelSkills));
+    main.appendChild(sec);
+  } else if (mergeTranscendentIntoSecond(job)) {
+    const c0 = contentIdx[0]!;
+    const c1 = contentIdx[1]!;
+    const c2 = contentIdx[2]!;
+    const lab = escapeHtml(job.label);
+
+    const sec0 = document.createElement("section");
+    sec0.className = "skill-panel";
+    sec0.dataset.column = String(c0);
+    sec0.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${escapeHtml(job.columns[c0]?.title ?? "")}</span><span class="panel-title__stats" data-content-tier="0" aria-label="Skill points used for this class column"></span></h2>`;
+    sec0.appendChild(renderSkillGrid(skillsByColumn(c0)));
+    main.appendChild(sec0);
+
+    const sec1 = document.createElement("section");
+    sec1.className = "skill-panel skill-panel--second-with-trans";
+    sec1.dataset.column = `${c1},${c2}`;
+    sec1.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${lab}</span><span class="panel-title__stats panel-title__stats--transcendent" data-content-tier="1" aria-label="${lab} skill points (second + transcendent)"></span></h2>`;
+    const mergedSkills = [...skillsByColumn(c1), ...skillsByColumn(c2)].sort((a, b) => {
+      if (a.gridRow !== b.gridRow) return a.gridRow - b.gridRow;
+      if (a.gridCol !== b.gridCol) return a.gridCol - b.gridCol;
+      return a.row - b.row;
+    });
+    sec1.appendChild(renderSkillGrid(mergedSkills));
+    main.appendChild(sec1);
+  } else {
+    for (let t = 0; t < contentIdx.length; t++) {
+      const c = contentIdx[t]!;
+      const colDef = job.columns[c];
+      const sec = document.createElement("section");
+      sec.className = "skill-panel";
+      sec.dataset.column = String(c);
+      sec.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${escapeHtml(colDef.title)}</span><span class="panel-title__stats" data-content-tier="${t}" aria-label="Skill points used for this class column"></span></h2>`;
+      sec.appendChild(renderSkillGrid(skillsByColumn(c)));
+      main.appendChild(sec);
+    }
+  }
+
+  body.appendChild(main);
+
+  if (questIdx >= 0) {
+    const colDef = job.columns[questIdx];
+    const aside = document.createElement("aside");
+    aside.className = "skill-panel skill-panel--quest";
+    aside.dataset.column = String(questIdx);
+    aside.innerHTML = `<h2 class="panel-title panel-title--quest"><span class="panel-title__name">${escapeHtml(colDef.title)}</span><span class="panel-title__stats panel-title__stats--quest" id="panel-class-pts-quest" aria-label="Quest and special skills allocated"></span></h2>`;
+    const stack = document.createElement("div");
+    stack.className = "quest-stack";
+    for (const skill of skillsByColumn(questIdx)) {
+      stack.appendChild(skillCell(skill));
+    }
+    aside.appendChild(stack);
+    body.appendChild(aside);
+  }
+
+  board.appendChild(body);
+  attachSkillInteractionHandlers(root);
+}
+
+function setJobPickerSprite(spriteEl: HTMLElement, url: string | undefined, label: string): void {
+  const fb = spriteEl.querySelector(".job-picker-sprite-fallback") as HTMLSpanElement;
+  fb.textContent = label.slice(0, 1).toUpperCase();
+  spriteEl.querySelectorAll(".job-picker-sprite-img").forEach((n) => n.remove());
+  if (!url) return;
+  const img = document.createElement("img");
+  img.className = "job-picker-sprite-img";
+  img.alt = "";
+  img.decoding = "async";
+  img.referrerPolicy = "no-referrer";
+  img.src = url;
+  const onLoad = (): void => {
+    img.classList.add("job-picker-sprite-img--show");
+  };
+  img.addEventListener("load", onLoad, { once: true });
+  img.addEventListener("error", () => img.remove(), { once: true });
+  spriteEl.insertBefore(img, fb);
+  if (img.complete && img.naturalHeight > 0) onLoad();
+}
+
+function syncJobPickerUi(root: HTMLElement): void {
+  const label = getJobData(currentJob)?.label ?? currentJob;
+  const labEl = root.querySelector("#job-picker-current-label");
+  if (labEl) labEl.textContent = label;
+  const trigSprite = root.querySelector("#job-picker-trigger .job-picker-sprite") as HTMLElement | null;
+  if (trigSprite) setJobPickerSprite(trigSprite, jobPreviewSpriteUrl(currentJob), label);
+  const trig = root.querySelector("#job-picker-trigger") as HTMLButtonElement | null;
+  if (trig) trig.setAttribute("aria-label", `Class: ${label}. Open class picker`);
+  root.querySelectorAll(".job-picker-card").forEach((btn) => {
+    const key = (btn as HTMLButtonElement).dataset.jobKey;
+    const on = key === currentJob;
+    btn.classList.toggle("job-picker-card--current", on);
+    if (on) btn.setAttribute("aria-current", "true");
+    else btn.removeAttribute("aria-current");
+  });
+}
+
+type JobPickerPick = { key: string; label: string };
+
+function jobPickerCardHtml(
+  key: string,
+  label: string,
+  joined?: "start" | "end",
+): string {
+  const escKey = escapeHtml(key);
+  const lab = escapeHtml(label);
+  const joinCls =
+    joined === "start"
+      ? " job-picker-card--joined job-picker-card--joined-start"
+      : joined === "end"
+        ? " job-picker-card--joined job-picker-card--joined-end"
+        : "";
+  return `<button type="button" class="job-picker-card${joinCls}" data-job-key="${escKey}" aria-label="${lab}">
+        <span class="job-picker-sprite job-picker-sprite--card"><span class="job-picker-sprite-fallback"></span></span>
+        <span class="job-picker-card-label">${lab}</span>
+      </button>`;
+}
+
+function jobPickerJoinedPairHtml(left: JobPickerPick, right: JobPickerPick, aria: string): string {
+  const a = escapeHtml(aria);
+  return `<div class="job-picker-card-joined" role="group" aria-label="${a}">${jobPickerCardHtml(left.key, left.label, "start")}${jobPickerCardHtml(right.key, right.label, "end")}</div>`;
+}
+
+/** One flex row: centered; Bard/Dancer and Clown/Gypsy as joined pairs (two buttons each). */
+function jobPickerRowHtml(row: JobPickerPick[]): string {
+  const parts: string[] = [];
+  for (let i = 0; i < row.length; i++) {
+    const j = row[i]!;
+    const next = row[i + 1];
+    if (next && j.key === "JT_BARD" && next.key === "JT_DANCER") {
+      parts.push(
+        jobPickerJoinedPairHtml(j, next, "Bard or Dancer (same second-class line)"),
+      );
+      i++;
+      continue;
+    }
+    if (next && j.key === "JT_BARD_H" && next.key === "JT_DANCER_H") {
+      parts.push(
+        jobPickerJoinedPairHtml(j, next, "Clown or Gypsy (same transcendent archer line)"),
+      );
+      i++;
+      continue;
+    }
+    parts.push(jobPickerCardHtml(j.key, j.label));
+  }
+  return parts.join("");
+}
+
+function renderApp(root: HTMLElement): void {
+  const grouped = listJobsGroupedForPicker();
+  const jobPickerSections = grouped
+    .filter(
+      (g) =>
+        (g.jobs != null && g.jobs.length > 0) ||
+        (g.jobRows != null && g.jobRows.some((r) => r.length > 0)),
+    )
+    .map((g, i) => {
+      const sid = `job-picker-sec-${i}`;
+      const labelEsc = escapeHtml(g.heading);
+      if (g.jobRows?.length) {
+        const grids = g.jobRows
+          .map((row, ri) => {
+            if (row.length === 0) return "";
+            const cards = jobPickerRowHtml(row);
+            return `<div class="job-picker-grid" role="group" aria-label="${labelEsc}, row ${ri + 1}">${cards}</div>`;
+          })
+          .join("");
+        return `<section class="job-picker-section" aria-labelledby="${sid}">
+        <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
+        <div class="job-picker-row-stack">${grids}</div>
+      </section>`;
+      }
+      const cards = jobPickerRowHtml(g.jobs ?? []);
+      return `<section class="job-picker-section" aria-labelledby="${sid}">
+        <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
+        <div class="job-picker-grid" role="group" aria-label="${labelEsc}">${cards}</div>
+      </section>`;
+    })
+    .join("");
+
+  root.innerHTML = `
+    <header class="planner-header">
+      <h1>Pre-Renewal Skill Planner</h1>
+    </header>
+    <div class="toolbar">
+      <div class="job-picker-field">
+        <span class="job-picker-field-label" id="job-picker-field-label">Class</span>
+        <button type="button" class="job-picker-trigger" id="job-picker-trigger"
+          aria-haspopup="dialog" aria-expanded="false" aria-controls="job-picker-dialog"
+          aria-describedby="job-picker-field-label">
+          <span class="job-picker-sprite job-picker-sprite--trigger"><span class="job-picker-sprite-fallback"></span></span>
+          <span class="job-picker-current-name" id="job-picker-current-label"></span>
+        </button>
+      </div>
+      <div class="toolbar-class-stats" role="group" aria-label="Skill points by class">
+        <span class="stat" id="stat-tier0"
+          ><span class="stat-over-badge" id="badge-tier0" aria-hidden="true">!</span
+          ><span id="label-tier0">1st class</span>:
+          <strong id="used-tier0">0</strong> / <strong id="cap-tier0">49</strong>
+          · <span id="remain-word-tier0">left</span> <strong id="remain-tier0">49</strong></span
+        >
+        <span class="stat" id="stat-tier1"
+          ><span class="stat-over-badge" id="badge-tier1" aria-hidden="true">!</span
+          ><span id="label-tier1">2nd class</span>:
+          <strong id="used-tier1">0</strong> / <strong id="cap-tier1">50</strong>
+          · <span id="remain-word-tier1">left</span> <strong id="remain-tier1">50</strong></span
+        >
+        <span class="stat stat--hidden" id="stat-tier2"
+          ><span class="stat-over-badge" id="badge-tier2" aria-hidden="true">!</span
+          ><span id="label-tier2">Transcendent</span>:
+          <strong id="used-tier2">0</strong> / <strong id="cap-tier2">50</strong>
+          · <span id="remain-word-tier2">left</span> <strong id="remain-tier2">50</strong></span
+        >
+        <span class="stat" id="stat-quest"
+          >Quest / special: <strong id="used-quest">0</strong>
+          <span class="stat-note">(no class cap)</span></span
+        >
+        <span class="stat stat--total">Total: <strong id="used-total">0</strong></span>
+      </div>
+      <button type="button" id="btn-share">Share build</button>
+      <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
+      <button type="button" id="btn-reset" class="danger">Reset</button>
+    </div>
+    <div class="tree-wrap" id="tree-wrap">
+      <div class="tree-board" id="tree-board"></div>
+    </div>
+    <dialog class="job-picker-dialog" id="job-picker-dialog" aria-labelledby="job-picker-dialog-title">
+      <div class="job-picker-dialog-panel">
+        <div class="job-picker-dialog-head">
+          <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">Choose class</h2>
+          <button type="button" class="job-picker-close" aria-label="Close class picker">×</button>
+        </div>
+        <div class="job-picker-body" id="job-picker-body" role="region" aria-label="Character classes by tier">
+          ${jobPickerSections}
+        </div>
+      </div>
+    </dialog>
+  `;
+
+  const dialog = root.querySelector("#job-picker-dialog") as HTMLDialogElement;
+  const trigger = root.querySelector("#job-picker-trigger") as HTMLButtonElement;
+
+  for (const btn of root.querySelectorAll(".job-picker-card")) {
+    const key = (btn as HTMLButtonElement).dataset.jobKey;
+    if (!key) continue;
+    const lab = getJobData(key)?.label ?? key;
+    const sp = btn.querySelector(".job-picker-sprite") as HTMLElement;
+    setJobPickerSprite(sp, jobPreviewSpriteUrl(key), lab);
+  }
+
+  function closeJobPicker(): void {
+    dialog.close();
+  }
+
+  function pickJob(jobKey: string): void {
+    if (!getJobData(jobKey)) return;
+    applyJob(jobKey);
+    saveState();
+    renderColumns(root);
+    refreshAll(root);
+    syncJobPickerUi(root);
+    closeJobPicker();
+  }
+
+  trigger.addEventListener("click", () => {
+    dialog.showModal();
+    trigger.setAttribute("aria-expanded", "true");
+    requestAnimationFrame(() => {
+      const cur = root.querySelector(".job-picker-card--current") as HTMLElement | null;
+      (cur ?? root.querySelector(".job-picker-close"))?.focus();
+    });
+  });
+
+  dialog.addEventListener("close", () => {
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.focus();
+  });
+
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) closeJobPicker();
+  });
+
+  root.querySelector(".job-picker-close")!.addEventListener("click", () => closeJobPicker());
+
+  root.querySelector("#job-picker-body")!.addEventListener("click", (e) => {
+    const t = (e.target as HTMLElement).closest(".job-picker-card") as HTMLButtonElement | null;
+    if (!t?.dataset.jobKey) return;
+    pickJob(t.dataset.jobKey);
+  });
+
+  let shareStatusTimer: ReturnType<typeof setTimeout> | undefined;
+  root.querySelector("#btn-share")!.addEventListener("click", () => {
+    const statusEl = root.querySelector("#share-status") as HTMLElement | null;
+    const token = encodeSharePayload();
+    const u = new URL(window.location.href);
+    u.searchParams.set(SHARE_QUERY, token);
+    const shareUrl = u.toString();
+    const showStatus = (msg: string): void => {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      if (shareStatusTimer !== undefined) clearTimeout(shareStatusTimer);
+      shareStatusTimer = window.setTimeout(() => {
+        statusEl.textContent = "";
+        shareStatusTimer = undefined;
+      }, 4000);
+    };
+    void (async () => {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        showStatus("Link copied — paste it to share this build.");
+      } catch {
+        window.prompt("Copy this link to share your build:", shareUrl);
+        showStatus("");
+      }
+    })();
+  });
+
+  root.querySelector("#btn-reset")!.addEventListener("click", () => {
+    levels = {};
+    for (const s of skills) levels[s.id] = 0;
+    saveState();
+    refreshAll(root);
+  });
+
+  renderColumns(root);
+  refreshAll(root);
+  syncJobPickerUi(root);
+}
+
+function skillNodeEl(skill: SkillDef): HTMLElement {
+  const el = document.createElement("div");
+  el.className = "skill-node" + (skill.transcendent ? " skill-node--transcendent" : "");
+  el.dataset.skillId = skill.id;
+  el.tabIndex = 0;
+  const pips = Array.from({ length: skill.maxLevel }, () => "<span class=\"pip\"></span>").join(
+    "",
+  );
+  el.innerHTML = `
+    <div class="skill-node-row">
+      <div class="skill-icon" aria-hidden="true"><span class="skill-icon-fallback"></span></div>
+      <div class="skill-node-main">
+        <span class="name">${escapeHtml(skill.name)}</span>
+        <div class="level-pips" aria-label="Skill level">${pips}</div>
+        <div class="lvl-row">
+          <button type="button" class="lvl down" data-delta="-1" aria-label="Decrease ${escapeHtml(skill.name)}">−</button>
+          <span class="lvl-disp"><span class="cur">0</span><span class="lvl-sep" aria-hidden="true">/</span><span class="lvl-max">${skill.maxLevel}</span></span>
+          <button type="button" class="lvl up" data-delta="1" aria-label="Increase ${escapeHtml(skill.name)}">+</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  el.querySelector(".down")!.addEventListener("click", () => changeLevel(skill.id, -1));
+  el.querySelector(".up")!.addEventListener("click", () => changeLevel(skill.id, 1));
+
+  el.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowUp" || e.key === "+") {
+      e.preventDefault();
+      changeLevel(skill.id, 1);
+    } else if (e.key === "ArrowDown" || e.key === "-") {
+      e.preventDefault();
+      changeLevel(skill.id, -1);
+    }
+  });
+
+  const icon = el.querySelector(".skill-icon") as HTMLElement;
+  const fallback = icon.querySelector(".skill-icon-fallback") as HTMLSpanElement;
+  fallback.textContent = skill.name.slice(0, 1).toUpperCase();
+
+  const sid = skill.skidId;
+  if (sid != null && sid > 0) {
+    const img = document.createElement("img");
+    img.className = "skill-icon-img";
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.referrerPolicy = "no-referrer";
+    img.src = skillIconUrl(sid);
+    img.addEventListener("load", () => img.classList.add("skill-icon-img--show"));
+    img.addEventListener("error", () => img.remove());
+    icon.insertBefore(img, fallback);
+  }
+
+  return el;
+}
+
+type AutofillBump = { id: string; target: number };
+
+/** Prerequisite level bumps needed so `skillId` can gain +1 (transitive chain, capped by max levels). */
+function computePrereqAutofillBumps(skillId: string): { cur: number; bumps: AutofillBump[] } | null {
+  const skill = getSkill(skillId);
+  if (!skill) return null;
+  const cur = levels[skillId] ?? 0;
+  if (cur >= skill.maxLevel) return null;
+
+  const closure = transitivePrereqClosure(skillId);
+  const rawReq = maxRequiredLevelAmongEdgesInClosure(closure);
+
+  const bumps: AutofillBump[] = [];
+  for (const [id, req] of rawReq) {
+    if (id === skillId) continue;
+    const sk = getSkill(id);
+    if (!sk) continue;
+    const target = Math.min(req, sk.maxLevel);
+    const c = levels[id] ?? 0;
+    if (c < target) {
+      bumps.push({ id, target });
+    }
+  }
+  return { cur, bumps };
+}
+
+/** +1 now, or +1 after auto-filling prereqs (per-class point budget may be exceeded; UI shows warning). */
+function canRaiseWithAutofill(skillId: string): boolean {
+  if (canRaise(skillId)) return true;
+  return computePrereqAutofillBumps(skillId) != null;
+}
+
+/**
+ * Raise `skillId` by 1, bumping transitive prerequisites to the minimum levels required by the
+ * dependency chain (same rule as hover pip hints).
+ */
+function raiseWithPrereqAutofill(skillId: string): boolean {
+  const plan = computePrereqAutofillBumps(skillId);
+  if (!plan) return false;
+
+  for (const { id, target } of plan.bumps) {
+    levels[id] = target;
+  }
+  levels[skillId] = plan.cur + 1;
+  return true;
+}
+
+function changeLevel(skillId: string, delta = 1): void {
+  if (delta > 0) {
+    if (canRaise(skillId)) {
+      levels[skillId] = (levels[skillId] ?? 0) + 1;
+    } else if (!raiseWithPrereqAutofill(skillId)) {
+      return;
+    }
+  } else {
+    const cur = levels[skillId] ?? 0;
+    if (cur <= 0) return;
+    const lv = { ...levels, [skillId]: cur - 1 };
+    stabilizePrereqViolations(lv);
+    levels = lv;
+  }
+  saveState();
+  refreshAll(document.querySelector("#app")!);
+}
+
+function setToolbarTierStat(
+  wrap: Element | null,
+  usedEl: Element | null,
+  capEl: Element | null,
+  wordEl: Element | null,
+  remEl: Element | null,
+  used: number,
+  cap: number,
+  ariaTierName: string,
+): void {
+  if (!usedEl || !capEl || !wordEl || !remEl) return;
+  usedEl.textContent = String(used);
+  capEl.textContent = String(cap);
+  const over = used > cap;
+  wordEl.textContent = over ? "over" : "left";
+  remEl.textContent = over ? String(used - cap) : String(cap - used);
+  wrap?.classList.toggle("stat--over-cap", over);
+  if (wrap instanceof HTMLElement) {
+    wrap.setAttribute("aria-invalid", over ? "true" : "false");
+    const base = `${ariaTierName}: ${used} of ${cap} class skill points`;
+    wrap.setAttribute(
+      "aria-label",
+      over ? `${base}, over budget by ${used - cap}` : `${base}, ${cap - used} left`,
+    );
+    if (over) wrap.setAttribute("title", "Over class skill point budget");
+    else wrap.removeAttribute("title");
+  }
+}
+
+function updateToolbarClassStats(root: HTMLElement): void {
+  const job = getJobData(currentJob);
+  const perTier = pointsUsedPerClassTier(levels);
+  const contentLen = job ? getContentColumnIndices(job).length : 0;
+  const unifiedTrans = job !== undefined && shouldMergeTranscendentIntoSecondPanel(job);
+
+  const wrap0 = root.querySelector("#stat-tier0");
+  const t0Used = root.querySelector("#used-tier0");
+  const t0Cap = root.querySelector("#cap-tier0");
+  const t0Rem = root.querySelector("#remain-tier0");
+  const word0 = root.querySelector("#remain-word-tier0");
+  const label0 = root.querySelector("#label-tier0");
+  const label1 = root.querySelector("#label-tier1");
+  const label2 = root.querySelector("#label-tier2");
+  const contentCols = job ? getContentColumnIndices(job) : [];
+
+  if (job && contentLen >= 1 && t0Used && t0Cap && t0Rem && word0) {
+    const cap0 = capForClassTier(0);
+    const u0 = perTier[0] ?? 0;
+    const c0 = contentCols[0];
+    if (label0 && c0 !== undefined) label0.textContent = job.columns[c0]?.title ?? "Class";
+    const aria0 =
+      c0 !== undefined ? (job.columns[c0]?.title ?? "Class") : "First class column";
+    setToolbarTierStat(wrap0, t0Used, t0Cap, word0, t0Rem, u0, cap0, aria0);
+    wrap0?.classList.remove("stat--hidden");
+  } else {
+    wrap0?.classList.add("stat--hidden");
+    wrap0?.classList.remove("stat--over-cap");
+  }
+
+  const wrap1 = root.querySelector("#stat-tier1");
+  const t1Used = root.querySelector("#used-tier1");
+  const t1Cap = root.querySelector("#cap-tier1");
+  const t1Rem = root.querySelector("#remain-tier1");
+  const word1 = root.querySelector("#remain-word-tier1");
+  if (job && contentLen >= 2 && t1Used && t1Cap && t1Rem && word1) {
+    const cap1 = capForClassTier(1);
+    const u1 = perTier[1] ?? 0;
+    let aria1 = "Second class column";
+    if (label1) {
+      if (unifiedTrans) {
+        label1.textContent = job.label;
+        aria1 = `${job.label} (combined second + transcendent pool)`;
+      } else {
+        const c1 = contentCols[1];
+        label1.textContent = c1 !== undefined ? (job.columns[c1]?.title ?? "Class") : "Class";
+        aria1 = c1 !== undefined ? (job.columns[c1]?.title ?? "Class") : aria1;
+      }
+    }
+    setToolbarTierStat(wrap1, t1Used, t1Cap, word1, t1Rem, u1, cap1, aria1);
+    wrap1?.classList.remove("stat--hidden");
+  } else {
+    wrap1?.classList.add("stat--hidden");
+    wrap1?.classList.remove("stat--over-cap");
+  }
+
+  const wrap2 = root.querySelector("#stat-tier2");
+  const t2Used = root.querySelector("#used-tier2");
+  const t2Cap = root.querySelector("#cap-tier2");
+  const t2Rem = root.querySelector("#remain-tier2");
+  const word2 = root.querySelector("#remain-word-tier2");
+  if (job && contentLen >= 3 && !unifiedTrans && t2Used && t2Cap && t2Rem && word2) {
+    const cap2 = capForClassTier(2);
+    const u2 = perTier[2] ?? 0;
+    const c2 = contentCols[2];
+    if (label2 && c2 !== undefined) label2.textContent = job.columns[c2]?.title ?? "Transcendent";
+    const aria2 = c2 !== undefined ? (job.columns[c2]?.title ?? "Transcendent") : "Transcendent column";
+    setToolbarTierStat(wrap2, t2Used, t2Cap, word2, t2Rem, u2, cap2, aria2);
+    wrap2?.classList.remove("stat--hidden");
+  } else {
+    wrap2?.classList.add("stat--hidden");
+    wrap2?.classList.remove("stat--over-cap");
+  }
+
+  const wrapQ = root.querySelector("#stat-quest");
+  const qUsed = root.querySelector("#used-quest");
+  if (job && getQuestColumnIndex(job) >= 0 && qUsed) {
+    qUsed.textContent = String(questPointsUsed(levels));
+    wrapQ?.classList.remove("stat--hidden");
+  } else {
+    wrapQ?.classList.add("stat--hidden");
+  }
+
+  const totalEl = root.querySelector("#used-total");
+  if (totalEl) totalEl.textContent = String(totalPointsUsed(levels));
+}
+
+function updatePanelClassPoints(root: HTMLElement): void {
+  const job = getJobData(currentJob);
+  if (!job) return;
+  const perTier = pointsUsedPerClassTier(levels);
+  const content = getContentColumnIndices(job);
+
+  const merged = root.querySelector("#panel-class-pts-merged");
+  if (merged) {
+    const parts = content.map((col, t) => {
+      const title = job.columns[col]?.title ?? `Class ${t + 1}`;
+      const used = perTier[t] ?? 0;
+      const cap = capForClassTier(t);
+      return { title, used, cap };
+    });
+    merged.innerHTML = parts
+      .map((p, i) => {
+        const over = p.used > p.cap;
+        const delim =
+          i > 0 ? `<span class="panel-title__stats-delim" aria-hidden="true"> · </span>` : "";
+        const badge = over ? `<span class="panel-over-badge" aria-hidden="true">!</span>` : "";
+        const usedCls = over ? "panel-title__stat-num panel-title__stat-num--over" : "panel-title__stat-num";
+        return `${delim}${badge}<span class="${usedCls}">${p.used}</span><span class="panel-title__stat-sep"> / </span><span class="panel-title__stat-cap">${p.cap}</span>`;
+      })
+      .join("");
+    merged.classList.toggle(
+      "panel-title__stats--over-cap",
+      parts.some((p) => p.used > p.cap),
+    );
+    merged.setAttribute(
+      "aria-label",
+      parts
+        .map((p) =>
+          p.used > p.cap
+            ? `${p.title} ${p.used} of ${p.cap} skill points, over budget by ${p.used - p.cap}`
+            : `${p.title} ${p.used} of ${p.cap} skill points`,
+        )
+        .join(". "),
+    );
+  }
+
+  root.querySelectorAll(".panel-title__stats[data-content-tier]").forEach((el) => {
+    const t = Number((el as HTMLElement).dataset.contentTier);
+    if (!Number.isFinite(t)) return;
+    const used = perTier[t] ?? 0;
+    const cap = capForClassTier(t);
+    const over = used > cap;
+    const he = el as HTMLElement;
+    he.classList.toggle("panel-title__stats--over-cap", over);
+    const badge = over ? `<span class="panel-over-badge" aria-hidden="true">!</span>` : "";
+    const usedCls = over ? "panel-title__stat-num panel-title__stat-num--over" : "panel-title__stat-num";
+    he.innerHTML = `${badge}<span class="${usedCls}">${used}</span><span class="panel-title__stat-sep"> / </span><span class="panel-title__stat-cap">${cap}</span>`;
+    const colName =
+      he.closest(".panel-title")?.querySelector(".panel-title__name")?.textContent?.trim() ??
+      "Class column";
+    he.setAttribute(
+      "aria-label",
+      over
+        ? `${colName}, ${used} of ${cap} skill points, over budget by ${used - cap}`
+        : `${colName}, ${used} of ${cap} skill points`,
+    );
+  });
+
+  const pq = root.querySelector("#panel-class-pts-quest");
+  if (pq && getQuestColumnIndex(job) >= 0) {
+    const q = questPointsUsed(levels);
+    pq.textContent = String(q);
+    pq.setAttribute("aria-label", `${q} points in quest and special skills, no class cap`);
+  }
+}
+
+function refreshAll(root: HTMLElement): void {
+  updateToolbarClassStats(root);
+  updatePanelClassPoints(root);
+
+  for (const skill of skills) {
+    const node = root.querySelector(`[data-skill-id="${skill.id}"]`);
+    if (!node) continue;
+    const cur = levels[skill.id] ?? 0;
+    const curEl = node.querySelector(".cur");
+    if (curEl) curEl.textContent = String(cur);
+
+    let pipFill = cur;
+    if (
+      focusHoverSkillId !== null &&
+      focusPrereqDisplayLevels !== null &&
+      skill.id !== focusHoverSkillId
+    ) {
+      const req = focusPrereqDisplayLevels.get(skill.id);
+      if (req !== undefined) {
+        pipFill = Math.min(req, skill.maxLevel);
+      }
+    }
+
+    node.querySelectorAll(".level-pips .pip").forEach((pip, i) => {
+      pip.classList.toggle("pip--on", i < pipFill);
+      pip.classList.toggle(
+        "pip--req-hint",
+        focusHoverSkillId !== null &&
+          skill.id !== focusHoverSkillId &&
+          focusPrereqDisplayLevels?.has(skill.id) === true &&
+          i < pipFill &&
+          i >= cur,
+      );
+    });
+
+    node.classList.toggle("skill-node--invested", cur > 0);
+    node.classList.toggle("skill-node--maxed", cur > 0 && cur >= skill.maxLevel);
+
+    const up = node.querySelector(".up") as HTMLButtonElement;
+    const down = node.querySelector(".down") as HTMLButtonElement;
+    up.disabled = !canRaiseWithAutofill(skill.id);
+    down.disabled = (levels[skill.id] ?? 0) <= 0;
+
+    const tab = node.closest(".skill-cell")?.querySelector(".skill-prereq-tab");
+    if (tab && tab.classList.contains("skill-prereq-tab--none") === false) {
+      tab.classList.toggle("skill-prereq-tab--met", prereqsAllMet(skill.id));
+    }
+  }
+}
+
+function clearPrereqHighlights(root: HTMLElement, skipRefresh = false): void {
+  focusHoverSkillId = null;
+  focusPrereqDisplayLevels = null;
+  root.querySelector("#tree-board")?.classList.remove("tree-board--skill-focus");
+  root.querySelectorAll(".skill-node--hover, .skill-node--prereq, .skill-node--postreq").forEach((el) => {
+    el.classList.remove("skill-node--hover", "skill-node--prereq", "skill-node--postreq");
+  });
+  root.querySelectorAll(".skill-cell--dimmed").forEach((el) => {
+    el.classList.remove("skill-cell--dimmed");
+  });
+  root.querySelectorAll(".skill-slot--dimmed").forEach((el) => {
+    el.classList.remove("skill-slot--dimmed");
+  });
+  if (!skipRefresh) {
+    refreshAll(root);
+  }
+}
+
+function applyPrereqHighlights(root: HTMLElement, skillId: string): void {
+  clearPrereqHighlights(root, true);
+  root.querySelector("#tree-board")?.classList.add("tree-board--skill-focus");
+
+  const preClosure = transitivePrereqClosure(skillId);
+  const postClosure = transitivePostreqClosure(skillId);
+  const keepLit = new Set<string>([...preClosure, ...postClosure]);
+
+  const rawReq = maxRequiredLevelAmongEdgesInClosure(preClosure);
+  focusHoverSkillId = skillId;
+  focusPrereqDisplayLevels = new Map<string, number>();
+  for (const [id, req] of rawReq) {
+    const sk = getSkill(id);
+    if (sk) {
+      focusPrereqDisplayLevels.set(id, Math.min(req, sk.maxLevel));
+    }
+  }
+
+  const self = root.querySelector(`[data-skill-id="${skillId}"]`);
+  self?.classList.add("skill-node--hover");
+  for (const id of preClosure) {
+    if (id === skillId) continue;
+    root.querySelector(`[data-skill-id="${id}"]`)?.classList.add("skill-node--prereq");
+  }
+  for (const id of postClosure) {
+    if (id === skillId) continue;
+    root.querySelector(`[data-skill-id="${id}"]`)?.classList.add("skill-node--postreq");
+  }
+
+  root.querySelectorAll(".skill-cell").forEach((cell) => {
+    const node = cell.querySelector(".skill-node") as HTMLElement | null;
+    const sid = node?.dataset.skillId;
+    if (!sid || keepLit.has(sid)) return;
+    cell.classList.add("skill-cell--dimmed");
+  });
+
+  root.querySelectorAll(".skill-slot--empty").forEach((el) => {
+    el.classList.add("skill-slot--dimmed");
+  });
+
+  refreshAll(root);
+}
+
+function attachSkillInteractionHandlers(root: HTMLElement): void {
+  root.querySelectorAll(".skill-cell").forEach((cell) => {
+    const node = cell.querySelector(".skill-node") as HTMLElement | null;
+    if (!node?.dataset.skillId) return;
+    const id = node.dataset.skillId;
+    const skill = getSkill(id);
+    if (!skill) return;
+
+    const fillTooltip = () => {
+      const pre = prereqsFor(id);
+      let preHtml = "";
+      if (pre.length) {
+        const items = pre
+          .map((p) => {
+            const sn = getSkill(p.fromId)?.name ?? p.fromId;
+            return `<li>${escapeHtml(sn)} <strong>${p.requiredLevel}</strong></li>`;
+          })
+          .join("");
+        preHtml = `<div class="prereq-hint"><div class="tooltip-hint-label">Requires</div><ul class="tooltip-skill-list">${items}</ul></div>`;
+      }
+      const post = edges.filter((e) => e.fromId === id);
+      let postHtml = "";
+      if (post.length) {
+        const items = post
+          .map((e) => {
+            const sn = getSkill(e.toId)?.name ?? e.toId;
+            return `<li>${escapeHtml(sn)} needs <strong>${e.requiredLevel}</strong></li>`;
+          })
+          .join("");
+        postHtml = `<div class="postreq-hint"><div class="tooltip-hint-label">Used by</div><ul class="tooltip-skill-list">${items}</ul></div>`;
+      }
+      const descHtml = skillDescriptionToHtml(
+        stripLeadingDuplicateTitle(skill.description, skill.name),
+      );
+      tooltip.innerHTML = `
+        <h3>${escapeHtml(skill.name)}</h3>
+        <div class="tooltip-desc">${descHtml}</div>
+        <div class="lvl-cap">Maximum level: ${skill.maxLevel}</div>
+        ${preHtml}
+        ${postHtml}
+      `;
+    };
+
+    const showAt = (clientX: number, clientY: number) => {
+      fillTooltip();
+      tooltip.hidden = false;
+      moveTooltip({ clientX, clientY });
+    };
+
+    node.addEventListener("mouseenter", (ev) => {
+      applyPrereqHighlights(root, id);
+      const m = ev as MouseEvent;
+      showAt(m.clientX, m.clientY);
+    });
+    node.addEventListener("mousemove", (ev) => moveTooltip(ev as MouseEvent));
+    node.addEventListener("mouseleave", () => {
+      clearPrereqHighlights(root);
+      tooltip.hidden = true;
+    });
+
+    cell.addEventListener("focusin", () => {
+      applyPrereqHighlights(root, id);
+      fillTooltip();
+      tooltip.hidden = false;
+      const ae = document.activeElement;
+      if (ae instanceof HTMLElement) {
+        const r = ae.getBoundingClientRect();
+        showAt(r.right + 10, r.top + r.height / 2);
+      }
+    });
+    cell.addEventListener("focusout", (ev) => {
+      const rt = (ev as FocusEvent).relatedTarget as Node | null;
+      if (!cell.contains(rt)) {
+        clearPrereqHighlights(root);
+        tooltip.hidden = true;
+      }
+    });
+  });
+}
+
+function moveTooltip(ev: Pick<MouseEvent, "clientX" | "clientY">): void {
+  if (tooltip.hidden) return;
+  const margin = 10;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  let x = ev.clientX + margin;
+  let y = ev.clientY + margin;
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
+
+  const rect = tooltip.getBoundingClientRect();
+
+  if (x + rect.width > vw - margin) x = ev.clientX - rect.width - margin;
+  if (y + rect.height > vh - margin) y = ev.clientY - rect.height - margin;
+
+  x = Math.max(margin, Math.min(x, vw - rect.width - margin));
+  y = Math.max(margin, Math.min(y, vh - rect.height - margin));
+
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
+}
+
+loadState();
+const fromShare = readShareFromUrl();
+if (fromShare) {
+  applyJob(fromShare.j, fromShare.l);
+  saveState();
+} else {
+  applyJob(currentJob);
+}
+renderApp(document.querySelector("#app")!);
