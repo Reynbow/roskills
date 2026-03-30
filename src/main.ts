@@ -38,6 +38,8 @@ function exemptFromClassSkillCap(skillId: string): boolean {
 type Stored = {
   lastJob?: string;
   jobs: Record<string, { levels: Record<string, number>; budget?: number }>;
+  /** When true, prereq ring on hover stays but unrelated skills are not dimmed. */
+  disableHoverSkillDimming?: boolean;
 };
 
 let currentJob = DEFAULT_JOB;
@@ -50,15 +52,33 @@ let skillMap = new Map<string, SkillDef>();
 let focusHoverSkillId: string | null = null;
 let focusPrereqDisplayLevels: Map<string, number> | null = null;
 
+/** When true, hovering (or a pinned tooltip) still highlights the prereq chain but does not dim other skills. */
+let disableHoverSkillDimming = false;
+
 function loadState(): void {
+  disableHoverSkillDimming = false;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const data = JSON.parse(raw) as Stored;
     if (data.lastJob && getJobData(data.lastJob)) currentJob = data.lastJob;
+    if (data.disableHoverSkillDimming === true) disableHoverSkillDimming = true;
   } catch {
     /* ignore */
   }
+}
+
+function persistDisableHoverSkillDimming(): void {
+  let raw: Stored = { jobs: {} };
+  try {
+    raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") as Stored;
+  } catch {
+    raw = { jobs: {} };
+  }
+  if (!raw.jobs) raw.jobs = {};
+  if (disableHoverSkillDimming) raw.disableHoverSkillDimming = true;
+  else delete raw.disableHoverSkillDimming;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(raw));
 }
 
 function saveState(): void {
@@ -936,6 +956,13 @@ function renderApp(root: HTMLElement): void {
         >
         <span class="stat stat--total">Total: <strong id="used-total">0</strong></span>
       </div>
+      <label class="toolbar-toggle">
+        <span class="toolbar-toggle-text">Disable hover dimming</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="toggle-disable-hover-dim" class="toggle-switch-input" />
+          <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb"></span></span>
+        </span>
+      </label>
       <button type="button" id="btn-share">Share build</button>
       <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
       <button type="button" id="btn-reset" class="danger">Reset</button>
@@ -1043,6 +1070,15 @@ function renderApp(root: HTMLElement): void {
     refreshAll(root);
   });
 
+  const dimToggle = root.querySelector("#toggle-disable-hover-dim") as HTMLInputElement;
+  dimToggle.checked = disableHoverSkillDimming;
+  dimToggle.addEventListener("change", () => {
+    disableHoverSkillDimming = dimToggle.checked;
+    persistDisableHoverSkillDimming();
+    if (focusHoverSkillId) applyPrereqHighlights(root, focusHoverSkillId);
+    else clearPrereqHighlights(root);
+  });
+
   renderColumns(root);
   refreshAll(root);
   syncJobPickerUi(root);
@@ -1053,9 +1089,11 @@ function skillNodeEl(skill: SkillDef): HTMLElement {
   el.className = "skill-node" + (skill.transcendent ? " skill-node--transcendent" : "");
   el.dataset.skillId = skill.id;
   el.tabIndex = 0;
-  const pips = Array.from({ length: skill.maxLevel }, () => "<span class=\"pip\"></span>").join(
-    "",
-  );
+  const pips = Array.from(
+    { length: skill.maxLevel },
+    (_, i) =>
+      `<button type="button" class="pip" aria-label="Set level to ${i + 1}"></button>`,
+  ).join("");
   el.innerHTML = `
     <div class="skill-node-row">
       <div class="skill-icon" aria-hidden="true"><span class="skill-icon-fallback"></span></div>
@@ -1073,6 +1111,14 @@ function skillNodeEl(skill: SkillDef): HTMLElement {
 
   el.querySelector(".down")!.addEventListener("click", () => changeLevel(skill.id, -1));
   el.querySelector(".up")!.addEventListener("click", () => changeLevel(skill.id, 1));
+
+  el.querySelectorAll(".level-pips .pip").forEach((pip, i) => {
+    const targetLevel = i + 1;
+    pip.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setSkillLevel(skill.id, targetLevel);
+    });
+  });
 
   el.addEventListener("keydown", (e) => {
     if (e.key === "ArrowUp" || e.key === "+") {
@@ -1150,6 +1196,36 @@ function raiseWithPrereqAutofill(skillId: string): boolean {
   }
   levels[skillId] = plan.cur + 1;
   return true;
+}
+
+function tryIncrementSkillOnce(skillId: string): boolean {
+  if (canRaise(skillId)) {
+    levels[skillId] = (levels[skillId] ?? 0) + 1;
+    return true;
+  }
+  return raiseWithPrereqAutofill(skillId);
+}
+
+/** Set skill to `target` (0…max). Raising may auto-fill prereqs stepwise; stops early if blocked. */
+function setSkillLevel(skillId: string, target: number): void {
+  const skill = getSkill(skillId);
+  if (!skill) return;
+  const t = Math.max(0, Math.min(Math.floor(target), skill.maxLevel));
+  const cur = levels[skillId] ?? 0;
+  if (t === cur) return;
+
+  if (t < cur) {
+    const lv = { ...levels, [skillId]: t };
+    stabilizePrereqViolations(lv);
+    levels = lv;
+  } else {
+    while ((levels[skillId] ?? 0) < t) {
+      if (!tryIncrementSkillOnce(skillId)) break;
+    }
+  }
+
+  saveState();
+  refreshAll(document.querySelector("#app")!);
 }
 
 function changeLevel(skillId: string, delta = 1): void {
@@ -1426,7 +1502,9 @@ function clearPrereqHighlights(root: HTMLElement, skipRefresh = false): void {
 
 function applyPrereqHighlights(root: HTMLElement, skillId: string): void {
   clearPrereqHighlights(root, true);
-  root.querySelector("#tree-board")?.classList.add("tree-board--skill-focus");
+  if (!disableHoverSkillDimming) {
+    root.querySelector("#tree-board")?.classList.add("tree-board--skill-focus");
+  }
 
   const preClosure = transitivePrereqClosure(skillId);
   const postClosure = transitivePostreqClosure(skillId);
@@ -1453,16 +1531,18 @@ function applyPrereqHighlights(root: HTMLElement, skillId: string): void {
     root.querySelector(`[data-skill-id="${id}"]`)?.classList.add("skill-node--postreq");
   }
 
-  root.querySelectorAll(".skill-cell").forEach((cell) => {
-    const node = cell.querySelector(".skill-node") as HTMLElement | null;
-    const sid = node?.dataset.skillId;
-    if (!sid || keepLit.has(sid)) return;
-    cell.classList.add("skill-cell--dimmed");
-  });
+  if (!disableHoverSkillDimming) {
+    root.querySelectorAll(".skill-cell").forEach((cell) => {
+      const node = cell.querySelector(".skill-node") as HTMLElement | null;
+      const sid = node?.dataset.skillId;
+      if (!sid || keepLit.has(sid)) return;
+      cell.classList.add("skill-cell--dimmed");
+    });
 
-  root.querySelectorAll(".skill-slot--empty").forEach((el) => {
-    el.classList.add("skill-slot--dimmed");
-  });
+    root.querySelectorAll(".skill-slot--empty").forEach((el) => {
+      el.classList.add("skill-slot--dimmed");
+    });
+  }
 
   refreshAll(root);
 }
@@ -1484,7 +1564,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
     });
 
     node.addEventListener("click", (e) => {
-      if ((e.target as HTMLElement).closest("button.lvl")) return;
+      if ((e.target as HTMLElement).closest("button.lvl, button.pip")) return;
       if (tooltipLockedSkillId === id) {
         unlockTooltip(root);
         return;
