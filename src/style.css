@@ -1401,6 +1401,11 @@ header.planner-header h1 {
   display: none;
 }
 
+/* Pinned by click: receive pointer events so clicks on the panel don’t pass through. */
+.tooltip.tooltip--locked {
+  pointer-events: auto;
+}
+
 .tooltip .tooltip-skill-title {
   margin: 0 0 0.4rem;
   font-size: 1rem;

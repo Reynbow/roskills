@@ -327,6 +327,91 @@ function prereqsAllMet(skillId: string): boolean {
 
 const tooltip = document.querySelector("#tooltip") as HTMLElement;
 
+/** Set in `renderApp` — used for unlock + resize while tooltip is locked. */
+let plannerAppRoot: HTMLElement | null = null;
+
+/** When set, the skill tooltip stays visible and pinned until unlock (outside click or job change). */
+let tooltipLockedSkillId: string | null = null;
+
+function fillTooltipForSkill(skillId: string): boolean {
+  const skill = getSkill(skillId);
+  if (!skill) return false;
+  const pre = prereqsFor(skillId);
+  let preHtml = "";
+  if (pre.length) {
+    const items = pre
+      .map((p) => {
+        const sn = getSkill(p.fromId)?.name ?? p.fromId;
+        return `<li>${escapeHtml(sn)} <strong>${p.requiredLevel}</strong></li>`;
+      })
+      .join("");
+    preHtml = `<div class="prereq-hint"><div class="tooltip-hint-label">Requires</div><ul class="tooltip-skill-list">${items}</ul></div>`;
+  }
+  const post = edges.filter((e) => e.fromId === skillId);
+  let postHtml = "";
+  if (post.length) {
+    const items = post
+      .map((e) => {
+        const sn = getSkill(e.toId)?.name ?? e.toId;
+        return `<li>${escapeHtml(sn)} needs <strong>${e.requiredLevel}</strong></li>`;
+      })
+      .join("");
+    postHtml = `<div class="postreq-hint"><div class="tooltip-hint-label">Used by</div><ul class="tooltip-skill-list">${items}</ul></div>`;
+  }
+  const descHtml = skillDescriptionToHtml(
+    stripLeadingDuplicateTitle(skill.description, skill.name),
+  );
+  tooltip.innerHTML = `
+        <h3 class="tooltip-skill-title">${escapeHtml(skill.name)}</h3>
+        <div class="tooltip-desc">${descHtml}</div>
+        <div class="lvl-cap">Maximum level: ${skill.maxLevel}</div>
+        ${preHtml}
+        ${postHtml}
+      `;
+  return true;
+}
+
+function positionTooltipNearSkill(nodeRect: DOMRect): void {
+  const margin = 10;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  let x = nodeRect.right + margin;
+  let y = nodeRect.top;
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
+  const tr = tooltip.getBoundingClientRect();
+  if (x + tr.width > vw - margin) x = nodeRect.left - tr.width - margin;
+  if (y + tr.height > vh - margin) y = nodeRect.bottom - tr.height;
+  x = Math.max(margin, Math.min(x, vw - tr.width - margin));
+  y = Math.max(margin, Math.min(y, vh - tr.height - margin));
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
+}
+
+function unlockTooltip(root: HTMLElement): void {
+  tooltipLockedSkillId = null;
+  tooltip.classList.remove("tooltip--locked");
+  tooltip.hidden = true;
+  clearPrereqHighlights(root);
+}
+
+let tooltipUnlockClickAttached = false;
+function ensureTooltipUnlockClickListener(): void {
+  if (tooltipUnlockClickAttached) return;
+  tooltipUnlockClickAttached = true;
+  document.addEventListener("click", (e) => {
+    if (!tooltipLockedSkillId) return;
+    const t = e.target as HTMLElement | null;
+    if (!t) return;
+    if (tooltip.contains(t)) return;
+    const cell = t.closest(".skill-cell");
+    const sid = cell?.querySelector(".skill-node")?.getAttribute("data-skill-id");
+    if (sid === tooltipLockedSkillId) return;
+    const root = plannerAppRoot;
+    if (root) unlockTooltip(root);
+  });
+}
+
 function rootFontPx(): number {
   const n = parseFloat(getComputedStyle(document.documentElement).fontSize);
   return Number.isFinite(n) && n > 0 ? n : 16;
@@ -569,6 +654,8 @@ function renderColumns(root: HTMLElement): void {
   const job = getJobData(currentJob);
   if (!board || !job) return;
 
+  unlockTooltip(root);
+
   board.innerHTML = "";
   const questIdx = getQuestColumnIndex(job);
   const contentIdx = getContentColumnIndices(job);
@@ -737,6 +824,9 @@ function jobPickerRowHtml(row: JobPickerPick[]): string {
 }
 
 function renderApp(root: HTMLElement): void {
+  plannerAppRoot = root;
+  ensureTooltipUnlockClickListener();
+
   const grouped = listJobsGroupedForPicker();
   const jobPickerSections = grouped
     .filter(
@@ -1343,65 +1433,53 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
     const node = cell.querySelector(".skill-node") as HTMLElement | null;
     if (!node?.dataset.skillId) return;
     const id = node.dataset.skillId;
-    const skill = getSkill(id);
-    if (!skill) return;
-
-    const fillTooltip = () => {
-      const pre = prereqsFor(id);
-      let preHtml = "";
-      if (pre.length) {
-        const items = pre
-          .map((p) => {
-            const sn = getSkill(p.fromId)?.name ?? p.fromId;
-            return `<li>${escapeHtml(sn)} <strong>${p.requiredLevel}</strong></li>`;
-          })
-          .join("");
-        preHtml = `<div class="prereq-hint"><div class="tooltip-hint-label">Requires</div><ul class="tooltip-skill-list">${items}</ul></div>`;
-      }
-      const post = edges.filter((e) => e.fromId === id);
-      let postHtml = "";
-      if (post.length) {
-        const items = post
-          .map((e) => {
-            const sn = getSkill(e.toId)?.name ?? e.toId;
-            return `<li>${escapeHtml(sn)} needs <strong>${e.requiredLevel}</strong></li>`;
-          })
-          .join("");
-        postHtml = `<div class="postreq-hint"><div class="tooltip-hint-label">Used by</div><ul class="tooltip-skill-list">${items}</ul></div>`;
-      }
-      const descHtml = skillDescriptionToHtml(
-        stripLeadingDuplicateTitle(skill.description, skill.name),
-      );
-      tooltip.innerHTML = `
-        <h3 class="tooltip-skill-title">${escapeHtml(skill.name)}</h3>
-        <div class="tooltip-desc">${descHtml}</div>
-        <div class="lvl-cap">Maximum level: ${skill.maxLevel}</div>
-        ${preHtml}
-        ${postHtml}
-      `;
-    };
+    if (!getSkill(id)) return;
 
     const showAt = (clientX: number, clientY: number) => {
-      fillTooltip();
+      fillTooltipForSkill(id);
       tooltip.hidden = false;
       moveTooltip({ clientX, clientY });
       fitTooltipDynamicText();
     };
 
+    node.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("button.lvl")) return;
+      if (tooltipLockedSkillId === id) {
+        unlockTooltip(root);
+        return;
+      }
+      tooltipLockedSkillId = id;
+      tooltip.classList.add("tooltip--locked");
+      fillTooltipForSkill(id);
+      tooltip.hidden = false;
+      positionTooltipNearSkill(node.getBoundingClientRect());
+      fitTooltipDynamicText();
+      applyPrereqHighlights(root, id);
+    });
+
     node.addEventListener("mouseenter", (ev) => {
+      if (tooltipLockedSkillId) return;
       applyPrereqHighlights(root, id);
       const m = ev as MouseEvent;
       showAt(m.clientX, m.clientY);
     });
-    node.addEventListener("mousemove", (ev) => moveTooltip(ev as MouseEvent));
+    node.addEventListener("mousemove", (ev) => {
+      if (tooltipLockedSkillId) return;
+      moveTooltip(ev as MouseEvent);
+    });
     node.addEventListener("mouseleave", () => {
+      if (tooltipLockedSkillId) return;
       clearPrereqHighlights(root);
       tooltip.hidden = true;
     });
 
     cell.addEventListener("focusin", () => {
+      if (tooltipLockedSkillId != null && tooltipLockedSkillId !== id) {
+        unlockTooltip(root);
+      }
+      if (tooltipLockedSkillId != null) return;
       applyPrereqHighlights(root, id);
-      fillTooltip();
+      fillTooltipForSkill(id);
       tooltip.hidden = false;
       const ae = document.activeElement;
       if (ae instanceof HTMLElement) {
@@ -1410,6 +1488,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
       }
     });
     cell.addEventListener("focusout", (ev) => {
+      if (tooltipLockedSkillId) return;
       const rt = (ev as FocusEvent).relatedTarget as Node | null;
       if (!cell.contains(rt)) {
         clearPrereqHighlights(root);
@@ -1420,7 +1499,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
 }
 
 function moveTooltip(ev: Pick<MouseEvent, "clientX" | "clientY">): void {
-  if (tooltip.hidden) return;
+  if (tooltip.hidden || tooltipLockedSkillId) return;
   const margin = 10;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
@@ -1458,6 +1537,12 @@ window.addEventListener("resize", () => {
   window.clearTimeout(textFitResizeTimer);
   textFitResizeTimer = window.setTimeout(() => {
     scheduleFitSkillText(appRoot);
+    if (tooltipLockedSkillId) {
+      const n = appRoot.querySelector(
+        `[data-skill-id="${CSS.escape(tooltipLockedSkillId)}"]`,
+      ) as HTMLElement | null;
+      if (n) positionTooltipNearSkill(n.getBoundingClientRect());
+    }
     fitTooltipDynamicText();
   }, 120);
 });
