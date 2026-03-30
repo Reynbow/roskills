@@ -395,6 +395,16 @@ function unlockTooltip(root: HTMLElement): void {
   clearPrereqHighlights(root);
 }
 
+function openSkillTooltip(root: HTMLElement, skillId: string, anchorEl: HTMLElement): void {
+  tooltipLockedSkillId = skillId;
+  tooltip.classList.add("tooltip--locked");
+  fillTooltipForSkill(skillId);
+  tooltip.hidden = false;
+  positionTooltipNearSkill(anchorEl.getBoundingClientRect());
+  fitTooltipDynamicText();
+  applyPrereqHighlights(root, skillId);
+}
+
 let tooltipUnlockClickAttached = false;
 function ensureTooltipUnlockClickListener(): void {
   if (tooltipUnlockClickAttached) return;
@@ -1435,12 +1445,14 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
     const id = node.dataset.skillId;
     if (!getSkill(id)) return;
 
-    const showAt = (clientX: number, clientY: number) => {
-      fillTooltipForSkill(id);
-      tooltip.hidden = false;
-      moveTooltip({ clientX, clientY });
-      fitTooltipDynamicText();
-    };
+    /** Skip focusin open when the same interaction will fire click (avoids open-then-close). */
+    let skipNextFocusOpenFromPointer = false;
+    node.addEventListener("pointerdown", () => {
+      skipNextFocusOpenFromPointer = true;
+      requestAnimationFrame(() => {
+        skipNextFocusOpenFromPointer = false;
+      });
+    });
 
     node.addEventListener("click", (e) => {
       if ((e.target as HTMLElement).closest("button.lvl")) return;
@@ -1448,77 +1460,31 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
         unlockTooltip(root);
         return;
       }
-      tooltipLockedSkillId = id;
-      tooltip.classList.add("tooltip--locked");
-      fillTooltipForSkill(id);
-      tooltip.hidden = false;
-      positionTooltipNearSkill(node.getBoundingClientRect());
-      fitTooltipDynamicText();
-      applyPrereqHighlights(root, id);
+      openSkillTooltip(root, id, node);
     });
 
-    node.addEventListener("mouseenter", (ev) => {
-      if (tooltipLockedSkillId) return;
+    /* Prereq / postreq highlights on hover only when no description tooltip is open. */
+    node.addEventListener("mouseenter", () => {
+      if (tooltipLockedSkillId != null) return;
       applyPrereqHighlights(root, id);
-      const m = ev as MouseEvent;
-      showAt(m.clientX, m.clientY);
-    });
-    node.addEventListener("mousemove", (ev) => {
-      if (tooltipLockedSkillId) return;
-      moveTooltip(ev as MouseEvent);
     });
     node.addEventListener("mouseleave", () => {
-      if (tooltipLockedSkillId) return;
+      if (tooltipLockedSkillId != null) return;
       clearPrereqHighlights(root);
-      tooltip.hidden = true;
     });
 
     cell.addEventListener("focusin", () => {
-      if (tooltipLockedSkillId != null && tooltipLockedSkillId !== id) {
-        unlockTooltip(root);
-      }
-      if (tooltipLockedSkillId != null) return;
-      applyPrereqHighlights(root, id);
-      fillTooltipForSkill(id);
-      tooltip.hidden = false;
-      const ae = document.activeElement;
-      if (ae instanceof HTMLElement) {
-        const r = ae.getBoundingClientRect();
-        showAt(r.right + 10, r.top + r.height / 2);
-      }
+      if (skipNextFocusOpenFromPointer) return;
+      if (tooltipLockedSkillId === id) return;
+      if (tooltipLockedSkillId != null) unlockTooltip(root);
+      openSkillTooltip(root, id, node);
     });
     cell.addEventListener("focusout", (ev) => {
-      if (tooltipLockedSkillId) return;
       const rt = (ev as FocusEvent).relatedTarget as Node | null;
-      if (!cell.contains(rt)) {
-        clearPrereqHighlights(root);
-        tooltip.hidden = true;
-      }
+      if (cell.contains(rt) || (rt instanceof Node && tooltip.contains(rt))) return;
+      if (tooltipLockedSkillId === id) unlockTooltip(root);
     });
   });
-}
-
-function moveTooltip(ev: Pick<MouseEvent, "clientX" | "clientY">): void {
-  if (tooltip.hidden || tooltipLockedSkillId) return;
-  const margin = 10;
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-
-  let x = ev.clientX + margin;
-  let y = ev.clientY + margin;
-  tooltip.style.left = `${x}px`;
-  tooltip.style.top = `${y}px`;
-
-  const rect = tooltip.getBoundingClientRect();
-
-  if (x + rect.width > vw - margin) x = ev.clientX - rect.width - margin;
-  if (y + rect.height > vh - margin) y = ev.clientY - rect.height - margin;
-
-  x = Math.max(margin, Math.min(x, vw - rect.width - margin));
-  y = Math.max(margin, Math.min(y, vh - rect.height - margin));
-
-  tooltip.style.left = `${x}px`;
-  tooltip.style.top = `${y}px`;
 }
 
 loadState();
