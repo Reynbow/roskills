@@ -42,6 +42,8 @@ function exemptFromClassSkillCap(skillId: string): boolean {
 type Stored = {
   lastJob?: string;
   jobs: Record<string, { levels: Record<string, number>; budget?: number }>;
+  /** When true, prereq ring on hover stays but unrelated skills are not dimmed. */
+  disableHoverSkillDimming?: boolean;
 };
 
 let currentJob = DEFAULT_JOB;
@@ -54,15 +56,33 @@ let skillMap = new Map<string, SkillDef>();
 let focusHoverSkillId: string | null = null;
 let focusPrereqDisplayLevels: Map<string, number> | null = null;
 
+/** When true, hovering (or a pinned tooltip) still highlights the prereq chain but does not dim other skills. */
+let disableHoverSkillDimming = false;
+
 function loadState(): void {
+  disableHoverSkillDimming = false;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const data = JSON.parse(raw) as Stored;
     if (data.lastJob && getJobData(data.lastJob)) currentJob = data.lastJob;
+    if (data.disableHoverSkillDimming === true) disableHoverSkillDimming = true;
   } catch {
     /* ignore */
   }
+}
+
+function persistDisableHoverSkillDimming(): void {
+  let raw: Stored = { jobs: {} };
+  try {
+    raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") as Stored;
+  } catch {
+    raw = { jobs: {} };
+  }
+  if (!raw.jobs) raw.jobs = {};
+  if (disableHoverSkillDimming) raw.disableHoverSkillDimming = true;
+  else delete raw.disableHoverSkillDimming;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(raw));
 }
 
 function saveState(): void {
@@ -337,9 +357,9 @@ let plannerAppRoot: HTMLElement | null = null;
 /** When set, the skill tooltip stays visible and pinned until unlock (outside click or job change). */
 let tooltipLockedSkillId: string | null = null;
 
-function fillTooltipForSkill(skillId: string): boolean {
+function buildSkillDetailHtml(skillId: string): string | null {
   const skill = getSkill(skillId);
-  if (!skill) return false;
+  if (!skill) return null;
   const pre = prereqsFor(skillId);
   let preHtml = "";
   if (pre.length) {
@@ -365,13 +385,19 @@ function fillTooltipForSkill(skillId: string): boolean {
   const descHtml = skillDescriptionToHtml(
     stripLeadingDuplicateTitle(skill.description, skill.name),
   );
-  tooltip.innerHTML = `
+  return `
         <h3 class="tooltip-skill-title">${escapeHtml(skill.name)}</h3>
         <div class="tooltip-desc">${descHtml}</div>
         <div class="lvl-cap">Maximum level: ${skill.maxLevel}</div>
         ${preHtml}
         ${postHtml}
       `;
+}
+
+function fillTooltipForSkill(skillId: string): boolean {
+  const html = buildSkillDetailHtml(skillId);
+  if (!html) return false;
+  tooltip.innerHTML = html;
   return true;
 }
 
@@ -500,9 +526,14 @@ function escapeHtml(s: string): string {
   return d.innerHTML;
 }
 
-const TOOLTIP_LV_LINE = /^\s*\[Lv\s*\d+\]:/i;
+const TOOLTIP_LV_LINE = /^\s*\[[Ll][Vv]\.?\s*\d+\]\s*:/i;
 const TOOLTIP_COMMENTS_LINE = /^\s*Comments:/i;
 const TOOLTIP_DESCRIPTION_LINE = /^\s*Description:/i;
+/** Lines like `[Lv 1]:`, `[100~81% SP]:`, `[Musical Lessons]:` */
+const TOOLTIP_BRACKET_LEADER = /^(\s*)(\[[^\]]+\]\s*:)(.*)$/;
+/** skilldescript header lines (also Range/Duration when on their own line) */
+const TOOLTIP_META_LABEL =
+  /^(\s*)(Max Level:|Requirement:|Skill Form:|Type:|Target:|Description:|Comments:|Range:|Duration:)\s*(.*)$/i;
 
 /** First line of skilldescript.lub is the skill name — same as the tooltip `<h3>`, so drop it. */
 function stripLeadingDuplicateTitle(description: string, title: string): string {
@@ -517,6 +548,22 @@ function stripLeadingDuplicateTitle(description: string, title: string): string 
     .slice(i + 1)
     .join("\n")
     .replace(/^\n+/, "");
+}
+
+function formatSkillDescriptionLine(raw: string): string {
+  const mBracket = raw.match(TOOLTIP_BRACKET_LEADER);
+  if (mBracket) {
+    return `${mBracket[1]}<strong class="tooltip-desc-key">${escapeHtml(
+      mBracket[2],
+    )}</strong>${escapeHtml(mBracket[3] ?? "")}`;
+  }
+  const mMeta = raw.match(TOOLTIP_META_LABEL);
+  if (mMeta) {
+    return `${mMeta[1]}<strong class="tooltip-desc-key">${escapeHtml(
+      mMeta[2],
+    )}</strong>${escapeHtml(mMeta[3] ?? "")}`;
+  }
+  return escapeHtml(raw);
 }
 
 /**
@@ -564,7 +611,7 @@ function skillDescriptionToHtml(description: string): string {
       beforeDescriptionBlock = false;
     }
 
-    out.push(escapeHtml(raw));
+    out.push(formatSkillDescriptionLine(raw));
     out.push("<br/>");
     i++;
   }
@@ -587,15 +634,19 @@ function mergeTranscendentIntoSecond(job: JobData): boolean {
   return shouldMergeTranscendentIntoSecondPanel(job);
 }
 
+/** Client trees use 7 columns; show the full width even when skills only occupy the left slots. */
+/** When a class panel has no skills, still render a grid (matches ~largest trees in data). */
+const SKILL_GRID_ROWS_WHEN_PANEL_EMPTY = 6;
+
+function effectiveSkillGridRows(panelSkills: SkillDef[]): number {
+  if (panelSkills.length === 0) return SKILL_GRID_ROWS_WHEN_PANEL_EMPTY;
+  return Math.max(1, ...panelSkills.map((s) => s.gridRow));
+}
+
 function fillEmptyGridSlots(grid: HTMLElement, panelSkills: SkillDef[]): void {
-  if (panelSkills.length === 0) return;
   const occupied = new Set(panelSkills.map((s) => `${s.gridCol},${s.gridRow}`));
-  let maxC = 1;
-  let maxR = 1;
-  for (const s of panelSkills) {
-    maxC = Math.max(maxC, s.gridCol);
-    maxR = Math.max(maxR, s.gridRow);
-  }
+  const maxC = GRID_COLS;
+  const maxR = effectiveSkillGridRows(panelSkills);
   for (let r = 1; r <= maxR; r++) {
     for (let c = 1; c <= maxC; c++) {
       if (occupied.has(`${c},${r}`)) continue;
@@ -650,16 +701,14 @@ function skillCell(skill: SkillDef): HTMLElement {
 function renderSkillGrid(panelSkills: SkillDef[]): HTMLElement {
   const grid = document.createElement("div");
   grid.className = "skill-grid";
-  let maxRow = 1;
   for (const skill of panelSkills) {
     const el = skillCell(skill);
     el.style.gridColumn = String(skill.gridCol);
     el.style.gridRow = String(skill.gridRow);
-    maxRow = Math.max(maxRow, skill.gridRow);
     grid.appendChild(el);
   }
   fillEmptyGridSlots(grid, panelSkills);
-  grid.style.gridTemplateRows = `repeat(${maxRow}, auto)`;
+  grid.style.gridTemplateRows = `repeat(${effectiveSkillGridRows(panelSkills)}, auto)`;
   return grid;
 }
 
@@ -911,6 +960,13 @@ function renderApp(root: HTMLElement): void {
         >
         <span class="stat stat--total">Total: <strong id="used-total">0</strong></span>
       </div>
+      <label class="toolbar-toggle">
+        <span class="toolbar-toggle-text">Disable hover dimming</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="toggle-disable-hover-dim" class="toggle-switch-input" />
+          <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb"></span></span>
+        </span>
+      </label>
       <button type="button" id="btn-share">Share build</button>
       <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
       <button type="button" id="btn-reset" class="danger">Reset</button>
@@ -1018,6 +1074,15 @@ function renderApp(root: HTMLElement): void {
     refreshAll(root);
   });
 
+  const dimToggle = root.querySelector("#toggle-disable-hover-dim") as HTMLInputElement;
+  dimToggle.checked = disableHoverSkillDimming;
+  dimToggle.addEventListener("change", () => {
+    disableHoverSkillDimming = dimToggle.checked;
+    persistDisableHoverSkillDimming();
+    if (focusHoverSkillId) applyPrereqHighlights(root, focusHoverSkillId);
+    else clearPrereqHighlights(root);
+  });
+
   renderColumns(root);
   refreshAll(root);
   syncJobPickerUi(root);
@@ -1028,9 +1093,11 @@ function skillNodeEl(skill: SkillDef): HTMLElement {
   el.className = "skill-node" + (skill.transcendent ? " skill-node--transcendent" : "");
   el.dataset.skillId = skill.id;
   el.tabIndex = 0;
-  const pips = Array.from({ length: skill.maxLevel }, () => "<span class=\"pip\"></span>").join(
-    "",
-  );
+  const pips = Array.from(
+    { length: skill.maxLevel },
+    (_, i) =>
+      `<button type="button" class="pip" aria-label="Set level to ${i + 1}"></button>`,
+  ).join("");
   el.innerHTML = `
     <div class="skill-node-row">
       <div class="skill-icon" aria-hidden="true"><span class="skill-icon-fallback"></span></div>
@@ -1048,6 +1115,14 @@ function skillNodeEl(skill: SkillDef): HTMLElement {
 
   el.querySelector(".down")!.addEventListener("click", () => changeLevel(skill.id, -1));
   el.querySelector(".up")!.addEventListener("click", () => changeLevel(skill.id, 1));
+
+  el.querySelectorAll(".level-pips .pip").forEach((pip, i) => {
+    const targetLevel = i + 1;
+    pip.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setSkillLevel(skill.id, targetLevel);
+    });
+  });
 
   el.addEventListener("keydown", (e) => {
     if (e.key === "ArrowUp" || e.key === "+") {
@@ -1125,6 +1200,36 @@ function raiseWithPrereqAutofill(skillId: string): boolean {
   }
   levels[skillId] = plan.cur + 1;
   return true;
+}
+
+function tryIncrementSkillOnce(skillId: string): boolean {
+  if (canRaise(skillId)) {
+    levels[skillId] = (levels[skillId] ?? 0) + 1;
+    return true;
+  }
+  return raiseWithPrereqAutofill(skillId);
+}
+
+/** Set skill to `target` (0…max). Raising may auto-fill prereqs stepwise; stops early if blocked. */
+function setSkillLevel(skillId: string, target: number): void {
+  const skill = getSkill(skillId);
+  if (!skill) return;
+  const t = Math.max(0, Math.min(Math.floor(target), skill.maxLevel));
+  const cur = levels[skillId] ?? 0;
+  if (t === cur) return;
+
+  if (t < cur) {
+    const lv = { ...levels, [skillId]: t };
+    stabilizePrereqViolations(lv);
+    levels = lv;
+  } else {
+    while ((levels[skillId] ?? 0) < t) {
+      if (!tryIncrementSkillOnce(skillId)) break;
+    }
+  }
+
+  saveState();
+  refreshAll(document.querySelector("#app")!);
 }
 
 function changeLevel(skillId: string, delta = 1): void {
@@ -1401,7 +1506,9 @@ function clearPrereqHighlights(root: HTMLElement, skipRefresh = false): void {
 
 function applyPrereqHighlights(root: HTMLElement, skillId: string): void {
   clearPrereqHighlights(root, true);
-  root.querySelector("#tree-board")?.classList.add("tree-board--skill-focus");
+  if (!disableHoverSkillDimming) {
+    root.querySelector("#tree-board")?.classList.add("tree-board--skill-focus");
+  }
 
   const preClosure = transitivePrereqClosure(skillId);
   const postClosure = transitivePostreqClosure(skillId);
@@ -1428,16 +1535,18 @@ function applyPrereqHighlights(root: HTMLElement, skillId: string): void {
     root.querySelector(`[data-skill-id="${id}"]`)?.classList.add("skill-node--postreq");
   }
 
-  root.querySelectorAll(".skill-cell").forEach((cell) => {
-    const node = cell.querySelector(".skill-node") as HTMLElement | null;
-    const sid = node?.dataset.skillId;
-    if (!sid || keepLit.has(sid)) return;
-    cell.classList.add("skill-cell--dimmed");
-  });
+  if (!disableHoverSkillDimming) {
+    root.querySelectorAll(".skill-cell").forEach((cell) => {
+      const node = cell.querySelector(".skill-node") as HTMLElement | null;
+      const sid = node?.dataset.skillId;
+      if (!sid || keepLit.has(sid)) return;
+      cell.classList.add("skill-cell--dimmed");
+    });
 
-  root.querySelectorAll(".skill-slot--empty").forEach((el) => {
-    el.classList.add("skill-slot--dimmed");
-  });
+    root.querySelectorAll(".skill-slot--empty").forEach((el) => {
+      el.classList.add("skill-slot--dimmed");
+    });
+  }
 
   refreshAll(root);
 }
@@ -1459,7 +1568,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
     });
 
     node.addEventListener("click", (e) => {
-      if ((e.target as HTMLElement).closest("button.lvl")) return;
+      if ((e.target as HTMLElement).closest("button.lvl, button.pip")) return;
       if (tooltipLockedSkillId === id) {
         unlockTooltip(root);
         return;

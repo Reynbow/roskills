@@ -102,6 +102,76 @@ header.planner-header h1 {
   color: var(--text-muted);
 }
 
+/* iOS-style on/off switch (checkbox visually hidden; track + thumb are decorative) */
+.toolbar label.toolbar-toggle {
+  display: inline-flex;
+  gap: 0.55rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toolbar-toggle-text {
+  line-height: 1.2;
+}
+
+.toolbar .toggle-switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 3.125rem;
+  height: 1.875rem;
+}
+
+.toolbar .toggle-switch-input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.toolbar .toggle-switch-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #3e434c;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: background 0.22s ease;
+  pointer-events: none;
+}
+
+.toolbar .toggle-switch-input:checked + .toggle-switch-track {
+  background: #34c759;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.toolbar .toggle-switch-thumb {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0.06rem 0.2rem rgba(0, 0, 0, 0.12),
+    0 0.12rem 0.35rem rgba(0, 0, 0, 0.24);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.toolbar .toggle-switch-input:checked + .toggle-switch-track .toggle-switch-thumb {
+  transform: translateX(1.25rem);
+}
+
+.toolbar .toggle-switch-input:focus-visible + .toggle-switch-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .toolbar input[type="number"],
 .toolbar select {
   width: 4.5rem;
@@ -787,7 +857,8 @@ header.planner-header h1 {
 }
 
 .panel-title--quest {
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.28rem;
 }
 
 .panel-sub {
@@ -844,7 +915,7 @@ header.planner-header h1 {
 .quest-stack {
   display: flex;
   flex-direction: column;
-  gap: 2.85rem;
+  gap: 1rem;
 }
 
 /* Grid item: only the skill box sizes the cell; prereq label is out of flow. */
@@ -1301,13 +1372,46 @@ header.planner-header h1 {
 }
 
 .level-pips .pip {
+  display: block;
+  box-sizing: border-box;
   width: 9px;
   height: 9px;
+  padding: 0;
+  margin: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(160, 180, 210, 0.35);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(185, 210, 245, 0.58);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(95, 155, 235, 0.28),
+    0 0 8px rgba(90, 150, 230, 0.18);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+  cursor: pointer;
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+}
+
+.level-pips .pip:hover {
+  border-color: rgba(215, 235, 255, 0.92);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(140, 195, 255, 0.55),
+    0 0 14px rgba(120, 185, 255, 0.5);
+  transform: scale(1.22);
+}
+
+.level-pips .pip:focus {
+  outline: none;
+}
+
+.level-pips .pip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .level-pips .pip--on {
@@ -1315,7 +1419,17 @@ header.planner-header h1 {
   border-color: #2a8f62;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 0 5px rgba(80, 200, 140, 0.25);
+    0 0 0 1px rgba(45, 140, 95, 0.45),
+    0 0 8px rgba(80, 200, 140, 0.35);
+}
+
+.level-pips .pip--on:hover {
+  border-color: #3dd598;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 0 1px rgba(90, 220, 160, 0.65),
+    0 0 14px rgba(80, 220, 150, 0.55);
+  transform: scale(1.18);
 }
 
 /* Stronger filled pips when this skill has real points */
@@ -1323,9 +1437,19 @@ header.planner-header h1 {
   background: var(--invest-pip);
   border-color: #0d7a52;
   box-shadow:
-    0 0 8px var(--invest-pip-glow),
+    0 0 0 1px rgba(20, 120, 80, 0.5),
+    0 0 10px var(--invest-pip-glow),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transform: scale(1.1);
+}
+
+.skill-node--invested .level-pips .pip--on:hover {
+  border-color: #5cffc8;
+  box-shadow:
+    0 0 0 1px rgba(80, 255, 200, 0.45),
+    0 0 16px var(--invest-pip-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: scale(1.26);
 }
 
 /* During hover-focus: levels you still need vs current allocation */
@@ -1334,7 +1458,17 @@ header.planner-header h1 {
   border-color: #b8860b;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 0 6px rgba(255, 200, 60, 0.35);
+    0 0 0 1px rgba(200, 150, 30, 0.5),
+    0 0 8px rgba(255, 200, 60, 0.4);
+}
+
+.level-pips .pip--on.pip--req-hint:hover {
+  border-color: #f5c84a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 0 0 1px rgba(255, 210, 90, 0.65),
+    0 0 14px rgba(255, 200, 80, 0.55);
+  transform: scale(1.2);
 }
 
 .skill-node .lvl-row {
@@ -1447,6 +1581,11 @@ header.planner-header h1 {
 .tooltip-desc-comments {
   margin: 0;
   line-height: 1.45;
+}
+
+.tooltip .tooltip-desc-key {
+  font-weight: 700;
+  color: #f0f4fc;
 }
 
 .tooltip .lvl-cap {
