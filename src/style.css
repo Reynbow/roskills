@@ -245,13 +245,24 @@ header.planner-header h1 {
   height: max-content;
   display: flex;
   flex-direction: column;
-  padding: 1.15rem 1.35rem 1.35rem;
+  padding: 1.15rem 1.5rem 1.35rem;
   background: var(--bg-panel);
   border: 1px solid var(--border-panel);
   border-radius: 12px;
   box-shadow: 0 24px 48px var(--shadow), inset 0 1px 0 var(--inset-highlight);
-  overflow-x: hidden;
+  /* Do not overflow:hidden here: it clips joined class cards' outer border-radius against this panel's rounded clip. */
+  overflow: visible;
+  min-height: 0;
+}
+
+/* Scroll lives here; panel above stays overflow:visible so joined cards are not clipped by its border-radius. */
+.job-picker-dialog-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: visible;
   overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding: 0 4px;
 }
 
 .job-picker-dialog-head {
@@ -311,7 +322,7 @@ header.planner-header h1 {
   flex: 0 0 auto;
   min-height: 0;
   overflow: visible;
-  padding: 0.15rem 0.15rem 0;
+  padding: 0.15rem 0.35rem 0;
 }
 
 .job-picker-section {
@@ -398,19 +409,20 @@ header.planner-header h1 {
   background: linear-gradient(180deg, #384252 0%, #2f3744 100%);
 }
 
-/* Bard / Dancer: one visual unit, two tappable halves; width only is ~⅔ of two cells + gap. */
+/* Bard / Dancer: flex shell only — each half is its own bordered button so corners & hover match other classes. */
 .job-picker-card-joined {
   --jp-joined-full: calc(2 * (100% - 6 * var(--jp-gap-x)) / 7 + var(--jp-gap-x));
+  --jp-joined-target: calc(var(--jp-joined-full) * 2 / 3);
   display: flex;
-  flex: 0 1 calc(var(--jp-joined-full) * 2 / 3);
-  max-width: calc(var(--jp-joined-full) * 2 / 3);
-  min-width: 0;
-  min-height: 9.25rem;
-  border-radius: 10px;
+  flex: 0 0 auto;
+  width: var(--jp-joined-target);
+  max-width: 100%;
+  align-items: stretch;
+  gap: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   overflow: visible;
-  border: 1px solid var(--border-node);
-  background: var(--bg-node-strong);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
 /*
@@ -450,13 +462,14 @@ header.planner-header h1 {
   flex: 1 1 50%;
   min-width: 0;
   max-width: none;
-  min-height: 0;
+  min-height: 9.25rem;
   height: auto;
   align-self: stretch;
   align-items: stretch;
-  border: none;
+  border: 1px solid var(--border-node);
   border-radius: 0;
   box-shadow: none;
+  background: var(--bg-node-strong);
 }
 
 .job-picker-card-joined .job-picker-card-label {
@@ -464,21 +477,40 @@ header.planner-header h1 {
   align-self: center;
 }
 
+/* One shared outer silhouette: left / right radii + overlap seam by 1px so the divider stays a single line. */
 .job-picker-card-joined .job-picker-card--joined-start {
+  border-radius: 10px 0 0 10px;
   border-right: 1px solid rgba(140, 170, 210, 0.28);
 }
 
+.job-picker-card-joined .job-picker-card--joined-end {
+  border-radius: 0 10px 10px 0;
+  border-left: none;
+  margin-left: -1px;
+}
+
 .job-picker-card-joined .job-picker-card:hover {
+  border-color: var(--accent-dim);
   background: #343c4a;
 }
 
+.job-picker-card-joined .job-picker-card--joined-start:hover {
+  border-right-color: rgba(140, 170, 210, 0.42);
+}
+
 .job-picker-card-joined .job-picker-card:focus-visible {
-  outline-offset: -3px;
-  z-index: 1;
+  outline-offset: 2px;
+  z-index: 2;
 }
 
 .job-picker-card-joined .job-picker-card--current {
-  box-shadow: inset 0 0 0 1px var(--accent-dim);
+  border-color: var(--accent-dim);
+  box-shadow: 0 0 0 1px var(--accent-dim);
+  background: linear-gradient(180deg, #384252 0%, #2f3744 100%);
+}
+
+.job-picker-card-joined .job-picker-card--joined-start.job-picker-card--current {
+  border-right-color: rgba(140, 170, 210, 0.38);
 }
 
 .job-picker-card-label {

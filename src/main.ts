@@ -743,8 +743,10 @@ function renderApp(root: HTMLElement): void {
           <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">Choose class</h2>
           <button type="button" class="job-picker-close" aria-label="Close class picker">×</button>
         </div>
-        <div class="job-picker-body" id="job-picker-body" role="region" aria-label="Character classes by tier">
-          ${jobPickerSections}
+        <div class="job-picker-dialog-scroll">
+          <div class="job-picker-body" id="job-picker-body" role="region" aria-label="Character classes by tier">
+            ${jobPickerSections}
+          </div>
         </div>
       </div>
     </dialog>
