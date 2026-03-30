@@ -377,30 +377,6 @@ function fillTooltipForSkill(skillId: string): boolean {
   return true;
 }
 
-
-function setQuestDescPanelHtml(html: string): void {
-  const el = document.getElementById("quest-skill-desc");
-  if (!el) return;
-  el.innerHTML = html;
-  fitQuestPanelDynamicText();
-}
-
-function showQuestDescForSkill(skillId: string): void {
-  const html = buildSkillDetailHtml(skillId);
-  if (html) setQuestDescPanelHtml(html);
-}
-
-function fitQuestPanelDynamicText(): void {
-  const panel = document.getElementById("quest-skill-desc");
-  if (!panel) return;
-  const rf = rootFontPx();
-  const t = panel.querySelector("h3.tooltip-skill-title");
-  if (t instanceof HTMLElement) fitSingleLineNoWrap(t, 0.62 * rf);
-  panel.querySelectorAll(".tooltip-skill-list li").forEach((li) => {
-    if (li instanceof HTMLElement) fitSingleLineNoWrap(li, 0.54 * rf);
-  });
-}
-
 function positionTooltipNearSkill(nodeRect: DOMRect): void {
   const margin = 10;
   const vw = window.innerWidth;
@@ -789,16 +765,7 @@ function renderColumns(root: HTMLElement): void {
     for (const skill of skillsByColumn(questIdx)) {
       stack.appendChild(skillCell(skill));
     }
-    const questBody = document.createElement("div");
-    questBody.className = "skill-panel--quest-body";
-    questBody.appendChild(stack);
-    const questDesc = document.createElement("div");
-    questDesc.className = "quest-desc-panel";
-    questDesc.id = "quest-skill-desc";
-    questDesc.setAttribute("aria-live", "polite");
-    questDesc.innerHTML = "";
-    questBody.appendChild(questDesc);
-    aside.appendChild(questBody);
+    aside.appendChild(stack);
     body.appendChild(aside);
   }
 
@@ -1547,51 +1514,6 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
       if (tooltipLockedSkillId === id) unlockTooltip(root);
     });
   });
-
-  attachQuestSkillDescriptionPanel(root);
-}
-
-function attachQuestSkillDescriptionPanel(root: HTMLElement): void {
-  const aside = root.querySelector(".skill-panel--quest") as HTMLElement | null;
-  if (!aside || !document.getElementById("quest-skill-desc")) return;
-
-  /**
-   * Delegated hover/focus on the quest column. Do not use bubbling `pointerout`/`mouseout` to
-   * clear: `relatedTarget` is often null when moving between children, which immediately
-   * wiped the panel after `pointerover` updated it. `pointerleave`/`mouseleave` on the aside
-   * only fire when leaving the whole column (including the description area below).
-   */
-  let activeQuestDescSkillId: string | null = null;
-
-  const updateFromEventTarget = (t: EventTarget | null): void => {
-    if (!(t instanceof HTMLElement)) return;
-    const node = t.closest(".skill-node");
-    if (!(node instanceof HTMLElement) || !aside.contains(node)) return;
-    const id = node.dataset.skillId;
-    if (!id || !getSkill(id)) return;
-    if (activeQuestDescSkillId === id) return;
-    activeQuestDescSkillId = id;
-    showQuestDescForSkill(id);
-  };
-
-  const clearPanel = (): void => {
-    activeQuestDescSkillId = null;
-    setQuestDescPanelHtml("");
-  };
-
-  aside.addEventListener("pointerover", (e) => updateFromEventTarget(e.target));
-  aside.addEventListener("mouseover", (e) => updateFromEventTarget(e.target));
-
-  aside.addEventListener("pointerleave", clearPanel);
-  aside.addEventListener("mouseleave", clearPanel);
-
-  aside.addEventListener("focusin", (e) => updateFromEventTarget(e.target));
-
-  aside.addEventListener("focusout", (e) => {
-    const rt = (e as FocusEvent).relatedTarget;
-    if (rt instanceof Node && aside.contains(rt)) return;
-    clearPanel();
-  });
 }
 
 loadState();
@@ -1617,6 +1539,5 @@ window.addEventListener("resize", () => {
       if (n) positionTooltipNearSkill(n.getBoundingClientRect());
     }
     fitTooltipDynamicText();
-    fitQuestPanelDynamicText();
   }, 120);
 });

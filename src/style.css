@@ -710,21 +710,6 @@ header.planner-header h1 {
   max-width: 14rem;
   align-self: stretch;
   overflow: visible;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-.skill-panel--quest > .panel-title {
-  flex-shrink: 0;
-}
-
-.skill-panel--quest-body {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 .panel-title {
@@ -861,25 +846,6 @@ header.planner-header h1 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  flex-shrink: 0;
-}
-
-.quest-desc-panel {
-  box-sizing: border-box;
-  flex: 1 1 auto;
-  min-height: 6.5rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 0.5rem 0.55rem;
-  border-radius: 6px;
-  border: 1px solid rgba(140, 170, 210, 0.22);
-  background: rgba(0, 0, 0, 0.22);
-  font-size: 0.78rem;
-  color: #f2f4f8;
-  line-height: 1.45;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Grid item: only the skill box sizes the cell; prereq label is out of flow. */
@@ -1444,8 +1410,7 @@ header.planner-header h1 {
   pointer-events: auto;
 }
 
-.tooltip .tooltip-skill-title,
-.quest-desc-panel .tooltip-skill-title {
+.tooltip .tooltip-skill-title {
   margin: 0 0 0.4rem;
   font-size: 1rem;
   color: var(--accent);
@@ -1457,18 +1422,12 @@ header.planner-header h1 {
   overflow: hidden;
 }
 
-.quest-desc-panel .tooltip-skill-title {
-  font-size: 0.88rem;
-}
-
-.tooltip p,
-.quest-desc-panel p {
+.tooltip p {
   margin: 0;
   color: #e4e8ef;
 }
 
-.tooltip .tooltip-desc,
-.quest-desc-panel .tooltip-desc {
+.tooltip .tooltip-desc {
   white-space: normal;
   line-height: 1.5;
 }
@@ -1491,25 +1450,18 @@ header.planner-header h1 {
   line-height: 1.45;
 }
 
-.tooltip .tooltip-desc-key,
-.quest-desc-panel .tooltip-desc-key {
+.tooltip .tooltip-desc-key {
   font-weight: 700;
   color: #f0f4fc;
 }
 
-.tooltip .lvl-cap,
-.quest-desc-panel .lvl-cap {
+.tooltip .lvl-cap {
   margin-top: 0.45rem;
   font-size: 0.8rem;
   color: #c4cbd8;
 }
 
-.quest-desc-panel .lvl-cap {
-  font-size: 0.72rem;
-}
-
-.tooltip .prereq-hint,
-.quest-desc-panel .prereq-hint {
+.tooltip .prereq-hint {
   margin-top: 0.4rem;
   padding-top: 0.4rem;
   border-top: 1px solid rgba(150, 162, 180, 0.25);
@@ -1517,8 +1469,7 @@ header.planner-header h1 {
   color: #c8d0dc;
 }
 
-.tooltip .postreq-hint,
-.quest-desc-panel .postreq-hint {
+.tooltip .postreq-hint {
   margin-top: 0.4rem;
   padding-top: 0.4rem;
   border-top: 1px solid rgba(150, 162, 180, 0.25);
@@ -1526,13 +1477,7 @@ header.planner-header h1 {
   color: #d4c8b8;
 }
 
-.quest-desc-panel .prereq-hint,
-.quest-desc-panel .postreq-hint {
-  font-size: 0.72rem;
-}
-
-.tooltip .tooltip-hint-label,
-.quest-desc-panel .tooltip-hint-label {
+.tooltip .tooltip-hint-label {
   font-weight: 600;
   font-size: 0.7rem;
   letter-spacing: 0.04em;
@@ -1541,16 +1486,14 @@ header.planner-header h1 {
   color: inherit;
 }
 
-.tooltip .tooltip-skill-list,
-.quest-desc-panel .tooltip-skill-list {
+.tooltip .tooltip-skill-list {
   margin: 0;
   padding-left: 1.15rem;
   line-height: 1.45;
   list-style-type: disc;
 }
 
-.tooltip .tooltip-skill-list li,
-.quest-desc-panel .tooltip-skill-list li {
+.tooltip .tooltip-skill-list li {
   display: block;
   max-width: 100%;
   min-width: 0;
@@ -1559,13 +1502,11 @@ header.planner-header h1 {
   overflow: hidden;
 }
 
-.tooltip .tooltip-skill-list li::marker,
-.quest-desc-panel .tooltip-skill-list li::marker {
+.tooltip .tooltip-skill-list li::marker {
   color: var(--text-muted);
 }
 
-.tooltip .postreq-hint .tooltip-skill-list li::marker,
-.quest-desc-panel .postreq-hint .tooltip-skill-list li::marker {
+.tooltip .postreq-hint .tooltip-skill-list li::marker {
   color: #a89880;
 }
 
