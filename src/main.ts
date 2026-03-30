@@ -333,9 +333,9 @@ let plannerAppRoot: HTMLElement | null = null;
 /** When set, the skill tooltip stays visible and pinned until unlock (outside click or job change). */
 let tooltipLockedSkillId: string | null = null;
 
-function fillTooltipForSkill(skillId: string): boolean {
+function buildSkillDetailHtml(skillId: string): string | null {
   const skill = getSkill(skillId);
-  if (!skill) return false;
+  if (!skill) return null;
   const pre = prereqsFor(skillId);
   let preHtml = "";
   if (pre.length) {
@@ -361,14 +361,44 @@ function fillTooltipForSkill(skillId: string): boolean {
   const descHtml = skillDescriptionToHtml(
     stripLeadingDuplicateTitle(skill.description, skill.name),
   );
-  tooltip.innerHTML = `
+  return `
         <h3 class="tooltip-skill-title">${escapeHtml(skill.name)}</h3>
         <div class="tooltip-desc">${descHtml}</div>
         <div class="lvl-cap">Maximum level: ${skill.maxLevel}</div>
         ${preHtml}
         ${postHtml}
       `;
+}
+
+function fillTooltipForSkill(skillId: string): boolean {
+  const html = buildSkillDetailHtml(skillId);
+  if (!html) return false;
+  tooltip.innerHTML = html;
   return true;
+}
+
+
+function setQuestDescPanelHtml(html: string): void {
+  const el = document.getElementById("quest-skill-desc");
+  if (!el) return;
+  el.innerHTML = html;
+  fitQuestPanelDynamicText();
+}
+
+function showQuestDescForSkill(skillId: string): void {
+  const html = buildSkillDetailHtml(skillId);
+  if (html) setQuestDescPanelHtml(html);
+}
+
+function fitQuestPanelDynamicText(): void {
+  const panel = document.getElementById("quest-skill-desc");
+  if (!panel) return;
+  const rf = rootFontPx();
+  const t = panel.querySelector("h3.tooltip-skill-title");
+  if (t instanceof HTMLElement) fitSingleLineNoWrap(t, 0.62 * rf);
+  panel.querySelectorAll(".tooltip-skill-list li").forEach((li) => {
+    if (li instanceof HTMLElement) fitSingleLineNoWrap(li, 0.54 * rf);
+  });
 }
 
 function positionTooltipNearSkill(nodeRect: DOMRect): void {
@@ -496,9 +526,14 @@ function escapeHtml(s: string): string {
   return d.innerHTML;
 }
 
-const TOOLTIP_LV_LINE = /^\s*\[Lv\s*\d+\]:/i;
+const TOOLTIP_LV_LINE = /^\s*\[[Ll][Vv]\.?\s*\d+\]\s*:/i;
 const TOOLTIP_COMMENTS_LINE = /^\s*Comments:/i;
 const TOOLTIP_DESCRIPTION_LINE = /^\s*Description:/i;
+/** Lines like `[Lv 1]:`, `[100~81% SP]:`, `[Musical Lessons]:` */
+const TOOLTIP_BRACKET_LEADER = /^(\s*)(\[[^\]]+\]\s*:)(.*)$/;
+/** skilldescript header lines (also Range/Duration when on their own line) */
+const TOOLTIP_META_LABEL =
+  /^(\s*)(Max Level:|Requirement:|Skill Form:|Type:|Target:|Description:|Comments:|Range:|Duration:)\s*(.*)$/i;
 
 /** First line of skilldescript.lub is the skill name — same as the tooltip `<h3>`, so drop it. */
 function stripLeadingDuplicateTitle(description: string, title: string): string {
@@ -513,6 +548,22 @@ function stripLeadingDuplicateTitle(description: string, title: string): string 
     .slice(i + 1)
     .join("\n")
     .replace(/^\n+/, "");
+}
+
+function formatSkillDescriptionLine(raw: string): string {
+  const mBracket = raw.match(TOOLTIP_BRACKET_LEADER);
+  if (mBracket) {
+    return `${mBracket[1]}<strong class="tooltip-desc-key">${escapeHtml(
+      mBracket[2],
+    )}</strong>${escapeHtml(mBracket[3] ?? "")}`;
+  }
+  const mMeta = raw.match(TOOLTIP_META_LABEL);
+  if (mMeta) {
+    return `${mMeta[1]}<strong class="tooltip-desc-key">${escapeHtml(
+      mMeta[2],
+    )}</strong>${escapeHtml(mMeta[3] ?? "")}`;
+  }
+  return escapeHtml(raw);
 }
 
 /**
@@ -560,7 +611,7 @@ function skillDescriptionToHtml(description: string): string {
       beforeDescriptionBlock = false;
     }
 
-    out.push(escapeHtml(raw));
+    out.push(formatSkillDescriptionLine(raw));
     out.push("<br/>");
     i++;
   }
@@ -583,15 +634,19 @@ function mergeTranscendentIntoSecond(job: JobData): boolean {
   return shouldMergeTranscendentIntoSecondPanel(job);
 }
 
+/** Client trees use 7 columns; show the full width even when skills only occupy the left slots. */
+/** When a class panel has no skills, still render a grid (matches ~largest trees in data). */
+const SKILL_GRID_ROWS_WHEN_PANEL_EMPTY = 6;
+
+function effectiveSkillGridRows(panelSkills: SkillDef[]): number {
+  if (panelSkills.length === 0) return SKILL_GRID_ROWS_WHEN_PANEL_EMPTY;
+  return Math.max(1, ...panelSkills.map((s) => s.gridRow));
+}
+
 function fillEmptyGridSlots(grid: HTMLElement, panelSkills: SkillDef[]): void {
-  if (panelSkills.length === 0) return;
   const occupied = new Set(panelSkills.map((s) => `${s.gridCol},${s.gridRow}`));
-  let maxC = 1;
-  let maxR = 1;
-  for (const s of panelSkills) {
-    maxC = Math.max(maxC, s.gridCol);
-    maxR = Math.max(maxR, s.gridRow);
-  }
+  const maxC = GRID_COLS;
+  const maxR = effectiveSkillGridRows(panelSkills);
   for (let r = 1; r <= maxR; r++) {
     for (let c = 1; c <= maxC; c++) {
       if (occupied.has(`${c},${r}`)) continue;
@@ -646,16 +701,14 @@ function skillCell(skill: SkillDef): HTMLElement {
 function renderSkillGrid(panelSkills: SkillDef[]): HTMLElement {
   const grid = document.createElement("div");
   grid.className = "skill-grid";
-  let maxRow = 1;
   for (const skill of panelSkills) {
     const el = skillCell(skill);
     el.style.gridColumn = String(skill.gridCol);
     el.style.gridRow = String(skill.gridRow);
-    maxRow = Math.max(maxRow, skill.gridRow);
     grid.appendChild(el);
   }
   fillEmptyGridSlots(grid, panelSkills);
-  grid.style.gridTemplateRows = `repeat(${maxRow}, auto)`;
+  grid.style.gridTemplateRows = `repeat(${effectiveSkillGridRows(panelSkills)}, auto)`;
   return grid;
 }
 
@@ -736,7 +789,16 @@ function renderColumns(root: HTMLElement): void {
     for (const skill of skillsByColumn(questIdx)) {
       stack.appendChild(skillCell(skill));
     }
-    aside.appendChild(stack);
+    const questBody = document.createElement("div");
+    questBody.className = "skill-panel--quest-body";
+    questBody.appendChild(stack);
+    const questDesc = document.createElement("div");
+    questDesc.className = "quest-desc-panel";
+    questDesc.id = "quest-skill-desc";
+    questDesc.setAttribute("aria-live", "polite");
+    questDesc.innerHTML = "";
+    questBody.appendChild(questDesc);
+    aside.appendChild(questBody);
     body.appendChild(aside);
   }
 
@@ -1485,6 +1547,51 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
       if (tooltipLockedSkillId === id) unlockTooltip(root);
     });
   });
+
+  attachQuestSkillDescriptionPanel(root);
+}
+
+function attachQuestSkillDescriptionPanel(root: HTMLElement): void {
+  const aside = root.querySelector(".skill-panel--quest") as HTMLElement | null;
+  if (!aside || !document.getElementById("quest-skill-desc")) return;
+
+  /**
+   * Delegated hover/focus on the quest column. Do not use bubbling `pointerout`/`mouseout` to
+   * clear: `relatedTarget` is often null when moving between children, which immediately
+   * wiped the panel after `pointerover` updated it. `pointerleave`/`mouseleave` on the aside
+   * only fire when leaving the whole column (including the description area below).
+   */
+  let activeQuestDescSkillId: string | null = null;
+
+  const updateFromEventTarget = (t: EventTarget | null): void => {
+    if (!(t instanceof HTMLElement)) return;
+    const node = t.closest(".skill-node");
+    if (!(node instanceof HTMLElement) || !aside.contains(node)) return;
+    const id = node.dataset.skillId;
+    if (!id || !getSkill(id)) return;
+    if (activeQuestDescSkillId === id) return;
+    activeQuestDescSkillId = id;
+    showQuestDescForSkill(id);
+  };
+
+  const clearPanel = (): void => {
+    activeQuestDescSkillId = null;
+    setQuestDescPanelHtml("");
+  };
+
+  aside.addEventListener("pointerover", (e) => updateFromEventTarget(e.target));
+  aside.addEventListener("mouseover", (e) => updateFromEventTarget(e.target));
+
+  aside.addEventListener("pointerleave", clearPanel);
+  aside.addEventListener("mouseleave", clearPanel);
+
+  aside.addEventListener("focusin", (e) => updateFromEventTarget(e.target));
+
+  aside.addEventListener("focusout", (e) => {
+    const rt = (e as FocusEvent).relatedTarget;
+    if (rt instanceof Node && aside.contains(rt)) return;
+    clearPanel();
+  });
 }
 
 loadState();
@@ -1510,5 +1617,6 @@ window.addEventListener("resize", () => {
       if (n) positionTooltipNearSkill(n.getBoundingClientRect());
     }
     fitTooltipDynamicText();
+    fitQuestPanelDynamicText();
   }, 120);
 });
