@@ -1,4 +1,5 @@
 import "./style.css";
+import { inject } from "@vercel/analytics";
 import {
   listJobsGroupedForPicker,
   getJobData,
@@ -13,6 +14,9 @@ import {
   type PrereqEdge,
 } from "./planner-data";
 import { jobPreviewSpriteUrl } from "./job-previews";
+
+// Initialize Vercel Web Analytics
+inject();
 
 const STORAGE_KEY = "ro-planner-state-v2";
 const DEFAULT_JOB = "JT_PRIEST";

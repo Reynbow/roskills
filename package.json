@@ -16,5 +16,8 @@
     "iconv-lite": "^0.7.2",
     "typescript": "~5.9.3",
     "vite": "^8.0.1"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
