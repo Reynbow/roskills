@@ -891,12 +891,16 @@ header.planner-header h1 {
   border-bottom: none;
   border-radius: 8px 8px 0 0;
   box-shadow: var(--skill-tab-shadow);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow-x: hidden;
   z-index: 0;
-  pointer-events: none;
+}
+
+.skill-prereq-tab-line {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+  text-align: center;
+  overflow: hidden;
 }
 
 .skill-prereq-tab--none {
@@ -1278,6 +1282,10 @@ header.planner-header h1 {
 }
 
 .skill-node .name {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
   font-weight: 700;
   font-size: 0.8rem;
   line-height: 1.25;
@@ -1393,12 +1401,16 @@ header.planner-header h1 {
   display: none;
 }
 
-.tooltip h3 {
+.tooltip .tooltip-skill-title {
   margin: 0 0 0.4rem;
   font-size: 1rem;
   color: var(--accent);
   font-family: var(--font-display);
   font-weight: 700;
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .tooltip p {
@@ -1468,8 +1480,12 @@ header.planner-header h1 {
 }
 
 .tooltip .tooltip-skill-list li {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
   margin: 0.15rem 0;
   padding-left: 0.15rem;
+  overflow: hidden;
 }
 
 .tooltip .tooltip-skill-list li::marker {

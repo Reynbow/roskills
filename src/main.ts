@@ -327,6 +327,74 @@ function prereqsAllMet(skillId: string): boolean {
 
 const tooltip = document.querySelector("#tooltip") as HTMLElement;
 
+function rootFontPx(): number {
+  const n = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  return Number.isFinite(n) && n > 0 ? n : 16;
+}
+
+/**
+ * Keeps text on one line: uses stylesheet font-size when it fits; otherwise shrinks down to minPx.
+ * At minPx, ellipsis if it still overflows. Expects a width-bounded container (e.g. max-width: 100%).
+ */
+function fitSingleLineNoWrap(el: HTMLElement, minPx: number): void {
+  el.style.whiteSpace = "nowrap";
+  el.style.textOverflow = "";
+  el.style.fontSize = "";
+  if (el.clientWidth <= 0) return;
+
+  const maxPx = parseFloat(getComputedStyle(el).fontSize);
+  if (!Number.isFinite(maxPx) || maxPx <= 0) return;
+
+  const fitsAt = (px: number): boolean => {
+    el.style.fontSize = `${px}px`;
+    return el.scrollWidth <= el.clientWidth + 0.5;
+  };
+
+  if (fitsAt(maxPx)) {
+    el.style.fontSize = "";
+    return;
+  }
+
+  let lo = minPx;
+  let hi = maxPx;
+  if (!fitsAt(lo)) {
+    el.style.fontSize = `${minPx}px`;
+    el.style.textOverflow = "ellipsis";
+    return;
+  }
+
+  for (let i = 0; i < 26; i++) {
+    const mid = (lo + hi) / 2;
+    if (fitsAt(mid)) lo = mid;
+    else hi = mid;
+  }
+  el.style.fontSize = `${lo}px`;
+}
+
+function scheduleFitSkillText(root: HTMLElement): void {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const rf = rootFontPx();
+      root.querySelectorAll(".skill-node .name").forEach((n) => {
+        if (n instanceof HTMLElement) fitSingleLineNoWrap(n, 0.52 * rf);
+      });
+      root.querySelectorAll(".skill-prereq-tab-line").forEach((n) => {
+        if (n instanceof HTMLElement) fitSingleLineNoWrap(n, 0.46 * rf);
+      });
+    });
+  });
+}
+
+function fitTooltipDynamicText(): void {
+  if (tooltip.hidden) return;
+  const rf = rootFontPx();
+  const t = tooltip.querySelector("h3.tooltip-skill-title");
+  if (t instanceof HTMLElement) fitSingleLineNoWrap(t, 0.62 * rf);
+  tooltip.querySelectorAll(".tooltip-skill-list li").forEach((li) => {
+    if (li instanceof HTMLElement) fitSingleLineNoWrap(li, 0.54 * rf);
+  });
+}
+
 function escapeHtml(s: string): string {
   const d = document.createElement("div");
   d.textContent = s;
@@ -442,15 +510,17 @@ function fillEmptyGridSlots(grid: HTMLElement, panelSkills: SkillDef[]): void {
   }
 }
 
-function formatPrereqTabLine(skillId: string): string {
+function formatPrereqTabLines(skillId: string): { display: string; aria: string } {
   const pre = prereqsFor(skillId);
-  if (!pre.length) return "";
-  return pre
-    .map((p) => {
-      const n = getSkill(p.fromId)?.name ?? p.fromId;
-      return `${n} ${p.requiredLevel}`;
-    })
-    .join(" · ");
+  if (!pre.length) return { display: "", aria: "" };
+  const lines = pre.map((p) => {
+    const n = getSkill(p.fromId)?.name ?? p.fromId;
+    return `${n} ${p.requiredLevel}`;
+  });
+  return {
+    display: lines.join("\n"),
+    aria: lines.join(", "),
+  };
 }
 
 /** Grid cell: optional prereq tab above the skill card. */
@@ -459,13 +529,19 @@ function skillCell(skill: SkillDef): HTMLElement {
   cell.className = "skill-cell";
   const tab = document.createElement("div");
   tab.className = "skill-prereq-tab";
-  const line = formatPrereqTabLine(skill.id);
-  if (!line) {
+  const { display, aria } = formatPrereqTabLines(skill.id);
+  if (!display) {
     tab.classList.add("skill-prereq-tab--none");
     tab.setAttribute("aria-hidden", "true");
   } else {
-    tab.textContent = line;
-    tab.setAttribute("aria-label", `Prerequisites: ${line}`);
+    tab.textContent = "";
+    for (const line of display.split("\n")) {
+      const lineEl = document.createElement("span");
+      lineEl.className = "skill-prereq-tab-line";
+      lineEl.textContent = line;
+      tab.appendChild(lineEl);
+    }
+    tab.setAttribute("aria-label", `Prerequisites: ${aria}`);
   }
   cell.appendChild(tab);
   cell.appendChild(skillNodeEl(skill));
@@ -569,6 +645,7 @@ function renderColumns(root: HTMLElement): void {
 
   board.appendChild(body);
   attachSkillInteractionHandlers(root);
+  scheduleFitSkillText(root);
 }
 
 function setJobPickerSprite(spriteEl: HTMLElement, url: string | undefined, label: string): void {
@@ -1296,7 +1373,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
         stripLeadingDuplicateTitle(skill.description, skill.name),
       );
       tooltip.innerHTML = `
-        <h3>${escapeHtml(skill.name)}</h3>
+        <h3 class="tooltip-skill-title">${escapeHtml(skill.name)}</h3>
         <div class="tooltip-desc">${descHtml}</div>
         <div class="lvl-cap">Maximum level: ${skill.maxLevel}</div>
         ${preHtml}
@@ -1308,6 +1385,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
       fillTooltip();
       tooltip.hidden = false;
       moveTooltip({ clientX, clientY });
+      fitTooltipDynamicText();
     };
 
     node.addEventListener("mouseenter", (ev) => {
@@ -1372,4 +1450,14 @@ if (fromShare) {
 } else {
   applyJob(currentJob);
 }
-renderApp(document.querySelector("#app")!);
+const appRoot = document.querySelector("#app") as HTMLElement;
+renderApp(appRoot);
+
+let textFitResizeTimer: ReturnType<typeof setTimeout> | undefined;
+window.addEventListener("resize", () => {
+  window.clearTimeout(textFitResizeTimer);
+  textFitResizeTimer = window.setTimeout(() => {
+    scheduleFitSkillText(appRoot);
+    fitTooltipDynamicText();
+  }, 120);
+});
