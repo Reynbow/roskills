@@ -8,6 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.tmp-zrender-sit
+.tmp-zt
+.tmp-zt2
+third_party/zrenderer-win
+third_party/zrenderer
 dist
 .vercel
 dist-ssr
@@ -23,3 +28,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.vercel

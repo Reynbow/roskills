@@ -10,7 +10,12 @@
     "prebuild": "node scripts/import-skillinfo.mjs",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "setup:zrenderer": "node scripts/download-zrenderer.mjs",
+    "render:job-sit": "node scripts/render-job-sit-sprites.mjs",
+    "render:job-sit:print": "node scripts/render-job-sit-sprites.mjs --print-only",
+    "render:job-sit:skip": "node scripts/render-job-sit-sprites.mjs --skip-existing",
+    "fix:ro-sprite-names": "node scripts/fix-ro-sprite-cp949-names.mjs"
   },
   "devDependencies": {
     "iconv-lite": "^0.7.2",

@@ -4,6 +4,10 @@
  */
 const JOB_PREVIEW_BY_KEY: Record<string, string> = {
   JT_NOVICE: "https://irowiki.org/w/images/f/f4/Novice.png",
+  JT_SUPERNOVICE: "https://irowiki.org/w/images/4/49/Super_Novice.png",
+  JT_TAEKWON: "https://irowiki.org/w/images/8/8a/TaeKwon_Kid.png",
+  JT_NINJA: "https://irowiki.org/w/images/2/21/Ninja.png",
+  JT_GUNSLINGER: "https://irowiki.org/w/images/c/c2/Gunslinger.png",
   JT_SWORDMAN: "https://irowiki.org/w/images/9/9b/Swordman.png",
   JT_MAGICIAN: "https://irowiki.org/w/images/2/20/Mage.png",
   JT_ARCHER: "https://irowiki.org/w/images/2/29/Archer.png",

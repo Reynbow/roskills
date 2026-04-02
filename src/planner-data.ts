@@ -71,11 +71,20 @@ export function isQuestColumnTitle(title: string): boolean {
   return /quest|special/i.test(title);
 }
 
+/** Novice → expanded (SN / TK / Ninja / GS) → standard 1st / 2nd / transcendent lines. */
+const EXPANDED_CLASS_KEYS = new Set([
+  "JT_SUPERNOVICE",
+  "JT_TAEKWON",
+  "JT_NINJA",
+  "JT_GUNSLINGER",
+]);
+
 /** Row in the class picker tier (from number of non-quest skill columns). */
 export function jobPickerGroup(
   jobKey: string,
-): "novice" | "firstClass" | "secondClass" | "transcendent" {
+): "novice" | "expandedClass" | "firstClass" | "secondClass" | "transcendent" {
   if (jobKey === "JT_NOVICE") return "novice";
+  if (EXPANDED_CLASS_KEYS.has(jobKey)) return "expandedClass";
   const j = DATA.jobs[jobKey];
   if (!j) return "secondClass";
   const n = j.columns.filter((c) => !isQuestColumnTitle(c.title)).length;
@@ -85,6 +94,13 @@ export function jobPickerGroup(
 }
 
 /** First class: one row of 6 in a 7-col grid (last column empty). */
+const EXPANDED_CLASS_PICKER_ORDER = [
+  "JT_SUPERNOVICE",
+  "JT_TAEKWON",
+  "JT_NINJA",
+  "JT_GUNSLINGER",
+] as const;
+
 const FIRST_CLASS_PICKER_ORDER = [
   "JT_SWORDMAN",
   "JT_MAGICIAN",
@@ -164,10 +180,43 @@ export type JobPickerSection = {
   jobRows?: { key: string; label: string }[][];
 };
 
-/** Jobs split into Novice → first → second → transcendent blocks for the picker modal. */
-export function listJobsGroupedForPicker(): JobPickerSection[] {
+function sectionHasJobs(g: JobPickerSection): boolean {
+  return (
+    (g.jobs != null && g.jobs.length > 0) ||
+    (g.jobRows != null && g.jobRows.some((r) => r.length > 0))
+  );
+}
+
+function jobKeysForPickerSections(sections: JobPickerSection[]): string[] {
+  const keys: string[] = [];
+  for (const s of sections) {
+    if (s.jobs) for (const j of s.jobs) keys.push(j.key);
+    if (s.jobRows)
+      for (const row of s.jobRows) for (const j of row) if (j) keys.push(j.key);
+  }
+  return keys;
+}
+
+export type JobPickerTabDef = {
+  id: string;
+  label: string;
+  /** Subsections inside this tab (Novice / First class / …). */
+  sections: JobPickerSection[];
+  /** Job keys in this tab (used to open the tab that contains the current class). */
+  jobKeys: readonly string[];
+};
+
+/**
+ * Class picker modal: three tabs — base (novice + 1st + 2nd), transcendent, expanded classes.
+ * Tabs with no content are omitted.
+ */
+export function listJobPickerTabs(): JobPickerTabDef[] {
   const all = listJobs();
   const novice = all.filter((j) => jobPickerGroup(j.key) === "novice");
+  const expandedClass = sortJobsByKeyOrder(
+    all.filter((j) => jobPickerGroup(j.key) === "expandedClass"),
+    EXPANDED_CLASS_PICKER_ORDER,
+  );
   const firstClass = sortJobsByKeyOrder(
     all.filter((j) => jobPickerGroup(j.key) === "firstClass"),
     FIRST_CLASS_PICKER_ORDER,
@@ -184,12 +233,43 @@ export function listJobsGroupedForPicker(): JobPickerSection[] {
   const transRows = TRANSCENDENT_PICKER_ROWS.map((row) =>
     row.map((k) => transByKey.get(k)).filter((j): j is (typeof all)[number] => j != null),
   );
-  return [
+
+  const baseSections: JobPickerSection[] = [
     { heading: "Novice", jobs: novice },
     { heading: "First class", jobs: firstClass },
     { heading: "Second class", jobRows: secondRows },
+  ].filter(sectionHasJobs);
+
+  const transcendentSections: JobPickerSection[] = [
     { heading: "Transcendent", jobRows: transRows },
+  ].filter(sectionHasJobs);
+
+  const expandedSections: JobPickerSection[] = [
+    { heading: "Expanded class", jobs: expandedClass },
+  ].filter(sectionHasJobs);
+
+  const tabs: JobPickerTabDef[] = [
+    {
+      id: "base",
+      label: "Base classes",
+      sections: baseSections,
+      jobKeys: jobKeysForPickerSections(baseSections),
+    },
+    {
+      id: "transcendent",
+      label: "Transcendent",
+      sections: transcendentSections,
+      jobKeys: jobKeysForPickerSections(transcendentSections),
+    },
+    {
+      id: "expanded",
+      label: "Expanded",
+      sections: expandedSections,
+      jobKeys: jobKeysForPickerSections(expandedSections),
+    },
   ];
+
+  return tabs.filter((t) => t.sections.length > 0);
 }
 
 export function getJobData(jobKey: string): JobData | undefined {

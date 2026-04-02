@@ -1,7 +1,7 @@
 import "./style.css";
 import { inject } from "@vercel/analytics";
 import {
-  listJobsGroupedForPicker,
+  listJobPickerTabs,
   getJobData,
   buildSkillsForJob,
   getEdgesForJob,
@@ -10,10 +10,13 @@ import {
   isQuestColumnTitle,
   shouldMergeTranscendentIntoSecondPanel,
   type JobData,
+  type JobPickerSection,
+  type JobPickerTabDef,
   type SkillDef,
   type PrereqEdge,
 } from "./planner-data";
 import { jobPreviewSpriteUrl } from "./job-previews";
+import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl } from "./job-sit-sprite";
 
 // Initialize Vercel Web Analytics
 inject();
@@ -28,6 +31,12 @@ function skillIconUrl(skidId: number): string {
 
 /** Skill points per tree column when tiers are separate: merged novice+1st, 2nd, third (quest/special excluded). */
 const CLASS_SKILL_CAPS: readonly number[] = [49, 50, 50];
+
+/** Single merged-column jobs that use a non-default tier-0 class point cap (rest use CLASS_SKILL_CAPS[0]). */
+const TIER0_CLASS_CAP_OVERRIDE: Partial<Record<string, number>> = {
+  /** Super Novice: large pool for novice + cross-class skills (approximate for pre-re; tune per server). */
+  JT_SUPERNOVICE: 200,
+};
 
 /** Transcendent jobs: second + transcendent columns share one pool (replaces separate 50+50). */
 const TRANSCENDENT_COMBINED_SECOND_CAP = 70;
@@ -225,8 +234,13 @@ function getContentColumnIndices(job: JobData): number[] {
 function capForClassTier(tierIndex: number): number {
   const job = getJobData(currentJob);
   if (job && shouldMergeTranscendentIntoSecondPanel(job)) {
-    if (tierIndex === 0) return CLASS_SKILL_CAPS[0]!;
+    if (tierIndex === 0) {
+      return TIER0_CLASS_CAP_OVERRIDE[job.key] ?? CLASS_SKILL_CAPS[0]!;
+    }
     return TRANSCENDENT_COMBINED_SECOND_CAP;
+  }
+  if (tierIndex === 0 && job && TIER0_CLASS_CAP_OVERRIDE[job.key] != null) {
+    return TIER0_CLASS_CAP_OVERRIDE[job.key]!;
   }
   return CLASS_SKILL_CAPS[Math.min(tierIndex, CLASS_SKILL_CAPS.length - 1)]!;
 }
@@ -382,9 +396,8 @@ function buildSkillDetailHtml(skillId: string): string | null {
       .join("");
     postHtml = `<div class="postreq-hint"><div class="tooltip-hint-label">Used by</div><ul class="tooltip-skill-list">${items}</ul></div>`;
   }
-  const descHtml = skillDescriptionToHtml(
-    stripLeadingDuplicateTitle(skill.description, skill.name),
-  );
+  const descRaw = stripLeadingDuplicateTitle(skill.description, skill.name);
+  const descHtml = skillDescriptionToHtml(descRaw);
   return `
         <h3 class="tooltip-skill-title">${escapeHtml(skill.name)}</h3>
         <div class="tooltip-desc">${descHtml}</div>
@@ -535,6 +548,108 @@ const TOOLTIP_BRACKET_LEADER = /^(\s*)(\[[^\]]+\]\s*:)(.*)$/;
 const TOOLTIP_META_LABEL =
   /^(\s*)(Max Level:|Requirement:|Skill Form:|Type:|Target:|Description:|Comments:|Range:|Duration:)\s*(.*)$/i;
 
+type TooltipHit = { start: number; end: number; cls: string; text: string };
+
+function rangesOverlap(
+  a: { start: number; end: number },
+  b: { start: number; end: number },
+): boolean {
+  return a.start < b.end && a.end > b.start;
+}
+
+/** Wrap stats, %, elements, etc. in spans (single pass, no nested re-matches). */
+function highlightTooltipPlain(escapedLine: string): string {
+  const patterns: { re: RegExp; cls: string }[] = [
+    { re: /\bAfter Cast Delay\b/gi, cls: "tooltip-hl-mechanic" },
+    { re: /\bCast Time\b/gi, cls: "tooltip-hl-mechanic" },
+    { re: /\b(?:Fixed Cast Time|Variable Cast Time)\b/gi, cls: "tooltip-hl-mechanic" },
+    { re: /\b(?:Neutral|Fire|Water|Wind|Earth|Holy|Shadow|Ghost|Poison|Undead)\b/g, cls: "tooltip-hl-elem" },
+    { re: /\d+(?:\.\d+)?%/g, cls: "tooltip-hl-pct" },
+    {
+      re: /\b(?:MATK|MDEF|HIT|DEF|VIT|INT|DEX|LUK|AGI|ATK|ASPD|CRIT)\b/gi,
+      cls: "tooltip-hl-stat",
+    },
+    { re: /\b(?:SP|HP)\b/g, cls: "tooltip-hl-res" },
+    { re: /\b(?:Lv\.?|Level)\s*\d+\b/gi, cls: "tooltip-hl-lvref" },
+    { re: /\d+(?:\.\d+)?\s+sec(?:onds?)?\b/gi, cls: "tooltip-hl-time" },
+  ];
+
+  const hits: TooltipHit[] = [];
+  for (const { re, cls } of patterns) {
+    const r = new RegExp(re.source, re.flags.includes("g") ? re.flags : `${re.flags}g`);
+    let m: RegExpExecArray | null;
+    while ((m = r.exec(escapedLine))) {
+      hits.push({
+        start: m.index,
+        end: m.index + m[0].length,
+        cls,
+        text: m[0],
+      });
+    }
+  }
+
+  hits.sort((a, b) => {
+    const la = a.end - a.start;
+    const lb = b.end - b.start;
+    if (lb !== la) return lb - la;
+    return a.start - b.start;
+  });
+
+  const chosen: TooltipHit[] = [];
+  for (const h of hits) {
+    if (chosen.some((c) => rangesOverlap(h, c))) continue;
+    chosen.push(h);
+  }
+  chosen.sort((a, b) => a.start - b.start);
+
+  let out = "";
+  let pos = 0;
+  for (const h of chosen) {
+    out += escapedLine.slice(pos, h.start);
+    out += `<span class="${h.cls}">${h.text}</span>`;
+    pos = h.end;
+  }
+  out += escapedLine.slice(pos);
+  return out;
+}
+
+function metaLabelKey(labelWithColon: string): string {
+  return labelWithColon.replace(/:\s*$/, "").trim().toLowerCase();
+}
+
+function metaValueWrapperClass(labelKey: string, rawValue: string): string | null {
+  const v = rawValue.toLowerCase();
+  if (labelKey === "type") {
+    if (/\bmagical\b|\bmagic\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--magic";
+    if (/\bphysical\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--phys";
+    if (/\brecovery\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--heal";
+    if (/\bdebuff\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--debuff";
+    if (/\bsupportive\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--support";
+    if (/\bcrafting\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--craft";
+    if (/\boffensive\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--offense";
+    return null;
+  }
+  if (labelKey === "skill form") {
+    if (/\bpassive\b/.test(v)) return "tooltip-meta-form tooltip-meta-form--passive";
+    if (/\bactive\b/.test(v)) return "tooltip-meta-form tooltip-meta-form--active";
+    return null;
+  }
+  if (labelKey === "target") {
+    if (/\bcaster\b|\bself\b/.test(v)) return "tooltip-meta-target tooltip-meta-target--self";
+    if (/\benemy\b|\bfoes?\b/.test(v)) return "tooltip-meta-target tooltip-meta-target--enemy";
+    return null;
+  }
+  return null;
+}
+
+function formatMetaLineValue(labelWithColon: string, valueRaw: string): string {
+  const key = metaLabelKey(labelWithColon);
+  const inner = highlightTooltipPlain(escapeHtml(valueRaw));
+  const wrap = metaValueWrapperClass(key, valueRaw);
+  if (wrap) return `<span class="${wrap}">${inner}</span>`;
+  return inner;
+}
+
 /** First line of skilldescript.lub is the skill name — same as the tooltip `<h3>`, so drop it. */
 function stripLeadingDuplicateTitle(description: string, title: string): string {
   const norm = (s: string) => s.trim().toLowerCase();
@@ -553,17 +668,31 @@ function stripLeadingDuplicateTitle(description: string, title: string): string 
 function formatSkillDescriptionLine(raw: string): string {
   const mBracket = raw.match(TOOLTIP_BRACKET_LEADER);
   if (mBracket) {
-    return `${mBracket[1]}<strong class="tooltip-desc-key">${escapeHtml(
-      mBracket[2],
-    )}</strong>${escapeHtml(mBracket[3] ?? "")}`;
+    const isLv = /^\s*\[[Ll][Vv]\.?\s*\d+\]\s*:\s*$/i.test(mBracket[2] ?? "");
+    const keyClass = isLv
+      ? "tooltip-desc-key tooltip-desc-key--lv"
+      : "tooltip-desc-key tooltip-desc-key--tag";
+    const tail = highlightTooltipPlain(escapeHtml(mBracket[3] ?? ""));
+    return `${mBracket[1]}<strong class="${keyClass}">${escapeHtml(
+      mBracket[2] ?? "",
+    )}</strong>${tail}`;
   }
   const mMeta = raw.match(TOOLTIP_META_LABEL);
   if (mMeta) {
-    return `${mMeta[1]}<strong class="tooltip-desc-key">${escapeHtml(
-      mMeta[2],
-    )}</strong>${escapeHtml(mMeta[3] ?? "")}`;
+    const label = mMeta[2] ?? "";
+    const labelKey = metaLabelKey(label);
+    const keyClass =
+      labelKey === "comments"
+        ? "tooltip-desc-key tooltip-desc-key--comments"
+        : labelKey === "description"
+          ? "tooltip-desc-key tooltip-desc-key--desc"
+          : "tooltip-desc-key tooltip-desc-key--meta";
+    const valueHtml = formatMetaLineValue(label, mMeta[3] ?? "");
+    return `${mMeta[1]}<strong class="${keyClass}">${escapeHtml(
+      label,
+    )}</strong>${valueHtml}`;
   }
-  return escapeHtml(raw);
+  return highlightTooltipPlain(escapeHtml(raw));
 }
 
 /**
@@ -717,6 +846,9 @@ function renderColumns(root: HTMLElement): void {
   const job = getJobData(currentJob);
   if (!board || !job) return;
 
+  const sitDockPreserve = root.querySelector("#job-sit-dock");
+  sitDockPreserve?.remove();
+
   unlockTooltip(root);
 
   board.innerHTML = "";
@@ -790,7 +922,14 @@ function renderColumns(root: HTMLElement): void {
       stack.appendChild(skillCell(skill));
     }
     aside.appendChild(stack);
+    if (sitDockPreserve) aside.appendChild(sitDockPreserve);
     body.appendChild(aside);
+  } else {
+    const treeWrap = root.querySelector("#tree-wrap");
+    if (sitDockPreserve && treeWrap) {
+      treeWrap.appendChild(sitDockPreserve);
+      sitDockPreserve.classList.add("job-sit-dock--hidden");
+    }
   }
 
   board.appendChild(body);
@@ -833,6 +972,53 @@ function syncJobPickerUi(root: HTMLElement): void {
     if (on) btn.setAttribute("aria-current", "true");
     else btn.removeAttribute("aria-current");
   });
+
+  const sitDock = root.querySelector("#job-sit-dock") as HTMLElement | null;
+  const sitImg = root.querySelector("#job-sit-sprite-img") as HTMLImageElement | null;
+  if (sitDock && sitImg) {
+    const inQuestPanel = sitDock.closest(".skill-panel--quest");
+    if (!inQuestPanel) {
+      sitDock.classList.add("job-sit-dock--hidden");
+      delete sitImg.dataset.sitForJob;
+      return;
+    }
+
+    if (sitImg.dataset.sitForJob === currentJob) return;
+    sitImg.dataset.sitForJob = currentJob;
+
+    const localSit = jobSitLocalPngUrl(currentJob);
+    const portrait = jobSitPortraitFallbackUrl(currentJob);
+    sitDock.classList.remove("job-sit-dock--hidden");
+    sitImg.classList.add("job-sit-dock__img--loading");
+    sitImg.classList.remove("job-sit-dock__img--fail");
+    sitImg.referrerPolicy = "no-referrer";
+    sitImg.decoding = "async";
+
+    const finishOk = (): void => {
+      sitImg.classList.remove("job-sit-dock__img--loading");
+      sitDock.classList.remove("job-sit-dock--hidden");
+    };
+    const tryPortrait = (): void => {
+      if (!portrait) {
+        finishOk();
+        sitDock.classList.add("job-sit-dock--hidden");
+        sitImg.removeAttribute("src");
+        return;
+      }
+      sitImg.onload = finishOk;
+      sitImg.onerror = (): void => {
+        finishOk();
+        sitDock.classList.add("job-sit-dock--hidden");
+      };
+      sitImg.src = portrait;
+    };
+
+    sitImg.onload = finishOk;
+    sitImg.onerror = (): void => {
+      tryPortrait();
+    };
+    sitImg.src = localSit;
+  }
 }
 
 type JobPickerPick = { key: string; label: string };
@@ -886,38 +1072,95 @@ function jobPickerRowHtml(row: JobPickerPick[]): string {
   return parts.join("");
 }
 
+function jobPickerSectionHtml(g: JobPickerSection, sid: string): string {
+  const labelEsc = escapeHtml(g.heading);
+  if (g.jobRows?.length) {
+    const grids = g.jobRows
+      .map((row, ri) => {
+        if (row.length === 0) return "";
+        const cards = jobPickerRowHtml(row);
+        return `<div class="job-picker-grid" role="group" aria-label="${labelEsc}, row ${ri + 1}">${cards}</div>`;
+      })
+      .join("");
+    return `<section class="job-picker-section" aria-labelledby="${sid}">
+        <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
+        <div class="job-picker-row-stack">${grids}</div>
+      </section>`;
+  }
+  const cards = jobPickerRowHtml(g.jobs ?? []);
+  return `<section class="job-picker-section" aria-labelledby="${sid}">
+        <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
+        <div class="job-picker-grid" role="group" aria-label="${labelEsc}">${cards}</div>
+      </section>`;
+}
+
+function jobPickerSectionsHtml(sections: JobPickerSection[], idPrefix: string): string {
+  const filtered = sections.filter(
+    (g) =>
+      (g.jobs != null && g.jobs.length > 0) ||
+      (g.jobRows != null && g.jobRows.some((r) => r.length > 0)),
+  );
+  return filtered.map((g, i) => jobPickerSectionHtml(g, `${idPrefix}-sec-${i}`)).join("");
+}
+
+function jobPickerTabIdForJob(tabs: JobPickerTabDef[], jobKey: string): string {
+  const hit = tabs.find((t) => t.jobKeys.includes(jobKey));
+  return hit?.id ?? tabs[0]!.id;
+}
+
+function applyJobPickerTab(root: HTMLElement, activeId: string): void {
+  root.querySelectorAll(".job-picker-tab").forEach((btn) => {
+    const el = btn as HTMLButtonElement;
+    const id = el.dataset.jobPickerTab;
+    if (!id) return;
+    const on = id === activeId;
+    el.setAttribute("aria-selected", on ? "true" : "false");
+    el.tabIndex = on ? 0 : -1;
+    el.classList.toggle("job-picker-tab--active", on);
+    const panel = root.querySelector(`#job-picker-panel-${id}`);
+    if (panel instanceof HTMLElement) {
+      if (on) panel.removeAttribute("hidden");
+      else panel.setAttribute("hidden", "");
+    }
+  });
+}
+
 function renderApp(root: HTMLElement): void {
   plannerAppRoot = root;
   ensureTooltipUnlockClickListener();
 
-  const grouped = listJobsGroupedForPicker();
-  const jobPickerSections = grouped
-    .filter(
-      (g) =>
-        (g.jobs != null && g.jobs.length > 0) ||
-        (g.jobRows != null && g.jobRows.some((r) => r.length > 0)),
-    )
-    .map((g, i) => {
-      const sid = `job-picker-sec-${i}`;
-      const labelEsc = escapeHtml(g.heading);
-      if (g.jobRows?.length) {
-        const grids = g.jobRows
-          .map((row, ri) => {
-            if (row.length === 0) return "";
-            const cards = jobPickerRowHtml(row);
-            return `<div class="job-picker-grid" role="group" aria-label="${labelEsc}, row ${ri + 1}">${cards}</div>`;
+  const pickerTabs = listJobPickerTabs();
+  const initialTabId = jobPickerTabIdForJob(pickerTabs, currentJob);
+
+  const tablistHtml =
+    pickerTabs.length > 1
+      ? `<div class="job-picker-tablist" role="tablist" aria-label="Class category">${pickerTabs
+          .map((t) => {
+            const active = t.id === initialTabId;
+            const baseAria =
+              t.id === "base"
+                ? ` aria-label="Novice, first class, and second class"`
+                : "";
+            return `<button type="button" class="job-picker-tab${active ? " job-picker-tab--active" : ""}" role="tab"
+            id="job-picker-tab-${t.id}" data-job-picker-tab="${escapeHtml(t.id)}"
+            aria-selected="${active ? "true" : "false"}"
+            aria-controls="job-picker-panel-${escapeHtml(t.id)}"
+            tabindex="${active ? "0" : "-1"}"${baseAria}>${escapeHtml(t.label)}</button>`;
           })
-          .join("");
-        return `<section class="job-picker-section" aria-labelledby="${sid}">
-        <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
-        <div class="job-picker-row-stack">${grids}</div>
-      </section>`;
-      }
-      const cards = jobPickerRowHtml(g.jobs ?? []);
-      return `<section class="job-picker-section" aria-labelledby="${sid}">
-        <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
-        <div class="job-picker-grid" role="group" aria-label="${labelEsc}">${cards}</div>
-      </section>`;
+          .join("")}</div>`
+      : "";
+
+  const panelsHtml = pickerTabs
+    .map((t) => {
+      const active = t.id === initialTabId;
+      const inner = jobPickerSectionsHtml(t.sections, `job-picker-${t.id}`);
+      const labelled =
+        pickerTabs.length > 1
+          ? `aria-labelledby="job-picker-tab-${escapeHtml(t.id)}"`
+          : `aria-labelledby="job-picker-dialog-title"`;
+      return `<div class="job-picker-tabpanel job-picker-body" role="tabpanel" id="job-picker-panel-${escapeHtml(
+        t.id,
+      )}" ${labelled}${active ? "" : " hidden"}>${inner}</div>`;
     })
     .join("");
 
@@ -973,6 +1216,9 @@ function renderApp(root: HTMLElement): void {
     </div>
     <div class="tree-wrap" id="tree-wrap">
       <div class="tree-board" id="tree-board"></div>
+      <div class="job-sit-dock" id="job-sit-dock" aria-hidden="true">
+        <img class="job-sit-dock__img" id="job-sit-sprite-img" alt="" width="120" height="120" />
+      </div>
     </div>
     <dialog class="job-picker-dialog" id="job-picker-dialog" aria-labelledby="job-picker-dialog-title">
       <div class="job-picker-dialog-panel">
@@ -980,9 +1226,12 @@ function renderApp(root: HTMLElement): void {
           <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">Choose class</h2>
           <button type="button" class="job-picker-close" aria-label="Close class picker">×</button>
         </div>
-        <div class="job-picker-dialog-scroll">
-          <div class="job-picker-body" id="job-picker-body" role="region" aria-label="Character classes by tier">
-            ${jobPickerSections}
+        <div class="job-picker-tabs">
+          ${tablistHtml}
+          <div class="job-picker-dialog-scroll">
+            <div id="job-picker-body" role="region" aria-label="Character classes">
+              ${panelsHtml}
+            </div>
           </div>
         </div>
       </div>
@@ -1015,12 +1264,51 @@ function renderApp(root: HTMLElement): void {
   }
 
   trigger.addEventListener("click", () => {
+    applyJobPickerTab(root, jobPickerTabIdForJob(listJobPickerTabs(), currentJob));
     dialog.showModal();
     trigger.setAttribute("aria-expanded", "true");
     requestAnimationFrame(() => {
       const cur = root.querySelector(".job-picker-card--current") as HTMLElement | null;
       (cur ?? root.querySelector(".job-picker-close"))?.focus();
     });
+  });
+
+  const tablist = root.querySelector(".job-picker-tablist");
+  tablist?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest(".job-picker-tab") as HTMLButtonElement | null;
+    const id = btn?.dataset.jobPickerTab;
+    if (!id) return;
+    applyJobPickerTab(root, id);
+    btn.focus();
+  });
+
+  tablist?.addEventListener("keydown", (ev) => {
+    const e = ev as KeyboardEvent;
+    const tabs = [...root.querySelectorAll(".job-picker-tab")] as HTMLButtonElement[];
+    if (tabs.length < 2) return;
+    const ix = tabs.findIndex((b) => b.getAttribute("aria-selected") === "true");
+    if (ix < 0) return;
+    let next = ix;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      next = (ix + 1) % tabs.length;
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      next = (ix - 1 + tabs.length) % tabs.length;
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      next = 0;
+    } else if (e.key === "End") {
+      e.preventDefault();
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    const id = tabs[next]?.dataset.jobPickerTab;
+    if (id) {
+      applyJobPickerTab(root, id);
+      tabs[next]?.focus();
+    }
   });
 
   dialog.addEventListener("close", () => {

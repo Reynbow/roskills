@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-30T23:07:27.393Z",
+  "generated": "2026-04-02T14:54:33.782Z",
   "source": "skillinfo/*.lua + skilldescript.lub (English descriptions) + rAthena skill_db.yml (names / fallback)",
   "jobs": {
     "JT_NOVICE": {
@@ -50,6 +50,1746 @@
         }
       },
       "edges": []
+    },
+    "JT_SUPERNOVICE": {
+      "key": "JT_SUPERNOVICE",
+      "label": "Super Novice",
+      "columns": [
+        {
+          "title": "Super Novice",
+          "skillIds": [
+            "nv_basic",
+            "sm_sword",
+            "sm_bash",
+            "sm_provoke",
+            "tf_double",
+            "tf_steal",
+            "tf_poison",
+            "sm_recovery",
+            "sm_magnum",
+            "sm_endure",
+            "tf_miss",
+            "tf_hiding",
+            "tf_detoxify",
+            "mg_srecovery",
+            "al_holywater",
+            "mc_inccarry",
+            "mg_coldbolt",
+            "mg_lightningbolt",
+            "mg_firebolt",
+            "mg_napalmbeat",
+            "al_dp",
+            "mg_stonecurse",
+            "mc_discount",
+            "mg_frostdiver",
+            "mg_thunderstorm",
+            "mg_fireball",
+            "mg_soulstrike",
+            "al_demonbane",
+            "mc_overcharge",
+            "al_ruwach",
+            "al_heal",
+            "mg_sight",
+            "mg_safetywall",
+            "al_crucis",
+            "ac_owl",
+            "mc_pushcart",
+            "al_teleport",
+            "al_cure",
+            "mg_firewall",
+            "al_angelus",
+            "ac_vulture",
+            "mc_vending",
+            "al_warp",
+            "al_incagi",
+            "al_blessing",
+            "ac_concentration",
+            "mc_mammonite",
+            "al_pneuma",
+            "al_decagi",
+            "mc_identify"
+          ]
+        },
+        {
+          "title": "Quest / special",
+          "skillIds": [
+            "nv_firstaid",
+            "nv_trickdead"
+          ]
+        }
+      ],
+      "skills": {
+        "nv_basic": {
+          "id": "nv_basic",
+          "skidKey": "NV_BASIC",
+          "skidId": 1,
+          "name": "Basic Skill",
+          "maxLevel": 9,
+          "description": "Basic Skill\nMax Level: 9\nEnables the use of Basic Interface Skills.\n[Lv 1]: Enables Trading\nAllows the trading of items with other\ncharacter.\nRight click on a character to initiate.\n[Lv 2]: Enables Emotions\nAlt+(0~9) and Ctrl+(1,-,=.)\nAlt+L opens additional Emotion icons.\n[Lv 3]: Enables Sitting\nSitting doubles HP and SP regeneration\nspeed.\nPress the Insert key or type /sit.\n[Lv 4]: Enables Chat Room Creation\nAlt+C to open a Chat Room or click the\nChat button in the Basic Information\nWindow.\n[Lv 5]: Join a Party\nCharacter can join a party.\n[Lv 6]: Enables Use of Kafra Storage\nAllows use of Kafra Storage.\n[Lv 7]: Organize a Party\nCreate a party by typing\n/organize ''Party Name''\nSet party options in the Party Window (Alt+Z).\n[Lv 9]: Enables Change to First Job Class\nQualifies character for change from Novice\nto one of the First classes.",
+          "gridIndex": 0
+        },
+        "sm_sword": {
+          "id": "sm_sword",
+          "skidKey": "SM_SWORD",
+          "skidId": 2,
+          "name": "Sword Mastery",
+          "maxLevel": 10,
+          "description": "Sword Mastery\nMax Level: 10\nSkill Form: Passive\nDescription: Increases damage with\nOne-Handed Sword and Dagger class weapon.\n[Lv 1]: Damage +4\n[Lv 2]: Damage +8\n[Lv 3]: Damage +12\n[Lv 4]: Damage +16\n[Lv 5]: Damage +20\n[Lv 6]: Damage +24\n[Lv 7]: Damage +28\n[Lv 8]: Damage +32\n[Lv 9]: Damage +36\n[Lv 10]: Damage +40\n\nComments: Mastery skills only get added up\nat the end of damage calculation. In most\nsituations, it only results in a flat addition of\ndamage.",
+          "gridIndex": 1
+        },
+        "sm_bash": {
+          "id": "sm_bash",
+          "skidKey": "SM_BASH",
+          "skidId": 5,
+          "name": "Bash",
+          "maxLevel": 10,
+          "description": "Bash\nMax Level: 10\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: HITs an enemy with crushing\nforce. If Fatal Blow skill is learned, Bash\nwill have an added Stun effect at\nLevel 6 and higher. Damage and HIT\nare increased every level.\n[Lv 1]: 130% damage, +5% HIT\n[Lv 2]: 160% damage, +10% HIT\n[Lv 3]: 190% damage, +15% HIT\n[Lv 4]: 220% damage, +20% HIT\n[Lv 5]: 250% damage, +25% HIT\n[Lv 6]: 280% damage, +30% HIT\n[Lv 7]: 310% damage, +35% HIT\n[Lv 8]: 340% damage, +40% HIT\n[Lv 9]: 370% damage, +45% HIT\n[Lv 10]: 400% damage, +50% HIT\n\nComments: Costs 8 SP up to Lv 5, after\nwhich it costs 15.\nDamage skills unlocked after jobchanging to\nyour next job will outclass Bash, however this\nskill will continue to be relevant as a means of\nstunning enemies.\nWearing Bongun Card grants this skill a new\neffect: Shoving back targets 5 cells. This effect\nstacks.",
+          "gridIndex": 2
+        },
+        "sm_provoke": {
+          "id": "sm_provoke",
+          "skidKey": "SM_PROVOKE",
+          "skidId": 6,
+          "name": "Provoke",
+          "maxLevel": 10,
+          "description": "Provoke\nMax Level: 10\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\nDescription: Enrages a target, reducing\nDefense by VIT on Player and physical\ndefense on Monster, while increasing it's\nAttack Power. Can't be used on Undead\nand Boss monsters.\n[Lv 1]: Damage +5%, DEF -10%\n[Lv 2]: Damage +8%, DEF -15%\n[Lv 3]: Damage +11%, DEF -20%\n[Lv 4]: Damage +14%, DEF -25%\n[Lv 5]: Damage +17%, DEF -30%\n[Lv 6]: Damage +20%, DEF -35%\n[Lv 7]: Damage +23%, DEF -40%\n[Lv 8]: Damage +26%, DEF -45%\n[Lv 9]: Damage +29%, DEF -50%\n[Lv 10]: Damage +32%, DEF -55%\n\nComments: Provoke reduces both Hard and\nSoft Defense of monsters, but only the\nSoft Defense of players. Provoking frozen\ntargets will unfreeze them. Provoke can also\nbe used to interrupt skills, so long as the skill\nis interruptable in the first place\nProvoke counts as a hit and will cause\nRude Teleportation on monsters that are stuck\nand have the ability to do so. If the skill fails\ncontinuously against a player, you can be sure\nthat the player is wearing Evil Druid Card.",
+          "gridIndex": 3
+        },
+        "tf_double": {
+          "id": "tf_double",
+          "skidKey": "TF_DOUBLE",
+          "skidId": 48,
+          "name": "Double Attack",
+          "maxLevel": 10,
+          "description": "Double Attack\nMax Level: 10\nSkill Form: Passive\nDescription: When attacking with Dagger\nclass weapon, there is chance of\ninflicting double attacks. This skill also affects\nLeft-Hand damage of Katar class weapons.\n[Lv 1]: 5% chance, Katar Off-Hand +3%\n[Lv 2]: 10% chance, Katar Off-Hand +5%\n[Lv 3]: 15% chance, Katar Off-Hand +7%\n[Lv 4]: 20% chance, Katar Off-Hand +9%\n[Lv 5]: 25% chance, Katar Off-Hand +11%\n[Lv 6]: 30% chance, Katar Off-Hand +13%\n[Lv 7]: 35% chance, Katar Off-Hand +15%\n[Lv 8]: 40% chance, Katar Off-Hand +17%\n[Lv 9]: 45% chance, Katar Off-Hand +19%\n[Lv 10]: 50% chance, Katar Off-Hand +21%\n\nComments: Double Attacks cannot crit, also\nDouble Attacks are calculated before crits,\ntherefore if you have a crit based build you do\nnot want Double Attacks to occur. Use a\nnon-Dagger weapon on the Right Hand to\ninhibit the skill from functioning.\nThe items Sidewinder Card, Nagan and Chick\nHat allow Double Attacks to be performed with\nany weapon. In those cases, if the user knows\nthe skill, it will use the highest level learned.\nTherefore, those items will allow up to Level 10\nusage of the skill with any weapon.",
+          "gridIndex": 4
+        },
+        "tf_steal": {
+          "id": "tf_steal",
+          "skidKey": "TF_STEAL",
+          "skidId": 50,
+          "name": "Steal",
+          "maxLevel": 10,
+          "description": "Steal\nMax Level: 10\nSkill Form: Active\nType: Supportive\nTarget: 1 Character\nDescription: Steals an item from a monster.\nHigher skill levels increase success chance.\n\n[Lv 1]: 10% +(User DEX - Target DEX/2)\n[Lv 2]: 16% +(User DEX - Target DEX/2)\n[Lv 3]: 22% +(User DEX - Target DEX/2)\n[Lv 4]: 28% +(User DEX - Target DEX/2)\n[Lv 5]: 34% +(User DEX - Target DEX/2)\n[Lv 6]: 40% +(User DEX - Target DEX/2)\n[Lv 7]: 46% +(User DEX - Target DEX/2)\n[Lv 8]: 52% +(User DEX - Target DEX/2)\n[Lv 9]: 58% +(User DEX - Target DEX/2)\n[Lv 10]: 64% +(User DEX - Target DEX/2)\n\nComments: Steal does not remove items\nfrom the monster's drops table. You can steal\nan item from a monster, kill it and receive the\nsame item again.\nThe success chance is affected by the user's\nand target's DEX. Which item will be stolen is\nalso determined by DEX. Items at the\nbeginning of the drop table are easier to steal.\nCards can never be stolen.\n\nDespite being one of the most used skills in\nthe game, it's often misunderstood by players.\nWhen the skill is used, it attempts to steal\neach item from the monster's drop table, from\ntop to bottom, one at a time. This method has\ninteresting consequences. For example, if your\ngoal is to steal an item at the beginning of a\nmonster's drop table, high DEX will increase\nyour odds. However, if you're aiming for an item\nat the end of the list, low DEX is necessary.\nThis is because, if your DEX is too high, you\nwill always success in stealing the first few\nitems on the drop table, and the game will\nnever roll for stealing items towards the end\nof the list.",
+          "gridIndex": 5
+        },
+        "tf_poison": {
+          "id": "tf_poison",
+          "skidKey": "TF_POISON",
+          "skidId": 52,
+          "name": "Envenom",
+          "maxLevel": 10,
+          "description": "Envenom\nMax Level: 10\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Deals Poison elemental\ndamage to a target that has a chance\nof inflicting Poison status.\n[Lv 1]: 14% chance, 100% ATK +15 ATK\n[Lv 2]: 18% chance, 100% ATK +30 ATK\n[Lv 3]: 22% chance, 100% ATK +45 ATK\n[Lv 4]: 26% chance, 100% ATK +60 ATK\n[Lv 5]: 30% chance, 100% ATK +75 ATK\n[Lv 6]: 34% chance, 100% ATK +90 ATK\n[Lv 7]: 38% chance, 100% ATK +105 ATK\n[Lv 8]: 42% chance, 100% ATK +120 ATK\n[Lv 9]: 46% chance, 100% ATK +135 ATK\n[Lv 10]: 50% chance, 100% ATK +150 ATK\n\nComments: As in most RPGs, poisoning\nenemies is rarely worth the effort.\nSimilar to Swordsman's Bash, using the\nPoisonous Toad Card grants this skill a new\neffect: shoving the target back. And in the\nsame manner as Bash and Bongun Card,\nthe shove distance increases with more cards.\n\nFrom a damage perspective, Envenom has\nterrible scaling. Additional skill levels only\nincrease the fixed damage bonus. This skill\nis a pre-requirement for several Assassin\nskills, however.",
+          "gridIndex": 6
+        },
+        "sm_recovery": {
+          "id": "sm_recovery",
+          "skidKey": "SM_RECOVERY",
+          "skidId": 4,
+          "name": "Increase HP Recovery",
+          "maxLevel": 10,
+          "description": "Increase HP Recovery\nMax Level: 10\nSkill Form: Passive\nDescription: Restores HP every\n10 seconds while idle. MaxHP affects how much\nHP is restored by this skill.\n[Lv 1]: HP+5 +(0.2% of Max HP)\n[Lv 2]: HP+10 +(0.4% of Max HP)\n[Lv 3]: HP+15 +(0.6% of Max HP)\n[Lv 4]: HP+20 +(0.8% of Max HP)\n[Lv 5]: HP+25 +(1.0% of Max HP)\n[Lv 6]: HP+30 +(1.2% of Max HP)\n[Lv 7]: HP+35 +(1.4% of Max HP)\n[Lv 8]: HP+40 +(1.6% of Max HP)\n[Lv 9]: HP+45 +(1.8% of Max HP)\n[Lv 10]: HP+50 +(2.0% of Max HP)\n\nComments: Every skill level also increases\nthe effectiveness of HP healing items by 10%.\nThe healing ticks occur so long as the player\ndoes not walk to to another tile, even if the\nplayer is standing and in combat. The healing\nticks will not occur if the player is overweight.\nIt's also possible to receive healing ticks\nwhile teleporting, so long as the player does\nnot walk.",
+          "gridIndex": 8
+        },
+        "sm_magnum": {
+          "id": "sm_magnum",
+          "skidKey": "SM_MAGNUM",
+          "skidId": 7,
+          "name": "Magnum Break",
+          "maxLevel": 10,
+          "description": "Magnum Break\nMax Level: 10\nRequirement: Bash 5\nSkill Form: Active\nType: Physical Melee\nTarget: Enemies around the caster\nDescription: Drains a small amount of the\ncaster's HP to inflict Fire\nelemental damage on 5x5 AoE around the\ncaster and push enemies 2 cells backward.\nFor 10 seconds after Magnum Break,\ncaster's weapon will receive 20% Fire\nelemental attack enhancement.\n[Lv 1]: 120% damage, 110% Accuracy Bonus\n[Lv 2]: 140% damage, 120% Accuracy Bonus\n[Lv 3]: 160% damage, 130% Accuracy Bonus\n[Lv 4]: 180% damage, 140% Accuracy Bonus\n[Lv 5]: 200% damage, 150% Accuracy Bonus\n[Lv 6]: 220% damage, 160% Accuracy Bonus\n[Lv 7]: 240% damage, 170% Accuracy Bonus\n[Lv 8]: 260% damage, 180% Accuracy Bonus\n[Lv 9]: 280% damage, 190% Accuracy Bonus\n[Lv 10]: 300% damage, 200% Accuracy Bonus\n\nComments: Although the damage scaling on\nMagnum Break might not be large, the SP cost\nis the same on all levels.\nThe extra Fire Damage Bonus ignores DEF.",
+          "gridIndex": 9
+        },
+        "sm_endure": {
+          "id": "sm_endure",
+          "skidKey": "SM_ENDURE",
+          "skidId": 8,
+          "name": "Endure",
+          "maxLevel": 10,
+          "description": "Endure\nMax Level: 10\nRequirement: Provoke 5\nRequirement: Provoke 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Removes attack and movement\ndelay that occurs when a character receives\ndamage. Disabled in War of Emperium\nbut still grants the MDEF bonus.\n[Lv 1]: 10 sec, MDEF +1\n[Lv 2]: 13 sec, MDEF +2\n[Lv 3]: 16 sec, MDEF +3\n[Lv 4]: 19 sec, MDEF +4\n[Lv 5]: 22 sec, MDEF +5\n[Lv 6]: 25 sec, MDEF +6\n[Lv 7]: 28 sec, MDEF +7\n[Lv 8]: 31 sec, MDEF +8\n[Lv 9]: 34 sec, MDEF +9\n[Lv 10]: 37 sec, MDEF +10\n\nComments: What Endure does exactly is\npreventing your character from displaying\nflinching animations when taking hits. It is\nextremely useful when doing any sort of\ntanking, or handling a large number of\nenemies.",
+          "gridIndex": 10
+        },
+        "tf_miss": {
+          "id": "tf_miss",
+          "skidKey": "TF_MISS",
+          "skidId": 49,
+          "name": "Improve Dodge",
+          "maxLevel": 10,
+          "description": "Improve Dodge\nMax Level: 10\nSkill Form: Passive\nDescription: Increases FLEE. FLEE\nreceives additional bonus upon\nreaching 2nd classes. This skill also\nslightly enhances the Movement Speed\nof Assassin classes.\n[Lv 1]: FLEE +3(4 if 2nd),\nAssassin MovSpeed +1%\n[Lv 2]: FLEE +6(8 if 2nd),\nAssassin MovSpeed +1%\n[Lv 3]: FLEE +9(12 if 2nd),\nAssassin MovSpeed +2%\n[Lv 4]: FLEE +12(16 if 2nd),\nAssassin MovSpeed +2%\n[Lv 5]: FLEE +15(20 if 2nd),\nAssassin MovSpeed +3%\n[Lv 6]: FLEE +18(24 if 2nd),\nAssassin MovSpeed +3%\n[Lv 7]: FLEE +21(28 if 2nd),\nAssassin MovSpeed +4%\n[Lv 8]: FLEE +24(32 if 2nd),\nAssassin MovSpeed +4%\n[Lv 9]: FLEE +27(36 if 2nd),\nAssassin MovSpeed +5%\n[Lv 10]: FLEE +30(40 if 2nd),\nAssassin MovSpeed +5%",
+          "gridIndex": 11
+        },
+        "tf_hiding": {
+          "id": "tf_hiding",
+          "skidKey": "TF_HIDING",
+          "skidId": 51,
+          "name": "Hiding",
+          "maxLevel": 10,
+          "description": "Hiding\nMax Level: 10\nRequirement: Steal 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Hides under the ground to\navoid enemy attack. Detection skills\ncan cancel Hiding status. Demon, Insect\nand Boss monsters can detect character\nin Hiding status. Can be canceled by\nusing the skill again.\n\nComments: This is the most basic stealth skill\nin the game. It prevents you from doing\nanything except using Hiding again to cancel\nthe effect. Assassins can use Grimtooth from\nhiding. Rogues can use Raid and Backstab\nfrom hiding, as well as learn a passive skill\nthat permits them to move during while\nhiding.",
+          "gridIndex": 12
+        },
+        "tf_detoxify": {
+          "id": "tf_detoxify",
+          "skidKey": "TF_DETOXIFY",
+          "skidId": 53,
+          "name": "Detoxify",
+          "maxLevel": 1,
+          "description": "Detoxify\nMax Level: 1\nRequirement: Envenom 3\nSkill Form: Active\nType: Supportive\nTarget: 1 Character\nDescription: Removes Poison status from\na targeted character.\n\nComments: The status effect removing skills\nfrom Acolyte and Priest job do not work on\npoison. Only this skill does, although many\nitems such as Green Potions and Green\nHerbs will also cure the status.",
+          "gridIndex": 13
+        },
+        "mg_srecovery": {
+          "id": "mg_srecovery",
+          "skidKey": "MG_SRECOVERY",
+          "skidId": 9,
+          "name": "Increase SP Recovery",
+          "maxLevel": 10,
+          "description": "Increase SP Recovery\nMax Level: 10\nSkill Form: Passive\nDescription: Restores SP every 10\nseconds while idle. MaxSP affects how much\nSP is restored by this skill.\n[Lv 1]: SP+3 +(0.2% of Max SP)\n[Lv 2]: SP+6 +(0.4% of Max SP)\n[Lv 3]: SP+9 +(0.6% of Max SP)\n[Lv 4]: SP+12 +(0.8% of Max SP)\n[Lv 5]: SP+15 +(1.0% of Max SP)\n[Lv 6]: SP+18 +(1.2% of Max SP)\n[Lv 7]: SP+21 +(1.4% of Max SP)\n[Lv 8]: SP+24 +(1.6% of Max SP)\n[Lv 9]: SP+27 +(1.8% of Max SP)\n[Lv 10]: SP+30 +(2.0% of Max SP)\n\nComments: Every skill level also increases\nthe effectiveness of SP healing items by 10%.\nThe healing ticks occur so long as the player\ndoes not walk to to another tile, even if the\nplayer is standing and in combat. The healing\nticks will not occur if the player is overweight.\nIt's also possible to receive healing ticks\nwhile teleporting, so long as the player does\nnot walk.",
+          "gridIndex": 15
+        },
+        "al_holywater": {
+          "id": "al_holywater",
+          "skidKey": "AL_HOLYWATER",
+          "skidId": 31,
+          "name": "Aqua Benedicta",
+          "maxLevel": 1,
+          "description": "Aqua Benedicta\nMax Level: 1\nSkill Form: Active\nType: Crafting\nTarget: Caster\nDescription: Creates Holy Water with\n1 Empty Bottle while standing in water.\n\nComments: The skill will only work when used\non a water tile. The underwater segments of\nByalan Dungeon are NOT water tiles. Similar\nto other skills that require water tiles, they can\nalso be used on top of a Sage's Deluge, or a\nNinja's Water Evasion.",
+          "gridIndex": 16
+        },
+        "mc_inccarry": {
+          "id": "mc_inccarry",
+          "skidKey": "MC_INCCARRY",
+          "skidId": 36,
+          "name": "Enlarge Weight Limit",
+          "maxLevel": 10,
+          "description": "Enlarge Weight Limit\nMax Level: 10\nSkill Form: Passive\nDescription: Increases maximum Weight Limit.\n[Lv 1]: Weight capacity +200\n[Lv 2]: Weight capacity +400\n[Lv 3]: Weight capacity +600\n[Lv 4]: Weight capacity +800\n[Lv 5]: Weight capacity +1000\n[Lv 6]: Weight capacity +1200\n[Lv 7]: Weight capacity +1400\n[Lv 8]: Weight capacity +1600\n[Lv 9]: Weight capacity +1800\n[Lv 10]: Weight capacity +2000\n\nComments: It is possible to have both this\nskill and the Gym Pass version of this skill\nsimultaneously.",
+          "gridIndex": 20
+        },
+        "mg_coldbolt": {
+          "id": "mg_coldbolt",
+          "skidKey": "MG_COLDBOLT",
+          "skidId": 14,
+          "name": "Cold Bolt",
+          "maxLevel": 10,
+          "description": "Cold Bolt\nMax Level: 10\nSkill Form: Active\nType: Magical\nTarget: Enemy\nDescription: Summons bolts of frigid ice\nto strike at an enemy which inflicts\nWater elemental magic damage per hit.\nOne bolt for every skill level.\n[Lv 1]: 100% MATK, 0.7 sec Cast Time,\n1.0 sec After Cast Delay\n[Lv 2]: 200% MATK, 1.4 sec Cast Time,\n1.2 sec After Cast Delay\n[Lv 3]: 300% MATK, 2.1 sec Cast Time,\n1.4 sec After Cast Delay\n[Lv 4]: 400% MATK, 2.8 sec Cast Time,\n1.6 sec After Cast Delay\n[Lv 5]: 500% MATK, 3.5 sec Cast Time,\n1.8 sec After Cast Delay\n[Lv 6]: 600% MATK, 4.2 sec Cast Time,\n2.0 sec After Cast Delay\n[Lv 7]: 700% MATK, 4.9 sec Cast Time,\n2.2 sec After Cast Delay\n[Lv 8]: 800% MATK, 5.6 sec Cast Time,\n2.4 sec After Cast Delay\n[Lv 9]: 900% MATK, 6.3 sec Cast Time,\n2.6 sec After Cast Delay\n[Lv 10]: 1000% MATK, 7.0 sec Cast Time,\n2.8 sec After Cast Delay\n\nComments: The basic Water spell of a Mage.\nHigher levels of the skill dramatically increase\nSP Cost and Cast Time. Different skill levels\nof this skill can be set to individual hotkeys.\nThe skill is greatly enhanced by using Siroma\nCard.",
+          "gridIndex": 21
+        },
+        "mg_lightningbolt": {
+          "id": "mg_lightningbolt",
+          "skidKey": "MG_LIGHTNINGBOLT",
+          "skidId": 20,
+          "name": "Lightning Bolt",
+          "maxLevel": 10,
+          "description": "Lightning Bolt\nMax Level: 10\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Drops lightning on target\ninflicting Wind elemental\nmagic damage per hit.\nOne bolt for every skill level.\n[Lv 1]: 100% MATK, 0.7 sec Cast Time,\n1.0 sec After Cast Delay\n[Lv 2]: 200% MATK, 1.4 sec Cast Time,\n1.2 sec After Cast Delay\n[Lv 3]: 300% MATK, 2.1 sec Cast Time,\n1.4 sec After Cast Delay\n[Lv 4]: 400% MATK, 2.8 sec Cast Time,\n1.6 sec After Cast Delay\n[Lv 5]: 500% MATK, 3.5 sec Cast Time,\n1.8 sec After Cast Delay\n[Lv 6]: 600% MATK, 4.2 sec Cast Time,\n2.0 sec After Cast Delay\n[Lv 7]: 700% MATK, 4.9 sec Cast Time,\n2.2 sec After Cast Delay\n[Lv 8]: 800% MATK, 5.6 sec Cast Time,\n2.4 sec After Cast Delay\n[Lv 9]: 900% MATK, 6.3 sec Cast Time,\n2.6 sec After Cast Delay\n[Lv 10]: 1000% MATK, 7.0 sec Cast Time,\n2.8 sec After Cast Delay\n\nComments: The basic Wind spell of a mage.\nHigher levels of the skill dramatically increase\nSP Cost and Cast Time. Different skill levels\nof this skill can be set to individual hotkeys.\nUnlike Fire and Cold bolts, there is no card\nthat will enhance Lightning bolt in the\nsame manner.",
+          "gridIndex": 22
+        },
+        "mg_firebolt": {
+          "id": "mg_firebolt",
+          "skidKey": "MG_FIREBOLT",
+          "skidId": 19,
+          "name": "Fire Bolt",
+          "maxLevel": 10,
+          "description": "Fire Bolt\nMax Level: 10\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Attacks a target with arrow\nmade of fire inflicting Fire\nelemental magic damage per hit.\nOne bolt for every skill level.\n[Lv 1]: 100% MATK, 0.7 sec Cast Time,\n1.0 sec After Cast Delay\n[Lv 2]: 200% MATK, 1.4 sec Cast Time,\n1.2 sec After Cast Delay\n[Lv 3]: 300% MATK, 2.1 sec Cast Time,\n1.4 sec After Cast Delay\n[Lv 4]: 400% MATK, 2.8 sec Cast Time,\n1.6 sec After Cast Delay\n[Lv 5]: 500% MATK, 3.5 sec Cast Time,\n1.8 sec After Cast Delay\n[Lv 6]: 600% MATK, 4.2 sec Cast Time,\n2.0 sec After Cast Delay\n[Lv 7]: 700% MATK, 4.9 sec Cast Time,\n2.2 sec After Cast Delay\n[Lv 8]: 800% MATK, 5.6 sec Cast Time,\n2.4 sec After Cast Delay\n[Lv 9]: 900% MATK, 6.3 sec Cast Time,\n2.6 sec After Cast Delay\n[Lv 10]: 1000% MATK, 7.0 sec Cast Time,\n2.8 sec After Cast Delay\n\nComments: The basic Fire spell of a Mage.\nHigher levels of the skill dramatically increase\nSP Cost and Cast Time. Different skill levels\nof this skill can be set to individual hotkeys.\nThe skill is greatly enhanced by using Imp\nCard.",
+          "gridIndex": 23
+        },
+        "mg_napalmbeat": {
+          "id": "mg_napalmbeat",
+          "skidKey": "MG_NAPALMBEAT",
+          "skidId": 11,
+          "name": "Napalm Beat",
+          "maxLevel": 10,
+          "description": "Napalm Beat\nMax Level: 10\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Uses telekinesis power to\nattack a target and 3x3 cells around it\nwith Ghost elemental magic. The damage\nportion is divided among the targets.\n[Lv 1]: 80% MATK, 1.0 sec Cast Time\n[Lv 2]: 90% MATK, 1.0 sec Cast Time\n[Lv 3]: 100% MATK, 1.0 sec Cast Time\n[Lv 4]: 110% MATK, 0.9 sec Cast Time\n[Lv 5]: 120% MATK, 0.9 sec Cast Time\n[Lv 6]: 130% MATK, 0.8 sec Cast Time\n[Lv 7]: 140% MATK, 0.8 sec Cast Time\n[Lv 8]: 150% MATK, 0.7 sec Cast Time\n[Lv 9]: 160% MATK, 0.6 sec Cast Time\n[Lv 10]: 170% MATK, 0.5 sec Cast Time\n\nComments: Mage's Ghost spells are weak\ncompared to elemental bolts, however they\nare much faster casting and do adequate\ndamage against the Undead.\nDamage will be split between the targets.",
+          "gridIndex": 24
+        },
+        "al_dp": {
+          "id": "al_dp",
+          "skidKey": "AL_DP",
+          "skidId": 22,
+          "name": "Divine Protection",
+          "maxLevel": 10,
+          "description": "Divine Protection\nMax Level: 10\nRequirement: Cure 1\nDescription: Reduces damage taken from\nDemon and Undead monsters. Character's\nLevel affects the damage reduction. Damage\nreduction is added after final damage\nis calculated.\n[Lv 1]: DEF +3\n[Lv 2]: DEF +6\n[Lv 3]: DEF +9\n[Lv 4]: DEF +12\n[Lv 5]: DEF +15\n[Lv 6]: DEF +18\n[Lv 7]: DEF +21\n[Lv 8]: DEF +24\n[Lv 9]: DEF +27\n[Lv 10]: DEF +30\n\nComments: This defense works like Soft DEF,\nit's a flat reduction of the final damage.\nReductions of this level are normally\ninsignificant except in the case of a Monk\ntaking hits during Steel Body.\nPlayers planning to jobchange into Monks\nmust max this skill to unlock the basic Monk\nskill.",
+          "gridIndex": 25
+        },
+        "mg_stonecurse": {
+          "id": "mg_stonecurse",
+          "skidKey": "MG_STONECURSE",
+          "skidId": 16,
+          "name": "Stone Curse",
+          "maxLevel": 10,
+          "description": "Stone Curse\nMax Level: 10\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\nDescription: Inflicts Stone Curse to a\ntarget. Consumes 1 Red Gemstone.\n[Lv 1]: 24% Chance\n[Lv 2]: 28% Chance\n[Lv 3]: 32% Chance\n[Lv 4]: 36% Chance\n[Lv 5]: 40% Chance\n[Lv 6]: 44% Chance\n[Lv 7]: 48% Chance\n[Lv 8]: 52% Chance\n[Lv 9]: 56% Chance\n[Lv 10]: 60% Chance\n\nComments: Using this skill requires a\nGemstone and is very short range, however\nStone Curse is generally considered to be a\nmore crippling disable than Freeze. Stone\ncursed enemies are vulnerable to Fire.\nBosses and Undead are immune.\nUsing the skill on a target that's already stone\ncursed will immediately undo the effect, even if\nit's an enemy.",
+          "gridIndex": 26
+        },
+        "mc_discount": {
+          "id": "mc_discount",
+          "skidKey": "MC_DISCOUNT",
+          "skidId": 37,
+          "name": "Discount",
+          "maxLevel": 10,
+          "description": "Discount\nMax Level: 10\nRequirement: Enlarge Weight Limit 3\nSkill Form: Passive\nDescription: Decreases the price of\nitems sold by NPC shops.\n[Lv 1]: 7% Discount\n[Lv 2]: 9% Discount\n[Lv 3]: 11% Discount\n[Lv 4]: 13% Discount\n[Lv 5]: 15% Discount\n[Lv 6]: 17% Discount\n[Lv 7]: 19% Discount\n[Lv 8]: 21% Discount\n[Lv 9]: 23% Discount\n[Lv 10]: 24% Discount",
+          "gridIndex": 27
+        },
+        "mg_frostdiver": {
+          "id": "mg_frostdiver",
+          "skidKey": "MG_FROSTDIVER",
+          "skidId": 15,
+          "name": "Frost Diver",
+          "maxLevel": 10,
+          "description": "Frost Diver\nMax Level: 10\nRequirement: Cold Bolt 5\nSkill Form: Active\nType: Magical, Debuff\nTarget: 1 Character\nDescription: Inflicts Water magic\ndamage on a target, which has a chance to\ninflict Freezing status. The Freezing\nchance and duration are affected\nby target's MDEF.\n[Lv 1]: 110% MATK, 3 sec Freeze Duration,\n38% Freeze Chance\n[Lv 2]: 120% MATK, 6 sec Freeze Duration,\n41% Freeze Chance\n[Lv 3]: 130% MATK, 9 sec Freeze Duration,\n44% Freeze Chance\n[Lv 4]: 140% MATK, 12 sec Freeze Duration,\n47% Freeze Chance\n[Lv 5]: 150% MATK, 15 sec Freeze Duration,\n50% Freeze Chance\n[Lv 6]: 160% MATK, 18 sec Freeze Duration,\n53% Freeze Chance\n[Lv 7]: 170% MATK, 21 sec Freeze Duration,\n56% Freeze Chance\n[Lv 8]: 180% MATK, 24 sec Freeze Duration,\n59% Freeze Chance\n[Lv 9]: 190% MATK, 27 sec Freeze Duration,\n62% Freeze Chance\n[Lv 10]: 200% MATK, 30 sec Freeze Duration,\n65% Freeze Chance\n\nComments: Frost Diver is a Mage's disabling\nskill. Frozen targets cannot retaliate until the\nfreeze duration ends. Keep in mind that\nenemies that are Undead Element cannot be\nfrozen, and enemies with high MDEF have\nlower chance of being frozen, and will remain\nfrozen for less time.",
+          "gridIndex": 28
+        },
+        "mg_thunderstorm": {
+          "id": "mg_thunderstorm",
+          "skidKey": "MG_THUNDERSTORM",
+          "skidId": 21,
+          "name": "Thunderstorm",
+          "maxLevel": 10,
+          "description": "Thunder Storm\nMax Level: 10\nRequirement: Lightning Bolt 4\nSkill Form: Active\nType: Magical\nTarget: Ground\nDescription: Drops lightning bolt on\nspecific location, inflicting Wind\nelemental magic per hit in a 5x5 cell area.\n[Lv 1]: 80% MATK, 1 sec Cast Time\n[Lv 2]: 160% MATK, 2 sec Cast Time\n[Lv 3]: 240% MATK, 3 sec Cast Time\n[Lv 4]: 320% MATK, 4 sec Cast Time\n[Lv 5]: 400% MATK, 5 sec Cast Time\n[Lv 6]: 480% MATK, 6 sec Cast Time\n[Lv 7]: 560% MATK, 7 sec Cast Time\n[Lv 8]: 640% MATK, 8 sec Cast Time\n[Lv 9]: 720% MATK, 9 sec Cast Time\n[Lv 10]: 800% MATK, 10 sec Cast Time\n\nComments: The strongest AoE spell available\nto Mages, however it also has a massive 10\nsecond cast at max level.",
+          "gridIndex": 29
+        },
+        "mg_fireball": {
+          "id": "mg_fireball",
+          "skidKey": "MG_FIREBALL",
+          "skidId": 17,
+          "name": "Fire Ball",
+          "maxLevel": 10,
+          "description": "Fire Ball\nMax Level: 10\nRequirement: Fire Bolt 4\nSkill Form: Active\nType: Magical, AoE\nTarget: 1 Character\nDescription: Summons a fire ball to\ndamage a target and all enemies within\nx5 cells area with Fire elemental\nmagical damage. Nearby enemies receives\n3/4 of the damage given to the\ncenter enemy. Cast Time and After Cast\nDelay are reduced upon learning level 6\nor higher.\n[Lv 1]: 80% MATK, 1.5 sec Cast Time,\n1.5 sec After Cast Delay\n[Lv 2]: 90% MATK, 1.5 sec Cast Time,\n1.5 sec After Cast Delay\n[Lv 3]: 100% MATK, 1.5 sec Cast Time,\n1.5 sec After Cast Delay\n[Lv 4]: 110% MATK, 1.5 sec Cast Time,\n1.5 sec After Cast Delay\n[Lv 5]: 120% MATK, 1.5 sec Cast Time,\n1.5 sec After Cast Delay\n[Lv 6]: 130% MATK, 1.0 sec Cast Time,\n1.0 sec After Cast Delay\n[Lv 7]: 140% MATK, 1.0 sec Cast Time,\n1.0 sec After Cast Delay\n[Lv 8]: 150% MATK, 1.0 sec Cast Time,\n1.0 sec After Cast Delay\n[Lv 9]: 160% MATK, 1.0 sec Cast Time,\n1.0 sec After Cast Delay\n[Lv 10]: 170% MATK, 1.0 sec Cast Time,\n1.0 sec After Cast Delay\n\nComments: Weak but very quick casting.",
+          "gridIndex": 30
+        },
+        "mg_soulstrike": {
+          "id": "mg_soulstrike",
+          "skidKey": "MG_SOULSTRIKE",
+          "skidId": 13,
+          "name": "Soul Strike",
+          "maxLevel": 10,
+          "description": "Soul Strike\nMax Level: 10\nRequirement: Napalm Beat 4\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Summons holy spirit to\ninflict 100% MATK Ghost elemental\nmagical damage per hit on a target.\nThis skill inflicts additional damage\nagainst Undead monsters.\n[Lv 1]: 1 Hit, 1.2 sec After Cast Delay,\n+5% damage to Undead\n[Lv 2]: 1 Hit, 1.4 sec After Cast Delay,\n+10% damage to Undead\n[Lv 3]: 2 Hits, 1.6 sec After Cast Delay,\n+15% damage to Undead\n[Lv 4]: 2 Hits, 1.8 sec After Cast Delay,\n+20% damage to Undead\n[Lv 5]: 3 Hits, 2.0 sec After Cast Delay,\n+25% damage to Undead\n[Lv 6]: 3 Hits, 2.2 sec After Cast Delay,\n+30% damage to Undead\n[Lv 7]: 4 Hits, 2.4 sec After Cast Delay,\n+35% damage to Undead\n[Lv 8]: 4 Hits, 2.6 sec After Cast Delay,\n+40% damage to Undead\n[Lv 9]: 5 Hits, 2.8 sec After Cast Delay,\n+45% damage to Undead\n[Lv 10]: 5 Hits, 2.7 sec After Cast Delay,\n+50% damage to Undead\n\nComments: Cast time is 0.5 sec at all levels.\nAdditional levels of this skill increase damage\nat the cost of longer delays after cast.",
+          "gridIndex": 31
+        },
+        "al_demonbane": {
+          "id": "al_demonbane",
+          "skidKey": "AL_DEMONBANE",
+          "skidId": 23,
+          "name": "Demon Bane",
+          "maxLevel": 10,
+          "description": "Demon Bane\nMax Level: 10\nRequirement: Divine Protection 3\nSkill Form: Passive\nDescription: Increases damage\nagainst Demon and Undead monsters.\nBase Level affects damage bonus.\nDamage increased by this skill is added\nafter final damage is calculated.\n[Lv 1]: Damage +3\n[Lv 2]: Damage +6\n[Lv 3]: Damage +9\n[Lv 4]: Damage +12\n[Lv 5]: Damage +15\n[Lv 6]: Damage +18\n[Lv 7]: Damage +21\n[Lv 8]: Damage +24\n[Lv 9]: Damage +27\n[Lv 10]: Damage +30\n\nComments: The bonus from this skill is similar\nto Weapon Masteries, in which they only offers\na flat increase at the end of damage\ncalculation. Players planning to jobchange\ninto Monks must max this skill to unlock the\nbasic Monk skill.",
+          "gridIndex": 32
+        },
+        "mc_overcharge": {
+          "id": "mc_overcharge",
+          "skidKey": "MC_OVERCHARGE",
+          "skidId": 38,
+          "name": "Overcharge",
+          "maxLevel": 10,
+          "description": "Overcharge\nMax Level: 10\nRequirement: Discount 3\nSkill Form: Passive\nDescription: Increases amount of Zeny\nreceived for items sold to NPC shops.\n[Lv 1]: 7% Overcharge\n[Lv 2]: 9% Overcharge\n[Lv 3]: 11% Overcharge\n[Lv 4]: 13% Overcharge\n[Lv 5]: 15% Overcharge\n[Lv 6]: 17% Overcharge\n[Lv 7]: 19% Overcharge\n[Lv 8]: 21% Overcharge\n[Lv 9]: 23% Overcharge\n[Lv 10]: 24% Overcharge",
+          "gridIndex": 34
+        },
+        "al_ruwach": {
+          "id": "al_ruwach",
+          "skidKey": "AL_RUWACH",
+          "skidId": 24,
+          "name": "Ruwach",
+          "maxLevel": 1,
+          "description": "Ruwach\nMax Level: 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Uses 10 SP to summon Holy\nSpirit that will detect hidden\ncharacters in 5x5 cells area around the\ncaster for 10 sec. If target is enemy,\nthis skill will inflict Holy elemental\nmagic damage that equal to 145% MATK.\n\nComments: Because the skill deals damage,\nrevealing an enemy may cause a short\nanimation lock.",
+          "gridIndex": 35
+        },
+        "al_heal": {
+          "id": "al_heal",
+          "skidKey": "AL_HEAL",
+          "skidId": 28,
+          "name": "Heal",
+          "maxLevel": 10,
+          "description": "Heal\nMax Level: 10\nRequirement: Faith 10, Demon Bane 5\nSkill Form: Active\nType: Recovery\nTarget: 1 Character\nDescription: Restores target's HP.\nSkill level, caster's Base Level and\ntotal INT affect the amount of HP\nrestored.\n\nComments: This is the most basic healing\nskill in the game. Using lower levels of Heal is\nan effective way of not squandering your SP.\nYou can shortcut several levels of Heal to your\nkeyboard, or use the scrolling wheel.\nUsing Heal on undead enemies is commonly\nrefeered to as 'Heal Bombing' and in order to\ndo so, you must either hold the shift key, or\nuse the /ns command.",
+          "gridIndex": 36
+        },
+        "mg_sight": {
+          "id": "mg_sight",
+          "skidKey": "MG_SIGHT",
+          "skidId": 10,
+          "name": "Sight",
+          "maxLevel": 1,
+          "description": "Sight\nMax Level: 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Uses 10 SP to summon a fire\nball that for 10 seconds will detect hidden\ncharacters in 7x7 AoE around the caster.\n\nComments: If the skill is used by the means of\na Horong Card, removing the item containing\nthe card will immediately cancel the skill,\nhowever the visual effect persists the entire duration.\nDoes not work against Stalker's Chase Walk.",
+          "gridIndex": 37
+        },
+        "mg_safetywall": {
+          "id": "mg_safetywall",
+          "skidKey": "MG_SAFETYWALL",
+          "skidId": 12,
+          "name": "Safety Wall",
+          "maxLevel": 10,
+          "description": "Safety Wall\nMax Level: 10\nRequirement: Napalm Beat 7, Soul Strike 5\nRequirement: Napalm Beat 7, Soul Strike 5\nRequirement: Aspersio 4, Sanctuary 3\nSkill Form: Active\nType: Supportive\nTarget: Ground\nDescription: Creates a magic barrier on a\ntargeted spot that will block melee physical\nattacks for the duration of the Safety Wall.\nConsumes 1 Blue Gemstone.\n[Lv 1]: Blocks 2 Hits, 4.0 sec Cast Time,\n5 sec duration\n[Lv 2]: Blocks 3 Hits, 3.5 sec Cast Time,\n10 sec duration\n[Lv 3]: Blocks 4 Hits, 3.0 sec Cast Time,\n15 sec duration\n[Lv 4]: Blocks 5 Hits, 2.5 sec Cast Time,\n20 sec duration\n[Lv 5]: Blocks 6 Hits, 2.0 sec Cast Time,\n25 sec duration\n[Lv 6]: Blocks 7 Hits, 1.5 sec Cast Time,\n30 sec duration\n[Lv 7]: Blocks 8 Hits, 1.0 sec Cast Time,\n35 sec duration\n[Lv 8]: Blocks 9 Hits, 1.0 sec Cast Time,\n40 sec duration\n[Lv 9]: Blocks 10 Hits, 1.0 sec Cast Time,\n45 sec duration\n[Lv 10]: Blocks 11 Hits, 1.0 sec Cast Time,\n50 sec duration\n\nComments: Safety Wall blocks 1 melee hit,\nregardless of how much damage it would\nhave dealt. This is a key skill for both\nself preservation and to support allies,\nin particular against MvPs.\nPneuma and Safety wall are mutually\nexclusive, and where one exists the other\nis inhibited. You can deny the use of Pneuma\nby placing a Safety Wall near a target.",
+          "gridIndex": 38
+        },
+        "al_crucis": {
+          "id": "al_crucis",
+          "skidKey": "AL_CRUCIS",
+          "skidId": 32,
+          "name": "Signum Crucis",
+          "maxLevel": 10,
+          "description": "Signum Crucis\nMax Level: 10\nRequirement: Demon Bane 3\nSkill Form: Active\nType: Debuff\nTarget: Caster's View Range\nDescription: Reduces physical defense of\nUndead elemental and Demon monsters in\nthe caster's vicinity.\n[Lv 1]: DEF Reduction 14%,\n27% success chance\n[Lv 2]: DEF Reduction 18%,\n31% success chance\n[Lv 3]: DEF Reduction 22%,\n35% success chance\n[Lv 4]: DEF Reduction 26%,\n39% success chance\n[Lv 5]: DEF Reduction 30%,\n43% success chance\n[Lv 6]: DEF Reduction 34%,\n47% success chance\n[Lv 7]: DEF Reduction 38%,\n51% success chance\n[Lv 8]: DEF Reduction 42%,\n55% success chance\n[Lv 9]: DEF Reduction 46%,\n59% success chance\n[Lv 10]: DEF Reduction 50%,\n63% success chance\n\nComments: One of the few debuffs that works\non Bosses and MvPs, shredding their Hard\nDEF. Another useful aspect of this skill is that\nit affects every enemy on screen, even\nnon-Demon/Undead. In a party, you can use\nSignum Crucis to 'tap' all monsters on screen,\nincreasing the EXP wield.\nA monster successfully affected will use\nthe /swt emote.",
+          "gridIndex": 39
+        },
+        "ac_owl": {
+          "id": "ac_owl",
+          "skidKey": "AC_OWL",
+          "skidId": 43,
+          "name": "Owl's Eye",
+          "maxLevel": 10,
+          "description": "Owl's Eye\nMax Level: 10\nSkill Form: Passive\nDescription: Increases DEX.\n[Lv 1]: Dex +1\n[Lv 2]: Dex +2\n[Lv 3]: Dex +3\n[Lv 4]: Dex +4\n[Lv 5]: Dex +5\n[Lv 6]: Dex +6\n[Lv 7]: Dex +7\n[Lv 8]: Dex +8\n[Lv 9]: Dex +9\n[Lv 10]: Dex +10",
+          "gridIndex": 40
+        },
+        "mc_pushcart": {
+          "id": "mc_pushcart",
+          "skidKey": "MC_PUSHCART",
+          "skidId": 39,
+          "name": "Pushcart",
+          "maxLevel": 10,
+          "description": "Pushcart\nMax Level: 10\nRequirement: Enlarge Weight Limit 5\nSkill Form: Passive\nDescription: Enables rental and use of\nPushcart which provide additional\nstorage for items, although items cannot\nbe directly used or equipped from\na Pushcart. Pushcart can be rented\nfrom Kafra Employees.\nPushcart shortcut: (Alt+W)\n[Lv 1]: 55% Movement speed\n[Lv 2]: 60% Movement speed\n[Lv 3]: 65% Movement speed\n[Lv 4]: 70% Movement speed\n[Lv 5]: 75% Movement speed\n[Lv 6]: 80% Movement speed\n[Lv 7]: 85% Movement speed\n[Lv 8]: 90% Movement speed\n[Lv 9]: 95% Movement speed\n[Lv 10]: 100% Movement speed",
+          "gridIndex": 41
+        },
+        "al_teleport": {
+          "id": "al_teleport",
+          "skidKey": "AL_TELEPORT",
+          "skidId": 26,
+          "name": "Teleport",
+          "maxLevel": 2,
+          "description": "Teleport\nMax Level: 2\nRequirement: Ruwach 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Teleports caster to another area.\n[Lv 1]: Teleport to a random cell\n[Lv 2]: Teleport to save point\n\nComments: Most servers allow players to\nbypass the menu when using Teleport Lv 1.\nTeleporting around a map is the most efficient\nway of traversing large distances or seeking\ndispersed enemies. Creamy Card allows\nany character to learn Lv 1 of this skill.",
+          "gridIndex": 42
+        },
+        "al_cure": {
+          "id": "al_cure",
+          "skidKey": "AL_CURE",
+          "skidId": 35,
+          "name": "Cure",
+          "maxLevel": 1,
+          "description": "Cure\nMax Level: 1\nRequirement: Heal 2\nRequirement: Faith 5\nRequirement: Heal 2\nSkill Form: Recovery\nDescription: Cures target from Silence,\nConfusion and Blind status effects. When used\non Undead monster, this skill will inflicts\nConfusion status.\n\nComments: You cannot cure Silence on\nyourself since you cannot cast in the first\nplace. The Priest skill Status Recovery covers\nmost of the rest of common status effects.",
+          "gridIndex": 43
+        },
+        "mg_firewall": {
+          "id": "mg_firewall",
+          "skidKey": "MG_FIREWALL",
+          "skidId": 18,
+          "name": "Fire Wall",
+          "maxLevel": 10,
+          "description": "Fire Wall\nMax Level: 10\nRequirement: Sight 1, Fire Ball 5\nSkill Form: Active\nType: Magical\nTarget: Ground\nDescription: Uses 40 SP to create a fire\nbarrier that inflicts 50% MATK Fire\nelemental magic damage on upcoming enemies\nand knock them 2 cells backward.\nThe Undead are not affected by the pushback.\nDuration is 4 seconds +1 extra for every\nskill level.\n\nComments: The wall occupies three cells and\nis placed perpendicular from the line between\nthe caster and the target cell. Each cell can do\n2 hits +1 per skill level. Because undead\nenemies are not pushed back, they will be\ninstantly hit with every single 'charge' of the\nFire Wall tile. Using the skill on\nthe tile where the caster stands will result in a\nNorth-South Fire Wall.",
+          "gridIndex": 44
+        },
+        "al_angelus": {
+          "id": "al_angelus",
+          "skidKey": "AL_ANGELUS",
+          "skidId": 33,
+          "name": "Angelus",
+          "maxLevel": 10,
+          "description": "Angelus\nMax Level: 10\nRequirement: Divine Protection 3\nSkill Form: Active\nType: Supportive\nTarget: Caster and Party Members\nDescription: Temporarily increases\nDefense of yourself and party members on\nscreen for the duration of skill.\n[Lv 1]: DEF +5%\n[Lv 2]: DEF +10%\n[Lv 3]: DEF +15%\n[Lv 4]: DEF +20%\n[Lv 5]: DEF +25%\n[Lv 6]: DEF +30%\n[Lv 7]: DEF +35%\n[Lv 8]: DEF +40%\n[Lv 9]: DEF +45%\n[Lv 10]: DEF +50%\n\nComments: Soft Defense is obtained almost\nexclusively from investment into VIT, and thus\nonly characters with significant amounts of\nVIT will reap any benefits from this skill.",
+          "gridIndex": 46
+        },
+        "ac_vulture": {
+          "id": "ac_vulture",
+          "skidKey": "AC_VULTURE",
+          "skidId": 44,
+          "name": "Vulture's Eye",
+          "maxLevel": 10,
+          "description": "Vulture's Eye\nMax Level: 10\nRequirement: Owl's Eye 3\nRequirement: Owl's Eye 3\nSkill Form: Passive\nDescription: Increases Attack Range\nand HIT with Bow class weapons.\n[Lv 1]: Range and HIT +1\n[Lv 2]: Range and HIT +2\n[Lv 3]: Range and HIT +3\n[Lv 4]: Range and HIT +4\n[Lv 5]: Range and HIT +5\n[Lv 6]: Range and HIT +6\n[Lv 7]: Range and HIT +7\n[Lv 8]: Range and HIT +8\n[Lv 9]: Range and HIT +9\n[Lv 10]: Range and HIT +10",
+          "gridIndex": 47
+        },
+        "mc_vending": {
+          "id": "mc_vending",
+          "skidKey": "MC_VENDING",
+          "skidId": 41,
+          "name": "Vending",
+          "maxLevel": 10,
+          "description": "Vending\nMax Level: 10\nRequirement: Pushcart 3\nSkill Form: Active\nDescription: Opens a street stall for\nselling items to other players. Skill\nlevel affects the number of items that\ncan be vended at a time. The items you\nwant to sell must be in the Pushcart, and the\ncharacter must have his Pushcart equipped.\n[Lv 1]: Vend 3 items\n[Lv 2]: Vend 4 items\n[Lv 3]: Vend 5 items\n[Lv 4]: Vend 6 items\n[Lv 5]: Vend 7 items\n[Lv 6]: Vend 8 items\n[Lv 7]: Vend 9 items\n[Lv 8]: Vend 10 items\n[Lv 9]: Vend 11 items\n[Lv 10]: Vend 12 items\n\nComments: Double check your items to make\nsure you're not selling things at the wrong\nvalue! Depending on your server's rules and\nconfiguration, there might be a predetermined\narea for opening shops. Also depending on\nserver configuration, you may have to pay tax\non every sale. You must remain logged in for\nthe shop to be visible to players, unless the\nserver allows the use of @autotrade\ncommand.",
+          "gridIndex": 48
+        },
+        "al_warp": {
+          "id": "al_warp",
+          "skidKey": "AL_WARP",
+          "skidId": 27,
+          "name": "Warp Portal",
+          "maxLevel": 4,
+          "description": "Warp Portal\nMax Level: 4\nRequirement: Teleport 2\nSkill Form: Active\nType: Supportive\nTarget: Ground\nDescription: Creates a Warp Portal that\nwill teleport those who enter it to\nanother area. Each Warp Portal can\nteleport up to 8 people.\nConsumes 1 Blue Gemstone.\n[Lv 1]: Warp to Save Point\n[Lv 2]: Enable 1 Memo point\n[Lv 3]: Enable 2 Memo points\n[Lv 4]: Enable 3 Memo points\n[Memo Point]: Specific map area memorized\nas a destination for a Warp Portal.\nType/memo in a target area to set\nlocation as a Memo Point.\n\nComments: Indoor locations and Dungeon\nfloors cannot be memorized. Most servers will\nblock the ability to /memo on field maps that\ncontain MvPs or Boss monsters.",
+          "gridIndex": 49
+        },
+        "al_incagi": {
+          "id": "al_incagi",
+          "skidKey": "AL_INCAGI",
+          "skidId": 29,
+          "name": "Increase AGI",
+          "maxLevel": 10,
+          "description": "Increase Agility\nMax Level: 10\nRequirement: Heal 3\nSkill Form: Active\nType: Supportive\nTarget: 1 Character\nDescription: Increases targeted\ncharacter's Movement and Attack Speed\nfor the duration of skill. Drains 15\nHP from the caster after each cast\nand will fail if the caster has less than 16 HP.\nThe increase is 2 +1 extra for every skill level.\nDuration: 40 sec +20 extra for each skill level.\n\nComments: The increase in movement speed\nis very significant.",
+          "gridIndex": 50
+        },
+        "al_blessing": {
+          "id": "al_blessing",
+          "skidKey": "AL_BLESSING",
+          "skidId": 34,
+          "name": "Blessing",
+          "maxLevel": 10,
+          "description": "Blessing\nMax Level: 10\nRequirement: Divine Protection 5\nSkill Form: Active\nType: Supportive\nTarget: 1 Character\nDescription: Temporarily increases STR, DEX\nand INT of the target and removes Curse and\nStone Curse effect(only on second stage). The\nbonus is 1 point of STR, DEX and INT\nrespectively per skill level. Duration is\n40 seconds +20 extra for each skill level.\n\nComments: When used to cure Curse status,\nthe target will not receive the buff. The skill can\nbe used offensively against Undead and\nDemon monsters by holding shift, or using /ns\ncommand. Players cannot be\noffensively Blessed.",
+          "gridIndex": 53
+        },
+        "ac_concentration": {
+          "id": "ac_concentration",
+          "skidKey": "AC_CONCENTRATION",
+          "skidId": 45,
+          "name": "Improve Concentration",
+          "maxLevel": 10,
+          "description": "Improve Concentration\nMax Level: 10\nRequirement: Vulture's Eye 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Boosts AGI and DEX\ntemporarily as well as detects nearby\nhidden characters in 3x3 AoE.\n[Lv 1]: Agi and Dex +3% for 60 sec\n[Lv 2]: Agi and Dex +4% for 80 sec\n[Lv 3]: Agi and Dex +5% for 100 sec\n[Lv 4]: Agi and Dex +6% for 120 sec\n[Lv 5]: Agi and Dex +7% for 140 sec\n[Lv 6]: Agi and Dex +8% for 160 sec\n[Lv 7]: Agi and Dex +9% for 180 sec\n[Lv 8]: Agi and Dex +10% for 200 sec\n[Lv 9]: Agi and Dex +11% for 220 sec\n[Lv 10]: Agi and Dex +12% for 240 sec",
+          "gridIndex": 54
+        },
+        "mc_mammonite": {
+          "id": "mc_mammonite",
+          "skidKey": "MC_MAMMONITE",
+          "skidId": 42,
+          "name": "Mammonite",
+          "maxLevel": 10,
+          "description": "Mammonite\nMax Level: 10\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Uses the power of greed to\nstrike a single target with a strong\nblow, dealing high damage. Consumes\nsome Zeny.\n[Lv 1]: 150% damage, Cost 100 Zeny\n[Lv 2]: 200% damage, Cost 200 Zeny\n[Lv 3]: 250% damage, Cost 300 Zeny\n[Lv 4]: 300% damage, Cost 400 Zeny\n[Lv 5]: 350% damage, Cost 500 Zeny\n[Lv 6]: 400% damage, Cost 600 Zeny\n[Lv 7]: 450% damage, Cost 700 Zeny\n[Lv 8]: 500% damage, Cost 800 Zeny\n[Lv 9]: 550% damage, Cost 900 Zeny\n[Lv 10]: 600% damage, Cost 1000 Zeny\n\nComments: The common way to use\nMammonite is to look for 'Zeny Positive'\nmonsters, whose drops will sell for more\nthan the cost of killing them.",
+          "gridIndex": 55
+        },
+        "al_pneuma": {
+          "id": "al_pneuma",
+          "skidKey": "AL_PNEUMA",
+          "skidId": 25,
+          "name": "Pneuma",
+          "maxLevel": 1,
+          "description": "Pneuma\nMax Level: 1\nRequirement: Warp Portal 4\nSkill Form: Active\nType: Supportive\nTarget: Ground\nDescription: Uses 10 SP to create\nbarrier in 3x3 cells around targeted\ncell that for 10 sec will protect\nanyone inside it from long range\nphysical attacks.\n\nComments: Pneuma is an almost absolute\ndefense against any ranged damage. This skill\nis vital for supporting parties, in particular\nagainst Bosses and MvPs.\nPneuma cannot be cast to overlap an existing\nPneuma or Safety Wall. Pneumas will inhibit\nenemies from positioning Safety Walls.\nFurthermore, Pneumas will block ranged\ndamage, but targets can still be affected by an\nattack's other effects, such as being\nStunned or Frozen.",
+          "gridIndex": 56
+        },
+        "al_decagi": {
+          "id": "al_decagi",
+          "skidKey": "AL_DECAGI",
+          "skidId": 30,
+          "name": "Decrease AGI",
+          "maxLevel": 10,
+          "description": "Decrease Agility\nMax Level: 10\nRequirement: Increase Agility 1\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\nDescription: Reduces target's Movement\nSpeed and AGI stat for the skill's duration.\n[Lv 1]: AGI -3, 42% success,\nlasts 30(monster) or 20(player) sec\n[Lv 2]: AGI -4, 44% success,\nlasts 40(monster) or 25(player) sec\n[Lv 3]: AGI -5, 46% success,\nlasts 50(monster) or 30(player) sec\n[Lv 4]: AGI -6, 48% success,\nlasts 60(monster) or 35(player) sec\n[Lv 5]: AGI -7, 50% success,\nlasts 70(monster) or 40(player) sec\n[Lv 6]: AGI -8, 52% success,\nlasts 80(monster) or 45(player) sec\n[Lv 7]: AGI -9, 54% success,\nlasts 90(monster) or 50(player) sec\n[Lv 8]: AGI -10, 56% success,\nlasts 100(monster) or 55(player) sec\n[Lv 9]: AGI -11, 58% success,\nlasts 110(monster) or 60(player) sec\n[Lv 10]: AGI -12, 60% success,\nlasts 120(monster) or 65(player) sec\n\nComments: This skill is a reverse\nIncrease Agility, to be used against enemies.\nBoth skills cancel each other.",
+          "gridIndex": 57
+        },
+        "mc_identify": {
+          "id": "mc_identify",
+          "skidKey": "MC_IDENTIFY",
+          "skidId": 40,
+          "name": "Item Appraisal",
+          "maxLevel": 1,
+          "description": "Item Appraisal\nMax Level: 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Identifies an unknown item,\nmaking it available for use.",
+          "gridIndex": 62
+        },
+        "nv_firstaid": {
+          "id": "nv_firstaid",
+          "skidKey": "NV_FIRSTAID",
+          "skidId": 142,
+          "name": "First Aid",
+          "maxLevel": 1,
+          "description": "First Aid\nRequirement: Finish Quest\nSkill Form: Active\nType: Recovery\nTarget: Caster\nDescription: Uses 3 SP to restore 5 HP.",
+          "gridIndex": 0
+        },
+        "nv_trickdead": {
+          "id": "nv_trickdead",
+          "skidKey": "NV_TRICKDEAD",
+          "skidId": 143,
+          "name": "Play Dead",
+          "maxLevel": 1,
+          "description": "Play Dead\nRequirement: Finish Quest, Novice Only\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Feigns death to avoid the\nmenace of nearby enemies. The Play\nDead status is canceled by casting\nthis skill again.\n\nComments: This skill ceases to function after\njobchanging to any other class, including\nSuper Novice. Swordsman's Provoke and\nSage's Dispel can cancel the effect. All\nmonsters will be fooled, even Bosses and\nMvPs.",
+          "gridIndex": 1
+        }
+      },
+      "edges": [
+        {
+          "fromId": "sm_bash",
+          "toId": "sm_magnum",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "sm_provoke",
+          "toId": "sm_endure",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tf_steal",
+          "toId": "tf_hiding",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tf_poison",
+          "toId": "tf_detoxify",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "mc_inccarry",
+          "toId": "mc_discount",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "mg_coldbolt",
+          "toId": "mg_frostdiver",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "mg_lightningbolt",
+          "toId": "mg_thunderstorm",
+          "requiredLevel": 4
+        },
+        {
+          "fromId": "mg_firebolt",
+          "toId": "mg_fireball",
+          "requiredLevel": 4
+        },
+        {
+          "fromId": "mg_napalmbeat",
+          "toId": "mg_soulstrike",
+          "requiredLevel": 4
+        },
+        {
+          "fromId": "al_dp",
+          "toId": "al_demonbane",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "mc_discount",
+          "toId": "mc_overcharge",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "mg_napalmbeat",
+          "toId": "mg_safetywall",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "mg_soulstrike",
+          "toId": "mg_safetywall",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "al_demonbane",
+          "toId": "al_crucis",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "mc_inccarry",
+          "toId": "mc_pushcart",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "al_ruwach",
+          "toId": "al_teleport",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "al_heal",
+          "toId": "al_cure",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "mg_sight",
+          "toId": "mg_firewall",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "mg_fireball",
+          "toId": "mg_firewall",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "al_dp",
+          "toId": "al_angelus",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "ac_owl",
+          "toId": "ac_vulture",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "mc_pushcart",
+          "toId": "mc_vending",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "al_teleport",
+          "toId": "al_warp",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "al_heal",
+          "toId": "al_incagi",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "al_dp",
+          "toId": "al_blessing",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "ac_vulture",
+          "toId": "ac_concentration",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "al_warp",
+          "toId": "al_pneuma",
+          "requiredLevel": 4
+        },
+        {
+          "fromId": "al_incagi",
+          "toId": "al_decagi",
+          "requiredLevel": 1
+        }
+      ]
+    },
+    "JT_TAEKWON": {
+      "key": "JT_TAEKWON",
+      "label": "Taekwon Kid",
+      "columns": [
+        {
+          "title": "Taekwon Kid",
+          "skillIds": [
+            "nv_basic",
+            "tk_run",
+            "tk_stormkick",
+            "tk_downkick",
+            "tk_turnkick",
+            "tk_counter",
+            "tk_jumpkick",
+            "tk_highjump",
+            "tk_readystorm",
+            "tk_readydown",
+            "tk_readyturn",
+            "tk_readycounter",
+            "tk_dodge",
+            "tk_hptime",
+            "tk_sptime",
+            "tk_power",
+            "tk_sevenwind",
+            "tk_mission"
+          ]
+        },
+        {
+          "title": "Quest / special",
+          "skillIds": [
+            "nv_firstaid",
+            "nv_trickdead"
+          ]
+        }
+      ],
+      "skills": {
+        "nv_basic": {
+          "id": "nv_basic",
+          "skidKey": "NV_BASIC",
+          "skidId": 1,
+          "name": "Basic Skill",
+          "maxLevel": 9,
+          "description": "Basic Skill\nMax Level: 9\nEnables the use of Basic Interface Skills.\n[Lv 1]: Enables Trading\nAllows the trading of items with other\ncharacter.\nRight click on a character to initiate.\n[Lv 2]: Enables Emotions\nAlt+(0~9) and Ctrl+(1,-,=.)\nAlt+L opens additional Emotion icons.\n[Lv 3]: Enables Sitting\nSitting doubles HP and SP regeneration\nspeed.\nPress the Insert key or type /sit.\n[Lv 4]: Enables Chat Room Creation\nAlt+C to open a Chat Room or click the\nChat button in the Basic Information\nWindow.\n[Lv 5]: Join a Party\nCharacter can join a party.\n[Lv 6]: Enables Use of Kafra Storage\nAllows use of Kafra Storage.\n[Lv 7]: Organize a Party\nCreate a party by typing\n/organize ''Party Name''\nSet party options in the Party Window (Alt+Z).\n[Lv 9]: Enables Change to First Job Class\nQualifies character for change from Novice\nto one of the First classes.",
+          "gridIndex": 0
+        },
+        "tk_run": {
+          "id": "tk_run",
+          "skidKey": "TK_RUN",
+          "skidId": 411,
+          "name": "Running",
+          "maxLevel": 10,
+          "description": "Running\nMax Level: 10\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Enables the caster to run with\nincredible speed in a straight line. Using the\nskill again while Running makes you stop.\nAt Lv7 and above, this skill has no Cast Time.\nIf the skill is used at Lv7 and above and then\nimmediately cancelled, the user will gain an\neffect called Spurt.\nSimply having the Running skill learned\nwill increase your auto-attack damage and\nthe damage of your Taekwon kicks. These\nbonuses are ONLY for when you are unarmed.\n[Lv 1]: 6 sec Cast Time, 100 SP, +10 damage\non Auto Attacks, +10% damage to Kicks\n[Lv 2]: 5 sec Cast Time, 90 SP, +20 damage\non Auto Attacks, +20% damage to Kicks\n[Lv 3]: 4 sec Cast Time, 80 SP, +30 damage\non Auto Attacks, +30% damage to Kicks\n[Lv 4]: 3 sec Cast Time, 70 SP, +40 damage\non Auto Attacks, +40% damage to Kicks\n[Lv 5]: 2 sec Cast Time, 60 SP, +50 damage\non Auto Attacks, +50% damage to Kicks\n[Lv 6]: 1 sec Cast Time, 50 SP, +60 damage\non Auto Attacks, +60% damage to Kicks\n[Lv 7]: 0 sec Cast Time, 40 SP, +70 damage\non Auto Attacks, +70% damage to Kicks\n[Lv 8]: 0 sec Cast Time, 30 SP, +80 damage\non Auto Attacks, +80% damage to Kicks\n[Lv 9]: 0 sec Cast Time, 20 SP, +90 damage\non Auto Attacks, +90% damage to Kicks\n[Lv 10]: 0 sec Cast Time, 10 SP, +100 damage\non Auto Attacks, +100% damage to Kicks\n\nSpurt:\nSTR +10.\nBreak Fall will activate on Melee attacks.\nDoubles the damage of Flywing Side Kick\nwhen it is used during Running.\n\nComments: ASPD determines how long you\nmust run before you're able to stop or use\nFlying Side Kick. High ASPD means you can\ndo it sooner.\nUsing /bingbing and /bangbang can help you\nchange the direction you wish to run without\nmoving, although you still need to stop to\nchange directions.",
+          "gridIndex": 1
+        },
+        "tk_stormkick": {
+          "id": "tk_stormkick",
+          "skidKey": "TK_STORMKICK",
+          "skidId": 413,
+          "name": "Tornado Kick",
+          "maxLevel": 7,
+          "description": "Tornado Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: Enemies around the caster\nDescription: Caster must be in Tornado Stance\nto perform this skill which will attack all\nenemies within a 5*5 cell area around the\ncaster.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 180% damage\n[Lv 2]: 12 SP, 200% damage\n[Lv 3]: 10 SP, 220% damage\n[Lv 4]: 8 SP, 240% damage\n[Lv 5]: 6 SP, 260% damage\n[Lv 6]: 4 SP, 280% damage\n[Lv 7]: 2 SP, 300% damage\n\nComments: This is the only Taekwon kick\nthat does AoE damage.",
+          "gridIndex": 2
+        },
+        "tk_downkick": {
+          "id": "tk_downkick",
+          "skidKey": "TK_DOWNKICK",
+          "skidId": 415,
+          "name": "Heel Drop",
+          "maxLevel": 7,
+          "description": "Heel Drop\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Heel Drop\nStance to perform this skill which will inflict\ndamage and cause the Stun effect for 3\nseconds on the targeted enemy.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 180% damage\n[Lv 2]: 12 SP, 200% damage\n[Lv 3]: 10 SP, 220% damage\n[Lv 4]: 8 SP, 240% damage\n[Lv 5]: 6 SP, 260% damage\n[Lv 6]: 4 SP, 280% damage\n[Lv 7]: 2 SP, 300% damage",
+          "gridIndex": 3
+        },
+        "tk_turnkick": {
+          "id": "tk_turnkick",
+          "skidKey": "TK_TURNKICK",
+          "skidId": 417,
+          "name": "Roundhouse Kick",
+          "maxLevel": 7,
+          "description": "Roundhouse Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Roundhouse\nStance to perform this skill which will damage\nits target and push back enemies around the\ntarget. Enemies that are pushed do not\nreceive any damage but will be stunned.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 220% damage\n[Lv 2]: 12 SP, 250% damage\n[Lv 3]: 10 SP, 280% damage\n[Lv 4]: 8 SP, 310% damage\n[Lv 5]: 6 SP, 340% damage\n[Lv 6]: 4 SP, 370% damage\n[Lv 7]: 2 SP, 400% damage",
+          "gridIndex": 4
+        },
+        "tk_counter": {
+          "id": "tk_counter",
+          "skidKey": "TK_COUNTER",
+          "skidId": 419,
+          "name": "Counter Kick",
+          "maxLevel": 7,
+          "description": "Counter Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Counter Kick\nStance to perform this skill which will always\nhit its target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 220% damage\n[Lv 2]: 12 SP, 250% damage\n[Lv 3]: 10 SP, 280% damage\n[Lv 4]: 8 SP, 310% damage\n[Lv 5]: 6 SP, 340% damage\n[Lv 6]: 4 SP, 370% damage\n[Lv 7]: 2 SP, 400% damage",
+          "gridIndex": 5
+        },
+        "tk_jumpkick": {
+          "id": "tk_jumpkick",
+          "skidKey": "TK_JUMPKICK",
+          "skidId": 421,
+          "name": "Flying Kick",
+          "maxLevel": 7,
+          "description": "Flying Side Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Attacks a distant enemy with a kick\nthat instantly closes the gap between the\ntarget and the player.\nWhen activated by Break Fall, the user's Base\nLevel will influence the damage.\nDamage is further improved when used it is\nused by a player that is in Spurt status.\nFlying Side Kick will remove most Taekwon\nrelated buffs on targets, including Soul Links\nand Linker buffs.\n[Lv 1]: 70 SP, 40% ATK when used normally\n[Lv 2]: 60 SP, 50% ATK when used normally\n[Lv 3]: 50 SP, 60% ATK when used normally\n[Lv 4]: 40 SP, 70% ATK when used normally\n[Lv 5]: 30 SP, 80% ATK when used normally\n[Lv 6]: 20 SP, 90% ATK when used normally\n[Lv 7]: 10 SP, 100% ATK when used normally\n[Break Fall]: (4*BaseLevel)% ATK\n[Running]: (4*BaseLevel)% ATK\n[Spurt]: Multiply damage by 2\n\nComments: Removes all Soul Links, Kaite,\nKaahi, One-Hand Quicken, Full Adrenaline\nRush and Berserk Potion Pitcher.",
+          "gridIndex": 6
+        },
+        "tk_highjump": {
+          "id": "tk_highjump",
+          "skidKey": "TK_HIGHJUMP",
+          "skidId": 426,
+          "name": "Taekwon Jump",
+          "maxLevel": 5,
+          "description": "High Jump\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Leaps to a targeted cell within the\nskill's range.\nSo long as the targeted cell is accessible, the\ncaster can leap over walls and obstacles.\nLeap cannot be used in areas where Fly\nWings are disabled, except for WoE maps.\n[Lv 1]: 5 sec Cast Time, 2 cells\n[Lv 2]: 4 sec Cast Time, 4 cells\n[Lv 3]: 3 sec Cast Time, 6 cells\n[Lv 4]: 2 sec Cast Time, 8 cells\n[Lv 5]: 1 sec Cast Time, 10 cells\n\nComments: Attemping to jump into a cell that\ncannot be entered will cause the character to\njump in place.\nThis skill works on WoE 1.0 castles but not\nWoE 2.0 zones.\nUsing /bingbing and /bangbang can help you\nchange the direction you wish to jump without\nmoving.",
+          "gridIndex": 8
+        },
+        "tk_readystorm": {
+          "id": "tk_readystorm",
+          "skidKey": "TK_READYSTORM",
+          "skidId": 412,
+          "name": "Tornado Stance",
+          "maxLevel": 1,
+          "description": "Tornado Stance\nMax Level: 1\nRequirement: Tornado Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Tornado Stance when\nthe caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 9
+        },
+        "tk_readydown": {
+          "id": "tk_readydown",
+          "skidKey": "TK_READYDOWN",
+          "skidId": 414,
+          "name": "Heel Drop Stance",
+          "maxLevel": 1,
+          "description": "Heel Drop Stance\nMax Level: 1\nRequirement: Heel Drop 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Heel Drop Stance when\nthe caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 10
+        },
+        "tk_readyturn": {
+          "id": "tk_readyturn",
+          "skidKey": "TK_READYTURN",
+          "skidId": 416,
+          "name": "Roundhouse Stance",
+          "maxLevel": 1,
+          "description": "Roundhouse Stance\nMax Level: 1\nRequirement: Roundhouse Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Roundhouse Stance\nwhen the caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 11
+        },
+        "tk_readycounter": {
+          "id": "tk_readycounter",
+          "skidKey": "TK_READYCOUNTER",
+          "skidId": 418,
+          "name": "Counter Kick Stance",
+          "maxLevel": 1,
+          "description": "Counter Kick Stance\nMax Level: 1\nRequirement: Counter Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 20% chance of\nautomatically entering Counter Kick Stance\nwhen the caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 12
+        },
+        "tk_dodge": {
+          "id": "tk_dodge",
+          "skidKey": "TK_DODGE",
+          "skidId": 420,
+          "name": "Tumbling",
+          "maxLevel": 1,
+          "description": "Break Fall\nMax Level: 1\nRequirement: Flying Kick 7\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Enables a 20% chance of\nblocking long ranged physical attacks.\nWhen caster is in Spurt status (after\nperforming Lv 7 Sprint or higher), Break Fall\nwill also block other kinds of attacks.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: Using Flying Side Kick after\nBreak Fall activates will immediately cast the\nskill against the enemy that targeted you.\nUsing Flying Side Kick in this way doesn't\nrequire aiming and clicking the skill.\nSoul Linkers can use this skill and benefit\nfrom the dodge effects, but cannot use\nFlying Side Kick.",
+          "gridIndex": 13
+        },
+        "tk_hptime": {
+          "id": "tk_hptime",
+          "skidKey": "TK_HPTIME",
+          "skidId": 422,
+          "name": "Peaceful Break",
+          "maxLevel": 10,
+          "description": "Peaceful Rest\nMax Level: 10\nSkill Form: Passive\nDescription: When two or more Taekwon class\ncharacters sit next to each other, HP will be\nrestored for you.\nThis HP restoration is affected by your MaxHP.\n[Lv 1]: 30 HP +[(1*MaxHP)/500]\n[Lv 2]: 60 HP +[(2*MaxHP)/500]\n[Lv 3]: 90 HP +[(3*MaxHP)/500]\n[Lv 4]: 120 HP +[(4*MaxHP)/500]\n[Lv 5]: 160 HP +[(5*MaxHP)/500]\n[Lv 6]: 180 HP +[(6*MaxHP)/500]\n[Lv 7]: 210 HP +[(7*MaxHP)/500]\n[Lv 8]: 240 HP +[(8*MaxHP)/500]\n[Lv 9]: 270 HP +[(9*MaxHP)/500]\n[Lv 10]: 300 HP +[(10*MaxHP)/500]\n\nComments: For these Rest skills to work, the\nother Taekwon needs to have learned the skill.\nEven if they only have the skill at Lv1, you will\nactivate the effect at the level you have learned,\nbut if they do not have the skill at all, it will not\nwork. Each one will recover at the level they\nwill have learned.",
+          "gridIndex": 16
+        },
+        "tk_sptime": {
+          "id": "tk_sptime",
+          "skidKey": "TK_SPTIME",
+          "skidId": 423,
+          "name": "Happy Break",
+          "maxLevel": 10,
+          "description": "Enjoyable Rest\nMax Level: 10\nSkill Form: Passive\nDescription: When two or more Taekwon class\ncharacters sit next to each other, SP will be\nrestored for you.\nThis SP restoration is affected by your MaxSP.\nIf the user user does /doridori while this\nskill is active, you will gain a special effect\ncalled Happy Break. While under this effect,\nyou are able to use any Earth Spike Scroll\nwhile only having a very small chance of\nconsuming the item.\nThe Soul Linker passive Kaina further\nimproves the recovery from this skill.\n[Lv 1]: 3 SP +[(1*MaxSP)/500] SP, 10% chance\nto consume Earth Spike Scroll\n[Lv 2]: 6 SP +[(2*MaxSP)/500] SP, 9% chance\nto consume Earth Spike Scroll\n[Lv 3]: 9 SP +[(3*MaxSP)/500] SP, 8% chance\nto consume Earth Spike Scroll\n[Lv 4]: 12 SP +[(4*MaxSP)/500] SP, 7% chance\nto consume Earth Spike Scroll\n[Lv 5]: 16 SP +[(5*MaxSP)/500] SP, 6% chance\nto consume Earth Spike Scroll\n[Lv 6]: 18 SP +[(6*MaxSP)/500] SP, 5% chance\nto consume Earth Spike Scroll\n[Lv 7]: 21 SP +[(7*MaxSP)/500] SP, 4% chance\nto consume Earth Spike Scroll\n[Lv 8]: 24 SP +[(8*MaxSP)/500] SP, 3% chance\nto consume Earth Spike Scroll\n[Lv 9]: 27 SP +[(9*MaxSP)/500] SP, 2% chance\nto consume Earth Spike Scroll\n[Lv 10]: 30 SP +[(10*MaxSP)/500] SP, 1% chance\nto consume Earth Spike Scroll\n\nComments: If you want to trigger Happy Break,\nsit next to another Taekwon, Star Gladiator or\nSoul Linker, do /doridori a few times and wait\nfor the SP tick to appear. They don't need to be\nin the same party. You do need the SP recovery\ntick to happen, so you must not be full SP.",
+          "gridIndex": 17
+        },
+        "tk_power": {
+          "id": "tk_power",
+          "skidKey": "TK_POWER",
+          "skidId": 424,
+          "name": "Kihop",
+          "maxLevel": 5,
+          "description": "Kihop\nMax Level: 5\nSkill Form: Passive\nDescription: Increases Attack Power based on\nthe number of Party Members on the same\nmap. The Taekwon himself is excluded.\n[Lv 1]: 2% per person in party\n[Lv 2]: 4% per person in party\n[Lv 3]: 6% per person in party\n[Lv 4]: 8% per person in party\n[Lv 5]: 10% per person in party\n\nComments: This is a boost directly applied\nto your ATK. It is not visible on the Stat Window\nbut it will increase your damage significantly.\nThe party members must be on the same\nmap but don't need to be on screen or even\nalive.",
+          "gridIndex": 18
+        },
+        "tk_sevenwind": {
+          "id": "tk_sevenwind",
+          "skidKey": "TK_SEVENWIND",
+          "skidId": 425,
+          "name": "Mild Wind",
+          "maxLevel": 7,
+          "description": "Warm Wind\nMax Level: 7\nRequirement: Peaceful Break 5,\nHappy Break 5, Kihop 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Summons a wind that will enchant\nthe caster's attacks for 5 minutes with an\nelemental property based on the level of the\ncasted skill.\n[Lv 1]: Earth\n[Lv 2]: Wind\n[Lv 3]: Water\n[Lv 4]: Fire\n[Lv 5]: Ghost\n[Lv 6]: Shadow\n[Lv 7]: Holy\n\nComments: Assign different skill levels of this\nskill to different keys so that you can quickly\nswitch elements. The four basic elements\ncost 20 SP while Holy, Shadow and Ghost\ncost 50. The visual effect displays the Kanji\nfor each element's name.",
+          "gridIndex": 24
+        },
+        "tk_mission": {
+          "id": "tk_mission",
+          "skidKey": "TK_MISSION",
+          "skidId": 493,
+          "name": "Taekwon Mission",
+          "maxLevel": 1,
+          "description": "TaeKwon Mission\nMax Level: 1\nRequirement: Kihop 5\nSkill Form: Active\nType: Ranking (/taekwon)\nTarget: Caster\nDescription: This skill is disabled once a\ncharacter changes to an advanced job, such\nas Star Gladiator or Soul Linker.\nActivating this skill will display the current\nmonster target for the Taekwon Mission.\nTaekwons will earn 1 Taekwon\nMission Point by defeating 100 of the target\nmonster.\nFulfilling the 100 target monster quota will\nbegin a new Taekwon Mission with a randomly\nchosen target.\nTaekwon's that achieve the Top 10\nTaekwon Ranking by earning the most\nTaekwon Mission Points can string combos\nwith the Tornado Kick, Roundhouse, Heel\nDrop, and Counter Kick skills.\nTaekwon Rankers at Base Level 90 and\nabove with have tripled MaxHP and MaxSP,\nand will be able to use all Taekwon skills.\nThe '/taekwon' command will show rankings.\n\nComments: The benefits granted by becoming\na Ranker can turn Taekwon into a viable class,\neven if they cannot jobchange.\nThere is a 1% chance of resetting your Target\nMonster every time you use this skill, but this\nwill only happen if you are at 0% progress.\nIn order to keep a Kick Chain going, you must\nalternate different kicks. Using the same kick\ntwice will end the combo. You must activate a\nkick's stance to begin the combo.\nThe default list of Target Monsters includes\nMini Bosses(such as Ghostring and\nDeviling), monsters with very limited spawn\namounts(Alice, Giant Whispe), monsters that\nonly spawn inside Guild Dungeons(Giant\nSpider, Gajomart), monsters that you would\nlikely never be able to kill on your own(such\nas Bio 3 enemies), and even monsters that\ndo not spawn at all(Boiled Rice, Photon\nCannon). As such, it's very likely that you would\nhave to reset at least a few times.\nJobchanging after becoming a Ranker will\ncause you to lose all benefits from this.",
+          "gridIndex": 25
+        },
+        "nv_firstaid": {
+          "id": "nv_firstaid",
+          "skidKey": "NV_FIRSTAID",
+          "skidId": 142,
+          "name": "First Aid",
+          "maxLevel": 1,
+          "description": "First Aid\nRequirement: Finish Quest\nSkill Form: Active\nType: Recovery\nTarget: Caster\nDescription: Uses 3 SP to restore 5 HP.",
+          "gridIndex": 0
+        },
+        "nv_trickdead": {
+          "id": "nv_trickdead",
+          "skidKey": "NV_TRICKDEAD",
+          "skidId": 143,
+          "name": "Play Dead",
+          "maxLevel": 1,
+          "description": "Play Dead\nRequirement: Finish Quest, Novice Only\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Feigns death to avoid the\nmenace of nearby enemies. The Play\nDead status is canceled by casting\nthis skill again.\n\nComments: This skill ceases to function after\njobchanging to any other class, including\nSuper Novice. Swordsman's Provoke and\nSage's Dispel can cancel the effect. All\nmonsters will be fooled, even Bosses and\nMvPs.",
+          "gridIndex": 1
+        }
+      },
+      "edges": [
+        {
+          "fromId": "tk_stormkick",
+          "toId": "tk_readystorm",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_downkick",
+          "toId": "tk_readydown",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_turnkick",
+          "toId": "tk_readyturn",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_counter",
+          "toId": "tk_readycounter",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_jumpkick",
+          "toId": "tk_dodge",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "tk_hptime",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_sptime",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_power",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_power",
+          "toId": "tk_mission",
+          "requiredLevel": 5
+        }
+      ]
+    },
+    "JT_NINJA": {
+      "key": "JT_NINJA",
+      "label": "Ninja",
+      "columns": [
+        {
+          "title": "Ninja",
+          "skillIds": [
+            "nv_basic",
+            "nj_tobidougu",
+            "nj_tatamigaeshi",
+            "nj_ninpou",
+            "nj_syuriken",
+            "nj_shadowjump",
+            "nj_nen",
+            "nj_kouenka",
+            "nj_hyousensou",
+            "nj_huujin",
+            "nj_kunai",
+            "nj_kasumikiri",
+            "nj_utsusemi",
+            "nj_kaensin",
+            "nj_suiton",
+            "nj_raigekisai",
+            "nj_huuma",
+            "nj_kirikage",
+            "nj_bakuenryu",
+            "nj_hyousyouraku",
+            "nj_kamaitachi",
+            "nj_zenynage",
+            "nj_bunsinjyutsu",
+            "nj_issen"
+          ]
+        },
+        {
+          "title": "Quest / special",
+          "skillIds": [
+            "nv_firstaid",
+            "nv_trickdead"
+          ]
+        }
+      ],
+      "skills": {
+        "nv_basic": {
+          "id": "nv_basic",
+          "skidKey": "NV_BASIC",
+          "skidId": 1,
+          "name": "Basic Skill",
+          "maxLevel": 9,
+          "description": "Basic Skill\nMax Level: 9\nEnables the use of Basic Interface Skills.\n[Lv 1]: Enables Trading\nAllows the trading of items with other\ncharacter.\nRight click on a character to initiate.\n[Lv 2]: Enables Emotions\nAlt+(0~9) and Ctrl+(1,-,=.)\nAlt+L opens additional Emotion icons.\n[Lv 3]: Enables Sitting\nSitting doubles HP and SP regeneration\nspeed.\nPress the Insert key or type /sit.\n[Lv 4]: Enables Chat Room Creation\nAlt+C to open a Chat Room or click the\nChat button in the Basic Information\nWindow.\n[Lv 5]: Join a Party\nCharacter can join a party.\n[Lv 6]: Enables Use of Kafra Storage\nAllows use of Kafra Storage.\n[Lv 7]: Organize a Party\nCreate a party by typing\n/organize ''Party Name''\nSet party options in the Party Window (Alt+Z).\n[Lv 9]: Enables Change to First Job Class\nQualifies character for change from Novice\nto one of the First classes.",
+          "gridIndex": 0
+        },
+        "nj_tobidougu": {
+          "id": "nj_tobidougu",
+          "skidKey": "NJ_TOBIDOUGU",
+          "skidId": 522,
+          "name": "Shuriken Training",
+          "maxLevel": 10,
+          "description": "Throwing Mastery\nMax Level: 10\nSkill Form: Passive\nDescription: Increases Throw Shuriken\ndamage.\n[Lv 1]: Damage +3\n[Lv 2]: Damage +6\n[Lv 3]: Damage +9\n[Lv 4]: Damage +12\n[Lv 5]: Damage +15\n[Lv 6]: Damage +18\n[Lv 7]: Damage +21\n[Lv 8]: Damage +24\n[Lv 9]: Damage +27\n[Lv 10]: Damage +30\n\nComments: Mastery skills only get added up\nat the end of damage calculation. In most\nsituations, it only results in a flat addition of\ndamage.",
+          "gridIndex": 1
+        },
+        "nj_tatamigaeshi": {
+          "id": "nj_tatamigaeshi",
+          "skidKey": "NJ_TATAMIGAESHI",
+          "skidId": 527,
+          "name": "Improvised Defense",
+          "maxLevel": 5,
+          "description": "Flip Tatami\nMax Level: 5\nSkill Form: Active\nType: Physical Melee\nTarget: Caster\nDescription: Flips tatami mats, damaging\nenemies in a vertical and horizontal line from\nwhere the user is standing, pushing them.\nFor 3 seconds after using Flip Tatami, the user\nwill be immune to ranged attacks.\nThis skill has 3 seconds After Cast Delay.\n[Lv 1]: 1 cell range, 110% damage\n[Lv 2]: 1 cell range, 120% damage\n[Lv 3]: 2 cells range, 130% damage\n[Lv 4]: 2 cells range, 140% damage\n[Lv 5]: 3 cells range, 150% damage\n\nComments: The protection granted by Flip\nTatami works by the same rules as Pneuma.\nHowever, this is only applied to the user. You\ncannot protect another player using tatamis.\nMoving will immediatelly cancel the effect of\nFlip Tatami, you must stay on the same cell in\norder to benefit from the protection.\nBecause the effect and the After Cast Delay\nhave the same duration, unless you have a\nbuff or equipment that reduces delay, you will\nnot be able to fight back while protecting\nyourself with this skill.",
+          "gridIndex": 2
+        },
+        "nj_ninpou": {
+          "id": "nj_ninpou",
+          "skidKey": "NJ_NINPOU",
+          "skidId": 533,
+          "name": "Spirit of the Blade",
+          "maxLevel": 10,
+          "description": "Ninja Training\nMax Level: 10\nSkill Form: Passive\nDescription: Increases SP regen by training in\nthe Ninja Arts. The amount of SP restored by\nthis skill is affected by the character's MaxSP.\n[Lv 1]: SP+3 +(0.2% of Max SP) every 10 sec\n[Lv 2]: SP+6 +(0.4% of Max SP) every 10 sec\n[Lv 3]: SP+9 +(0.6% of Max SP) every 10 sec\n[Lv 4]: SP+12 +(0.8% of Max SP) every 10 sec\n[Lv 5]: SP+15 +(1.0% of Max SP) every 10 sec\n[Lv 6]: SP+18 +(1.2% of Max SP) every 10 sec\n[Lv 7]: SP+21 +(1.4% of Max SP) every 10 sec\n[Lv 8]: SP+24 +(1.6% of Max SP) every 10 sec\n[Lv 9]: SP+27 +(1.8% of Max SP) every 10 sec\n[Lv 10]: SP+30 +(2.0% of Max SP) every 10 sec\n\nComments: The SP recovery granted by this\npassive is identical to Mage's Increase SP\nRecovery skill, but without the boost to SP\nrecovery items.",
+          "gridIndex": 5
+        },
+        "nj_syuriken": {
+          "id": "nj_syuriken",
+          "skidKey": "NJ_SYURIKEN",
+          "skidId": 523,
+          "name": "Throw Shuriken",
+          "maxLevel": 10,
+          "description": "Throw Shuriken\nMax Level: 10\nRequirement: Throwing Mastery 1\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Throws a Shuriken at a target\nfrom a distance of up to 9 cells away from the\ncaster.\nPreviously, this skill would ignore all FLEE.\nHowever, with the current implementation, only\nthe fixed bonus damage ignores FLEE checks,\nthe ATK% based portion can still miss, similar\nto Monk's Spirit Sphere and Blacksmith's\nWeaponry Research.\nConsumes 1 Shuriken.\n[Lv 1]: 100% ATK +Damage +4\n[Lv 2]: 100% ATK +Damage +8\n[Lv 3]: 100% ATK +Damage +12\n[Lv 4]: 100% ATK +Damage +16\n[Lv 5]: 100% ATK +Damage +20\n[Lv 6]: 100% ATK +Damage +24\n[Lv 7]: 100% ATK +Damage +28\n[Lv 8]: 100% ATK +Damage +32\n[Lv 9]: 100% ATK +Damage +36\n[Lv 10]: 100% ATK +Damage +40\n\nComments: This skill is not affected by any\n+% damage cards, although flat +ATK options\nwill work. The bonus damage granted by\nthis skill is not a Mastery bonus, it is added\nbefore other calculations, whereas masteries\nare added at the end.\nThe rate at which Shurikens can be thrown\nis limited by your ASPD. Although Kunais are\nwidely considered to be superior, with\nsufficiently high Attack Speed, it's possible for\nShurikens to outdamage Kunais.\n\nShurikens are Pseudo-Elemental, meaning they\nbenefit from elemental boosts, but will always\ndo less damage(or miss entirely) against\nGhost property enemies. Previously, Shurikens\nwere affected by +% Cards but that is no longer\nthe case. The final damage of a thrown\nShuriken is equal to 100% of your ATK +the\nShuriken's ATK +4*SkillLv +3*Throwing\nMastery's SkillLv.",
+          "gridIndex": 8
+        },
+        "nj_shadowjump": {
+          "id": "nj_shadowjump",
+          "skidKey": "NJ_SHADOWJUMP",
+          "skidId": 529,
+          "name": "Shadow Leap",
+          "maxLevel": 5,
+          "description": "Shadow Leap\nMax Level: 5\nRequirement: Flip Tatami 1\nSkill Form: Active\nType: Supportive\nTarget: Ground\nDescription: Shadow Leap can only be\nperformed when the caster is in Hiding status,\nwhich can be enabled by the Haze Slasher skill\nor any equipment that grants Hiding.\nThis skill instantly moves the caster to a\ntargeted cell.\n[Lv 1]: 5 cells range\n[Lv 2]: 6 cells range\n[Lv 3]: 7 cells range\n[Lv 4]: 8 cells range\n[Lv 5]: 9 cells range\n\nComments: Similar to Monk's Body Relocation\nbut better in one key way: you can Shadow\nJump across snipable tiles. In the game, there\nare many areas which you cannot walk\nthrough but can shoot across. This skill lets\nyou traverse these paths. It is possible, for\nexample, to jump up and down cliffs.",
+          "gridIndex": 9
+        },
+        "nj_nen": {
+          "id": "nj_nen",
+          "skidKey": "NJ_NEN",
+          "skidId": 543,
+          "name": "Soul",
+          "maxLevel": 5,
+          "description": "Ninja Aura\nMax Level: 5\nRequirement: Ninja Mastery 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Focuses spritual energy to enter\nNinja Aura status, which endows the caster\nwith INT and STR bonuses.\nNinja Aura status enables the use of the Mirror\nImage and Killing Strike skills, although using\nthose skills will cancel Ninja Aura status.\nCasting Ninja Aura costs 5% of your HP.\n[Lv 1]: STR and INT +1, 30 sec\n[Lv 2]: STR and INT +2, 45 sec\n[Lv 3]: STR and INT +3, 60 sec\n[Lv 4]: STR and INT +4, 75 sec\n[Lv 5]: STR and INT +5, 90 sec\n\nComments: Ninja Aura is required to use\nKilling Strike, the same way Critical Explosion\nis needed for Asura Strike.",
+          "gridIndex": 10
+        },
+        "nj_kouenka": {
+          "id": "nj_kouenka",
+          "skidKey": "NJ_KOUENKA",
+          "skidId": 534,
+          "name": "Crimson Fire Petal",
+          "maxLevel": 10,
+          "description": "Flaming Petals\nMax Level: 10\nRequirement: Ninja Mastery 1\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Inflicts Fire elemental damage at a\ntarget by shooting flaming petals.\nThis skill's level affects the number of strikes.\nEach strike inflicts an amount of damage equal\nto 90% MATK.\n[Lv 1]: 1 Petal, 0.7 seconds Cast Time\n[Lv 2]: 2 Petals, 1.4 seconds Cast Time\n[Lv 3]: 3 Petals, 2.1 seconds Cast Time\n[Lv 4]: 4 Petals, 2.8 seconds Cast Time\n[Lv 5]: 5 Petals, 3.5 seconds Cast Time\n[Lv 6]: 6 Petals, 4.2 seconds Cast Time\n[Lv 7]: 7 Petals, 4.9 seconds Cast Time\n[Lv 8]: 8 Petals, 5.6 seconds Cast Time\n[Lv 9]: 9 Petals, 6.3 seconds Cast Time\n[Lv 10]: 10 Petals, 7.0 seconds Cast Time",
+          "gridIndex": 11
+        },
+        "nj_hyousensou": {
+          "id": "nj_hyousensou",
+          "skidKey": "NJ_HYOUSENSOU",
+          "skidId": 537,
+          "name": "Spear of Ice",
+          "maxLevel": 10,
+          "description": "Freezing Spear\nMax Level: 10\nRequirement: Ninja Mastery 1\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Summons spears of ice that will\nstrike a targeted enemy multiple times.\nHits three times at Lv1 and each additional\nSkill Level adds an extra hit. Each hit does\n100% MATK Water\nelemental magical damage.\n[Lv 1]: 3 Spears, 0.7 sec Cast Time\n[Lv 2]: 4 Spears, 1.4 sec Cast Time\n[Lv 3]: 5 Spears, 2.1 sec Cast Time\n[Lv 4]: 6 Spears, 2.8 sec Cast Time\n[Lv 5]: 7 Spears, 3.5 sec Cast Time\n[Lv 6]: 8 Spears, 4.2 sec Cast Time\n[Lv 7]: 9 Spears, 4.9 sec Cast Time\n[Lv 8]: 10 Spears, 5.6 sec Cast Time\n[Lv 9]: 11 Spears, 6.3 sec Cast Time\n[Lv 10]: 12 Spears, 7.0 sec Cast Time\n\nComments: Official translations of this skill will\nsometimes state that each strike of this skill\ndoes 70% MATK damage. However, in reality\nit does 100% MATK per hit.\nAnother translation error in Watery Evasion\nstates that Freezing spear will do more\ndamage when cast atop its AoE. That is also\nnot correct.",
+          "gridIndex": 12
+        },
+        "nj_huujin": {
+          "id": "nj_huujin",
+          "skidKey": "NJ_HUUJIN",
+          "skidId": 540,
+          "name": "Wind Blade",
+          "maxLevel": 10,
+          "description": "Wind Blade\nMax Level: 10\nRequirement: Ninja Mastery 1\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Shoots a shearing blade of air\nthat will inflict Wind elemental damage to a\ntarget enemy for 100% MATK on each hit.\n[Lv 1]: 1 Blade, 1 second Cast Time\n[Lv 2]: 2 Blades, 2 seconds Cast Time\n[Lv 3]: 2 Blades, 2 seconds Cast Time\n[Lv 4]: 3 Blades, 3 seconds Cast Time\n[Lv 5]: 3 Blades, 3 seconds Cast Time\n[Lv 6]: 4 Blades, 4 seconds Cast Time\n[Lv 7]: 4 Blades, 4 seconds Cast Time\n[Lv 8]: 5 Blades, 5 seconds Cast Time\n[Lv 9]: 5 Blades, 5 seconds Cast Time\n[Lv 10]: 6 Blades, 6 seconds Cast Time\n\nComments: Skill Levels 3, 5, 7 and 9 offer no\nimprovement over the previous Skill Level, but\ncost more SP to use.\nThis skill is strictly worse damage than a\nFreezing Spear of the same level, doing about\nhalf of the damage. It's only worth using\nagainst Water Element enemies, which will\ntake more damage from Wind and less from\nWater.",
+          "gridIndex": 13
+        },
+        "nj_kunai": {
+          "id": "nj_kunai",
+          "skidKey": "NJ_KUNAI",
+          "skidId": 524,
+          "name": "Throw Kunai",
+          "maxLevel": 5,
+          "description": "Throw Kunai\nMax Level: 5\nRequirement: Throwing Shuriken 5\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Throws a Kunai that will strike\nits target 3 times in one attack. Each of the\nthree hits will do 100% ATK +fixed damage\nequal to 3x the Kunai's ATK. Every Kunai in\nPre-Renewal has 30 ATK, meaning each thrown\nKunai deals a total of 300% ATK +270 damage.\nPreviously, this skill would ignore all FLEE.\nHowever, with the current implementation, only\nthe fixed bonus damage ignores FLEE checks,\nthe ATK% based portion can still miss, similar\nto Monk's Spirit Sphere and Blacksmith's\nWeaponry Research.\nThe attack's element is affected by the type of\nKunai thrown.\nConsumes 1 Kunai.\n[Lv 1]: 30 SP Cost\n[Lv 2]: 25 SP Cost\n[Lv 3]: 20 SP Cost\n[Lv 4]: 15 SP Cost\n[Lv 5]: 10 SP Cost\n\nComments: This skill is not affected by any\n+% damage cards, although flat +ATK options\nwill work. Unlike Throw Shuriken, this skill has\na 1 second Cooldown acting as the limiter.\nKunais are more expensive and SP intensive\ncompared to Shurikens, but very strong. The\nonly way to throw Kunais faster is by means\nof Aftercast Delay reductions, such as Poem\nof Bragi and Kiel Card.\n\nKunais are Pseudo-Elemental, meaning they\nbenefit from elemental boosts, but will always\ndo less damage(or miss entirely) against\nGhost property enemies.",
+          "gridIndex": 15
+        },
+        "nj_kasumikiri": {
+          "id": "nj_kasumikiri",
+          "skidKey": "NJ_KASUMIKIRI",
+          "skidId": 528,
+          "name": "Vanishing Slash",
+          "maxLevel": 10,
+          "description": "Haze Slash\nMax Level: 10\nRequirement: Shadow Leap 1\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Strikes an enemy, and then\nimmediately enter the Hiding status, can be\nfollowed by the Shadow Leap or Shadow Slash\nskill.\n[Lv 1]: 110% damage\n[Lv 2]: 120% damage\n[Lv 3]: 130% damage\n[Lv 4]: 140% damage\n[Lv 5]: 150% damage\n[Lv 6]: 160% damage\n[Lv 7]: 170% damage\n[Lv 8]: 180% damage\n[Lv 9]: 190% damage\n[Lv 10]: 200% damage\n\nComments: The Hiding effect granted by this\nskill is the exact same one as Thief's Hiding.\nThis is the only way a Ninja can enter into\nHiding without using equipment, such as\nSmokie Card. You will only enter into Hiding if\nthe skill hits. If it misses, it won't work.",
+          "gridIndex": 16
+        },
+        "nj_utsusemi": {
+          "id": "nj_utsusemi",
+          "skidKey": "NJ_UTSUSEMI",
+          "skidId": 531,
+          "name": "Cicada Skin Sheeding",
+          "maxLevel": 5,
+          "description": "Cicada Skin Shed\nMax Level: 5\nRequirement: Shadow Leap 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Enables Cicada Skin Shed status,\nwhich enables the caster to automatically\ndodge a set number of attacks.\nEach special dodge is followed by a backward\nmovement of 7 cells.\nWhen the number of attacks reaches the skill's\nlimit, Cicada Skin Shed status ends.\n[Lv 1]: 20 sec, 1 Attack\n[Lv 2]: 30 sec, 1 Attack\n[Lv 3]: 40 sec, 2 Attacks\n[Lv 4]: 50 sec, 2 Attacks\n[Lv 5]: 60 sec, 3 Attacks\n\nComments: Grants protection against most\nforms of physical damage, both melee and\nlong range, but does nothing to protect from\nmagic. Several skills are capable of ignoring\nCicada Skin Shed: Cart Termination, Meteor\nAssault, Soul Breaker's INT portion, all types\nof damage Traps, Acid Terror, Demonstration,\nAcid Demonstration, Blitz Beat, Falcon Assault,\nGunslinger's Bull's Eye, Throw Venom Knife,\nThrow Zeny and Pressure. All sources of Misc\nDamage will bypass Cicada Skin Shedding.",
+          "gridIndex": 17
+        },
+        "nj_kaensin": {
+          "id": "nj_kaensin",
+          "skidKey": "NJ_KAENSIN",
+          "skidId": 535,
+          "name": "Crimson Fire Formation",
+          "maxLevel": 10,
+          "description": "Blaze Shield\nMax Level: 10\nRequirement: Flaming Petals 5\nSkill Form: Active\nType: Magical\nTarget: Enemies around the caster\nDescription: Summons a blazing storm in a\nx5 cell area around the user that will deliver\nmultiple strikes to enemies within its range.\nEach strike deals 50% MATK damage.\nThe Blaze Shield lasts for 20 seconds, but is\nautomatically canceled after inflicting its\nmaximum number of strikes.\nConsumes 1 Flame Stone.\n[Lv 1]: 5 Hits, 6.0 sec Cast Time\n[Lv 2]: 5 Hits, 5.5 sec Cast Time\n[Lv 3]: 6 Hits, 5.0 sec Cast Time\n[Lv 4]: 6 Hits, 4.5 sec Cast Time\n[Lv 5]: 7 Hits, 4.0 sec Cast Time\n[Lv 6]: 7 Hits, 3.5 sec Cast Time\n[Lv 7]: 8 Hits, 3.0 sec Cast Time\n[Lv 8]: 8 Hits, 2.5 sec Cast Time\n[Lv 9]: 9 Hits, 2.0 sec Cast Time\n[Lv 10]: 9 Hits, 1.5 sec Cast Time\n\nComments: You can only have one instance of\nBlaze Shield or Watery Evasion active at one\ntime. Casting either skill will immediatelly\nterminate any previous instances of these\nskills you may have had active.\nEach cell in the 5x5 grid has its own\nindependent number of hits, similar to Firewall.\nOnce all hits are consumed on a tile, that cell's\neffect ends but others will continue.",
+          "gridIndex": 18
+        },
+        "nj_suiton": {
+          "id": "nj_suiton",
+          "skidKey": "NJ_SUITON",
+          "skidId": 538,
+          "name": "Hidden Water",
+          "maxLevel": 10,
+          "description": "Watery Evasion\nMax Level: 10\nRequirement: Freezing Spear 5\nSkill Form: Active\nType: Supportive\nTarget: Around the caster\nDescription: Creates a water pool that will\naffect enemies within range by decreasing\ntheir AGI and reducing Movement Speed by\nhalf. All Ninja class characters, including the\ncaster, are immune to these AGI and\nMovement Speed penalties.\nEnables the use of Water Ball and Aqua\nBenedicta for other players.\nConsumes 1 Ice Stone.\n[Lv 1]: Area 3x3, 15 sec, Agi -0\n[Lv 2]: Area 3x3, 20 sec, Agi -3\n[Lv 3]: Area 3x3, 25 sec, Agi -3\n[Lv 4]: Area 5x5, 30 sec, Agi -3\n[Lv 5]: Area 5x5, 35 sec, Agi -5\n[Lv 6]: Area 5x5, 40 sec, Agi -5\n[Lv 7]: Area 7x7, 45 sec, Agi -5\n[Lv 8]: Area 7x7, 50 sec, Agi -8\n[Lv 9]: Area 7x7, 55 sec, Agi -8\n[Lv 10]: Area 9x9, 60 sec, Agi -8\n\nComments: Watery Evasion has no effect on\nthe damage of Freezing Spear, despite older\ntranslations stating otherwise. That effect is\nonly present post Renewal.\nSimilar to Quagmire, this skill will affect allies\nin PvP environments, such as WoE. However,\nunlike other speed debilitating skills, it does\nnot force cancels effects such as Increase AGI,\nTwo-Hand Quicken or Adrenaline Rush.\n\nA rather unique property of Watery Evasion is\nthat it has the ability to force stop enemies\nfrom moving. This effect only takes place the\ninstant in which a target enters the area of the\nspell. There is no binding effect, the victim is\nable to move immediately after being force\nstopped.\nUsing Watery Evasion while a Blaze Shield is\nactive will remove the Blaze Shield. Likewise,\nusing Blaze Shield removes any active Watery\nEvasion you may have placed previously.",
+          "gridIndex": 19
+        },
+        "nj_raigekisai": {
+          "id": "nj_raigekisai",
+          "skidKey": "NJ_RAIGEKISAI",
+          "skidId": 541,
+          "name": "Lightning Strike of Destruction",
+          "maxLevel": 5,
+          "description": "Lightning Jolt\nMax Level: 5\nRequirement: Wind Blade 5\nSkill Form: Active\nType: Magical\nTarget: Enemies around the caster\nDescription: Summons lightning bolts around\nthe caster to damage enemies within the\nskill's range.\nConsumes 1 Wind Stone.\n[Lv 1]: 200% MATK, 5x5 cells\n[Lv 2]: 240% MATK, 5x5 cells\n[Lv 3]: 280% MATK, 7x7 cells\n[Lv 4]: 320% MATK, 7x7 cells\n[Lv 5]: 360% MATK, 9x9 cells\n\nComments: Deals low damage but has zero\nAfter Cast Delay.",
+          "gridIndex": 20
+        },
+        "nj_huuma": {
+          "id": "nj_huuma",
+          "skidKey": "NJ_HUUMA",
+          "skidId": 525,
+          "name": "Throw Huuma Shuriken",
+          "maxLevel": 5,
+          "description": "Throw Huuma Shuriken\nMax Level: 5\nRequirement: Throwing Mastery 5,\nThrow Kunai 5\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Throws your Huuma Shuriken to\ndamage its target and any nearby enemies.\nThe total amount of damage is divided among\nthe enemies damaged by this skill.\n[Lv 1]: 300% damage\n[Lv 2]: 450% damage\n[Lv 3]: 600% damage\n[Lv 4]: 750% damage\n[Lv 5]: 900% damage\n\nComments: Unlike Kunais and Shurikens,\nThrowing Huumas does not ignore FLEE and\ncan miss.",
+          "gridIndex": 22
+        },
+        "nj_kirikage": {
+          "id": "nj_kirikage",
+          "skidKey": "NJ_KIRIKAGE",
+          "skidId": 530,
+          "name": "Shadow Slash",
+          "maxLevel": 5,
+          "description": "Shadow Slash\nMax Level: 5\nRequirement: Haze Slasher 5\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Shadow Slash can only be\nperformed during Hiding status, which can be\nenabled by the Haze Slasher skill or any\nequipment that grants Hiding.\nStrikes a target with an attack whose range is\nequal to the caster's Shadow Leap range.\nCasting this skill will cancel Hiding status.\n[Lv 1]: 100% damage, +30% Critical Rate\n[Lv 2]: 200% damage, +35% Critical Rate\n[Lv 3]: 300% damage, +40% Critical Rate\n[Lv 4]: 400% damage, +45% Critical Rate\n[Lv 5]: 500% damage, +50% Critical Rate\n\nComments: This is one of the very few skills in\nthe game that can Crit. Cannot be used in GvG\nor WoE.",
+          "gridIndex": 23
+        },
+        "nj_bakuenryu": {
+          "id": "nj_bakuenryu",
+          "skidKey": "NJ_BAKUENRYU",
+          "skidId": 536,
+          "name": "Raging Fire Dragon",
+          "maxLevel": 5,
+          "description": "Exploding Dragon\nMax Level: 5\nRequirement: Ninja Mastery 10,\nBlaze Shield 7\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Summons a flaming dragon that\nwill inflict 3 strikes on all enemies in a 5x5 cell\narea around the cell targeted by this skill.\nConsumes 1 Flame Stone.\n[Lv 1]: 300% MATK\n[Lv 2]: 450% MATK\n[Lv 3]: 600% MATK\n[Lv 4]: 750% MATK\n[Lv 5]: 900% MATK\n\nComments: Using this skill requires targeting\nan enemy. However, it has the properties of an\nAoE spell. Magic Rod does NOT catch it, but\nLand Protector prevents it entirely. Single target\nspell reflecting items such as Maya Card do\nnot work on Exploding Dragon either.",
+          "gridIndex": 25
+        },
+        "nj_hyousyouraku": {
+          "id": "nj_hyousyouraku",
+          "skidKey": "NJ_HYOUSYOURAKU",
+          "skidId": 539,
+          "name": "Ice Meteor",
+          "maxLevel": 5,
+          "description": "Snow Flake Draft\nMax Level: 5\nRequirement: Ninja Mastery 10,\nWatery Evasion 7\nSkill Form: Active\nType: Magical\nTarget: Caster\nDescription: Summons a meteor of ice that will\ndamage enemies in a 7*7 cell area around the\ncaster.\nConsumes 1 Ice Stone.\n[Lv 1]: 150% MATK, Freeze Chance 20%\n[Lv 2]: 200% MATK, Freeze Chance 30%\n[Lv 3]: 250% MATK, Freeze Chance 40%\n[Lv 4]: 300% MATK, Freeze Chance 50%\n[Lv 5]: 350% MATK, Freeze Chance 60%\n\nComments: Similar to Storm Gust and Frost\nNova, this skill will not hit enemies which are\nalready frozen. If your goal is to freeze an\nenemy, it's safe to spam this skill.",
+          "gridIndex": 26
+        },
+        "nj_kamaitachi": {
+          "id": "nj_kamaitachi",
+          "skidKey": "NJ_KAMAITACHI",
+          "skidId": 542,
+          "name": "Kamaitachi",
+          "maxLevel": 5,
+          "description": "First Wind\nMax Level: 5\nRequirement: Ninja Mastery 10,\nLightning Jolt 5\nSkill Form: Active\nType: Magical\nTarget: 1 Character\nDescription: Target an enemy and shoot a wind\nblade that damages every enemy between the\nuser and the target. The blade continues its\npath behind the target, further damaging\nenemies.\nConsumes 1 Wind Stone.\n[Lv 1]: 200% MATK, Damage Range 5 cells\n[Lv 2]: 300% MATK, Damage Range 6 cells\n[Lv 3]: 400% MATK, Damage Range 7 cells\n[Lv 4]: 500% MATK, Damage Range 8 cells\n[Lv 5]: 600% MATK, Damage Range 9 cells\n\nComments: This is an AoE spell similar to\nSniper's Sharpshooting. It creates a corridor\nshaped AoE that is 3 cells wide between the\nuser and the target. The default and official\nbehavior of these skills is that those AoEs are\nfixed as one of the 4 directional(+) and\n4 diagonal(x) directions. Server admins can\nbypass this limitation by disabling\neightpath_algorithm within the server's\nconfiguration.",
+          "gridIndex": 27
+        },
+        "nj_zenynage": {
+          "id": "nj_zenynage",
+          "skidKey": "NJ_ZENYNAGE",
+          "skidId": 526,
+          "name": "Throw Zeny",
+          "maxLevel": 10,
+          "description": "Throw Zeny\nMax Level: 10\nRequirement: Throwing Mastery 10,\nThrow Huuma Shuriken 5\nSkill Form: Active\nType: Special Physical Ranged\nTarget: 1 Character\nDescription: Throws coins at a target to inflict\nan amount of DEF piercing damage equal to\nthe amount of Zeny spent in the attack.\nDamage is only 1/3 against Boss monsters\nand 1/2 against players. However, the Zeny\nconsumed is also reduced\nThis skill has 5 seconds After Cast Delay.\n[Lv 1]: 500~1000 Zeny\n[Lv 2]: 1000~2000 Zeny\n[Lv 3]: 1500~3000 Zeny\n[Lv 4]: 2000~4000 Zeny\n[Lv 5]: 2500~5000 Zeny\n[Lv 6]: 3000~6000 Zeny\n[Lv 7]: 3500~7000 Zeny\n[Lv 8]: 4000~8000 Zeny\n[Lv 9]: 4500~9000 Zeny\n[Lv 10]: 5000~10000 Zeny\n\nComments: Ignores DEF and FLEE. Damage\nis not reduced by Crusader's Defender. Cannot\nbe blocked by Parrying, Auto-Guard, or Cicada\nSkin Shedding. Kyrie Eleison does not block\nthe damage either and will also consume the\nhealth of the shield.\nIgnore the damage reduction modifiers for GvG,\nBattlegrounds and WoE.",
+          "gridIndex": 29
+        },
+        "nj_bunsinjyutsu": {
+          "id": "nj_bunsinjyutsu",
+          "skidKey": "NJ_BUNSINJYUTSU",
+          "skidId": 532,
+          "name": "Mirror Image",
+          "maxLevel": 10,
+          "description": "Mirror Image\nMax Level: 10\nRequirement: Shadow Slash 3,\nNinja Aura 1, Cicada Skid Shed 4\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Mirror Image can only be cast\nduring Ninja Aura status, consumes the buff\nand 1 Shadow Orb.\nCreate a mirror image that will enable the user\nto dodge a set number of  physical attacks.\nThis skill cannot be used to block or evade\nmagic based attacks.\n[Lv 1]: 1 Attack, 60 sec duration,\n4.0 sec Cast Time\n[Lv 2]: 1 Attack, 80 sec duration,\n3.5 sec Cast Time\n[Lv 3]: 2 Attacks, 100 sec duration,\n3.0 sec Cast Time\n[Lv 4]: 2 Attacks, 120 sec duration,\n2.5 sec Cast Time\n[Lv 5]: 3 Attacks, 140 sec duration,\n2.0 sec Cast Time\n[Lv 6]: 3 Attacks, 160 sec duration,\n1.5 sec Cast Time\n[Lv 7]: 4 Attacks, 180 sec duration,\n1.0 sec Cast Time\n[Lv 8]: 4 Attacks, 200 sec duration,\n1.0 sec Cast Time\n[Lv 9]: 5 Attacks, 220 sec duration,\n1.0 sec Cast Time\n[Lv 10]: 5 Attacks, 240 sec duration,\n1.0 sec Cast Time\n\nComments: Has the exact same properties as\nCicada Skin Shedding except it does not\nperform pushback upon evading.\nHaving both skills active does not stack the\nnumber of evasions. For example, if both buffs\nare active at once and the Ninja takes a hit,\nit will be evaded and both effects will lose 1\ncharge. If both skills are maxed, the result is\n3 dodges with pushback and 2 without,\nbecause the first 3 charges of Mirror Image\nwere consumed alongside the Cicada charges.",
+          "gridIndex": 30
+        },
+        "nj_issen": {
+          "id": "nj_issen",
+          "skidKey": "NJ_ISSEN",
+          "skidId": 544,
+          "name": "Final Strike",
+          "maxLevel": 10,
+          "description": "Killing Strike\nMax Level: 10\nRequirement: Throwing Mastery 7,\nShadow Slash 5, Ninja Aura 1\nSkill Form: Active\nType: Special Physical Ranged\nTarget: 1 Character\nDescription: Sacrifices the caster's remaining\nHP to inflict devastating damage to the target\nenemy. The amount of remaining HP affects\nthe damage inflicted, and each cast of this\nskill will always reduce the caster's HP to 1.\nOlder descriptions of this skill will sometimes\nstate that it does reduced damage against\nPlayers and Bosses, but that is not correct.\nThat is a property of Throw Zeny, but not this\nskill.\n[Lv 1]: (STR*40) +(8% of RemainingHP)\n[Lv 2]: (STR*40) +(16% of RemainingHP)\n[Lv 3]: (STR*40) +(24% of RemainingHP)\n[Lv 4]: (STR*40) +(32% of RemainingHP)\n[Lv 5]: (STR*40) +(40% of RemainingHP)\n[Lv 6]: (STR*40) +(48% of RemainingHP)\n[Lv 7]: (STR*40) +(56% of RemainingHP)\n[Lv 8]: (STR*40) +(64% of RemainingHP)\n[Lv 9]: (STR*40) +(72% of RemainingHP)\n[Lv 10]: (STR*40) +(80% of RemainingHP)\nComments: On Hercules based servers, the skill\nuses 10% of the Ninja's HP per level instead\nof 8%.\nThis skill is similar to Asura Strike\nbut using HP instead. Here is how the two are\nsimilar:\n-Damage is Forced Neutral;\n-Affected by +% Cards and effects, such as\nHydra, Abysmal Knight and The Sign;\n-Requires a buff to be cast(Ninja Aura), will\nremove the buff after used;\n\nHowever, there are a few key differences:\n-Damage is Ranged and blocked by Pneuma,\nbut not by Safety Wall;\n-Ignores FLEE, but does NOT ignore Defense.\nEffects such as Thanatos Card and Ice Pick\nwill work with Killing Strike;\n-Ignores your ATK completely and calculates\ndamage looking only at your STR;\n-Ranged damage reductions such as\nDefender and Alligator Card will reduce the\ndamage received;\n-Has no Cast Time and no After Cast Delay;\n-If the enemy is a Stalker and has the Reject\nSword buff, and a Ninja equipping a dagger\nuses Killing Strike on them, the Ninja is\nimmediately killed by the reflected damage;\n\nThe best way to increase this skill's damage is\nto increase your MaxHP, which can be rather\ndifficult considering Ninjas have low Base HP\nand suffer from severe equipment restrictions.",
+          "gridIndex": 31
+        },
+        "nv_firstaid": {
+          "id": "nv_firstaid",
+          "skidKey": "NV_FIRSTAID",
+          "skidId": 142,
+          "name": "First Aid",
+          "maxLevel": 1,
+          "description": "First Aid\nRequirement: Finish Quest\nSkill Form: Active\nType: Recovery\nTarget: Caster\nDescription: Uses 3 SP to restore 5 HP.",
+          "gridIndex": 0
+        },
+        "nv_trickdead": {
+          "id": "nv_trickdead",
+          "skidKey": "NV_TRICKDEAD",
+          "skidId": 143,
+          "name": "Play Dead",
+          "maxLevel": 1,
+          "description": "Play Dead\nRequirement: Finish Quest, Novice Only\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Feigns death to avoid the\nmenace of nearby enemies. The Play\nDead status is canceled by casting\nthis skill again.\n\nComments: This skill ceases to function after\njobchanging to any other class, including\nSuper Novice. Swordsman's Provoke and\nSage's Dispel can cancel the effect. All\nmonsters will be fooled, even Bosses and\nMvPs.",
+          "gridIndex": 1
+        }
+      },
+      "edges": [
+        {
+          "fromId": "nj_tobidougu",
+          "toId": "nj_syuriken",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_tatamigaeshi",
+          "toId": "nj_shadowjump",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_ninpou",
+          "toId": "nj_nen",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_ninpou",
+          "toId": "nj_kouenka",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_ninpou",
+          "toId": "nj_hyousensou",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_ninpou",
+          "toId": "nj_huujin",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_syuriken",
+          "toId": "nj_kunai",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_shadowjump",
+          "toId": "nj_kasumikiri",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_shadowjump",
+          "toId": "nj_utsusemi",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_kouenka",
+          "toId": "nj_kaensin",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_hyousensou",
+          "toId": "nj_suiton",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_huujin",
+          "toId": "nj_raigekisai",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_tobidougu",
+          "toId": "nj_huuma",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_kunai",
+          "toId": "nj_huuma",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_kasumikiri",
+          "toId": "nj_kirikage",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_ninpou",
+          "toId": "nj_bakuenryu",
+          "requiredLevel": 10
+        },
+        {
+          "fromId": "nj_kaensin",
+          "toId": "nj_bakuenryu",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "nj_ninpou",
+          "toId": "nj_hyousyouraku",
+          "requiredLevel": 10
+        },
+        {
+          "fromId": "nj_suiton",
+          "toId": "nj_hyousyouraku",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "nj_ninpou",
+          "toId": "nj_kamaitachi",
+          "requiredLevel": 10
+        },
+        {
+          "fromId": "nj_raigekisai",
+          "toId": "nj_kamaitachi",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_tobidougu",
+          "toId": "nj_zenynage",
+          "requiredLevel": 10
+        },
+        {
+          "fromId": "nj_huuma",
+          "toId": "nj_zenynage",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "nj_nen",
+          "toId": "nj_bunsinjyutsu",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_utsusemi",
+          "toId": "nj_bunsinjyutsu",
+          "requiredLevel": 4
+        },
+        {
+          "fromId": "nj_kirikage",
+          "toId": "nj_bunsinjyutsu",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "nj_tobidougu",
+          "toId": "nj_issen",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "nj_nen",
+          "toId": "nj_issen",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "nj_kirikage",
+          "toId": "nj_issen",
+          "requiredLevel": 5
+        }
+      ]
+    },
+    "JT_GUNSLINGER": {
+      "key": "JT_GUNSLINGER",
+      "label": "Gunslinger",
+      "columns": [
+        {
+          "title": "Gunslinger",
+          "skillIds": [
+            "nv_basic",
+            "gs_glittering",
+            "gs_singleaction",
+            "gs_cracker",
+            "gs_magicalbullet",
+            "gs_chainaction",
+            "gs_tracking",
+            "gs_dust",
+            "gs_spreadattack",
+            "gs_increasing",
+            "gs_fling",
+            "gs_rapidshower",
+            "gs_piercingshot",
+            "gs_fullbuster",
+            "gs_grounddrift",
+            "gs_madnesscancel",
+            "gs_tripleaction",
+            "gs_desperado",
+            "gs_disarm",
+            "gs_adjustment",
+            "gs_gatlingfever",
+            "gs_snakeeye",
+            "gs_bullseye"
+          ]
+        },
+        {
+          "title": "Quest / special",
+          "skillIds": [
+            "nv_firstaid",
+            "nv_trickdead"
+          ]
+        }
+      ],
+      "skills": {
+        "nv_basic": {
+          "id": "nv_basic",
+          "skidKey": "NV_BASIC",
+          "skidId": 1,
+          "name": "Basic Skill",
+          "maxLevel": 9,
+          "description": "Basic Skill\nMax Level: 9\nEnables the use of Basic Interface Skills.\n[Lv 1]: Enables Trading\nAllows the trading of items with other\ncharacter.\nRight click on a character to initiate.\n[Lv 2]: Enables Emotions\nAlt+(0~9) and Ctrl+(1,-,=.)\nAlt+L opens additional Emotion icons.\n[Lv 3]: Enables Sitting\nSitting doubles HP and SP regeneration\nspeed.\nPress the Insert key or type /sit.\n[Lv 4]: Enables Chat Room Creation\nAlt+C to open a Chat Room or click the\nChat button in the Basic Information\nWindow.\n[Lv 5]: Join a Party\nCharacter can join a party.\n[Lv 6]: Enables Use of Kafra Storage\nAllows use of Kafra Storage.\n[Lv 7]: Organize a Party\nCreate a party by typing\n/organize ''Party Name''\nSet party options in the Party Window (Alt+Z).\n[Lv 9]: Enables Change to First Job Class\nQualifies character for change from Novice\nto one of the First classes.",
+          "gridIndex": 0
+        },
+        "gs_glittering": {
+          "id": "gs_glittering",
+          "skidKey": "GS_GLITTERING",
+          "skidId": 500,
+          "name": "Flip the Coin",
+          "maxLevel": 5,
+          "description": "Flip the Coin\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Consumes 1 Zeny to flip a coin.\nIf it lands showing heads, the caster will\ngain 1 Coin, but if it shows tails, the caster will\nlose 1 Coin.\nThe caster can have a maximum of 10 Coins,\nand increasing this skill's level raises the\nsuccess rate of flipping a Coin that will show\nheads.\nGunslinger Coins are displayed as glowing\norbs around the caster.\n[Lv 1]: 30% success chance\n[Lv 2]: 40% success chance\n[Lv 3]: 50% success chance\n[Lv 4]: 60% success chance\n[Lv 5]: 70% success chance\n\nComments: Coins are needed in order to use\nmany Gunslinger skills. In order to spam this\nskill fast and regain Coins quickly, you need\nhigh ASPD. In most cases, unequipping your\nweapon will result in the highest ASPD.\nFrom the game's perspective, Gunslinger's\nCoins are exactly the same thing as a Monk's\nSpiritual Spheres. They give the same +3\nMastery damage per Coin/Sphere that never\nmisses.",
+          "gridIndex": 1
+        },
+        "gs_singleaction": {
+          "id": "gs_singleaction",
+          "skidKey": "GS_SINGLEACTION",
+          "skidId": 509,
+          "name": "Single Action",
+          "maxLevel": 10,
+          "description": "Single Action\nMax Level: 10\nSkill Form: Passive\nDescription: Essential Gunslinger skill that\nenables Gunslingers to fire their weapon more\nquickly and accurately.\n[Lv 1]: HIT +2, ASPD +1%\n[Lv 2]: HIT +4, ASPD +1%\n[Lv 3]: HIT +6, ASPD +2%\n[Lv 4]: HIT +8, ASPD +2%\n[Lv 5]: HIT +10, ASPD +3%\n[Lv 6]: HIT +12, ASPD +3%\n[Lv 7]: HIT +14, ASPD +4%\n[Lv 8]: HIT +16, ASPD +4%\n[Lv 9]: HIT +18, ASPD +5%\n[Lv 10]: HIT +20, ASPD +5%\n\nComments: Works with every kind of Gun. If\nall you care about is the ASPD boost, Lv9 of\nthis skill is enough.",
+          "gridIndex": 3
+        },
+        "gs_cracker": {
+          "id": "gs_cracker",
+          "skidKey": "GS_CRACKER",
+          "skidId": 508,
+          "name": "Cracker",
+          "maxLevel": 1,
+          "description": "Cracker\nMax Level: 1\nRequirement: Flip the Coin 1\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\nDescription: Fires a bullet that will Stun an\nenemy. The nearer the target is to the caster,\nthe greater the chance of inflicting Stun.\nConsumes 1 Coin.\n\nComments: The base chance is 65%, which\ndecreases by 5% for every 1 cell distance\nbetween the user and the target. Requires\nan equipped Gun and consumes a bullet, even\nthough it doesn't do any damage.",
+          "gridIndex": 8
+        },
+        "gs_magicalbullet": {
+          "id": "gs_magicalbullet",
+          "skidKey": "GS_MAGICALBULLET",
+          "skidId": 507,
+          "name": "Magical Bullet",
+          "maxLevel": 1,
+          "description": "Magical Bullet\nMax Level: 1\nRequirement: Flip the Coin 1\nSkill Form: Active\nType: Special Physical Ranged\nTarget: 1 Character\nDescription: Fires a magic shot that does not\nuse any bullets, inflicting an amount of Ghost\nelemental damage equal to the caster's\nATK + MATK.\nConsumes 1 Coin.",
+          "gridIndex": 9
+        },
+        "gs_chainaction": {
+          "id": "gs_chainaction",
+          "skidKey": "GS_CHAINACTION",
+          "skidId": 511,
+          "name": "Chain Action",
+          "maxLevel": 10,
+          "description": "Chain Action\nMax Level: 10\nRequirement: Single Action 1\nSkill Form: Passive\nDescription: Enables a chance of firing two\nshots in single attack while attacking\nenemies when equipped with Revolver class\nweapon.\nRaising this skill's level increases the rate of\nfiring double shots.\nConsumes 1 Bullet.\nRequires Revolver class weapon.\n[Lv 1]: 5% Chance\n[Lv 2]: 10% Chance\n[Lv 3]: 15% Chance\n[Lv 4]: 20% Chance\n[Lv 5]: 25% Chance\n[Lv 6]: 30% Chance\n[Lv 7]: 35% Chance\n[Lv 8]: 40% Chance\n[Lv 9]: 45% Chance\n[Lv 10]: 50% Chance\n\nComments: This is functionally the same as\nThief's Double Attack, but for Revolvers. Has\nall the same properties. Chain Actions take\nprecedence over Critical Attacks, cannot be\nCrits themselves.\nUnlike Double Attack, using a Sidewinder Card\nwill not apply the currently known level of the\nskill to any weapon.",
+          "gridIndex": 10
+        },
+        "gs_tracking": {
+          "id": "gs_tracking",
+          "skidKey": "GS_TRACKING",
+          "skidId": 512,
+          "name": "Tracking",
+          "maxLevel": 10,
+          "description": "Tracking\nMax Level: 10\nRequirement: Single Action 5\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Carefully aims at a target to inflict\ndevastating damage. Raising this skill's level\nincreases Casting Time and damage.\nRequires Revolver or Rifle class weapon.\n[Lv 1]: 300% damage, Aim Time 1.2 sec\n[Lv 2]: 400% damage, Aim Time 1.4 sec\n[Lv 3]: 500% damage, Aim Time 1.6 sec\n[Lv 4]: 600% damage, Aim Time 1.8 sec\n[Lv 5]: 700% damage, Aim Time 2 sec\n[Lv 6]: 800% damage, Aim Time 2.2 sec\n[Lv 7]: 900% damage, Aim Time 2.4 sec\n[Lv 8]: 1000% damage, Aim Time 2.6 sec\n[Lv 9]: 1100% damage, Aim Time 2.8 sec\n[Lv 10]: 1200% damage, Aim Time 3 sec\n\nComments: The Cast Time of this skill is not\naffected by your DEX or any buffs, such as\nPoem of Bragi. However, it can still be reduced\nby Equipment-based effects, such as Dark\nIllusion Card, Berzebub Card, Kathryne\nKeyron Card or Tower Keeper Card. This does\ngo both way, and as such, gear can also make\nit longer(Phen Card).",
+          "gridIndex": 11
+        },
+        "gs_dust": {
+          "id": "gs_dust",
+          "skidKey": "GS_DUST",
+          "skidId": 518,
+          "name": "Dust",
+          "maxLevel": 10,
+          "description": "Dust\nMax Level: 10\nRequirement: Single Action 5\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Fires a close range shot that will\npush an enemy 5 cells backward.\nRequires Shotgun class weapon.\n[Lv 1]: 150% damage\n[Lv 2]: 200% damage\n[Lv 3]: 250% damage\n[Lv 4]: 300% damage\n[Lv 5]: 350% damage\n[Lv 6]: 400% damage\n[Lv 7]: 450% damage\n[Lv 8]: 500% damage\n[Lv 9]: 550% damage\n[Lv 10]: 600% damage\n\nComments: This is a Malee Physical damage\nskill, not ranged. It's perfect for pushing\nenemies out of Pneuma.",
+          "gridIndex": 12
+        },
+        "gs_spreadattack": {
+          "id": "gs_spreadattack",
+          "skidKey": "GS_SPREADATTACK",
+          "skidId": 520,
+          "name": "Spread Attack",
+          "maxLevel": 10,
+          "description": "Spread Attack\nMax Level: 10\nRequirement: Full Buster 5\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Consumes 5 Bullets to spread\nbullets over a large area.\nRequires Shotgun class weapon.\n[Lv 1]: 100% damage, Area 3x3 cells\n[Lv 2]: 120% damage, Area 3x3 cells\n[Lv 3]: 140% damage, Area 3x3 cells\n[Lv 4]: 160% damage, Area 5x5 cells\n[Lv 5]: 180% damage, Area 5x5 cells\n[Lv 6]: 200% damage, Area 5x5 cells\n[Lv 7]: 220% damage, Area 7x7 cells\n[Lv 8]: 240% damage, Area 7x7 cells\n[Lv 9]: 260% damage, Area 7x7 cells\n[Lv 10]: 280% damage, Area 9x9 cells",
+          "gridIndex": 13
+        },
+        "gs_increasing": {
+          "id": "gs_increasing",
+          "skidKey": "GS_INCREASING",
+          "skidId": 506,
+          "name": "Increasing Accuracy",
+          "maxLevel": 1,
+          "description": "Increasing Accuracy\nMax Level: 1\nRequirement: Flip the Coin 2, Snake's Eye 10\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Adds +20 HIT, +4 DEX and +4 AGI\nfor 1 minute duration.\nConsumes 4 Coins.",
+          "gridIndex": 15
+        },
+        "gs_fling": {
+          "id": "gs_fling",
+          "skidKey": "GS_FLING",
+          "skidId": 501,
+          "name": "Fling",
+          "maxLevel": 1,
+          "description": "Fling\nMax Level: 1\nRequirement: Coin Flip 1\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\nDescription: Spends Coins to fling them at an\nenemy to inflict damage and reduce its DEF.\nFling can consume up to 5 coins in a single\ncast, and will reduce more of an enemy's DEF\nif more Coins are spent.\n\nComments: Deals damage equal to your Job\nLevel. Every coin reduces the Hard and Soft\nDEF of the target monster by 5%, or up to 25%\nwhen using all 5 coins.\nWhen used against players, only lowers Soft\nDEF.",
+          "gridIndex": 16
+        },
+        "gs_rapidshower": {
+          "id": "gs_rapidshower",
+          "skidKey": "GS_RAPIDSHOWER",
+          "skidId": 515,
+          "name": "Rapid Shower",
+          "maxLevel": 10,
+          "description": "Rapid Shower\nMax Level: 10\nRequirement: Chain Action 3\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Attacks an enemy with 5 rapid fire\nattacks. Very ammunition intensive.\nConsumes 5 Bullets.\nRequires Revolver class weapon.\n[Lv 1]: 550% damage\n[Lv 2]: 600% damage\n[Lv 3]: 650% damage\n[Lv 4]: 700% damage\n[Lv 5]: 750% damage\n[Lv 6]: 800% damage\n[Lv 7]: 850% damage\n[Lv 8]: 900% damage\n[Lv 9]: 950% damage\n[Lv 10]: 1000% damage",
+          "gridIndex": 17
+        },
+        "gs_piercingshot": {
+          "id": "gs_piercingshot",
+          "skidKey": "GS_PIERCINGSHOT",
+          "skidId": 514,
+          "name": "Piercing Shot",
+          "maxLevel": 5,
+          "description": "Piercing Shot\nMax Level: 5\nRequirement: Tracking 5\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Inflicts Defense piercing damage\nthat has a chance of causing Bleeding status\non its target.\nRequires Revolver or Rifle class weapon.\n[Lv 1]: 120% damage, Bleeding Chance 3%\n[Lv 2]: 140% damage, Bleeding Chance 6%\n[Lv 3]: 160% damage, Bleeding Chance 9%\n[Lv 4]: 180% damage, Bleeding Chance 12%\n[Lv 5]: 200% damage, Bleeding Chance 15%",
+          "gridIndex": 18
+        },
+        "gs_fullbuster": {
+          "id": "gs_fullbuster",
+          "skidKey": "GS_FULLBUSTER",
+          "skidId": 519,
+          "name": "Full Buster",
+          "maxLevel": 10,
+          "description": "Full Buster\nMax Level: 10\nRequirement: Dust 3\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Inflicts devastating damage to an\nenemy by firing multiple bullets at once.\nThis skill has a small chance of causing Blind\nstatus to the caster.\nRequires Shotgun class weapon.\n[Lv 1]: 400% ATK, 1.2 sec After Cast Delay,\n2% chance to Blind self,consumes 2 bullets\n[Lv 2]: 500% ATK, 1.4 sec After Cast Delay,\n4% chance to Blind self,consumes 2 bullets\n[Lv 3]: 600% ATK, 1.6 sec After Cast Delay,\n6% chance to Blind self,consumes 4 bullets\n[Lv 4]: 700% ATK, 1.8 sec After Cast Delay,\n8% chance to Blind self,consumes 4 bullets\n[Lv 5]: 800% ATK, 2.0 sec After Cast Delay,\n10% chance to Blind self,consumes 6 bullets\n[Lv 6]: 900% ATK, 2.2 sec After Cast Delay,\n12% chance to Blind self,consumes 6 bullets\n[Lv 7]: 1000% ATK, 2.4 sec After Cast Delay,\n14% chance to Blind self,consumes 8 bullets\n[Lv 8]: 1100% ATK, 2.6 sec After Cast Delay,\n16% chance to Blind self,consumes 8 bullets\n[Lv 9]: 1200% ATK, 2.8 sec After Cast Delay,\n18% chance to Blind self,consumes 10 bullets\n[Lv 10]: 1300% ATK, 3.0 sec After Cast Delay,\n20% chance to Blind self,consumes 10 bullets\n\nComments: Extremely ammunition and SP\nintensive but does amazing damage. Hard to\nuse for solo play because of the SP costs and\nintense delay, but very viable in party play.\nThe chance to Blind checks for normal status\nresistances, such as VIT and equipment\nbased reductions.",
+          "gridIndex": 19
+        },
+        "gs_grounddrift": {
+          "id": "gs_grounddrift",
+          "skidKey": "GS_GROUNDDRIFT",
+          "skidId": 521,
+          "name": "Ground Drift",
+          "maxLevel": 10,
+          "description": "Ground Drift\nMax Level: 10\nRequirement: Spread Attack 7, Full Buster 5\nSkill Form: Active\nType: Trap\nTarget: Ground\nDescription: Plants Spheres into the ground\nthat will explode upon enemy approach.\nThe explosion's effect varies according to the\ntype of Sphere.\nRequires Grenade Launcher class weapon\nand consumes a Sphere for each mine.\n[Lv 1]: Damage +50, lasts 3 sec\n[Lv 2]: Damage +100, lasts 6 sec\n[Lv 3]: Damage +150, lasts 9 sec\n[Lv 4]: Damage +200, lasts 12 sec\n[Lv 5]: Damage +250, lasts 15 sec\n[Lv 6]: Damage +300, lasts 18 sec\n[Lv 7]: Damage +350, lasts 21 sec\n[Lv 8]: Damage +400, lasts 24 sec\n[Lv 9]: Damage +450, lasts 27 sec\n[Lv 10]: Damage +500, lasts 30 sec\nFlame Sphere: Pushes targets back 3 cells.\nWater Sphere: 50% chance to Freeze.\nWind Sphere: 50% chance to Stun.\nPoison Sphere: 50% chance to Poison.\nBlind Sphere: 50% chance to Blind.\n\nComments: These mines can be stacked on\ntop of each other and will trigger all at once.\nThere is no limit to how many you can have\nactive at once, but keep in mind that even at\nLv10 they have a very short 30 sec duration.\nCan be placed directly under targets.\nThe type of trap placed depends on the Sphere\nequipped when the skill is used, but the\ndamage and effects are based on whatever\nthe Gunslinger has equipped when it is\nactivated. It is possible, for example, to place\ntraps using any Grenade Launcher and switch\nto a weapon with +% damage cards or that\ncauses Status Effects, and those will be\nactivated along with the mine.\nSphere Mines do 100% ATK damage plus\nthe bonus damage listed by Skill Level.",
+          "gridIndex": 20
+        },
+        "gs_madnesscancel": {
+          "id": "gs_madnesscancel",
+          "skidKey": "GS_MADNESSCANCEL",
+          "skidId": 504,
+          "name": "Madness Canceller",
+          "maxLevel": 1,
+          "description": "Madness Canceller\nMax Level: 1\nRequirement: Flip the Coin 4, Gatling Fever 10\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: The caster is immobilized, but\nadds 100 ATK and 20% ASPD.\nMadness Canceler has a 15 second duration\nand cannot be used with Adjustment skill.\nConsumes 4 Coins.\n\nComments: Using the skill again during its\nduration will cancel it prematurely, but doing\nso still costs 4 Coins.\nMadness Canceller and Adjustment are\nmutually exclusive and will cancel one another.",
+          "gridIndex": 22
+        },
+        "gs_tripleaction": {
+          "id": "gs_tripleaction",
+          "skidKey": "GS_TRIPLEACTION",
+          "skidId": 502,
+          "name": "Triple Action",
+          "maxLevel": 1,
+          "description": "Triple Action\nMax Level: 1\nRequirement: Flip the Coin 1, Chain Action 10\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Shoots an enemy 3 times in one\nattack.\nConsumes 1 Coin.\n\nComments: This is one of the only three\ndamage dealing skills that a Gunslinger can\nuse while equipped with a Gatling or Grenade\nLauncher. Bull's Eye only works on specific\ntargets while Magical Bullet is a forced Ghost\nattack. Does 150% ATK x 3 hits.",
+          "gridIndex": 23
+        },
+        "gs_desperado": {
+          "id": "gs_desperado",
+          "skidKey": "GS_DESPERADO",
+          "skidId": 516,
+          "name": "Desperado",
+          "maxLevel": 10,
+          "description": "Desperado\nMax Level: 10\nRequirement: Rapid Shower 5\nSkill Form: Active\nType: Physical Ranged\nTarget: Caster\nDescription: Consumes 10 Bullets to\nperform a haphazard attack that may damage\nenemies within a 7 cell radius around the\ncaster.\nEach cast has a maximum of 10 strikes.\nRequires Revolver class weapon.\n[Lv 1]: 100% damage\n[Lv 2]: 150% damage\n[Lv 3]: 200% damage\n[Lv 4]: 250% damage\n[Lv 5]: 300% damage\n[Lv 6]: 350% damage\n[Lv 7]: 400% damage\n[Lv 8]: 450% damage\n[Lv 9]: 500% damage\n[Lv 10]: 550% damage\n\nComments: The above values are for each hit\non the target. The number of hits each target\ninside the skill's range receives is random,\nhowever, targets closer to the user have a\nhigher chance of receiving more hits.\nDesperado is a Melee Physical Attack, not\nranged. As such, it will hit inside Pneuma.\nThis skill will not work inside Land Protector.",
+          "gridIndex": 24
+        },
+        "gs_disarm": {
+          "id": "gs_disarm",
+          "skidKey": "GS_DISARM",
+          "skidId": 513,
+          "name": "Disarm",
+          "maxLevel": 5,
+          "description": "Disarm\nMax Level: 5\nRequirement: Tracking 7\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\nDescription: Shoots target's hand to disarm it.\nSkill level affects the success rate.\nWhen used on monster, this skill will reduce\ntheir Attack by 25%, but has no effect on Boss\nmonsters.\nDisarm has a range of 9 cells and lasts\n30 seconds.\nRequires Revolver or Rifle class weapon.\n[Lv 1]: [(DEX/24)+(LUK/20)]% Base Chance\n[Lv 2]: [(DEX/20)+(LUK/16)]% Base Chance\n[Lv 3]: [(DEX/16)+(LUK/12)]% Base Chance\n[Lv 4]: [(DEX/12)+(LUK/8)]% Base Chance\n[Lv 5]: [(DEX/8)+(LUK/4)]% Base Chance\n\nComments: Unlike Rogue's Strip skills, this\nskill does not check for the difference between\nthe user's and target's DEX. Instead, the final\nchance of success is based on the following:\n+1% for each Base Level of the User\n-1% for each Base Level of the Target\n-1% for every point of LUK of the Target\n-[(Target's AGI*Base Chance)/100]%\n\nBecause each of those factors is added\nlinearly, the final chance can be 0%.\nTargets with considerably high LUK, AGI or\nthat have a large level advantage will most\nlikely be immune to this skill's effect altogether.",
+          "gridIndex": 25
+        },
+        "gs_adjustment": {
+          "id": "gs_adjustment",
+          "skidKey": "GS_ADJUSTMENT",
+          "skidId": 505,
+          "name": "Adjustment",
+          "maxLevel": 1,
+          "description": "Adjustment\nMax Level: 1\nRequirement: Flip the Coin 4, Disarm 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Caster gains +30 FLEE and\nreceives 20% less damage from ranged\nphysical attacks, but loses 30 HIT.\nThis skill has a 30 second duration and\ncannot be used together with the Madness\nCanceller skill.\nConsumes 2 Coins.\n\nComments: Unlike Madness Canceller, using\nthe skill again within its duration does not\ncancel the effect. Adjustment and Madness\nCanceller are mutually exclusive and will\ncancel one another.",
+          "gridIndex": 29
+        },
+        "gs_gatlingfever": {
+          "id": "gs_gatlingfever",
+          "skidKey": "GS_GATLINGFEVER",
+          "skidId": 517,
+          "name": "Gatling Fever",
+          "maxLevel": 10,
+          "description": "Gatling Fever\nMax Level: 10\nRequirement: Rapid Shower 7,\nDesperado 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Temporarily increases\nAttack Speed and ATK at the cost of\nreducing FLEE and Movement Speed.\nGatling Fever status is cancelled when the\nskill is used again.\nRequires Gatling Gun class weapon.\n[Lv 1]: ATK +30, ASPD +2 %, FLEE -5,\n30 seconds duration\n[Lv 2]: ATK +40, ASPD +4%, FLEE -10,\n45 seconds duration\n[Lv 3]: ATK +50, ASPD +6%, FLEE -15,\n60 seconds duration\n[Lv 4]: ATK +60, ASPD +8%, FLEE -20,\n75 seconds duration\n[Lv 5]: ATK +70, ASPD +10%, FLEE -25,\n90 seconds duration\n[Lv 6]: ATK +80, ASPD +12%, FLEE -30,\n105 seconds duration\n[Lv 7]: ATK +90, ASPD +14%, FLEE -35,\n120 seconds duration\n[Lv 8]: ATK +100, ASPD +16%, FLEE -40,\n135 seconds duration\n[Lv 9]: ATK +110, ASPD +18%, FLEE -45,\n150 seconds duration\n[Lv 10]: ATK +120, ASPD +20%, FLEE -50,\n165 seconds duration\n\nComments: By themselves, Gatling Guns are\nnot faster than Revolvers. This is the master\nskill for Gatling Gunslingers, and the only skill\nthat is unique to Gatlings.\nThe ATK boost granted by this skill is directly\nadded to your Stat Window and will affect every\nskill. The skill can be freely toggled on and off.\nYou have to pay the SP cost every time you turn\nit on, but toggling off is free.\nBeing under this buff's effect will severely limit\nyour Movement Speed and effectively make you\nunable to evade any attacks, but is essential\nfor using Gatlings.",
+          "gridIndex": 31
+        },
+        "gs_snakeeye": {
+          "id": "gs_snakeeye",
+          "skidKey": "GS_SNAKEEYE",
+          "skidId": 510,
+          "name": "Snake Eye",
+          "maxLevel": 10,
+          "description": "Snake's Eye\nMax Level: 10\nSkill Form: Passive\nDescription: Increases Attack Range and HIT\nwhen equipped with Gun class weapons.\n[Lv 1]: HIT +1, Range +1\n[Lv 2]: HIT +2, Range +2\n[Lv 3]: HIT +3, Range +3\n[Lv 4]: HIT +4, Range +4\n[Lv 5]: HIT +5, Range +5\n[Lv 6]: HIT +6, Range +6\n[Lv 7]: HIT +7, Range +7\n[Lv 8]: HIT +8, Range +8\n[Lv 9]: HIT +9, Range +9\n[Lv 10]: HIT +10, Range +10\n\nComments: This skill's Range increase is for\nAuto-Attacks and a few specific skills.\nThe affected skills are: Piercing Shot, Rapid\nShower, Full Buster, Spread Attack and Ground\nDrift.",
+          "gridIndex": 34
+        },
+        "gs_bullseye": {
+          "id": "gs_bullseye",
+          "skidKey": "GS_BULLSEYE",
+          "skidId": 503,
+          "name": "Bulls Eye",
+          "maxLevel": 1,
+          "description": "Bull's Eye\nMax Level: 1\nRequirement: Flip the Coin 5, Tracking 10\nSkill Form: Active\nType: Physical Ranged\nTarget: 1 Character\nDescription: Inflicts 500% damage to\nDemi-Human and Brute monsters.\nBull's Eye has a 0.1% chance to inflict Coma\nstatus on all enemies except Boss monsters.\nConsumes 1 Coin.\n\nComments: Can be used with any gun, that\nincludes Gatlings and Grenade Launchers.\nDoes not work against other races.",
+          "gridIndex": 36
+        },
+        "nv_firstaid": {
+          "id": "nv_firstaid",
+          "skidKey": "NV_FIRSTAID",
+          "skidId": 142,
+          "name": "First Aid",
+          "maxLevel": 1,
+          "description": "First Aid\nRequirement: Finish Quest\nSkill Form: Active\nType: Recovery\nTarget: Caster\nDescription: Uses 3 SP to restore 5 HP.",
+          "gridIndex": 0
+        },
+        "nv_trickdead": {
+          "id": "nv_trickdead",
+          "skidKey": "NV_TRICKDEAD",
+          "skidId": 143,
+          "name": "Play Dead",
+          "maxLevel": 1,
+          "description": "Play Dead\nRequirement: Finish Quest, Novice Only\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Feigns death to avoid the\nmenace of nearby enemies. The Play\nDead status is canceled by casting\nthis skill again.\n\nComments: This skill ceases to function after\njobchanging to any other class, including\nSuper Novice. Swordsman's Provoke and\nSage's Dispel can cancel the effect. All\nmonsters will be fooled, even Bosses and\nMvPs.",
+          "gridIndex": 1
+        }
+      },
+      "edges": [
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_cracker",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_magicalbullet",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "gs_singleaction",
+          "toId": "gs_chainaction",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "gs_singleaction",
+          "toId": "gs_tracking",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "gs_singleaction",
+          "toId": "gs_dust",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "gs_singleaction",
+          "toId": "gs_spreadattack",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_increasing",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_fling",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "gs_chainaction",
+          "toId": "gs_rapidshower",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "gs_tracking",
+          "toId": "gs_piercingshot",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "gs_dust",
+          "toId": "gs_fullbuster",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "gs_spreadattack",
+          "toId": "gs_grounddrift",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_madnesscancel",
+          "requiredLevel": 4
+        },
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_tripleaction",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "gs_rapidshower",
+          "toId": "gs_desperado",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "gs_tracking",
+          "toId": "gs_disarm",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_adjustment",
+          "requiredLevel": 4
+        },
+        {
+          "fromId": "gs_rapidshower",
+          "toId": "gs_gatlingfever",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "gs_desperado",
+          "toId": "gs_gatlingfever",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "gs_glittering",
+          "toId": "gs_bullseye",
+          "requiredLevel": 5
+        }
+      ]
     },
     "JT_SWORDMAN": {
       "key": "JT_SWORDMAN",

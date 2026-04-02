@@ -20,6 +20,10 @@ const RATHENA_URL =
 /** Jobs shown in the planner (1st / 2nd / transcendent 2nd from client skilltree + inherit list) */
 const EXPORT_JOB_KEYS = [
   "JT_NOVICE",
+  "JT_SUPERNOVICE",
+  "JT_TAEKWON",
+  "JT_NINJA",
+  "JT_GUNSLINGER",
   "JT_SWORDMAN",
   "JT_MAGICIAN",
   "JT_ARCHER",
@@ -69,6 +73,10 @@ const JOB_LABEL_OVERRIDE = {
   JT_ALCHEMIST_H: "Creator",
   JT_BARD_H: "Clown",
   JT_DANCER_H: "Gypsy",
+  JT_SUPERNOVICE: "Super Novice",
+  JT_TAEKWON: "Taekwon Kid",
+  JT_NINJA: "Ninja",
+  JT_GUNSLINGER: "Gunslinger",
 };
 
 function readText(filePath) {
