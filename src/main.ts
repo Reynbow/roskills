@@ -1221,17 +1221,19 @@ function renderApp(root: HTMLElement): void {
       </div>
     </div>
     <dialog class="job-picker-dialog" id="job-picker-dialog" aria-labelledby="job-picker-dialog-title">
+      ${
+        pickerTabs.length > 1
+          ? `<aside class="job-picker-tabrail">${tablistHtml}</aside>`
+          : ""
+      }
       <div class="job-picker-dialog-panel">
         <div class="job-picker-dialog-head">
           <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">Choose class</h2>
           <button type="button" class="job-picker-close" aria-label="Close class picker">×</button>
         </div>
-        <div class="job-picker-tabs">
-          ${tablistHtml}
-          <div class="job-picker-dialog-scroll">
-            <div id="job-picker-body" role="region" aria-label="Character classes">
-              ${panelsHtml}
-            </div>
+        <div class="job-picker-dialog-scroll">
+          <div id="job-picker-body" role="region" aria-label="Character classes">
+            ${panelsHtml}
           </div>
         </div>
       </div>
