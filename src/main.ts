@@ -36,6 +36,10 @@ const CLASS_SKILL_CAPS: readonly number[] = [49, 50, 50];
 const TIER0_CLASS_CAP_OVERRIDE: Partial<Record<string, number>> = {
   /** Super Novice: large pool for novice + cross-class skills (approximate for pre-re; tune per server). */
   JT_SUPERNOVICE: 200,
+  /** Expanded classes: job level 70 → 70 class skill points (Basic Skill still exempt). */
+  JT_TAEKWON: 70,
+  JT_NINJA: 70,
+  JT_GUNSLINGER: 70,
 };
 
 /** Transcendent jobs: second + transcendent columns share one pool (replaces separate 50+50). */
