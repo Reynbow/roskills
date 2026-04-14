@@ -38,6 +38,8 @@ const JOBS = [
   ["JT_NOVICE", 0],
   ["JT_SUPERNOVICE", 23],
   ["JT_TAEKWON", 4046],
+  ["JT_STAR", 4047],
+  ["JT_LINKER", 4049],
   ["JT_NINJA", 25],
   ["JT_GUNSLINGER", 24],
   ["JT_SWORDMAN", 1],

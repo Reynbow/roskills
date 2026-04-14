@@ -75,6 +75,8 @@ export function isQuestColumnTitle(title: string): boolean {
 const EXPANDED_CLASS_KEYS = new Set([
   "JT_SUPERNOVICE",
   "JT_TAEKWON",
+  "JT_STAR",
+  "JT_LINKER",
   "JT_NINJA",
   "JT_GUNSLINGER",
 ]);
@@ -97,9 +99,14 @@ export function jobPickerGroup(
 const EXPANDED_CLASS_PICKER_ORDER = [
   "JT_SUPERNOVICE",
   "JT_TAEKWON",
+  "JT_STAR",
+  "JT_LINKER",
   "JT_NINJA",
   "JT_GUNSLINGER",
 ] as const;
+
+/** Taekwon Master + Soul Linker: second row under Taekwon Kid in the expanded picker. */
+const EXPANDED_TAEKWON_ADVANCED_KEYS = new Set(["JT_STAR", "JT_LINKER"]);
 
 const FIRST_CLASS_PICKER_ORDER = [
   "JT_SWORDMAN",
@@ -178,6 +185,10 @@ export type JobPickerSection = {
   jobs?: { key: string; label: string }[];
   /** Stacked grids (second class / transcendent rows). */
   jobRows?: { key: string; label: string }[][];
+  /**
+   * Expanded tab: align row 2 (Taekwon Master + Soul Linker) under Taekwon Kid via a 7-column grid.
+   */
+  jobRowsLayout?: "expandedTaekwon";
 };
 
 function sectionHasJobs(g: JobPickerSection): boolean {
@@ -217,6 +228,17 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
     all.filter((j) => jobPickerGroup(j.key) === "expandedClass"),
     EXPANDED_CLASS_PICKER_ORDER,
   );
+  const expandedTkAdvancedRow = expandedClass.filter((j) =>
+    EXPANDED_TAEKWON_ADVANCED_KEYS.has(j.key),
+  );
+  const expandedTopRow = expandedClass.filter(
+    (j) => !EXPANDED_TAEKWON_ADVANCED_KEYS.has(j.key),
+  );
+  const expandedPickerRows: { key: string; label: string }[][] = [
+    expandedTopRow,
+  ];
+  if (expandedTkAdvancedRow.length > 0)
+    expandedPickerRows.push(expandedTkAdvancedRow);
   const firstClass = sortJobsByKeyOrder(
     all.filter((j) => jobPickerGroup(j.key) === "firstClass"),
     FIRST_CLASS_PICKER_ORDER,
@@ -245,7 +267,13 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
   ].filter(sectionHasJobs);
 
   const expandedSections: JobPickerSection[] = [
-    { heading: "Expanded class", jobs: expandedClass },
+    {
+      heading: "Expanded class",
+      jobRows: expandedPickerRows,
+      ...(expandedTkAdvancedRow.length > 0
+        ? { jobRowsLayout: "expandedTaekwon" as const }
+        : {}),
+    },
   ].filter(sectionHasJobs);
 
   const tabs: JobPickerTabDef[] = [

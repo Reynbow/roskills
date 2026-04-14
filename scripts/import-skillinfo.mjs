@@ -22,6 +22,8 @@ const EXPORT_JOB_KEYS = [
   "JT_NOVICE",
   "JT_SUPERNOVICE",
   "JT_TAEKWON",
+  "JT_STAR",
+  "JT_LINKER",
   "JT_NINJA",
   "JT_GUNSLINGER",
   "JT_SWORDMAN",
@@ -75,6 +77,8 @@ const JOB_LABEL_OVERRIDE = {
   JT_DANCER_H: "Gypsy",
   JT_SUPERNOVICE: "Super Novice",
   JT_TAEKWON: "Taekwon Kid",
+  JT_STAR: "Taekwon Master",
+  JT_LINKER: "Soul Linker",
   JT_NINJA: "Ninja",
   JT_GUNSLINGER: "Gunslinger",
 };

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-03T09:15:22.545Z",
+  "generated": "2026-04-14T04:21:09.865Z",
   "source": "skillinfo/*.lua + skilldescript.lub (English descriptions) + rAthena skill_db.yml (names / fallback)",
   "jobs": {
     "JT_NOVICE": {
@@ -993,6 +993,1201 @@
           "fromId": "tk_power",
           "toId": "tk_mission",
           "requiredLevel": 5
+        }
+      ]
+    },
+    "JT_STAR": {
+      "key": "JT_STAR",
+      "label": "Taekwon Master",
+      "columns": [
+        {
+          "title": "Taekwon Kid",
+          "skillIds": [
+            "nv_basic",
+            "tk_run",
+            "tk_stormkick",
+            "tk_downkick",
+            "tk_turnkick",
+            "tk_counter",
+            "tk_jumpkick",
+            "tk_highjump",
+            "tk_readystorm",
+            "tk_readydown",
+            "tk_readyturn",
+            "tk_readycounter",
+            "tk_dodge",
+            "tk_hptime",
+            "tk_sptime",
+            "tk_power",
+            "tk_sevenwind",
+            "tk_mission"
+          ]
+        },
+        {
+          "title": "Taekwon Master",
+          "skillIds": [
+            "sg_feel",
+            "sg_hate",
+            "sg_devil",
+            "sg_knowledge",
+            "sg_sun_warm",
+            "sg_sun_comfort",
+            "sg_sun_anger",
+            "sg_sun_bless",
+            "sg_friend",
+            "sg_moon_warm",
+            "sg_moon_comfort",
+            "sg_moon_anger",
+            "sg_moon_bless",
+            "sg_star_warm",
+            "sg_star_comfort",
+            "sg_star_anger",
+            "sg_star_bless"
+          ]
+        },
+        {
+          "title": "Quest / special",
+          "skillIds": [
+            "nv_firstaid",
+            "nv_trickdead",
+            "sg_fusion"
+          ]
+        }
+      ],
+      "skills": {
+        "nv_basic": {
+          "id": "nv_basic",
+          "skidKey": "NV_BASIC",
+          "skidId": 1,
+          "name": "Basic Skill",
+          "maxLevel": 9,
+          "description": "Basic Skill\nMax Level: 9\nEnables the use of Basic Interface Skills.\n[Lv 1]: Enables Trading\nAllows the trading of items with other\ncharacter.\nRight click on a character to initiate.\n[Lv 2]: Enables Emotions\nAlt+(0~9) and Ctrl+(1,-,=.)\nAlt+L opens additional Emotion icons.\n[Lv 3]: Enables Sitting\nSitting doubles HP and SP regeneration\nspeed.\nPress the Insert key or type /sit.\n[Lv 4]: Enables Chat Room Creation\nAlt+C to open a Chat Room or click the\nChat button in the Basic Information\nWindow.\n[Lv 5]: Join a Party\nCharacter can join a party.\n[Lv 6]: Enables Use of Kafra Storage\nAllows use of Kafra Storage.\n[Lv 7]: Organize a Party\nCreate a party by typing\n/organize ''Party Name''\nSet party options in the Party Window (Alt+Z).\n[Lv 9]: Enables Change to First Job Class\nQualifies character for change from Novice\nto one of the First classes.",
+          "gridIndex": 0
+        },
+        "tk_run": {
+          "id": "tk_run",
+          "skidKey": "TK_RUN",
+          "skidId": 411,
+          "name": "Running",
+          "maxLevel": 10,
+          "description": "Running\nMax Level: 10\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Enables the caster to run with\nincredible speed in a straight line. Using the\nskill again while Running makes you stop.\nAt Lv7 and above, this skill has no Cast Time.\nIf the skill is used at Lv7 and above and then\nimmediately cancelled, the user will gain an\neffect called Spurt.\nSimply having the Running skill learned\nwill increase your auto-attack damage and\nthe damage of your Taekwon kicks. These\nbonuses are ONLY for when you are unarmed.\n[Lv 1]: 6 sec Cast Time, 100 SP, +10 damage\non Auto Attacks, +10% damage to Kicks\n[Lv 2]: 5 sec Cast Time, 90 SP, +20 damage\non Auto Attacks, +20% damage to Kicks\n[Lv 3]: 4 sec Cast Time, 80 SP, +30 damage\non Auto Attacks, +30% damage to Kicks\n[Lv 4]: 3 sec Cast Time, 70 SP, +40 damage\non Auto Attacks, +40% damage to Kicks\n[Lv 5]: 2 sec Cast Time, 60 SP, +50 damage\non Auto Attacks, +50% damage to Kicks\n[Lv 6]: 1 sec Cast Time, 50 SP, +60 damage\non Auto Attacks, +60% damage to Kicks\n[Lv 7]: 0 sec Cast Time, 40 SP, +70 damage\non Auto Attacks, +70% damage to Kicks\n[Lv 8]: 0 sec Cast Time, 30 SP, +80 damage\non Auto Attacks, +80% damage to Kicks\n[Lv 9]: 0 sec Cast Time, 20 SP, +90 damage\non Auto Attacks, +90% damage to Kicks\n[Lv 10]: 0 sec Cast Time, 10 SP, +100 damage\non Auto Attacks, +100% damage to Kicks\n\nSpurt:\nSTR +10.\nBreak Fall will activate on Melee attacks.\nDoubles the damage of Flywing Side Kick\nwhen it is used during Running.\n\nComments: ASPD determines how long you\nmust run before you're able to stop or use\nFlying Side Kick. High ASPD means you can\ndo it sooner.\nUsing /bingbing and /bangbang can help you\nchange the direction you wish to run without\nmoving, although you still need to stop to\nchange directions.",
+          "gridIndex": 1
+        },
+        "tk_stormkick": {
+          "id": "tk_stormkick",
+          "skidKey": "TK_STORMKICK",
+          "skidId": 413,
+          "name": "Tornado Kick",
+          "maxLevel": 7,
+          "description": "Tornado Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: Enemies around the caster\nDescription: Caster must be in Tornado Stance\nto perform this skill which will attack all\nenemies within a 5*5 cell area around the\ncaster.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 180% damage\n[Lv 2]: 12 SP, 200% damage\n[Lv 3]: 10 SP, 220% damage\n[Lv 4]: 8 SP, 240% damage\n[Lv 5]: 6 SP, 260% damage\n[Lv 6]: 4 SP, 280% damage\n[Lv 7]: 2 SP, 300% damage\n\nComments: This is the only Taekwon kick\nthat does AoE damage.",
+          "gridIndex": 2
+        },
+        "tk_downkick": {
+          "id": "tk_downkick",
+          "skidKey": "TK_DOWNKICK",
+          "skidId": 415,
+          "name": "Heel Drop",
+          "maxLevel": 7,
+          "description": "Heel Drop\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Heel Drop\nStance to perform this skill which will inflict\ndamage and cause the Stun effect for 3\nseconds on the targeted enemy.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 180% damage\n[Lv 2]: 12 SP, 200% damage\n[Lv 3]: 10 SP, 220% damage\n[Lv 4]: 8 SP, 240% damage\n[Lv 5]: 6 SP, 260% damage\n[Lv 6]: 4 SP, 280% damage\n[Lv 7]: 2 SP, 300% damage",
+          "gridIndex": 3
+        },
+        "tk_turnkick": {
+          "id": "tk_turnkick",
+          "skidKey": "TK_TURNKICK",
+          "skidId": 417,
+          "name": "Roundhouse Kick",
+          "maxLevel": 7,
+          "description": "Roundhouse Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Roundhouse\nStance to perform this skill which will damage\nits target and push back enemies around the\ntarget. Enemies that are pushed do not\nreceive any damage but will be stunned.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 220% damage\n[Lv 2]: 12 SP, 250% damage\n[Lv 3]: 10 SP, 280% damage\n[Lv 4]: 8 SP, 310% damage\n[Lv 5]: 6 SP, 340% damage\n[Lv 6]: 4 SP, 370% damage\n[Lv 7]: 2 SP, 400% damage",
+          "gridIndex": 4
+        },
+        "tk_counter": {
+          "id": "tk_counter",
+          "skidKey": "TK_COUNTER",
+          "skidId": 419,
+          "name": "Counter Kick",
+          "maxLevel": 7,
+          "description": "Counter Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Counter Kick\nStance to perform this skill which will always\nhit its target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 220% damage\n[Lv 2]: 12 SP, 250% damage\n[Lv 3]: 10 SP, 280% damage\n[Lv 4]: 8 SP, 310% damage\n[Lv 5]: 6 SP, 340% damage\n[Lv 6]: 4 SP, 370% damage\n[Lv 7]: 2 SP, 400% damage",
+          "gridIndex": 5
+        },
+        "tk_jumpkick": {
+          "id": "tk_jumpkick",
+          "skidKey": "TK_JUMPKICK",
+          "skidId": 421,
+          "name": "Flying Kick",
+          "maxLevel": 7,
+          "description": "Flying Side Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Attacks a distant enemy with a kick\nthat instantly closes the gap between the\ntarget and the player.\nWhen activated by Break Fall, the user's Base\nLevel will influence the damage.\nDamage is further improved when used it is\nused by a player that is in Spurt status.\nFlying Side Kick will remove most Taekwon\nrelated buffs on targets, including Soul Links\nand Linker buffs.\n[Lv 1]: 70 SP, 40% ATK when used normally\n[Lv 2]: 60 SP, 50% ATK when used normally\n[Lv 3]: 50 SP, 60% ATK when used normally\n[Lv 4]: 40 SP, 70% ATK when used normally\n[Lv 5]: 30 SP, 80% ATK when used normally\n[Lv 6]: 20 SP, 90% ATK when used normally\n[Lv 7]: 10 SP, 100% ATK when used normally\n[Break Fall]: (4*BaseLevel)% ATK\n[Running]: (4*BaseLevel)% ATK\n[Spurt]: Multiply damage by 2\n\nComments: Removes all Soul Links, Kaite,\nKaahi, One-Hand Quicken, Full Adrenaline\nRush and Berserk Potion Pitcher.",
+          "gridIndex": 6
+        },
+        "tk_highjump": {
+          "id": "tk_highjump",
+          "skidKey": "TK_HIGHJUMP",
+          "skidId": 426,
+          "name": "Taekwon Jump",
+          "maxLevel": 5,
+          "description": "High Jump\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Leaps to a targeted cell within the\nskill's range.\nSo long as the targeted cell is accessible, the\ncaster can leap over walls and obstacles.\nLeap cannot be used in areas where Fly\nWings are disabled, except for WoE maps.\n[Lv 1]: 5 sec Cast Time, 2 cells\n[Lv 2]: 4 sec Cast Time, 4 cells\n[Lv 3]: 3 sec Cast Time, 6 cells\n[Lv 4]: 2 sec Cast Time, 8 cells\n[Lv 5]: 1 sec Cast Time, 10 cells\n\nComments: Attemping to jump into a cell that\ncannot be entered will cause the character to\njump in place.\nThis skill works on WoE 1.0 castles but not\nWoE 2.0 zones.\nUsing /bingbing and /bangbang can help you\nchange the direction you wish to jump without\nmoving.",
+          "gridIndex": 8
+        },
+        "tk_readystorm": {
+          "id": "tk_readystorm",
+          "skidKey": "TK_READYSTORM",
+          "skidId": 412,
+          "name": "Tornado Stance",
+          "maxLevel": 1,
+          "description": "Tornado Stance\nMax Level: 1\nRequirement: Tornado Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Tornado Stance when\nthe caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 9
+        },
+        "tk_readydown": {
+          "id": "tk_readydown",
+          "skidKey": "TK_READYDOWN",
+          "skidId": 414,
+          "name": "Heel Drop Stance",
+          "maxLevel": 1,
+          "description": "Heel Drop Stance\nMax Level: 1\nRequirement: Heel Drop 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Heel Drop Stance when\nthe caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 10
+        },
+        "tk_readyturn": {
+          "id": "tk_readyturn",
+          "skidKey": "TK_READYTURN",
+          "skidId": 416,
+          "name": "Roundhouse Stance",
+          "maxLevel": 1,
+          "description": "Roundhouse Stance\nMax Level: 1\nRequirement: Roundhouse Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Roundhouse Stance\nwhen the caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 11
+        },
+        "tk_readycounter": {
+          "id": "tk_readycounter",
+          "skidKey": "TK_READYCOUNTER",
+          "skidId": 418,
+          "name": "Counter Kick Stance",
+          "maxLevel": 1,
+          "description": "Counter Kick Stance\nMax Level: 1\nRequirement: Counter Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 20% chance of\nautomatically entering Counter Kick Stance\nwhen the caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 12
+        },
+        "tk_dodge": {
+          "id": "tk_dodge",
+          "skidKey": "TK_DODGE",
+          "skidId": 420,
+          "name": "Tumbling",
+          "maxLevel": 1,
+          "description": "Break Fall\nMax Level: 1\nRequirement: Flying Kick 7\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Enables a 20% chance of\nblocking long ranged physical attacks.\nWhen caster is in Spurt status (after\nperforming Lv 7 Sprint or higher), Break Fall\nwill also block other kinds of attacks.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: Using Flying Side Kick after\nBreak Fall activates will immediately cast the\nskill against the enemy that targeted you.\nUsing Flying Side Kick in this way doesn't\nrequire aiming and clicking the skill.\nSoul Linkers can use this skill and benefit\nfrom the dodge effects, but cannot use\nFlying Side Kick.",
+          "gridIndex": 13
+        },
+        "tk_hptime": {
+          "id": "tk_hptime",
+          "skidKey": "TK_HPTIME",
+          "skidId": 422,
+          "name": "Peaceful Break",
+          "maxLevel": 10,
+          "description": "Peaceful Rest\nMax Level: 10\nSkill Form: Passive\nDescription: When two or more Taekwon class\ncharacters sit next to each other, HP will be\nrestored for you.\nThis HP restoration is affected by your MaxHP.\n[Lv 1]: 30 HP +[(1*MaxHP)/500]\n[Lv 2]: 60 HP +[(2*MaxHP)/500]\n[Lv 3]: 90 HP +[(3*MaxHP)/500]\n[Lv 4]: 120 HP +[(4*MaxHP)/500]\n[Lv 5]: 160 HP +[(5*MaxHP)/500]\n[Lv 6]: 180 HP +[(6*MaxHP)/500]\n[Lv 7]: 210 HP +[(7*MaxHP)/500]\n[Lv 8]: 240 HP +[(8*MaxHP)/500]\n[Lv 9]: 270 HP +[(9*MaxHP)/500]\n[Lv 10]: 300 HP +[(10*MaxHP)/500]\n\nComments: For these Rest skills to work, the\nother Taekwon needs to have learned the skill.\nEven if they only have the skill at Lv1, you will\nactivate the effect at the level you have learned,\nbut if they do not have the skill at all, it will not\nwork. Each one will recover at the level they\nwill have learned.",
+          "gridIndex": 16
+        },
+        "tk_sptime": {
+          "id": "tk_sptime",
+          "skidKey": "TK_SPTIME",
+          "skidId": 423,
+          "name": "Happy Break",
+          "maxLevel": 10,
+          "description": "Enjoyable Rest\nMax Level: 10\nSkill Form: Passive\nDescription: When two or more Taekwon class\ncharacters sit next to each other, SP will be\nrestored for you.\nThis SP restoration is affected by your MaxSP.\nIf the user user does /doridori while this\nskill is active, you will gain a special effect\ncalled Happy Break. While under this effect,\nyou are able to use any Earth Spike Scroll\nwhile only having a very small chance of\nconsuming the item.\nThe Soul Linker passive Kaina further\nimproves the recovery from this skill.\n[Lv 1]: 3 SP +[(1*MaxSP)/500] SP, 10% chance\nto consume Earth Spike Scroll\n[Lv 2]: 6 SP +[(2*MaxSP)/500] SP, 9% chance\nto consume Earth Spike Scroll\n[Lv 3]: 9 SP +[(3*MaxSP)/500] SP, 8% chance\nto consume Earth Spike Scroll\n[Lv 4]: 12 SP +[(4*MaxSP)/500] SP, 7% chance\nto consume Earth Spike Scroll\n[Lv 5]: 16 SP +[(5*MaxSP)/500] SP, 6% chance\nto consume Earth Spike Scroll\n[Lv 6]: 18 SP +[(6*MaxSP)/500] SP, 5% chance\nto consume Earth Spike Scroll\n[Lv 7]: 21 SP +[(7*MaxSP)/500] SP, 4% chance\nto consume Earth Spike Scroll\n[Lv 8]: 24 SP +[(8*MaxSP)/500] SP, 3% chance\nto consume Earth Spike Scroll\n[Lv 9]: 27 SP +[(9*MaxSP)/500] SP, 2% chance\nto consume Earth Spike Scroll\n[Lv 10]: 30 SP +[(10*MaxSP)/500] SP, 1% chance\nto consume Earth Spike Scroll\n\nComments: If you want to trigger Happy Break,\nsit next to another Taekwon, Star Gladiator or\nSoul Linker, do /doridori a few times and wait\nfor the SP tick to appear. They don't need to be\nin the same party. You do need the SP recovery\ntick to happen, so you must not be full SP.",
+          "gridIndex": 17
+        },
+        "tk_power": {
+          "id": "tk_power",
+          "skidKey": "TK_POWER",
+          "skidId": 424,
+          "name": "Kihop",
+          "maxLevel": 5,
+          "description": "Kihop\nMax Level: 5\nSkill Form: Passive\nDescription: Increases Attack Power based on\nthe number of Party Members on the same\nmap. The Taekwon himself is excluded.\n[Lv 1]: 2% per person in party\n[Lv 2]: 4% per person in party\n[Lv 3]: 6% per person in party\n[Lv 4]: 8% per person in party\n[Lv 5]: 10% per person in party\n\nComments: This is a boost directly applied\nto your ATK. It is not visible on the Stat Window\nbut it will increase your damage significantly.\nThe party members must be on the same\nmap but don't need to be on screen or even\nalive.",
+          "gridIndex": 18
+        },
+        "tk_sevenwind": {
+          "id": "tk_sevenwind",
+          "skidKey": "TK_SEVENWIND",
+          "skidId": 425,
+          "name": "Mild Wind",
+          "maxLevel": 7,
+          "description": "Warm Wind\nMax Level: 7\nRequirement: Peaceful Break 5,\nHappy Break 5, Kihop 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Summons a wind that will enchant\nthe caster's attacks for 5 minutes with an\nelemental property based on the level of the\ncasted skill.\n[Lv 1]: Earth\n[Lv 2]: Wind\n[Lv 3]: Water\n[Lv 4]: Fire\n[Lv 5]: Ghost\n[Lv 6]: Shadow\n[Lv 7]: Holy\n\nComments: Assign different skill levels of this\nskill to different keys so that you can quickly\nswitch elements. The four basic elements\ncost 20 SP while Holy, Shadow and Ghost\ncost 50. The visual effect displays the Kanji\nfor each element's name.",
+          "gridIndex": 24
+        },
+        "tk_mission": {
+          "id": "tk_mission",
+          "skidKey": "TK_MISSION",
+          "skidId": 493,
+          "name": "Taekwon Mission",
+          "maxLevel": 1,
+          "description": "TaeKwon Mission\nMax Level: 1\nRequirement: Kihop 5\nSkill Form: Active\nType: Ranking (/taekwon)\nTarget: Caster\nDescription: This skill is disabled once a\ncharacter changes to an advanced job, such\nas Star Gladiator or Soul Linker.\nActivating this skill will display the current\nmonster target for the Taekwon Mission.\nTaekwons will earn 1 Taekwon\nMission Point by defeating 100 of the target\nmonster.\nFulfilling the 100 target monster quota will\nbegin a new Taekwon Mission with a randomly\nchosen target.\nTaekwon's that achieve the Top 10\nTaekwon Ranking by earning the most\nTaekwon Mission Points can string combos\nwith the Tornado Kick, Roundhouse, Heel\nDrop, and Counter Kick skills.\nTaekwon Rankers at Base Level 90 and\nabove with have tripled MaxHP and MaxSP,\nand will be able to use all Taekwon skills.\nThe '/taekwon' command will show rankings.\n\nComments: The benefits granted by becoming\na Ranker can turn Taekwon into a viable class,\neven if they cannot jobchange.\nThere is a 1% chance of resetting your Target\nMonster every time you use this skill, but this\nwill only happen if you are at 0% progress.\nIn order to keep a Kick Chain going, you must\nalternate different kicks. Using the same kick\ntwice will end the combo. You must activate a\nkick's stance to begin the combo.\nThe default list of Target Monsters includes\nMini Bosses(such as Ghostring and\nDeviling), monsters with very limited spawn\namounts(Alice, Giant Whispe), monsters that\nonly spawn inside Guild Dungeons(Giant\nSpider, Gajomart), monsters that you would\nlikely never be able to kill on your own(such\nas Bio 3 enemies), and even monsters that\ndo not spawn at all(Boiled Rice, Photon\nCannon). As such, it's very likely that you would\nhave to reset at least a few times.\nJobchanging after becoming a Ranker will\ncause you to lose all benefits from this.",
+          "gridIndex": 25
+        },
+        "sg_feel": {
+          "id": "sg_feel",
+          "skidKey": "SG_FEEL",
+          "skidId": 427,
+          "name": "Feeling the Sun Moon and Stars",
+          "maxLevel": 3,
+          "description": "Feeling of the Sun, Moon and Stars\nMax Level: 3\nSkill Form: Active\nType: Designation\nTarget: Caster\nDescription: Designate the current map\nas one of the cosmic alignments,\nSun, Moon or Star, for the use of\ncertain skills.\nThis designation is semi-permanent unless\nyour server has implemented resets for it.\nUsing the skill again after you've already set\na location will simply remind you of your\nchoice.\nOnly 1 map may be designated for each\ncosmic alignment.\n[Lv 1]: Designate current map as the Place\nof the Sun\n[Lv 2]: Designate current map as the Place\nof the Moon\n[Lv 3]: Designate current map as the Place\nof the Stars\n\nComments: Certain skills will only function\non those maps, so make sure you're 100%\ncertain about using this skill before you commit.\nResetting this choice requires going through\nthe procedure for obtaining Angel of the Sun,\nMoon and Stars.",
+          "gridIndex": 0
+        },
+        "sg_hate": {
+          "id": "sg_hate",
+          "skidKey": "SG_HATE",
+          "skidId": 434,
+          "name": "Hatred of the Sun Moon and Stars",
+          "maxLevel": 3,
+          "description": "Hatred of the Sun, Moon, and Stars\nMax Level: 3\nSkill Form: Active\nType: Designation\nTarget: 1 Character\nDescription: When you use this skill, the name\nof the monster whom you just marked will be\ndisplayed and marked.\nYou can also use this on player characters,\nand they will be categorized by class, ignoring\nsize and HP.\nExample: It will show above the player\ncharacters, Champion, if target player was a\nChampion character, and on all other\ncharacters who are of Champion class.\nThose choices are semi-permanent unless\nyour server has implemented ways of resetting\nthese options.\n[Lv 1]: Mark as Target of the Sun. On mobs, it\ncan only be used on Small monsters.\n[Lv 2]: Mark as Target of the Moon. On mobs, it\ncan only be used on Medium size monsters\nthat have a Maximum HP higher than 6,000.\n[Lv 3]: Mark as Target of the Stars. On mobs, it\ncan only be used on Large size monsters that\nhave a Maximum HP higher than 20,000.\n\nComments: This skill will set which monsters\nwill be your targets. Only up to three targets.\nResetting these options require going through\nthe procedure for obtaining Angel of the Sun,\nMoon and Stars.",
+          "gridIndex": 2
+        },
+        "sg_devil": {
+          "id": "sg_devil",
+          "skidKey": "SG_DEVIL",
+          "skidId": 441,
+          "name": "Demon of the Sun Moon and Stars",
+          "maxLevel": 10,
+          "description": "Demon of the Sun, Moon and Stars\nMax Level: 10\nRequirement: Job Level 50\nSkill Form: Passive\nDescription: Increasing this skills' level will\npermanently increase Attack Speed and reduce\ncharacter's vision, similarly to the Blind effect.\n[Lv 1]: ASPD +3%\n[Lv 2]: ASPD +6%\n[Lv 3]: ASPD +9%\n[Lv 4]: ASPD +12%\n[Lv 5]: ASPD +15%\n[Lv 6]: ASPD +18%\n[Lv 7]: ASPD +21%\n[Lv 8]: ASPD +24%\n[Lv 9]: ASPD +27%\n[Lv 10]: ASPD +30%\n\nComments: Be very careful with this skill. The\nblindness caused by Demon can be very\ncrippling to gameplay. The blindness has\ngradual steps for each skill level. Up to Lv3,\nyou should still be able to see most of the\nscreen but beyond that, it's very much like\nbeing permanently under the Blind effect.\nThis Blindness is not the same as the status\neffect, and the reductions to HIT and FLEE are\nnot present. This visual effect CANNOT be\nbypassed by using /effect or /mineffect.\nPutting points before you've maxed your Job\nLevel does absolutely nothing. But once you do\nhit that level, the blindness will hit you all at\nonce.\nUsing this skill combined with Comfort of\nthe Stars will allow you to reach 190 ASPD\nvery easily.\nIf your server has increased Max Level for Job,\nthis skill will only work when you've reached\nthat max.",
+          "gridIndex": 4
+        },
+        "sg_knowledge": {
+          "id": "sg_knowledge",
+          "skidKey": "SG_KNOWLEDGE",
+          "skidId": 443,
+          "name": "Knowledge of the Sun Moon and Stars",
+          "maxLevel": 10,
+          "description": "Knowledge of the Sun, Moon and Stars\nMax Level: 10\nSkill Form: Passive\nDescription: When you login the game on a\nmap (only login, NOT by walking/teleporting), if\nthat map is designated as Place of the Sun,\nor Moon, or Stars, this passive skill grants you\nincreased Maximum Weight Limit.\nIf you stay outside the Place of the Sun, or\nMoon, or Stars for too long, this effect end.\n[Lv 1]: +10%\n[Lv 2]: +20%\n[Lv 3]: +30%\n[Lv 4]: +40%\n[Lv 5]: +50%\n[Lv 6]: +60%\n[Lv 7]: +70%\n[Lv 8]: +80%\n[Lv 9]: +90%\n[Lv 10]: +100%\n\nComments: This skill does not work unless\nthe user logs into the character from the\nCharacter Selection screen, into the map that\nwas saved. This makes it impossible to use\nthe skill on maps that send you back to your\nSave Point if you relog.\nThe effect persists for 10 minutes after leaving\nthe map, but will end immediately if you die.",
+          "gridIndex": 5
+        },
+        "sg_sun_warm": {
+          "id": "sg_sun_warm",
+          "skidKey": "SG_SUN_WARM",
+          "skidId": 428,
+          "name": "Warmth of the Sun",
+          "maxLevel": 3,
+          "description": "Warmth of the Sun\nMax Level: 3\nRequirement: Feeling of Sun Moon Star 1\nSkill Form: Active\nType: Physical Melee\nTarget: Enemies around the caster\nDescription: You can use this skill anytime\non a map designated as 'Place of the Sun'.\nWhen this skill is used, it creates an offensive\nbarrier around you, affecting 3x3 cells\ncentered on you. It deals 100% ATK damage\nto monsters right next to you, and push them\nback by 2 cells. Enemy players suffer\nSP drain instead of HP, and no push back.\nEvery time the barrier hits, it takes away 2 SP. If\nyou do not have enough SP, the barrier will\ndisappear without making damage.\n[Lv 1]: lasts 10 sec\n[Lv 2]: lasts 20 sec\n[Lv 3]: lasts 60 sec\n\nComments: If the barrier is unable to push the\nmonster back, it will simply keep hitting it\nuntil either one of you dies or your SP ends.\nThe speed in which it hits is extremely fast.\nBosses cannot be pushed back and will take\nthe full brunt of this skill every time.\nThis skill is dispelled when you teleport or\nuse a Fly Wing. If you have triggered the effect\nof Miracle of the Sun, Moon and Stars, you can\nuse this on any map.",
+          "gridIndex": 7
+        },
+        "sg_sun_comfort": {
+          "id": "sg_sun_comfort",
+          "skidKey": "SG_SUN_COMFORT",
+          "skidId": 431,
+          "name": "Comfort of the Sun",
+          "maxLevel": 4,
+          "description": "Comfort of the Sun\nMax Level: 4\nRequirement: Feeling of Sun Moon Star 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: It can be used anytime when you\nare on the Day of the Sun in the map that is\nmemorized as 'Place of the Sun'.\nThis skill increases your DEF by\n[(BaseLevel+DEX+LUK)/2].\n[Lv 1]: 80 sec\n[Lv 2]: 160 sec\n[Lv 3]: 240 sec\n[Lv 4]: 320 sec\n\nComments: Days of the Sun are the even\nnumbered days. When Miracle of the Sun,\nMoon and Stars is active, this can be used\nanytime, anywhere.",
+          "gridIndex": 8
+        },
+        "sg_sun_anger": {
+          "id": "sg_sun_anger",
+          "skidKey": "SG_SUN_ANGER",
+          "skidId": 435,
+          "name": "Anger of the Sun",
+          "maxLevel": 3,
+          "description": "Anger of the Sun\nMax Level: 3\nRequirement: Hatred of Sun Moon Star 1\nSkill Form: Passive\nDescription: Grants Attack Power against\nmonsters which are marked as the Target\nof the Sun.\n[Lv 1]: +((BaseLevel+LUK+DEX)/9)% damage\n[Lv 2]: +((BaseLevel+LUK+DEX)/6)% damage\n[Lv 3]: +((BaseLevel+LUK+DEX)/3)% damage",
+          "gridIndex": 9
+        },
+        "sg_sun_bless": {
+          "id": "sg_sun_bless",
+          "skidKey": "SG_SUN_BLESS",
+          "skidId": 438,
+          "name": "Blessing of the Sun",
+          "maxLevel": 5,
+          "description": "Blessing of the Sun\nMax Level: 5\nRequirement: Feeling of Sun Moon Star 1,\nHatred of Sun Moon Star 1\nSkill Form: Passive\nDescription: Increases EXP given by Target of\nthe Sun monsters during the Day of the Sun.\n[Lv 1]: +10% EXP\n[Lv 2]: +20% EXP\n[Lv 3]: +30% EXP\n[Lv 4]: +40% EXP\n[Lv 5]: +50% EXP\n\nComments: Days of the Sun are those which\nare Even Numbered. The Bonus EXP is\napplied to the monster and will affect party\nmembers if EXP Share is enabled.\nStacks multiplicatively with EXP Manuals.\nFor example, if you have +50% EXP from this\nskill and consume a +50% manual, the result\nis NOT 200%, but rather 225%(150% of 150%).",
+          "gridIndex": 10
+        },
+        "sg_friend": {
+          "id": "sg_friend",
+          "skidKey": "SG_FRIEND",
+          "skidId": 442,
+          "name": "Friend of the Sun Moon and Stars",
+          "maxLevel": 3,
+          "description": "Friend of the Sun, Moon and Stars\nMax Level: 3\nSkill Form: Passive\nTarget: Monk Class Party Member\nDescription: When a Star Gladiator uses\nCounter Kick, all Monks in the same party will\nhave their Triple Attack chance increased.\nIf the Monks who are in same party as a Star\nGladiator activate a Combo Finish, Star\nGladiator's chance of Counter Kick increases.\n[Lv 1]: +100%, base chance x 1.2\n[Lv 2]: +150%, base chance x 1.5\n[Lv 3]: +200%, base chance x 2",
+          "gridIndex": 11
+        },
+        "sg_moon_warm": {
+          "id": "sg_moon_warm",
+          "skidKey": "SG_MOON_WARM",
+          "skidId": 429,
+          "name": "Warmth of the Moon",
+          "maxLevel": 3,
+          "description": "Warmth of the Moon\nMax Level: 3\nRequirement: Feeling of Sun Moon Star 2\nSkill Form: Active\nType: Physical Melee\nTarget: Enemies around the caster\nDescription: You can use this skill anytime\non a map designated as 'Place of the Moon'.\nWhen this skill is used, it creates an offensive\nbarrier around you, affecting 3x3 cells\ncentered on you. It deals 100% ATK damage\nto monsters right next to you, and push them\nback by 2 cells. Enemy players suffer\nSP drain instead of HP, and no push back.\nEvery time the barrier hits, it takes away 2 SP. If\nyou do not have enough SP, the barrier will\ndisappear without making damage.\n[Lv 1]: lasts 10 sec\n[Lv 2]: lasts 20 sec\n[Lv 3]: lasts 60 sec\n\nComments: If the barrier is unable to push the\nmonster back, it will simply keep hitting it\nuntil either one of you dies or your SP ends.\nThe speed in which it hits is extremely fast.\nBosses cannot be pushed back and will take\nthe full brunt of this skill every time.\nThis skill is dispelled when you teleport or\nuse a Fly Wing. If you have triggered the effect\nof Miracle of the Sun, Moon and Stars, you can\nuse this on any map.",
+          "gridIndex": 14
+        },
+        "sg_moon_comfort": {
+          "id": "sg_moon_comfort",
+          "skidKey": "SG_MOON_COMFORT",
+          "skidId": 432,
+          "name": "Comfort of the Moon",
+          "maxLevel": 4,
+          "description": "Comfort of the Moon\nMax Level: 4\nRequirement: Feeling of Sun Moon Star 2\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: It can be used anytime when\nyou are on the Day of the Moon in the map that\nis memorized as 'Place of the Moon'.\nThis skill increases your FLEE by\n[(BaseLevel+DEX+LUK)/10].\n[Lv 1]: 80 sec\n[Lv 2]: 160 sec\n[Lv 3]: 240 sec\n[Lv 4]: 320 sec\n\nComments: Days of the Moon are the odd\nnumbered days. When Miracle of the Sun,\nMoon and Stars is active, this can be used\nanytime, anywhere.",
+          "gridIndex": 15
+        },
+        "sg_moon_anger": {
+          "id": "sg_moon_anger",
+          "skidKey": "SG_MOON_ANGER",
+          "skidId": 436,
+          "name": "Anger of the Moon",
+          "maxLevel": 3,
+          "description": "Anger of the Moon\nMax Level: 3\nRequirement: Hatred of Sun Moon Star 2\nSkill Form: Passive\nDescription: Grants Attack Power against\nmonsters which are marked as the Target\nof the Moon.\n[Lv 1]: +((BaseLevel+LUK+DEX)/9)% damage\n[Lv 2]: +((BaseLevel+LUK+DEX)/6)% damage\n[Lv 3]: +((BaseLevel+LUK+DEX)/3)% damage",
+          "gridIndex": 16
+        },
+        "sg_moon_bless": {
+          "id": "sg_moon_bless",
+          "skidKey": "SG_MOON_BLESS",
+          "skidId": 439,
+          "name": "Blessing of the Moon",
+          "maxLevel": 5,
+          "description": "Blessing of the Moon\nMax Level: 5\nRequirement: Feeling of Sun Moon Star 2,\nHatred of Sun Moon Star 2\nSkill Form: Passive\nDescription: Increases EXP given by Target of\nthe Moon monsters during the Day of the\nMoon by (10*SkillLV)%.\n[Lv 1]: +10% EXP\n[Lv 2]: +20% EXP\n[Lv 3]: +30% EXP\n[Lv 4]: +40% EXP\n[Lv 5]: +50% EXP\n\nComments: Days of the Moon are those which\nare Odd Numbered. The Bonus EXP is\napplied to the monster and will affect party\nmembers if EXP Share is enabled.\nStacks multiplicatively with EXP Manuals.\nFor example, if you have +50% EXP from this\nskill and consume a +50% manual, the result\nis NOT 200%, but rather 225%(150% of 150%).",
+          "gridIndex": 17
+        },
+        "sg_star_warm": {
+          "id": "sg_star_warm",
+          "skidKey": "SG_STAR_WARM",
+          "skidId": 430,
+          "name": "Warmth of the Stars",
+          "maxLevel": 3,
+          "description": "Warmth of the Stars\nMax Level: 3\nRequirement: Feeling of Sun Moon Star 3\nSkill Form: Active\nType: Physical Melee\nTarget: Enemies around the caster\nDescription: You can use this skill anytime\non a map designated as 'Place of the Stars'.\nWhen this skill is used, it creates an offensive\nbarrier around you, affecting 3x3 cells\ncentered on you. It deals 100% ATK damage\nto monsters right next to you, and push them\nback by 2 cells. Enemy players suffer\nSP drain instead of HP, and no push back.\nEvery time the barrier hits, it takes away 2 SP. If\nyou do not have enough SP, the barrier will\ndisappear without making damage.\n[Lv 1]: lasts 10 sec\n[Lv 2]: lasts 20 sec\n[Lv 3]: lasts 60 sec\n\nComments: If the barrier is unable to push the\nmonster back, it will simply keep hitting it\nuntil either one of you dies or your SP ends.\nThe speed in which it hits is extremely fast.\nBosses cannot be pushed back and will take\nthe full brunt of this skill every time.\nThis skill is dispelled when you teleport or\nuse a Fly Wing. If you have triggered the effect\nof Miracle of the Sun, Moon and Stars, you can\nuse this on any map.",
+          "gridIndex": 21
+        },
+        "sg_star_comfort": {
+          "id": "sg_star_comfort",
+          "skidKey": "SG_STAR_COMFORT",
+          "skidId": 433,
+          "name": "Comfort of the Stars",
+          "maxLevel": 4,
+          "description": "Comfort of the Stars\nMax Level: 4\nRequirement: Feeling of Sun Moon Star 3\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: It can be used anytime when you\nare on the Day of the Stars in the map that is\nmemorized as 'Place of the Stars'.\nThis skill increases your ASPD by\n[(BaseLevel+DEX+LUK)/10]%.\n[Lv 1]: 80 sec\n[Lv 2]: 160 sec\n[Lv 3]: 240 sec\n[Lv 4]: 320 sec\n\nComments: Days of the Stars are the multiples\nof 5. When Miracle of the Sun, Moon and Stars\nis active, this can be used anytime, anywhere.",
+          "gridIndex": 22
+        },
+        "sg_star_anger": {
+          "id": "sg_star_anger",
+          "skidKey": "SG_STAR_ANGER",
+          "skidId": 437,
+          "name": "Anger of the Stars",
+          "maxLevel": 3,
+          "description": "Anger of the Stars\nMax Level: 3\nRequirement: Hatred of Sun Moon Star 3\nSkill Form: Passive\nDescription: Grants Attack Power against\nmonsters which are marked as the Target\nof the Stars.\n[Lv 1]: +((BaseLevel+LUK+DEX+STR)/9)%\ndamage\n[Lv 2]: +((BaseLevel+LUK+DEX+STR)/6)%\ndamage\n[Lv 3]: +((BaseLevel+LUK+DEX+STR)/3)%\ndamage\n\nComments: The Lunar version of Anger is\nbetter than the other two. It features STR\nscaling as well. When you are under the effect\nof Miracle of the Sun, Moon and Stars, this is\nthe version of Anger that will be applied to all\nmonsters.",
+          "gridIndex": 23
+        },
+        "sg_star_bless": {
+          "id": "sg_star_bless",
+          "skidKey": "SG_STAR_BLESS",
+          "skidId": 440,
+          "name": "Blessing of the Stars",
+          "maxLevel": 5,
+          "description": "Blessing of the Stars\nMax Level: 5\nRequirement: Feeling of Sun Moon Star 3,\nHatred of Sun Moon Star 3\nSkill Form: Passive\nDescription: Increases EXP given by Target of\nthe Stars monsters in the Day of the Stars by\n(20*SkillLV)%.\n[Lv 1]: +20% EXP\n[Lv 2]: +40% EXP\n[Lv 3]: +60% EXP\n[Lv 4]: +80% EXP\n[Lv 5]: +100% EXP\n\nComments: Days of the Stars are those which\nare multiples of 5. The Bonus EXP is applied to\nthe monster and will affect party members if\nEXP Share is enabled.\nStacks multiplicatively with EXP Manuals.\nFor example, if you have +100% EXP from this\nskill and consume a +50% manual, the result\nis NOT 250%, but rather 300%(150% of 200%).\nIt is important to note that this version of the\nskill is superior to the Sun and Moon versions.\nWhen Miracle of the Sun, Moon and Stars is\nactive, this is the version of the skill that will be\napplied to every monster.",
+          "gridIndex": 24
+        },
+        "nv_firstaid": {
+          "id": "nv_firstaid",
+          "skidKey": "NV_FIRSTAID",
+          "skidId": 142,
+          "name": "First Aid",
+          "maxLevel": 1,
+          "description": "First Aid\nRequirement: Finish Quest\nSkill Form: Active\nType: Recovery\nTarget: Caster\nDescription: Uses 3 SP to restore 5 HP.",
+          "gridIndex": 0
+        },
+        "nv_trickdead": {
+          "id": "nv_trickdead",
+          "skidKey": "NV_TRICKDEAD",
+          "skidId": 143,
+          "name": "Play Dead",
+          "maxLevel": 1,
+          "description": "Play Dead\nRequirement: Finish Quest, Novice Only\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Feigns death to avoid the\nmenace of nearby enemies. The Play\nDead status is canceled by casting\nthis skill again.\n\nComments: This skill ceases to function after\njobchanging to any other class, including\nSuper Novice. Swordsman's Provoke and\nSage's Dispel can cancel the effect. All\nmonsters will be fooled, even Bosses and\nMvPs.",
+          "gridIndex": 1
+        },
+        "sg_fusion": {
+          "id": "sg_fusion",
+          "skidKey": "SG_FUSION",
+          "skidId": 444,
+          "name": "Union of the Sun Moon and Stars",
+          "maxLevel": 1,
+          "description": "Union of the Sun, Moon and Stars\nMax Level: 1\nRequirement: Knowledge of Sun Moon Star 9,\nSpirit State\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: The power of this skill is\nunleashed when linked to a Soul Linker using\nthe Star Gladiator Spirit.\nWhen linked, your Movement Speed is\nincreased, your attacks ignore DEF and FLEE,\nbut you lose 2% of your HP every time you\nattack a monster and 8% HP if the target is a\nplayer. If the enemy being attacked is a player\nand you perform an attack while under\n20% HP, you will die immediately.\n\nComments: The Movement Speed granted by\nUnion is very significant. Combined with a\nsimple Increase Agility or similar buff, Star\nGladiators can move as fast as Soul Linked\nStalkers.\nWhen using this skill, be prepared with plenty\nof healing items on hand, because it will drain\nyour HP at an alarming rate, specially when\nused in combination with a Warmth skill.\nThis skill is not unlocked automatically when\na Soul Link is given to you, the user must\nhave spent a Skill Point to learn the skill. You\nmust have 9 points into Knowledge in order to\nunlock Union.\nSometimes, the client will not allow you to put\na point into this skill due to a glitch. If that\nhappens, make sure you have the necessary\npoints into Knowledge, switch the Skill Window\nformat to the alternative List Mode and assign\nthe point in this manner.",
+          "gridIndex": 2
+        }
+      },
+      "edges": [
+        {
+          "fromId": "tk_stormkick",
+          "toId": "tk_readystorm",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_downkick",
+          "toId": "tk_readydown",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_turnkick",
+          "toId": "tk_readyturn",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_counter",
+          "toId": "tk_readycounter",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_jumpkick",
+          "toId": "tk_dodge",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "tk_hptime",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_sptime",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_power",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_power",
+          "toId": "tk_mission",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_sun_warm",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_sun_comfort",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sg_hate",
+          "toId": "sg_sun_anger",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_sun_bless",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sg_hate",
+          "toId": "sg_sun_bless",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_moon_warm",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_moon_comfort",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "sg_hate",
+          "toId": "sg_moon_anger",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_moon_bless",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "sg_hate",
+          "toId": "sg_moon_bless",
+          "requiredLevel": 2
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_star_warm",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_star_comfort",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "sg_hate",
+          "toId": "sg_star_anger",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "sg_feel",
+          "toId": "sg_star_bless",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "sg_hate",
+          "toId": "sg_star_bless",
+          "requiredLevel": 3
+        },
+        {
+          "fromId": "sg_knowledge",
+          "toId": "sg_fusion",
+          "requiredLevel": 9
+        }
+      ]
+    },
+    "JT_LINKER": {
+      "key": "JT_LINKER",
+      "label": "Soul Linker",
+      "columns": [
+        {
+          "title": "Taekwon Kid",
+          "skillIds": [
+            "nv_basic",
+            "tk_run",
+            "tk_stormkick",
+            "tk_downkick",
+            "tk_turnkick",
+            "tk_counter",
+            "tk_jumpkick",
+            "tk_highjump",
+            "tk_readystorm",
+            "tk_readydown",
+            "tk_readyturn",
+            "tk_readycounter",
+            "tk_dodge",
+            "tk_hptime",
+            "tk_sptime",
+            "tk_power",
+            "tk_sevenwind",
+            "tk_mission"
+          ]
+        },
+        {
+          "title": "Soul Linker",
+          "skillIds": [
+            "sl_alchemist",
+            "sl_star",
+            "sl_assasin",
+            "sl_crusader",
+            "sl_barddancer",
+            "sl_supernovice",
+            "sl_blacksmith",
+            "sl_soullinker",
+            "sl_rogue",
+            "sl_knight",
+            "sl_hunter",
+            "sl_high",
+            "sl_monk",
+            "sl_kaupe",
+            "sl_ske",
+            "sl_sage",
+            "sl_kaina",
+            "sl_priest",
+            "sl_ska",
+            "sl_wizard",
+            "sl_kaite",
+            "sl_kaahi",
+            "sl_kaizel",
+            "sl_swoo",
+            "sl_stin",
+            "sl_stun",
+            "sl_sma"
+          ]
+        },
+        {
+          "title": "Quest / special",
+          "skillIds": [
+            "nv_firstaid",
+            "nv_trickdead"
+          ]
+        }
+      ],
+      "skills": {
+        "nv_basic": {
+          "id": "nv_basic",
+          "skidKey": "NV_BASIC",
+          "skidId": 1,
+          "name": "Basic Skill",
+          "maxLevel": 9,
+          "description": "Basic Skill\nMax Level: 9\nEnables the use of Basic Interface Skills.\n[Lv 1]: Enables Trading\nAllows the trading of items with other\ncharacter.\nRight click on a character to initiate.\n[Lv 2]: Enables Emotions\nAlt+(0~9) and Ctrl+(1,-,=.)\nAlt+L opens additional Emotion icons.\n[Lv 3]: Enables Sitting\nSitting doubles HP and SP regeneration\nspeed.\nPress the Insert key or type /sit.\n[Lv 4]: Enables Chat Room Creation\nAlt+C to open a Chat Room or click the\nChat button in the Basic Information\nWindow.\n[Lv 5]: Join a Party\nCharacter can join a party.\n[Lv 6]: Enables Use of Kafra Storage\nAllows use of Kafra Storage.\n[Lv 7]: Organize a Party\nCreate a party by typing\n/organize ''Party Name''\nSet party options in the Party Window (Alt+Z).\n[Lv 9]: Enables Change to First Job Class\nQualifies character for change from Novice\nto one of the First classes.",
+          "gridIndex": 0
+        },
+        "tk_run": {
+          "id": "tk_run",
+          "skidKey": "TK_RUN",
+          "skidId": 411,
+          "name": "Running",
+          "maxLevel": 10,
+          "description": "Running\nMax Level: 10\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Enables the caster to run with\nincredible speed in a straight line. Using the\nskill again while Running makes you stop.\nAt Lv7 and above, this skill has no Cast Time.\nIf the skill is used at Lv7 and above and then\nimmediately cancelled, the user will gain an\neffect called Spurt.\nSimply having the Running skill learned\nwill increase your auto-attack damage and\nthe damage of your Taekwon kicks. These\nbonuses are ONLY for when you are unarmed.\n[Lv 1]: 6 sec Cast Time, 100 SP, +10 damage\non Auto Attacks, +10% damage to Kicks\n[Lv 2]: 5 sec Cast Time, 90 SP, +20 damage\non Auto Attacks, +20% damage to Kicks\n[Lv 3]: 4 sec Cast Time, 80 SP, +30 damage\non Auto Attacks, +30% damage to Kicks\n[Lv 4]: 3 sec Cast Time, 70 SP, +40 damage\non Auto Attacks, +40% damage to Kicks\n[Lv 5]: 2 sec Cast Time, 60 SP, +50 damage\non Auto Attacks, +50% damage to Kicks\n[Lv 6]: 1 sec Cast Time, 50 SP, +60 damage\non Auto Attacks, +60% damage to Kicks\n[Lv 7]: 0 sec Cast Time, 40 SP, +70 damage\non Auto Attacks, +70% damage to Kicks\n[Lv 8]: 0 sec Cast Time, 30 SP, +80 damage\non Auto Attacks, +80% damage to Kicks\n[Lv 9]: 0 sec Cast Time, 20 SP, +90 damage\non Auto Attacks, +90% damage to Kicks\n[Lv 10]: 0 sec Cast Time, 10 SP, +100 damage\non Auto Attacks, +100% damage to Kicks\n\nSpurt:\nSTR +10.\nBreak Fall will activate on Melee attacks.\nDoubles the damage of Flywing Side Kick\nwhen it is used during Running.\n\nComments: ASPD determines how long you\nmust run before you're able to stop or use\nFlying Side Kick. High ASPD means you can\ndo it sooner.\nUsing /bingbing and /bangbang can help you\nchange the direction you wish to run without\nmoving, although you still need to stop to\nchange directions.",
+          "gridIndex": 1
+        },
+        "tk_stormkick": {
+          "id": "tk_stormkick",
+          "skidKey": "TK_STORMKICK",
+          "skidId": 413,
+          "name": "Tornado Kick",
+          "maxLevel": 7,
+          "description": "Tornado Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: Enemies around the caster\nDescription: Caster must be in Tornado Stance\nto perform this skill which will attack all\nenemies within a 5*5 cell area around the\ncaster.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 180% damage\n[Lv 2]: 12 SP, 200% damage\n[Lv 3]: 10 SP, 220% damage\n[Lv 4]: 8 SP, 240% damage\n[Lv 5]: 6 SP, 260% damage\n[Lv 6]: 4 SP, 280% damage\n[Lv 7]: 2 SP, 300% damage\n\nComments: This is the only Taekwon kick\nthat does AoE damage.",
+          "gridIndex": 2
+        },
+        "tk_downkick": {
+          "id": "tk_downkick",
+          "skidKey": "TK_DOWNKICK",
+          "skidId": 415,
+          "name": "Heel Drop",
+          "maxLevel": 7,
+          "description": "Heel Drop\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Heel Drop\nStance to perform this skill which will inflict\ndamage and cause the Stun effect for 3\nseconds on the targeted enemy.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 180% damage\n[Lv 2]: 12 SP, 200% damage\n[Lv 3]: 10 SP, 220% damage\n[Lv 4]: 8 SP, 240% damage\n[Lv 5]: 6 SP, 260% damage\n[Lv 6]: 4 SP, 280% damage\n[Lv 7]: 2 SP, 300% damage",
+          "gridIndex": 3
+        },
+        "tk_turnkick": {
+          "id": "tk_turnkick",
+          "skidKey": "TK_TURNKICK",
+          "skidId": 417,
+          "name": "Roundhouse Kick",
+          "maxLevel": 7,
+          "description": "Roundhouse Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Roundhouse\nStance to perform this skill which will damage\nits target and push back enemies around the\ntarget. Enemies that are pushed do not\nreceive any damage but will be stunned.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 220% damage\n[Lv 2]: 12 SP, 250% damage\n[Lv 3]: 10 SP, 280% damage\n[Lv 4]: 8 SP, 310% damage\n[Lv 5]: 6 SP, 340% damage\n[Lv 6]: 4 SP, 370% damage\n[Lv 7]: 2 SP, 400% damage",
+          "gridIndex": 4
+        },
+        "tk_counter": {
+          "id": "tk_counter",
+          "skidKey": "TK_COUNTER",
+          "skidId": 419,
+          "name": "Counter Kick",
+          "maxLevel": 7,
+          "description": "Counter Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Caster must be in Counter Kick\nStance to perform this skill which will always\nhit its target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 14 SP, 220% damage\n[Lv 2]: 12 SP, 250% damage\n[Lv 3]: 10 SP, 280% damage\n[Lv 4]: 8 SP, 310% damage\n[Lv 5]: 6 SP, 340% damage\n[Lv 6]: 4 SP, 370% damage\n[Lv 7]: 2 SP, 400% damage",
+          "gridIndex": 5
+        },
+        "tk_jumpkick": {
+          "id": "tk_jumpkick",
+          "skidKey": "TK_JUMPKICK",
+          "skidId": 421,
+          "name": "Flying Kick",
+          "maxLevel": 7,
+          "description": "Flying Side Kick\nMax Level: 7\nSkill Form: Active\nType: Physical Melee\nTarget: 1 Character\nDescription: Attacks a distant enemy with a kick\nthat instantly closes the gap between the\ntarget and the player.\nWhen activated by Break Fall, the user's Base\nLevel will influence the damage.\nDamage is further improved when used it is\nused by a player that is in Spurt status.\nFlying Side Kick will remove most Taekwon\nrelated buffs on targets, including Soul Links\nand Linker buffs.\n[Lv 1]: 70 SP, 40% ATK when used normally\n[Lv 2]: 60 SP, 50% ATK when used normally\n[Lv 3]: 50 SP, 60% ATK when used normally\n[Lv 4]: 40 SP, 70% ATK when used normally\n[Lv 5]: 30 SP, 80% ATK when used normally\n[Lv 6]: 20 SP, 90% ATK when used normally\n[Lv 7]: 10 SP, 100% ATK when used normally\n[Break Fall]: (4*BaseLevel)% ATK\n[Running]: (4*BaseLevel)% ATK\n[Spurt]: Multiply damage by 2\n\nComments: Removes all Soul Links, Kaite,\nKaahi, One-Hand Quicken, Full Adrenaline\nRush and Berserk Potion Pitcher.",
+          "gridIndex": 6
+        },
+        "tk_highjump": {
+          "id": "tk_highjump",
+          "skidKey": "TK_HIGHJUMP",
+          "skidId": 426,
+          "name": "Taekwon Jump",
+          "maxLevel": 5,
+          "description": "High Jump\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Leaps to a targeted cell within the\nskill's range.\nSo long as the targeted cell is accessible, the\ncaster can leap over walls and obstacles.\nLeap cannot be used in areas where Fly\nWings are disabled, except for WoE maps.\n[Lv 1]: 5 sec Cast Time, 2 cells\n[Lv 2]: 4 sec Cast Time, 4 cells\n[Lv 3]: 3 sec Cast Time, 6 cells\n[Lv 4]: 2 sec Cast Time, 8 cells\n[Lv 5]: 1 sec Cast Time, 10 cells\n\nComments: Attemping to jump into a cell that\ncannot be entered will cause the character to\njump in place.\nThis skill works on WoE 1.0 castles but not\nWoE 2.0 zones.\nUsing /bingbing and /bangbang can help you\nchange the direction you wish to jump without\nmoving.",
+          "gridIndex": 8
+        },
+        "tk_readystorm": {
+          "id": "tk_readystorm",
+          "skidKey": "TK_READYSTORM",
+          "skidId": 412,
+          "name": "Tornado Stance",
+          "maxLevel": 1,
+          "description": "Tornado Stance\nMax Level: 1\nRequirement: Tornado Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Tornado Stance when\nthe caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 9
+        },
+        "tk_readydown": {
+          "id": "tk_readydown",
+          "skidKey": "TK_READYDOWN",
+          "skidId": 414,
+          "name": "Heel Drop Stance",
+          "maxLevel": 1,
+          "description": "Heel Drop Stance\nMax Level: 1\nRequirement: Heel Drop 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Heel Drop Stance when\nthe caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 10
+        },
+        "tk_readyturn": {
+          "id": "tk_readyturn",
+          "skidKey": "TK_READYTURN",
+          "skidId": 416,
+          "name": "Roundhouse Stance",
+          "maxLevel": 1,
+          "description": "Roundhouse Stance\nMax Level: 1\nRequirement: Roundhouse Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 15% chance of\nautomatically entering Roundhouse Stance\nwhen the caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 11
+        },
+        "tk_readycounter": {
+          "id": "tk_readycounter",
+          "skidKey": "TK_READYCOUNTER",
+          "skidId": 418,
+          "name": "Counter Kick Stance",
+          "maxLevel": 1,
+          "description": "Counter Kick Stance\nMax Level: 1\nRequirement: Counter Kick 1\nSkill Form: Active\nType: Stance Skill\nTarget: Caster\nDescription: Enables a 20% chance of\nautomatically entering Counter Kick Stance\nwhen the caster successfully hits a target.\nSoul Linkers cannot perform this skill.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: All Stance Prepare skills work the\nsame way. You need to have the Preparation\nactive(you will see a Buff icon) and auto-attack\nenemies. By chance, you will trigger a Stance\nand then you must use the Kick skill itself to\nactivate it.\nAGI and DEX will reduce the time it takes for\nyou to be able to resume your auto-attacks.",
+          "gridIndex": 12
+        },
+        "tk_dodge": {
+          "id": "tk_dodge",
+          "skidKey": "TK_DODGE",
+          "skidId": 420,
+          "name": "Tumbling",
+          "maxLevel": 1,
+          "description": "Break Fall\nMax Level: 1\nRequirement: Flying Kick 7\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Enables a 20% chance of\nblocking long ranged physical attacks.\nWhen caster is in Spurt status (after\nperforming Lv 7 Sprint or higher), Break Fall\nwill also block other kinds of attacks.\n[Lv 1]: 0 Sec Cast Time, 1 SP\n\nComments: Using Flying Side Kick after\nBreak Fall activates will immediately cast the\nskill against the enemy that targeted you.\nUsing Flying Side Kick in this way doesn't\nrequire aiming and clicking the skill.\nSoul Linkers can use this skill and benefit\nfrom the dodge effects, but cannot use\nFlying Side Kick.",
+          "gridIndex": 13
+        },
+        "tk_hptime": {
+          "id": "tk_hptime",
+          "skidKey": "TK_HPTIME",
+          "skidId": 422,
+          "name": "Peaceful Break",
+          "maxLevel": 10,
+          "description": "Peaceful Rest\nMax Level: 10\nSkill Form: Passive\nDescription: When two or more Taekwon class\ncharacters sit next to each other, HP will be\nrestored for you.\nThis HP restoration is affected by your MaxHP.\n[Lv 1]: 30 HP +[(1*MaxHP)/500]\n[Lv 2]: 60 HP +[(2*MaxHP)/500]\n[Lv 3]: 90 HP +[(3*MaxHP)/500]\n[Lv 4]: 120 HP +[(4*MaxHP)/500]\n[Lv 5]: 160 HP +[(5*MaxHP)/500]\n[Lv 6]: 180 HP +[(6*MaxHP)/500]\n[Lv 7]: 210 HP +[(7*MaxHP)/500]\n[Lv 8]: 240 HP +[(8*MaxHP)/500]\n[Lv 9]: 270 HP +[(9*MaxHP)/500]\n[Lv 10]: 300 HP +[(10*MaxHP)/500]\n\nComments: For these Rest skills to work, the\nother Taekwon needs to have learned the skill.\nEven if they only have the skill at Lv1, you will\nactivate the effect at the level you have learned,\nbut if they do not have the skill at all, it will not\nwork. Each one will recover at the level they\nwill have learned.",
+          "gridIndex": 16
+        },
+        "tk_sptime": {
+          "id": "tk_sptime",
+          "skidKey": "TK_SPTIME",
+          "skidId": 423,
+          "name": "Happy Break",
+          "maxLevel": 10,
+          "description": "Enjoyable Rest\nMax Level: 10\nSkill Form: Passive\nDescription: When two or more Taekwon class\ncharacters sit next to each other, SP will be\nrestored for you.\nThis SP restoration is affected by your MaxSP.\nIf the user user does /doridori while this\nskill is active, you will gain a special effect\ncalled Happy Break. While under this effect,\nyou are able to use any Earth Spike Scroll\nwhile only having a very small chance of\nconsuming the item.\nThe Soul Linker passive Kaina further\nimproves the recovery from this skill.\n[Lv 1]: 3 SP +[(1*MaxSP)/500] SP, 10% chance\nto consume Earth Spike Scroll\n[Lv 2]: 6 SP +[(2*MaxSP)/500] SP, 9% chance\nto consume Earth Spike Scroll\n[Lv 3]: 9 SP +[(3*MaxSP)/500] SP, 8% chance\nto consume Earth Spike Scroll\n[Lv 4]: 12 SP +[(4*MaxSP)/500] SP, 7% chance\nto consume Earth Spike Scroll\n[Lv 5]: 16 SP +[(5*MaxSP)/500] SP, 6% chance\nto consume Earth Spike Scroll\n[Lv 6]: 18 SP +[(6*MaxSP)/500] SP, 5% chance\nto consume Earth Spike Scroll\n[Lv 7]: 21 SP +[(7*MaxSP)/500] SP, 4% chance\nto consume Earth Spike Scroll\n[Lv 8]: 24 SP +[(8*MaxSP)/500] SP, 3% chance\nto consume Earth Spike Scroll\n[Lv 9]: 27 SP +[(9*MaxSP)/500] SP, 2% chance\nto consume Earth Spike Scroll\n[Lv 10]: 30 SP +[(10*MaxSP)/500] SP, 1% chance\nto consume Earth Spike Scroll\n\nComments: If you want to trigger Happy Break,\nsit next to another Taekwon, Star Gladiator or\nSoul Linker, do /doridori a few times and wait\nfor the SP tick to appear. They don't need to be\nin the same party. You do need the SP recovery\ntick to happen, so you must not be full SP.",
+          "gridIndex": 17
+        },
+        "tk_power": {
+          "id": "tk_power",
+          "skidKey": "TK_POWER",
+          "skidId": 424,
+          "name": "Kihop",
+          "maxLevel": 5,
+          "description": "Kihop\nMax Level: 5\nSkill Form: Passive\nDescription: Increases Attack Power based on\nthe number of Party Members on the same\nmap. The Taekwon himself is excluded.\n[Lv 1]: 2% per person in party\n[Lv 2]: 4% per person in party\n[Lv 3]: 6% per person in party\n[Lv 4]: 8% per person in party\n[Lv 5]: 10% per person in party\n\nComments: This is a boost directly applied\nto your ATK. It is not visible on the Stat Window\nbut it will increase your damage significantly.\nThe party members must be on the same\nmap but don't need to be on screen or even\nalive.",
+          "gridIndex": 18
+        },
+        "tk_sevenwind": {
+          "id": "tk_sevenwind",
+          "skidKey": "TK_SEVENWIND",
+          "skidId": 425,
+          "name": "Mild Wind",
+          "maxLevel": 7,
+          "description": "Warm Wind\nMax Level: 7\nRequirement: Peaceful Break 5,\nHappy Break 5, Kihop 5\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Summons a wind that will enchant\nthe caster's attacks for 5 minutes with an\nelemental property based on the level of the\ncasted skill.\n[Lv 1]: Earth\n[Lv 2]: Wind\n[Lv 3]: Water\n[Lv 4]: Fire\n[Lv 5]: Ghost\n[Lv 6]: Shadow\n[Lv 7]: Holy\n\nComments: Assign different skill levels of this\nskill to different keys so that you can quickly\nswitch elements. The four basic elements\ncost 20 SP while Holy, Shadow and Ghost\ncost 50. The visual effect displays the Kanji\nfor each element's name.",
+          "gridIndex": 24
+        },
+        "tk_mission": {
+          "id": "tk_mission",
+          "skidKey": "TK_MISSION",
+          "skidId": 493,
+          "name": "Taekwon Mission",
+          "maxLevel": 1,
+          "description": "TaeKwon Mission\nMax Level: 1\nRequirement: Kihop 5\nSkill Form: Active\nType: Ranking (/taekwon)\nTarget: Caster\nDescription: This skill is disabled once a\ncharacter changes to an advanced job, such\nas Star Gladiator or Soul Linker.\nActivating this skill will display the current\nmonster target for the Taekwon Mission.\nTaekwons will earn 1 Taekwon\nMission Point by defeating 100 of the target\nmonster.\nFulfilling the 100 target monster quota will\nbegin a new Taekwon Mission with a randomly\nchosen target.\nTaekwon's that achieve the Top 10\nTaekwon Ranking by earning the most\nTaekwon Mission Points can string combos\nwith the Tornado Kick, Roundhouse, Heel\nDrop, and Counter Kick skills.\nTaekwon Rankers at Base Level 90 and\nabove with have tripled MaxHP and MaxSP,\nand will be able to use all Taekwon skills.\nThe '/taekwon' command will show rankings.\n\nComments: The benefits granted by becoming\na Ranker can turn Taekwon into a viable class,\neven if they cannot jobchange.\nThere is a 1% chance of resetting your Target\nMonster every time you use this skill, but this\nwill only happen if you are at 0% progress.\nIn order to keep a Kick Chain going, you must\nalternate different kicks. Using the same kick\ntwice will end the combo. You must activate a\nkick's stance to begin the combo.\nThe default list of Target Monsters includes\nMini Bosses(such as Ghostring and\nDeviling), monsters with very limited spawn\namounts(Alice, Giant Whispe), monsters that\nonly spawn inside Guild Dungeons(Giant\nSpider, Gajomart), monsters that you would\nlikely never be able to kill on your own(such\nas Bio 3 enemies), and even monsters that\ndo not spawn at all(Boiled Rice, Photon\nCannon). As such, it's very likely that you would\nhave to reset at least a few times.\nJobchanging after becoming a Ranker will\ncause you to lose all benefits from this.",
+          "gridIndex": 25
+        },
+        "sl_alchemist": {
+          "id": "sl_alchemist",
+          "skidKey": "SL_ALCHEMIST",
+          "skidId": 445,
+          "name": "Spirit of the Alchemist",
+          "maxLevel": 5,
+          "description": "Alchemist Spirit\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Alchemist Classes\nDescription: Soul Links to Alchemists and\nCreators, giving them special buffs.\n- Increases effectiveness of Potion Pitcher by\n1% per Base Level of the Alchemist.\n- Allows usage of Berserk Pitcher skill.\n- Alchemists having Pharmacy LV 10 are\nallowed to use Twilight Alchemy I, II and III.\n\nComments: The bonus to Potion Pitcher is\na multiplicative bonus for the healed value.\nA Lv99 Alchemist or Creator will heal for +99%\nmore.\nTwilight Alchemy skills have very specific\nrequirements to use, including some party\nmembers needed to use. Make sure to read\ntheir descriptions closely to avoid losing your\nprecious materials.",
+          "gridIndex": 0
+        },
+        "sl_star": {
+          "id": "sl_star",
+          "skidKey": "SL_STAR",
+          "skidId": 448,
+          "name": "Spirit of the Star Gladiator",
+          "maxLevel": 5,
+          "description": "Star Gladiator Spirit\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Star Gladiator Classes\nDescription: Soul Links to Star Gladiators,\nallowing the usage of the Union of the Sun,\nMoon and Stars skill.\n\nComments: The Star Gladiator still needs to\nhave learned the skill by spending a Skill\nPoint.",
+          "gridIndex": 1
+        },
+        "sl_assasin": {
+          "id": "sl_assasin",
+          "skidKey": "SL_ASSASIN",
+          "skidId": 457,
+          "name": "Spirit of the Assasin",
+          "maxLevel": 5,
+          "description": "Assassin Spirit\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Assassin Classes\nDescription: Soul Links to Assassins and\nAssassins Cross, boosting their Sonic Blow\nby doubling its damage and halving the After\nCast Delay for the skill's duration.\nHowever, the bonuses are reduced to +25%\nbonus damage and no Cool Down bonus\nduring WoE.\n\nComments: There's a few things to keep in\nmind about this Soul Link's effect.\nSonic Blow, in addition to having After Cast\nDelay, has an additional effect that prevents the\nuser from moving for a few moments after use.\nThis movement binding effect lasts 2 seconds,\nwhich perfectly matches After Cast Delay of\nthe skill. This Soul Link will release the\nAssassin from the delay but they still won't be\nable to move.\nOriginally, Sonic Blow would display a very long\nanimation, showing the Assassin character\ndealing multiple blows to the enemy. However,\nRagnarok Online clients dated at 2018-11-21\nand newer had this effect removed. When the\nanimation existed, Assassins could not spam\nthe skill faster than the animation would play,\nbut with the visual animation effect removed,\nthe After Cast Delay does indeed result in the\nability to use Sonic Blow twice as fast.",
+          "gridIndex": 2
+        },
+        "sl_crusader": {
+          "id": "sl_crusader",
+          "skidKey": "SL_CRUSADER",
+          "skidId": 450,
+          "name": "Spirit of the Crusader",
+          "maxLevel": 5,
+          "description": "Crusader Spirit\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Crusader Classes\nDescription: Soul Links to Crusaders and\nPaladins, making their Shield Boomerang\nnever miss, do double the damage, and\nhalving its after cast delay.",
+          "gridIndex": 3
+        },
+        "sl_barddancer": {
+          "id": "sl_barddancer",
+          "skidKey": "SL_BARDDANCER",
+          "skidId": 455,
+          "name": "Spirit of the Artist",
+          "maxLevel": 5,
+          "description": "Bard and Dancer Spirits\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Bard & Dancer Classes\nDescription: Soul Links to Bards, Clowns,\nDancers and Gypsies, giving them special\nbuffs.\n- All Songs and Dances will affect the\nBard/Dancer him/herself.\n- Reduces the Movement Speed penalty while\nperforming. For a Bard or Dancer that has\nmastered Musical/Dancing Lesson, the\npenalty is entirely removed.\n- If a Bard or Dancer has mastered a solo\nsong or dance, they will be allowed to use\nthe Lv10 version of the equivalent song or\ndance belonging to the other genre.\n\nComments: It's important to keep in mind that\nMusical Lessons and Dancing Lesson are\ndistinct skills and will not improve the effect of\nsongs and dances that belong to the other\ngenre.",
+          "gridIndex": 4
+        },
+        "sl_supernovice": {
+          "id": "sl_supernovice",
+          "skidKey": "SL_SUPERNOVICE",
+          "skidId": 451,
+          "name": "Spirit of the Supernovice",
+          "maxLevel": 5,
+          "description": "Super Novice Spirit\nMax Level: 5\nRequirement: Star Gladiator Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Super Novice Classes\nDescription: Soul Links to Super Novices,\ngiving them special buffs.\n- Super Novices above LV 90 will be\ntemporarily able to equip ALL\nUpper/Middle/Lower headgears.\n- Super Novices above LV 90 have 1% chance\nto 'erase' the death record, enabling them to\nonce more obtain the +10 to All Stats effect\nfrom never having died.\n- Super Novices above LV 96 will be\ntemporarily able to equip LV 4 Daggers,\nH Swords, Axes, Maces, and Staves.\n\nComments: The Helm and Weapon benefits\nallow Super Novices to use hats and weapons\nthat normally they would not be able to wear.\nEven gear that is only usable by Trans Jobs\ncan be used in this case. However, once the\nSoul Link ends, those pieces will be removed\nupon relog.",
+          "gridIndex": 5
+        },
+        "sl_blacksmith": {
+          "id": "sl_blacksmith",
+          "skidKey": "SL_BLACKSMITH",
+          "skidId": 458,
+          "name": "Spirit of the Blacksmith",
+          "maxLevel": 5,
+          "description": "Blacksmith Spirit\nMax Level: 5\nRequirement: Alchemist Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Blacksmith Classes\nDescription: Soul Links to Blacksmiths and\nWhitesmiths, allowing players that have\nmastered Adrenaline Rush to use the skill Full\nAdrenaline Rush.\n\nComments: This version of the skill gives\n+30% ASPD to the user and +20% to everyone\nelse in the party. However, unlike the regular\nAdrenaline Rush, it works for every non-ranged\nweapon, not just Axes or Maces.",
+          "gridIndex": 7
+        },
+        "sl_soullinker": {
+          "id": "sl_soullinker",
+          "skidKey": "SL_SOULLINKER",
+          "skidId": 461,
+          "name": "Spirit of the Soul Linker",
+          "maxLevel": 5,
+          "description": "Soul Linker Spirit\nMax Level: 5\nRequirement: Star Gladiator Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Soul Linker Classes\nDescription: Soul Links to other Soul Linkers,\nallowing them to use 'Ka- Type' skills on any\nother character, for the skill's duration.\n\nComments: Normally, a Soul Linker can only\nuse Ka- Type skills on himself, his own family,\nor other Soul Linkers. With this effect, they can\nuse it on any character without restrictions.",
+          "gridIndex": 8
+        },
+        "sl_rogue": {
+          "id": "sl_rogue",
+          "skidKey": "SL_ROGUE",
+          "skidId": 456,
+          "name": "Spirit of the Rogue",
+          "maxLevel": 5,
+          "description": "Rogue Spirit\nMax Level: 5\nRequirement: Assassin Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Rogue Classes\nDescription: Soul Links to Rogues and\nStalkers, giving them special buffs.\n- Becomes entirely immune to Sage's Dispel.\n- If Preserve is active, also becomes immune\nto the Dispeling effect of Flying Side Kick\n- Potions created by ranked Alchemists will\nheal even more.\n- STR bonus from Chase Walk will last\n5 minutes instead of 30 seconds.\n- Increases Movement Speed while in Chase\nWalk.\n\nComments: The Movement Speed gain from\nthis link is very significant and will stack with\nother Move Speed buffs such as Increase\nAgility.",
+          "gridIndex": 9
+        },
+        "sl_knight": {
+          "id": "sl_knight",
+          "skidKey": "SL_KNIGHT",
+          "skidId": 452,
+          "name": "Spirit of the Knight",
+          "maxLevel": 5,
+          "description": "Knight Spirit\nMax Level: 5\nRequirement: Crusader Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Knight Classes\nDescription: Soul Links to Knights and Lord\nKnights, allowing those who have Two-Hand\nQuicken LV 10 to use One-Hand Quicken for\nthe skill's duration.",
+          "gridIndex": 10
+        },
+        "sl_hunter": {
+          "id": "sl_hunter",
+          "skidKey": "SL_HUNTER",
+          "skidId": 460,
+          "name": "Spirit of the Hunter",
+          "maxLevel": 5,
+          "description": "Hunter Spirit\nMax Level: 5\nRequirement: Bard and Dancer Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Blacksmith Classes\nDescription: Soul Links to Hunters and\nSnipers, giving them special buffs for the\nskill's duration.\n- Effectiveness of Beast Bane is increased by\nHunters/Snipers STR.\n- If the character has mastered Double Srafe,\nthey will be able to use Beast Strafing.\n\nComments: Beast Strafing is a skill that scales\nvery strongly with STR.\nThe improvement to Beast Bane is simply\nadding +1 mastery damage for every point of\nSTR.",
+          "gridIndex": 11
+        },
+        "sl_high": {
+          "id": "sl_high",
+          "skidKey": "SL_HIGH",
+          "skidId": 494,
+          "name": "Spirit of Rebirth",
+          "maxLevel": 5,
+          "description": "Rebirth Spirit\nMax Level: 5\nRequirement: Super Novice Spirit 5\nSkill Form: Active\nType: Supportive\nTarget: 1st Transcendent Classes\nDescription: Calls upon the spirits of the most\npowerful 1st Transcendent Class warriors\never so that they can lend their powers to their\nsuccessors.\nThis skill will increase every Stat for friendly\nst Transcendent characters based on their\nBase Level, but each Stat bonus will not\nexceed +50.\n[Lv 1]: 460 SP, 150 sec duration\n[Lv 2]: 360 SP, 200 sec duration\n[Lv 3]: 260 SP, 250 sec duration\n[Lv 4]: 160 SP, 300 sec duration\n[Lv 5]: 60 SP, 350 sec duration\n\nComments: This skill will attempt to boost\neach of your stats, so that they will be equal to\nyour Base Level - 10. This works similar to\nMarionette Control.\nOnly usable up to Base Level 69.",
+          "gridIndex": 12
+        },
+        "sl_monk": {
+          "id": "sl_monk",
+          "skidKey": "SL_MONK",
+          "skidId": 447,
+          "name": "Spirit of the Monk",
+          "maxLevel": 5,
+          "description": "Monk Spirit\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Monk Classes\nDescription: Soul Links to Monks and\nChampions, giving them special buffs.\n- Combo Finish attack becomes a 5x5 cell\nsplash attack.\n- SP Cost of combo skills is decreased.\n- Allow SP regeneration in Critical Explosion\nstate, and after Asura Strike as well.",
+          "gridIndex": 14
+        },
+        "sl_kaupe": {
+          "id": "sl_kaupe",
+          "skidKey": "SL_KAUPE",
+          "skidId": 464,
+          "name": "Kaupe",
+          "maxLevel": 3,
+          "description": "Kaupe\nMax Level: 3\nRequirement: Assassin Spirit 1,\nRogue Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\n[Ka-] Skills: Can only be used on\nfamily members and other Soul Linkers\nDescription: Allows the target to absolutely\nevade an enemy attack. Evades all types of\nattacks (normal, skills, spells), but for area\nmulti-hit spells(such as Storm Gust or Lord of\nVermilion) only the 1st hit is dodged.\nWhen you evade even once, the effect\ndisappears.\n[Lv 1]: 33% evade chance\n[Lv 2]: 66% evade chance\n[Lv 3]: 100% evade chance\n\nComments: Can be used to block the first hit\nof an MvP's Earthquake.",
+          "gridIndex": 16
+        },
+        "sl_ske": {
+          "id": "sl_ske",
+          "skidKey": "SL_SKE",
+          "skidId": 471,
+          "name": "Eske",
+          "maxLevel": 3,
+          "description": "Eske\nMax Level: 3\nRequirement: Knight Spirit 1\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\n[Es-] Skills: Can only be used on monsters.\nDescription: Increases the monster's ATK by\n+300% but halves their DEF. You can cast\nEsma within 3 seconds after using Eske.\nIf it is used on a player character, nothing\nhappens and the caster will be stunned for 0.5\nseconds.\n[Lv 1]: Lasts 10 seconds, 45 SP\n[Lv 2]: Lasts 20 seconds, 30 SP\n[Lv 3]: Lasts 30 seconds, 15 SP\n\nComments: This is the easiest way there is to\nbuff a monster on purpose. Keep in mind that\nmany servers have rules that prohibit such\ngriefing behavior.",
+          "gridIndex": 17
+        },
+        "sl_sage": {
+          "id": "sl_sage",
+          "skidKey": "SL_SAGE",
+          "skidId": 449,
+          "name": "Spirit of the Sage",
+          "maxLevel": 5,
+          "description": "Sage Spirit\nMax Level: 5\nSkill Form: Active\nType: Supportive\nTarget: Sage Classes\nDescription: Soul Links to Sages and\nProfessors, allowing their Auto Spell skill to\nalways produce LV 10 Bolts if the Sage has\nlearned that much in the Bolt skill.",
+          "gridIndex": 18
+        },
+        "sl_kaina": {
+          "id": "sl_kaina",
+          "skidKey": "SL_KAINA",
+          "skidId": 466,
+          "name": "Kaina",
+          "maxLevel": 7,
+          "description": "Kaina\nMax Level: 7\nRequirement: Happy Break 1\nSkill Form: Passive\nDescription: Improves the power of Enjoyable\nRest and increases your MaxSP. Also reduces\nthe SP Cost of Estin, Estun and Esma by tiers\ndepending on your Base Level. This reduction\nis 3% per Skill Level between Base 70~79,\n5% between 80~89 and 7% above Lv90.\n[Lv 1]: +30 MaxSP, +40% SP recovery from\nEnjoyable Rest, 3/5/7% Cost Reduction\n[Lv 2]: +60 MaxSP, +50% SP recovery from\nEnjoyable Rest, 6/10/14% Cost Reduction\n[Lv 3]: +90 MaxSP, +60% SP recovery from\nEnjoyable Rest, 9/15/21% Cost Reduction\n[Lv 4]: +120 MaxSP, +70% SP recovery from\nEnjoyable Rest, 12/20/28% Cost Reduction\n[Lv 5]: +150 MaxSP, +80% SP recovery from\nEnjoyable Rest, 15/25/35% Cost Reduction\n[Lv 6]: +180 MaxSP, +90% SP recovery from\nEnjoyable Rest, 18/30/42% Cost Reduction\n[Lv 7]: +210 MaxSP, +100% SP recovery from\nEnjoyable Rest, 21/35/49% Cost Reduction",
+          "gridIndex": 19
+        },
+        "sl_priest": {
+          "id": "sl_priest",
+          "skidKey": "SL_PRIEST",
+          "skidId": 454,
+          "name": "Spirit of the Priest",
+          "maxLevel": 5,
+          "description": "Priest Spirit\nMax Level: 5\nRequirement: Monk Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Priest Classes\nDescription: Soul Links to Priests and High\nPriests, boosting the power of Holy Light by\na factor of 5x, but also increasing its SP Cost\nby 5x as well for the skill's duration.",
+          "gridIndex": 21
+        },
+        "sl_ska": {
+          "id": "sl_ska",
+          "skidKey": "SL_SKA",
+          "skidId": 472,
+          "name": "Eska",
+          "maxLevel": 3,
+          "description": "Eska\nMax Level: 3\nRequirement: Monk Spirit 1\nType: Debuff\nTarget: 1 Character\n[Es-] Skills: Can only be used on monsters.\nDescription: Force the target monster to enter\na state similar to Monk's Steel Body. Soft MDEF\nis set to 90, Movement Speed and ASPD are\nreduced. On every attack, a random value\nbetween 0 and 100 Soft DEF is added.\nWorks on MvPs and Bosses.\nIf it is used on a player character, nothing\nhappens and the caster will be stunned for 0.5\nseconds.\n[Lv 1]: Lasts 10 seconds, 100 SP\n[Lv 2]: Lasts 20 seconds, 80 SP\n[Lv 3]: Lasts 30 seconds, 60 SP\n\nComments: This skill does absolutely nothing\nto the Hard DEF and Hard MDEF values, only\nthe Soft values are altered.\nIf a monster has very high INT, using Eska on\nit before doing magical damage with Esma\nshould result in higher damage. The value\nfor Soft MDEF will be set to 90, regardless of\nwhether it was higher or lower.\nWhen supporting an ally that is using an Ice\nPick or Thanatos Card, it is always worth it to\nuse Eska on an enemy, since it will increase\nthe Soft DEF value instead of setting it to a fixed\nvalue.",
+          "gridIndex": 22
+        },
+        "sl_wizard": {
+          "id": "sl_wizard",
+          "skidKey": "SL_WIZARD",
+          "skidId": 453,
+          "name": "Spirit of the Wizard",
+          "maxLevel": 5,
+          "description": "Wizard Spirit\nMax Level: 5\nRequirement: Sage Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Wizard Classes\nDescription: Soul Links to Wizards and High\nWizards, allowing them to cast all Gemstone\nrequiring skills without using them up for the\nskill's duration.\nAdditionally, while Soul Linked, Wizard's spells\nthat hit enemy players under the protection of\nSoul Linker's Kaite will not be reflected back\nto the Wizard. However, in order for this effect\nto take place, you must have a Crystal\nFragment in your inventory, and for each reflect\nthat was countered, one Crystal Fragment will\nbe consumed.\n\nComments: The Reflect protection from this\nSoul Link is only effective against Kaite.\nEquipment based reflect effects, such as the\nones granted by Maya Card and Frus Card,\nwill not be covered by this.\nYou still need at least one Gemstone in your\ninventory to use the skills, even if they won't\nbe consumed. The skill Ganbantein is not\naffected by this at all and will still require both\nGemstones.",
+          "gridIndex": 25
+        },
+        "sl_kaite": {
+          "id": "sl_kaite",
+          "skidKey": "SL_KAITE",
+          "skidId": 465,
+          "name": "Kaite",
+          "maxLevel": 7,
+          "description": "Kaite\nMax Level: 7\nRequirement: Wizard Spirit 1,\nSage Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\n[Ka-] Skills: Can only be used on\nfamily members and other Soul Linkers\nDescription: Reflects all Magic and Heals back\nto the caster. It does not reflect skills that do\nnot deal damage.\nWill not reflect spells from Boss monsters\nand monsters above LV 80.\n[Lv 1]: 1 reflect, 6.0 sec Cast Time, 1 minute\n[Lv 2]: 1 reflect, 5.5 sec Cast Time, 2 minutes\n[Lv 3]: 1 reflect, 5.0 sec Cast Time, 3 minutes\n[Lv 4]: 1 reflect, 4.5 sec Cast Time, 4 minutes\n[Lv 5]: 2 reflects, 4.0 sec Cast Time, 5 minutes\n[Lv 6]: 2 reflects, 3.5 sec Cast Time, 6 minutes\n[Lv 7]: 2 reflects, 3.0 sec Cast Time, 10 minutes\n\nComments: Using this on yourself or an ally\nduring party play will make it hard for Priests in\nyour party to heal.\nIn PvP scenarios, if an enemy Wizard is under\nthe effect of a Soul Link, they can consume an\nitem to counter the effects of the reflection.",
+          "gridIndex": 26
+        },
+        "sl_kaahi": {
+          "id": "sl_kaahi",
+          "skidKey": "SL_KAAHI",
+          "skidId": 463,
+          "name": "Kaahi",
+          "maxLevel": 7,
+          "description": "Kaahi\nMax Level: 7\nRequirement: Priest Spirit 1,\nMonk Spirit 1, Crusader Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\n[Ka-] Skills: Can only be used on\nfamily members and other Soul Linkers\nDescription: While this buff lasts, every time\nthe user is attacked by a normal attack, it will\nconsume their SP and Heal them.\n[Lv 1]: 5 SP taken, 200 HP healed\n[Lv 2]: 10 SP taken, 400 HP healed\n[Lv 3]: 15 SP taken, 600 HP healed\n[Lv 4]: 20 SP taken, 800 HP healed\n[Lv 5]: 25 SP taken, 1000 HP healed\n[Lv 6]: 30 SP taken, 1200 HP healed\n[Lv 7]: 35 SP taken, 1400 HP healed\n\nComments: The purpose of Kaahi is to enable\na character to tank with their SP. As long as\nthey have SP, they will heal any damage\nreceived. Keep in mind that being targeted by\nSkills does not activate Kaahi's effect.\nThe effect triggers even if the attack misses or\ngets blocked by an effect such as Safety Wall\nor Kaupe.",
+          "gridIndex": 28
+        },
+        "sl_kaizel": {
+          "id": "sl_kaizel",
+          "skidKey": "SL_KAIZEL",
+          "skidId": 462,
+          "name": "Kaizel",
+          "maxLevel": 7,
+          "description": "Kaizel\nMax Level: 7\nRequirement: Priest Spirit 1\nSkill Form: Active\nType: Supportive\nTarget: Caster\n[Ka-] Skills: Can only be used on family\nmembers and other Soul Linkers\nDescription: When the target dies, they will be\nimmediatelly resurrected. They will still lose\nExperience and buffs upon death.\nThis skill has no effect in WoE.\n[Lv 1]: 10% HP at res\n[Lv 2]: 20% HP at res\n[Lv 3]: 30% HP at res\n[Lv 4]: 40% HP at res\n[Lv 5]: 50% HP at res\n[Lv 6]: 60% HP at res\n[Lv 7]: 70% HP at res\n\nComments: Upon reviving, you will have the\nprotection of Lv10 Kyrie Eleison but only for\na fraction of a second. Similar to when being\nrevived normally, entering a map or teleporting,\nyou will be immune to attacks and detection for\n3 seconds.\nThe Cast Time of Kaizel cannot be reduced\nby DEX. Being revived in this manner will\nactivate the effects of Osiris Card.",
+          "gridIndex": 29
+        },
+        "sl_swoo": {
+          "id": "sl_swoo",
+          "skidKey": "SL_SWOO",
+          "skidId": 470,
+          "name": "Eswoo",
+          "maxLevel": 7,
+          "description": "Eswoo\nMax Level: 7\nRequirement: Priest Spirit 1\nSkill Form: Active\nType: Debuff\nTarget: 1 Character\n[Es-] Skills: Can only be used on monsters.\nDescription: Makes the target monster tiny,\ngreatly reducing their Movement Speed. If this is\nused on a Boss monster, the effect only lasts\n1/5 of the duration.\nIf used on a monster that is already under the\neffect of Eswoo, it will cause the user to be\nstunned for 10 seconds.\nIf it is used on a player character, nothing\nhappens and the caster will be stunned for\n0.5 seconds.\n[Lv 1]: 1 second duration, 75 SP Cost\n[Lv 2]: 2 seconds duration, 65 SP Cost\n[Lv 3]: 3 seconds duration, 55 SP Cost\n[Lv 4]: 4 seconds duration, 45 SP Cost\n[Lv 5]: 5 seconds duration, 35 SP Cost\n[Lv 6]: 6 seconds duration, 25 SP Cost\n[Lv 7]: 7 seconds duration, 15 SP Cost\n\nComments: The Size attribute is not changed.\nThe reduction in size is merely a visual effect.\nThe Movement Speed penalty applied by\nEswoo is very significant, even more so than\nthe penalty applied by Eska.",
+          "gridIndex": 30
+        },
+        "sl_stin": {
+          "id": "sl_stin",
+          "skidKey": "SL_STIN",
+          "skidId": 467,
+          "name": "Estin",
+          "maxLevel": 7,
+          "description": "Estin\nMax Level: 7\nRequirement: Wizard Spirit 1\nSkill Form: Active\nType: Magical\nTarget: 1 Character\n[Es-] Skills: Can only be used on monsters.\nDescription: A magical skill for attacking small\nmonsters. The affected monster is pushed\nback by 2 cells. When this is used on\nmonsters that are not Small, it will do only 1%\nMATK damage but still push them back.\nWhen the Lv7 version of this skill is used, you\ncan use Esma for next 3 seconds.\nIf it is used on a player character, nothing\nhappens and the caster will be stunned for 0.5\nseconds.\n[Lv 1]: 110% MATK\n[Lv 2]: 120% MATK\n[Lv 3]: 130% MATK\n[Lv 4]: 140% MATK\n[Lv 5]: 150% MATK\n[Lv 6]: 160% MATK\n[Lv 7]: 170% MATK\n\nComments: This skill's damage is influenced\nby Warm Wind.",
+          "gridIndex": 31
+        },
+        "sl_stun": {
+          "id": "sl_stun",
+          "skidKey": "SL_STUN",
+          "skidId": 468,
+          "name": "Estun",
+          "maxLevel": 7,
+          "description": "Estun\nMax Level: 7\nRequirement: Wizard Spirit 1\nSkill Form: Active\nType: Magical\nTarget: 1 Character\n[Es-] Skills: Can only be used on monsters.\nDescription: A magical skill for attacking\nMedium monsters. If the target monster is\nMedium, they will be Stunned. Large and Small\nmonsters will take full damage but not be\nstunned.\nWhen the Lv7 version of this skill is used, you\ncan use sma for next 3 seconds.\nIf it is used on a player character, nothing\nhappens and the caster will be stunned for 0.5\nseconds.\n[Lv 1]: 5% MATK\n[Lv 2]: 10% MATK\n[Lv 3]: 15% MATK\n[Lv 4]: 20% MATK\n[Lv 5]: 25% MATK\n[Lv 6]: 30% MATK\n[Lv 7]: 35% MATK\n\nComments: This skill's damage is influenced\nby Warm Wind.",
+          "gridIndex": 32
+        },
+        "sl_sma": {
+          "id": "sl_sma",
+          "skidKey": "SL_SMA",
+          "skidId": 469,
+          "name": "Esma",
+          "maxLevel": 10,
+          "description": "Esma\nMax Level: 10\nRequirement: Estin 7, Estun 7\nSkill Form: Active\nType: Magical\nTarget: 1 Character\n[Es-] Skills: Can only be used on monsters.\nDescription: A strong Magic attack that\nchanges its element depending on Warm\nWind. Esma can only be used for a short\nperiod after using Estin, Estun, Eske or a Soul\nLink.\nIf it is used on a player character, nothing\nhappens and the caster will be stunned for 0.5\nseconds.\n[Lv 1]: (40+BaseLevel)% MATK x 1 Missile\n[Lv 2]: (40+BaseLevel)% MATK x 2 Missiles\n[Lv 3]: (40+BaseLevel)% MATK x 3 Missiles\n[Lv 4]: (40+BaseLevel)% MATK x 4 Missiles\n[Lv 5]: (40+BaseLevel)% MATK x 5 Missiles\n[Lv 6]: (40+BaseLevel)% MATK x 6 Missiles\n[Lv 7]: (40+BaseLevel)% MATK x 7 Missiles\n[Lv 8]: (40+BaseLevel)% MATK x 8 Missiles\n[Lv 9]: (40+BaseLevel)% MATK x 9 Missiles\n[Lv 10]: (40+BaseLevel)% MATK x 10 Missiles\n\nComments: Esma is a very hard hitting magic\nspell that has the distinction of being any\nelement you want, except Poison and\nUndead. Using Esma without a Warm Wind\nactive will result in Neutral magical damage.\nFor a Level 99 Soul Linker that has mastered\nthis skill, Esma will do 1390% MATK damage.\nWith only 2 seconds Cast Time and 0.5 sec\nAfter Cast Delay, Esma is also a very quick\ncasting spell compared to other strong single\ntarget skills from Mage and Wizard.",
+          "gridIndex": 33
+        },
+        "nv_firstaid": {
+          "id": "nv_firstaid",
+          "skidKey": "NV_FIRSTAID",
+          "skidId": 142,
+          "name": "First Aid",
+          "maxLevel": 1,
+          "description": "First Aid\nRequirement: Finish Quest\nSkill Form: Active\nType: Recovery\nTarget: Caster\nDescription: Uses 3 SP to restore 5 HP.",
+          "gridIndex": 0
+        },
+        "nv_trickdead": {
+          "id": "nv_trickdead",
+          "skidKey": "NV_TRICKDEAD",
+          "skidId": 143,
+          "name": "Play Dead",
+          "maxLevel": 1,
+          "description": "Play Dead\nRequirement: Finish Quest, Novice Only\nSkill Form: Active\nType: Supportive\nTarget: Caster\nDescription: Feigns death to avoid the\nmenace of nearby enemies. The Play\nDead status is canceled by casting\nthis skill again.\n\nComments: This skill ceases to function after\njobchanging to any other class, including\nSuper Novice. Swordsman's Provoke and\nSage's Dispel can cancel the effect. All\nmonsters will be fooled, even Bosses and\nMvPs.",
+          "gridIndex": 1
+        }
+      },
+      "edges": [
+        {
+          "fromId": "tk_stormkick",
+          "toId": "tk_readystorm",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_downkick",
+          "toId": "tk_readydown",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_turnkick",
+          "toId": "tk_readyturn",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_counter",
+          "toId": "tk_readycounter",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_jumpkick",
+          "toId": "tk_dodge",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "tk_hptime",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_sptime",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_power",
+          "toId": "tk_sevenwind",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "tk_power",
+          "toId": "tk_mission",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "sl_star",
+          "toId": "sl_supernovice",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_alchemist",
+          "toId": "sl_blacksmith",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_star",
+          "toId": "sl_soullinker",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_assasin",
+          "toId": "sl_rogue",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_crusader",
+          "toId": "sl_knight",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_barddancer",
+          "toId": "sl_hunter",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_supernovice",
+          "toId": "sl_high",
+          "requiredLevel": 5
+        },
+        {
+          "fromId": "sl_assasin",
+          "toId": "sl_kaupe",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_rogue",
+          "toId": "sl_kaupe",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_knight",
+          "toId": "sl_ske",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "tk_sptime",
+          "toId": "sl_kaina",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_monk",
+          "toId": "sl_priest",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_monk",
+          "toId": "sl_ska",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_sage",
+          "toId": "sl_wizard",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_sage",
+          "toId": "sl_kaite",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_wizard",
+          "toId": "sl_kaite",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_crusader",
+          "toId": "sl_kaahi",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_monk",
+          "toId": "sl_kaahi",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_priest",
+          "toId": "sl_kaahi",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_priest",
+          "toId": "sl_kaizel",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_priest",
+          "toId": "sl_swoo",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_wizard",
+          "toId": "sl_stin",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_wizard",
+          "toId": "sl_stun",
+          "requiredLevel": 1
+        },
+        {
+          "fromId": "sl_stin",
+          "toId": "sl_sma",
+          "requiredLevel": 7
+        },
+        {
+          "fromId": "sl_stun",
+          "toId": "sl_sma",
+          "requiredLevel": 7
         }
       ]
     },
