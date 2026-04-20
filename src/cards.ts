@@ -8,6 +8,7 @@ type CardDrop = {
   monster: string;
   /** rAthena drop rate in 1/10000 units (e.g. 1 → 0.01%). */
   rate: number;
+  isMvp?: boolean;
 };
 
 type CardEntry = {
@@ -17,10 +18,14 @@ type CardEntry = {
   slot?: string;
   /** Plain-language effect text (from import; iRO Wiki DB via RagnaAPI). */
   description?: string;
+  /** Item icon image URL (from import; iRO Wiki DB via RagnaAPI). */
+  img?: string;
+  /** Card illustration artwork URL (from import; Divine Pride). */
+  cardArt?: string;
   drops: CardDrop[];
 };
 
-type CategoryKey = "set" | "autocast" | "stats" | "damage" | "resist" | "exp" | "status" | "utility";
+type CategoryKey = "mvp" | "set" | "autocast" | "stats" | "damage" | "resist" | "exp" | "status" | "utility";
 type StatKey = "STR" | "AGI" | "VIT" | "INT" | "DEX" | "LUK";
 
 type CardDerived = {
@@ -121,6 +126,11 @@ function deriveCard(c: CardEntry): CardDerived {
   const categories = new Set<CategoryKey>();
   const stats = new Set<StatKey>();
   const setMembers = parseSetBonusMembers(descText);
+
+  // MVP-only: the card is dropped exclusively by MVP monsters.
+  if (Array.isArray(c.drops) && c.drops.length > 0 && c.drops.every((dr) => dr.isMvp === true)) {
+    categories.add("mvp");
+  }
 
   // Autocast / trigger effects
   if (/\bchance of using\b|\badds a \d/.test(d) || /\bwhen physically attacked\b|\bwhen attacking\b/.test(d)) {
@@ -283,6 +293,13 @@ function normalize(s: string): string {
   return s.trim().toLowerCase();
 }
 
+function cardArtUrl(c: CardEntry): string {
+  const raw = (c.cardArt ?? "").trim();
+  if (raw) return raw;
+  // Deterministic default: Divine Pride hosts the card illustration artwork by item id.
+  return `https://static.divine-pride.net/images/items/cards/${c.id}.png`;
+}
+
 function renderRows(rows: CardEntry[]): string {
   if (rows.length === 0) {
     return `<tr><td class="cards-empty" colspan="5">No matches.</td></tr>`;
@@ -302,8 +319,13 @@ function renderRows(rows: CardEntry[]): string {
               )
               .join("")}</div>`
           : "—";
+      const imgUrl = escapeHtml(cardArtUrl(c));
       return `<tr>
-        <td class="cards-col-id">${c.id}</td>
+        <td class="cards-col-art">
+          <button type="button" class="cards-art-btn" data-art-for="${c.id}" aria-label="Open card artwork">
+            <img class="cards-art" src="${imgUrl}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-id="${c.id}" />
+          </button>
+        </td>
         <td class="cards-col-name">
           <div class="cards-name">${escapeHtml(c.name)}</div>
         </td>
@@ -322,6 +344,7 @@ type FilterState = {
 };
 
 const CATEGORY_LABELS: Record<CategoryKey, string> = {
+  mvp: "MVP cards",
   set: "Set bonus",
   autocast: "Autocast / proc",
   stats: "Stats",
@@ -373,7 +396,7 @@ function mount(root: HTMLElement): void {
       <div class="cards-table-wrap">
         <table class="cards-table">
           <colgroup>
-            <col class="cards-col-id" />
+            <col class="cards-col-art" />
             <col class="cards-col-name" />
             <col class="cards-col-slot" />
             <col class="cards-col-desc" />
@@ -381,7 +404,7 @@ function mount(root: HTMLElement): void {
           </colgroup>
           <thead>
             <tr>
-              <th class="cards-col-id" scope="col">ID</th>
+              <th class="cards-col-art" scope="col">Art</th>
               <th class="cards-col-name" scope="col">Card</th>
               <th class="cards-col-slot" scope="col">Slot</th>
               <th class="cards-col-desc" scope="col">Description</th>
@@ -392,6 +415,20 @@ function mount(root: HTMLElement): void {
         </table>
       </div>
     </section>
+
+    <dialog class="cards-modal" id="art-modal" aria-labelledby="art-modal-title">
+      <button type="button" class="cards-art-nav cards-art-nav--prev" id="art-modal-prev" aria-label="Previous card artwork">‹</button>
+      <button type="button" class="cards-art-nav cards-art-nav--next" id="art-modal-next" aria-label="Next card artwork">›</button>
+      <div class="cards-modal__panel cards-art-modal__panel">
+        <div class="cards-modal__head">
+          <h2 class="cards-modal__title" id="art-modal-title">Card artwork</h2>
+          <button type="button" class="cards-modal__close" id="art-modal-close" aria-label="Close">×</button>
+        </div>
+        <div class="cards-modal__body">
+          <img class="cards-art-full" id="art-modal-img" alt="" />
+        </div>
+      </div>
+    </dialog>
 
     <dialog class="cards-modal" id="set-modal" aria-labelledby="set-modal-title">
       <div class="cards-modal__panel">
@@ -414,8 +451,18 @@ function mount(root: HTMLElement): void {
   const modalBody = root.querySelector("#set-modal-body") as HTMLElement;
   const modalTitle = root.querySelector("#set-modal-title") as HTMLElement;
   const modalClose = root.querySelector("#set-modal-close") as HTMLButtonElement;
+  const artModal = root.querySelector("#art-modal") as HTMLDialogElement;
+  const artModalTitle = root.querySelector("#art-modal-title") as HTMLElement;
+  const artModalClose = root.querySelector("#art-modal-close") as HTMLButtonElement;
+  const artModalImg = root.querySelector("#art-modal-img") as HTMLImageElement;
+  const artModalPrev = root.querySelector("#art-modal-prev") as HTMLButtonElement;
+  const artModalNext = root.querySelector("#art-modal-next") as HTMLButtonElement;
+  const artModalPanel = root.querySelector("#art-modal .cards-art-modal__panel") as HTMLElement;
+  const imgFallbackFor = (id: number): string => `https://static.divine-pride.net/images/items/collection/${id}.png`;
 
   const state: FilterState = { q: "", categories: new Set(), stats: new Set() };
+  let visibleArtIds: number[] = [];
+  let artIndex = -1;
 
   const chipButton = (id: string, label: string, pressed: boolean, kind: "cat" | "stat"): string => {
     const cls = pressed ? "cards-chip cards-chip--on" : "cards-chip";
@@ -423,7 +470,7 @@ function mount(root: HTMLElement): void {
   };
 
   const renderChips = (): void => {
-    const ordered: CategoryKey[] = ["set", "autocast", "stats", "damage", "resist", "exp", "status", "utility"];
+    const ordered: CategoryKey[] = ["mvp", "set", "autocast", "stats", "damage", "resist", "exp", "status", "utility"];
     catWrap.innerHTML = ordered
       .map((k) => chipButton(k, CATEGORY_LABELS[k], state.categories.has(k), "cat"))
       .join("");
@@ -467,7 +514,89 @@ function mount(root: HTMLElement): void {
     });
     rowsEl.innerHTML = renderRows(filtered);
     countEl.textContent = `${filtered.length.toLocaleString()} / ${cardsAll.length.toLocaleString()} cards`;
+    visibleArtIds = filtered.map((c) => c.id);
   };
+
+  // If a card art image is missing, fall back to Divine Pride's collection icon.
+  rowsEl.addEventListener(
+    "error",
+    (e) => {
+      const img = e.target as HTMLImageElement | null;
+      if (!img || img.tagName !== "IMG" || !img.classList.contains("cards-art")) return;
+      if (img.dataset.fallbackApplied === "1") return;
+      const id = img.dataset.id ? Number.parseInt(img.dataset.id, 10) : NaN;
+      if (!Number.isFinite(id)) return;
+      img.dataset.fallbackApplied = "1";
+      img.src = imgFallbackFor(id);
+    },
+    true,
+  );
+
+  const closeArtModal = (): void => {
+    if (artModal.open) artModal.close();
+  };
+  const positionArtNav = (): void => {
+    if (!artModal.open) return;
+    const r = artModalPanel.getBoundingClientRect();
+    const y = r.top + r.height * 0.52;
+    const gap = 16;
+    const bw = artModalPrev.getBoundingClientRect().width || 42;
+    const left = Math.max(8, r.left - gap - bw);
+    const right = Math.min(window.innerWidth - 8 - bw, r.right + gap);
+    artModalPrev.style.left = `${left}px`;
+    artModalPrev.style.top = `${y}px`;
+    artModalNext.style.left = `${right}px`;
+    artModalNext.style.top = `${y}px`;
+  };
+  artModalClose.addEventListener("click", closeArtModal);
+  artModal.addEventListener("click", (e) => {
+    if (e.target === artModal) closeArtModal();
+  });
+  window.addEventListener("resize", positionArtNav);
+
+  const setArtModalCardById = (id: number): void => {
+    const card = cardsAll.find((c) => c.id === id);
+    if (!card) return;
+    artModalTitle.textContent = card.name;
+    artModalImg.alt = `${card.name} card artwork`;
+    artModalImg.src = cardArtUrl(card);
+    requestAnimationFrame(positionArtNav);
+  };
+
+  const stepArt = (dir: -1 | 1): void => {
+    if (!visibleArtIds.length) return;
+    if (artIndex < 0) artIndex = 0;
+    artIndex = (artIndex + dir + visibleArtIds.length) % visibleArtIds.length;
+    const id = visibleArtIds[artIndex];
+    if (typeof id !== "number") return;
+    setArtModalCardById(id);
+  };
+
+  artModalPrev.addEventListener("click", () => stepArt(-1));
+  artModalNext.addEventListener("click", () => stepArt(1));
+  artModal.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      stepArt(-1);
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      stepArt(1);
+    }
+  });
+
+  rowsEl.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement | null)?.closest("button.cards-art-btn") as HTMLButtonElement | null;
+    if (!btn) return;
+    const idAttr = btn.getAttribute("data-art-for");
+    const id = idAttr ? Number.parseInt(idAttr, 10) : NaN;
+    if (!Number.isFinite(id)) return;
+    const ix = visibleArtIds.indexOf(id);
+    artIndex = ix >= 0 ? ix : 0;
+    setArtModalCardById(id);
+    artModal.showModal();
+    requestAnimationFrame(positionArtNav);
+  });
 
   q.addEventListener("input", () => {
     state.q = q.value;

@@ -51,26 +51,31 @@ function flattenSkillLines(skills) {
 
 /**
  * @param {number} id
- * @returns {Promise<string>}
+ * @returns {Promise<{ description: string; img: string; cardArt: string }>}
  */
-async function fetchCardDescriptionFromRagnapi(id) {
+async function fetchCardInfoFromRagnapi(id) {
   const res = await fetch(RAGNAPI_ITEM(id), {
     headers: { "User-Agent": "ro-pre-renewal-skill-planner/import-cards" },
   });
-  if (!res.ok) return "";
+  if (!res.ok) return { description: "", img: "", cardArt: "" };
   let text = await res.text();
   if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
   let data;
   try {
     data = JSON.parse(text);
   } catch {
-    return "";
+    return { description: "", img: "", cardArt: "" };
   }
   const desc = typeof data.description === "string" ? data.description.trim() : "";
+  const img = typeof data.img === "string" ? data.img.trim() : "";
   const skillLines = flattenSkillLines(data.skills);
   const skillText = skillLines.join("\n").trim();
-  if (desc && skillText) return `${desc}\n${skillText}`;
-  return desc || skillText;
+  let description = "";
+  if (desc && skillText) description = `${desc}\n${skillText}`;
+  else description = desc || skillText;
+  // Card illustration artwork (not the item icon)
+  const cardArt = `https://static.divine-pride.net/images/items/cards/${id}.png`;
+  return { description, img, cardArt };
 }
 
 /** @param {string} rel */
@@ -120,11 +125,12 @@ function bodyArray(body) {
 }
 
 /**
- * @param {Map<string, Array<{ monster: string; rate: number }>>} byAegis
+ * @param {Map<string, Array<{ monster: string; rate: number; isMvp: boolean }>>} byAegis
  * @param {string} monsterName
  * @param {unknown} drops
+ * @param {boolean} isMvp
  */
-function collectDrops(byAegis, monsterName, drops) {
+function collectDrops(byAegis, monsterName, drops, isMvp) {
   if (!Array.isArray(drops)) return;
   for (const d of drops) {
     if (!d || typeof d !== "object") continue;
@@ -133,7 +139,7 @@ function collectDrops(byAegis, monsterName, drops) {
     if (typeof item !== "string" || typeof rate !== "number") continue;
     const list = byAegis.get(item);
     if (!list) continue;
-    list.push({ monster: monsterName, rate });
+    list.push({ monster: monsterName, rate, isMvp: Boolean(isMvp) });
   }
 }
 
@@ -233,7 +239,7 @@ async function main() {
   const items = bodyArray(itemDoc.Body);
   const cards = items.filter((it) => it && it.Type === "Card");
 
-  /** @type {Map<string, Array<{ monster: string; rate: number }>>} */
+  /** @type {Map<string, Array<{ monster: string; rate: number; isMvp: boolean }>>} */
   const byAegis = new Map();
   for (const c of cards) {
     const a = c.AegisName;
@@ -245,8 +251,12 @@ async function main() {
     if (!mob || typeof mob !== "object") continue;
     const name = mob.Name;
     if (typeof name !== "string") continue;
-    collectDrops(byAegis, name, mob.Drops);
-    collectDrops(byAegis, name, mob.MvpDrops);
+    const isMvp =
+      (Array.isArray(mob.MvpDrops) && mob.MvpDrops.length > 0) ||
+      (typeof mob.MvpExp === "number" && mob.MvpExp > 0) ||
+      (typeof mob.Mvp1id === "number" && mob.Mvp1id > 0);
+    collectDrops(byAegis, name, mob.Drops, isMvp);
+    collectDrops(byAegis, name, mob.MvpDrops, isMvp);
   }
 
   const out = [];
@@ -270,6 +280,8 @@ async function main() {
       name,
       ...(slot ? { slot } : {}),
       drops,
+      // Card illustration artwork (not the item icon). Deterministic by item ID.
+      cardArt: `https://static.divine-pride.net/images/items/cards/${id}.png`,
       scriptStatsFallback: scriptToStatsOnlyDescription(c.Script),
     };
     out.push(row);
@@ -277,22 +289,52 @@ async function main() {
 
   out.sort((a, b) => a.name.localeCompare(b.name));
 
+  const existingById = new Map();
+  if (fs.existsSync(OUT)) {
+    try {
+      const raw = fs.readFileSync(OUT, "utf8");
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        for (const row of parsed) {
+          if (!row || typeof row !== "object") continue;
+          if (typeof row.id !== "number") continue;
+          existingById.set(row.id, {
+            description: typeof row.description === "string" ? row.description : "",
+            img: typeof row.img === "string" ? row.img : "",
+            cardArt: typeof row.cardArt === "string" ? row.cardArt : "",
+          });
+        }
+      }
+    } catch {
+      // ignore parse errors; we'll just re-fetch where needed
+    }
+  }
+
   const skipDesc = process.env.SKIP_CARD_DESC_FETCH === "1";
   if (skipDesc) {
     console.warn("import-cards: SKIP_CARD_DESC_FETCH=1 — card descriptions omitted");
+    for (const row of out) {
+      const prev = existingById.get(row.id);
+      if (!prev) continue;
+      if (!row.description && prev.description) row.description = prev.description;
+      if (!row.img && prev.img) row.img = prev.img;
+      if (!row.cardArt && prev.cardArt) row.cardArt = prev.cardArt;
+    }
   } else {
     let ok = 0;
     let fail = 0;
     const delayMs = Number(process.env.CARD_DESC_FETCH_DELAY_MS ?? 80);
     for (const row of out) {
       try {
-        const description = await fetchCardDescriptionFromRagnapi(row.id);
-        if (description) {
-          row.description = description;
-          ok++;
-        } else {
-          fail++;
-        }
+        const info = await fetchCardInfoFromRagnapi(row.id);
+        const description = info?.description?.trim?.() ? info.description.trim() : "";
+        const img = info?.img?.trim?.() ? info.img.trim() : "";
+        const cardArt = info?.cardArt?.trim?.() ? info.cardArt.trim() : "";
+        if (description) row.description = description;
+        if (img) row.img = img;
+        if (cardArt) row.cardArt = cardArt;
+        if (description || img || cardArt) ok++;
+        else fail++;
       } catch {
         fail++;
       }
@@ -301,7 +343,7 @@ async function main() {
       }
     }
     console.log(
-      `import-cards: RagnaAPI effect text — ${ok} cards with description, ${fail} empty or failed (${out.length} total)`,
+      `import-cards: RagnaAPI item info — ${ok} cards with description and/or image, ${fail} empty or failed (${out.length} total)`,
     );
   }
 
