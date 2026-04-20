@@ -324,12 +324,26 @@ function parseSetBonusTitleAndMembers(setBlockRawText: string): { title: string;
   return { title, members };
 }
 
-function sameMembers(a: string[], b: string[]): boolean {
-  const aa = a.map((x) => x.toLowerCase()).sort();
-  const bb = b.map((x) => x.toLowerCase()).sort();
-  if (aa.length !== bb.length) return false;
-  for (let i = 0; i < aa.length; i++) if (aa[i] !== bb[i]) return false;
-  return true;
+/** Sorted multiset key for comparing member lists (order-insensitive). */
+function memberListKey(names: string[]): string {
+  return [...new Set(names.map((n) => n.trim().toLowerCase()).filter(Boolean))].sort().join("\0");
+}
+
+/**
+ * RagnaAPI/wiki text often lists only the *other* cards in the set ("Set bonus with A, B, C")
+ * and omits the card you're reading. Divine Pride lists the full set including the current card.
+ * Match either exact equality or equality after adding the current card name to the parsed list.
+ */
+function divineSetMatchesParsedMembers(
+  divineMembers: string[],
+  parsedMembers: string[],
+  currentCardName: string,
+): boolean {
+  const d = memberListKey(divineMembers);
+  const p = memberListKey(parsedMembers);
+  if (d === p) return true;
+  const withSelf = memberListKey([...parsedMembers, currentCardName]);
+  return d === withSelf;
 }
 
 function setBlockRawToHtml(setBlockRawText: string): string {
@@ -371,7 +385,11 @@ function renderRows(rows: CardEntry[]): string {
                   ? (() => {
                       let { title, members } = parseSetBonusTitleAndMembers(b.rawText);
                       if (!title && Array.isArray(c.setBonuses) && c.setBonuses.length && members.length) {
-                        const hit = c.setBonuses.find((s) => Array.isArray(s.members) && sameMembers(s.members, members));
+                        const hit = c.setBonuses.find(
+                          (s) =>
+                            Array.isArray(s.members) &&
+                            divineSetMatchesParsedMembers(s.members, members, c.name),
+                        );
                         if (hit && typeof hit.title === "string") title = hit.title.trim();
                       }
                       const membersAttr = escapeHtml(encodeURIComponent(JSON.stringify(members)));
@@ -704,7 +722,13 @@ function mount(root: HTMLElement): void {
   q.focus();
 
   const closeModal = (): void => {
-    if (modal.open) modal.close();
+    if (!modal.open) return;
+    modal.close();
+    const panelEl = modal.querySelector(".cards-modal__panel") as HTMLElement | null;
+    modal.style.removeProperty("width");
+    modal.style.removeProperty("max-width");
+    panelEl?.style.removeProperty("width");
+    panelEl?.style.removeProperty("max-width");
   };
   modalClose.addEventListener("click", closeModal);
   modal.addEventListener("click", (e) => {
@@ -750,8 +774,13 @@ function mount(root: HTMLElement): void {
       modal.showModal();
       return;
     }
+    // Wiki text often omits the equipped card from "Set bonus with ..."; always include the row card in the modal.
+    const selfKey = card.name.trim().toLowerCase();
+    const hasSelf = members.some((m) => m.trim().toLowerCase() === selfKey);
+    const displayMembers = hasSelf ? members : [card.name, ...members];
+
     const setTopHtml = setBlockRawToHtml(rawText || (el.textContent ?? "").trim());
-    const cols = members.map((name) => {
+    const cols = displayMembers.map((name) => {
       const hit = cardByNameLower.get(name.toLowerCase());
       const desc = hit ? (derivedById.get(hit.id)?.descText ?? "") : "";
       const bodyHtml = hit ? descriptionToNonSetBlocksHtml(desc) : "";
@@ -782,15 +811,16 @@ function mount(root: HTMLElement): void {
         (parseFloat(computed.paddingRight) || 0) +
         (parseFloat(computed.borderLeftWidth) || 0) +
         (parseFloat(computed.borderRightWidth) || 0);
-      const cols = grid.querySelectorAll(".set-col");
+      // Width from the card columns row only (fixed flex basis per .set-col). Do not use set-bonus
+      // text width or summed rects after wrap — those inflate the modal past the panel row.
+      const colEls = grid.querySelectorAll(".set-col");
       let contentW = 0;
-      if (cols.length) {
+      if (colEls.length) {
         const gStyle = getComputedStyle(grid);
         const gap = parseFloat(gStyle.columnGap || gStyle.gap || "0") || 0;
-        cols.forEach((col, i) => {
-          contentW += col.getBoundingClientRect().width;
-          if (i < cols.length - 1) contentW += gap;
-        });
+        const cw = colEls[0].getBoundingClientRect().width;
+        const n = colEls.length;
+        contentW = n * cw + (n - 1) * gap;
       } else {
         contentW = grid.scrollWidth;
       }

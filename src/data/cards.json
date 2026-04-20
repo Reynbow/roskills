@@ -143,7 +143,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4244.png",
-    "description": "Adds a 20% chance of using [Sight] Lv 1 when physically attacked.\nSet bonus with Tower Keeper Card, Clock Card, Punk Card\nDef +3MDef +3",
+    "description": "Adds a 20% chance of using [Sight] Lv 1 when physically attacked.\nSet bonus with Tower Keeper Card, Clock Card, Punk Card\nDef +3\nMDef +3",
     "setBonuses": [
       {
         "title": "Clocktower Card Set",

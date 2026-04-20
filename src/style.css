@@ -50,6 +50,18 @@
   box-sizing: border-box;
 }
 
+/* Avoid layout shift when scrollbars appear/disappear (e.g. native <dialog> top layer). */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Prevent subtle horizontal nudge / rubber-band when modals open (dialog + backdrop). */
+html,
+body {
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -623,20 +635,19 @@ header.planner-header h1 {
 }
 
 .desc-set-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin: 0 0 0.4rem;
-  padding: 0.2rem 0.45rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 210, 120, 0.32);
-  background: rgba(255, 210, 120, 0.08);
-  color: rgba(255, 235, 210, 0.94);
-  font-size: 0.74rem;
+  display: block;
+  width: 100%;
+  margin: 0 0 0.45rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 220, 185, 0.92);
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  width: fit-content;
+  line-height: 1.35;
 }
 
 .desc-block--click:hover {
@@ -658,6 +669,8 @@ header.planner-header h1 {
   width: max-content;
   max-width: calc(100vw - 1rem);
   margin: auto;
+  /* Opening a dialog can trigger scroll-into-view; keep the page from shifting. */
+  scroll-margin: 0;
 }
 
 .cards-modal::backdrop {
@@ -737,15 +750,54 @@ header.planner-header h1 {
 }
 
 .set-grid {
-  /* Shrink-wrap columns so scrollWidth / layout width match card columns, not the dialog. */
   display: inline-flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   gap: 0.85rem;
   align-items: stretch;
-  flex-wrap: nowrap;
+  width: max-content;
+  max-width: 100%;
+  /* When the modal is viewport-capped, keep one card row and scroll horizontally. */
   overflow-x: auto;
   padding-bottom: 0.25rem;
-  max-width: 100%;
+}
+
+/* Set modal: body matches panel width; card row never wraps (scroll lives on .set-grid). */
+#set-modal .cards-modal__body {
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  overflow-x: visible;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#set-modal .cards-modal__body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+#set-modal .cards-modal__head {
+  min-width: 0;
+}
+
+#set-modal .cards-modal__title {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* Hide scrollbars in the set modal while keeping scroll (wheel / trackpad / touch). */
+#set-modal .set-grid {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#set-modal .set-grid::-webkit-scrollbar {
+  display: none;
+  height: 0;
+  width: 0;
 }
 
 .set-col {
