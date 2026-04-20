@@ -622,6 +622,23 @@ header.planner-header h1 {
   color: inherit;
 }
 
+.desc-set-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 0.4rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 210, 120, 0.32);
+  background: rgba(255, 210, 120, 0.08);
+  color: rgba(255, 235, 210, 0.94);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
 .desc-block--click:hover {
   border-color: rgba(190, 160, 255, 0.45);
   background: rgba(110, 70, 190, 0.18);

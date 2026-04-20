@@ -1376,7 +1376,7 @@ function renderApp(root: HTMLElement): void {
     void (async () => {
       try {
         await navigator.clipboard.writeText(shareUrl);
-        showStatus("Link copied — paste it to share this build.");
+        showStatus("Link copied - paste it to share this build.");
       } catch {
         window.prompt("Copy this link to share your build:", shareUrl);
         showStatus("");

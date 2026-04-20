@@ -25,6 +25,62 @@ const MOB_URL = "https://raw.githubusercontent.com/rathena/rathena/master/db/pre
 const RAGNAPI_ITEM = (id) =>
   `https://ragnapi.com/api/v1/old-times/items/${id}`;
 
+const DIVINE_PRIDE_ITEM = (id, slug) =>
+  `https://www.divine-pride.net/database/item/${id}/${slug}`;
+
+/**
+ * @param {string} s
+ */
+function slugify(s) {
+  return String(s || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Parse Divine Pride "Set Bonus" blocks to get set titles + members.
+ * Works for cases like:
+ *   <font ...>Hunter Card Set</font><br />
+ *   <font ...>Cruiser Card</font><br />...
+ *
+ * @param {string} html
+ * @returns {Array<{ title: string; members: string[] }>}
+ */
+function parseDivinePrideSets(html) {
+  const out = [];
+  if (typeof html !== "string" || !html) return out;
+
+  const norm = html.replace(/\r\n/g, "\n");
+  const titleRe = /<font\s+color="#6A5ACD">\s*([^<]+?)\s*<\/font>\s*<br\s*\/?>/gi;
+  let m;
+  while ((m = titleRe.exec(norm))) {
+    const title = String(m[1] || "").trim();
+    if (!title) continue;
+    const start = titleRe.lastIndex;
+    const nextTitleIdx = norm.slice(start).search(titleRe);
+    const end = nextTitleIdx >= 0 ? start + nextTitleIdx : norm.length;
+    const chunk = norm.slice(start, end);
+    const members = [];
+    const memberRe = /<font\s+color="#3CB371">\s*([^<]+?)\s*<\/font>/gi;
+    let mm;
+    while ((mm = memberRe.exec(chunk))) {
+      const n = String(mm[1] || "").trim();
+      if (n) members.push(n);
+    }
+    if (members.length) out.push({ title, members });
+  }
+
+  // Dedupe by (title + members)
+  const seen = new Set();
+  return out.filter((s) => {
+    const key = `${s.title}::${s.members.map((x) => x.toLowerCase()).join(",")}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 /**
  * @param {unknown} skills
  * @returns {string[]}
@@ -345,6 +401,44 @@ async function main() {
     console.log(
       `import-cards: RagnaAPI item info — ${ok} cards with description and/or image, ${fail} empty or failed (${out.length} total)`,
     );
+  }
+
+  // Divine Pride set titles (e.g. "Hunter Card Set") are not included in RagnaAPI text.
+  // Best-effort scrape them from Divine Pride and attach structured data for the UI.
+  const skipDp = process.env.SKIP_DIVINE_PRIDE_SETS === "1";
+  if (skipDp) {
+    console.warn("import-cards: SKIP_DIVINE_PRIDE_SETS=1 — set titles omitted");
+  } else {
+    let ok = 0;
+    let fail = 0;
+    const delayMs = Number(process.env.CARD_DESC_FETCH_DELAY_MS ?? 80);
+    for (const row of out) {
+      if (typeof row.description !== "string" || !row.description.toLowerCase().includes("set bonus")) continue;
+      try {
+        const slug = slugify(row.name);
+        const res = await fetch(DIVINE_PRIDE_ITEM(row.id, slug), {
+          headers: { "User-Agent": "ro-pre-renewal-skill-planner/import-cards" },
+        });
+        if (!res.ok) {
+          fail++;
+          continue;
+        }
+        const html = await res.text();
+        const sets = parseDivinePrideSets(html);
+        if (sets.length) {
+          row.setBonuses = sets;
+          ok++;
+        } else {
+          fail++;
+        }
+      } catch {
+        fail++;
+      }
+      if (delayMs > 0) {
+        await new Promise((r) => setTimeout(r, delayMs));
+      }
+    }
+    console.log(`import-cards: Divine Pride set titles — ${ok} cards with set titles, ${fail} empty/failed`);
   }
 
   // If RagnaAPI had no effect text, fall back to rAthena script-derived stats-only text when safe.

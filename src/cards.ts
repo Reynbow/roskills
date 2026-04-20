@@ -22,6 +22,8 @@ type CardEntry = {
   img?: string;
   /** Card illustration artwork URL (from import; Divine Pride). */
   cardArt?: string;
+  /** Structured set bonus titles + members (scraped from Divine Pride). */
+  setBonuses?: Array<{ title: string; members: string[] }>;
   drops: CardDrop[];
 };
 
@@ -41,19 +43,19 @@ const cardsAll: CardEntry[] = (cardsRaw as CardEntry[])
   .sort((a, b) => a.name.localeCompare(b.name));
 
 function formatDropRate(rate: number): string {
-  if (typeof rate !== "number" || !Number.isFinite(rate)) return "—";
+  if (typeof rate !== "number" || !Number.isFinite(rate)) return "-";
   return `${(rate / 100).toFixed(2)}%`;
 }
 
 function dropsDisplayText(c: CardEntry): string {
-  if (!c.drops?.length) return "—";
+  if (!c.drops?.length) return "-";
   return c.drops.map((d) => `${d.monster} (${formatDropRate(d.rate)})`).join(", ");
 }
 
 function normalizeSlotLabel(slotRaw: string | undefined): string {
-  if (!slotRaw) return "—";
+  if (!slotRaw) return "-";
   const s = slotRaw.trim();
-  if (!s) return "—";
+  if (!s) return "-";
   // Normalize rAthena-ish location labels into player-facing slots
   if (s === "Right Hand") return "Weapon";
   if (s === "Left Hand") return "Shield";
@@ -98,9 +100,10 @@ function parseSetBonusMembers(descText: string): string[] {
   const lines = descText.split("\n").map((l) => l.trim());
   const members: string[] = [];
   for (const ln of lines) {
-    const m = ln.match(/^Set bonus with\s+(.+)$/i);
-    if (!m) continue;
-    const tail = m[1] ?? "";
+    // Some sources include a title on the same line, e.g. "Hunter Set: Set bonus with ..."
+    const idx = ln.toLowerCase().indexOf("set bonus with");
+    if (idx < 0) continue;
+    const tail = ln.slice(idx + "set bonus with".length).trim();
     // Split on commas; keep "Card" suffix as part of name.
     for (const part of tail.split(",")) {
       const n = normalizeSetMemberName(part);
@@ -230,13 +233,34 @@ function highlightKeywords(escaped: string): string {
   return escaped;
 }
 
-function descriptionToBlocks(descRaw: string): Array<{ cls: string; html: string; isSet: boolean }> {
+function looksLikeSetTitleLine(t: string): boolean {
+  const s = t.trim();
+  if (!s) return false;
+  if (s.length > 48) return false;
+  if (!/\bset\b/i.test(s)) return false;
+  // Avoid misclassifying actual effect text as a title.
+  if (/[.%:;]/.test(s)) return false;
+  if (/\bbonus\b|\bchance\b|\bincreases?\b|\breduces?\b/i.test(s)) return false;
+  return true;
+}
+
+function parseSetBonusTitleFromLine(ln: string): string {
+  const s = ln.trim();
+  const idx = s.toLowerCase().indexOf("set bonus with");
+  if (idx <= 0) return "";
+  const head = s.slice(0, idx).trim().replace(/[:\\-–]\\s*$/g, "").trim();
+  if (!head) return "";
+  if (!looksLikeSetTitleLine(head)) return "";
+  return head;
+}
+
+function descriptionToBlocks(descRaw: string): Array<{ cls: string; html: string; isSet: boolean; rawText: string }> {
   const norm = descRaw.replace(/\r\n/g, "\n").trim();
   if (!norm) return [];
 
   const lines = norm.split("\n");
-  /** @type {Array<{ cls: string; html: string; isSet: boolean }>} */
-  const blocks: Array<{ cls: string; html: string; isSet: boolean }> = [];
+  /** @type {Array<{ cls: string; html: string; isSet: boolean; rawText: string }>} */
+  const blocks: Array<{ cls: string; html: string; isSet: boolean; rawText: string }> = [];
   /** @type {string[]} */
   let cur: string[] = [];
   let curIsSet = false;
@@ -250,14 +274,20 @@ function descriptionToBlocks(descRaw: string): Array<{ cls: string; html: string
       cls: curIsSet ? "desc-block desc-block--set" : "desc-block",
       html: esc,
       isSet: curIsSet,
+      rawText: joined,
     });
     cur = [];
     curIsSet = false;
   };
 
-  for (const ln of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const ln = lines[i] ?? "";
     const t = ln.trim();
-    const isSet = /^set bonus\b/i.test(t);
+    const next = (lines[i + 1] ?? "").trim();
+    const isSet =
+      t.toLowerCase().includes("set bonus") ||
+      /^set bonus\b/i.test(t) ||
+      (looksLikeSetTitleLine(t) && /^set bonus\b/i.test(next));
     const isBlank = t === "";
     if (isBlank) {
       flush();
@@ -275,18 +305,42 @@ function descriptionToBlocks(descRaw: string): Array<{ cls: string; html: string
   return blocks;
 }
 
+function parseSetBonusTitleAndMembers(setBlockRawText: string): { title: string; members: string[] } {
+  const lines = setBlockRawText.split("\n").map((l) => l.trim()).filter(Boolean);
+  let title = "";
+  if (lines.length >= 2 && looksLikeSetTitleLine(lines[0]) && /^set bonus\b/i.test(lines[1])) {
+    title = lines[0];
+  }
+  if (!title) {
+    for (const ln of lines) {
+      const t = parseSetBonusTitleFromLine(ln);
+      if (t) {
+        title = t;
+        break;
+      }
+    }
+  }
+  const members = parseSetBonusMembers(setBlockRawText);
+  return { title, members };
+}
+
+function sameMembers(a: string[], b: string[]): boolean {
+  const aa = a.map((x) => x.toLowerCase()).sort();
+  const bb = b.map((x) => x.toLowerCase()).sort();
+  if (aa.length !== bb.length) return false;
+  for (let i = 0; i < aa.length; i++) if (aa[i] !== bb[i]) return false;
+  return true;
+}
+
+function setBlockRawToHtml(setBlockRawText: string): string {
+  const esc = highlightKeywords(escapeHtml(setBlockRawText.trim())).replace(/\n/g, "<br/>");
+  return `<div class="desc-blocks"><div class="desc-block desc-block--set">${esc}</div></div>`;
+}
+
 function descriptionToNonSetBlocksHtml(descRaw: string): string {
   const blocks = descriptionToBlocks(descRaw).filter((b) => !b.isSet);
   if (!blocks.length) return "";
   return `<div class="desc-blocks">${blocks.map((b) => `<div class="${b.cls}">${b.html}</div>`).join("")}</div>`;
-}
-
-function descriptionToSetBlocksHtml(descRaw: string): string {
-  const blocks = descriptionToBlocks(descRaw).filter((b) => b.isSet);
-  if (!blocks.length) return "";
-  return `<div class="desc-blocks">${blocks
-    .map((b) => `<div class="${b.cls}">${b.html}</div>`)
-    .join("")}</div>`;
 }
 
 function normalize(s: string): string {
@@ -314,11 +368,22 @@ function renderRows(rows: CardEntry[]): string {
           ? `<div class="desc-blocks">${blocks
               .map((b) =>
                 b.isSet
-                  ? `<button type="button" class="${b.cls} desc-block--click" data-set-for="${c.id}" aria-label="Open set bonus details">${b.html}</button>`
+                  ? (() => {
+                      let { title, members } = parseSetBonusTitleAndMembers(b.rawText);
+                      if (!title && Array.isArray(c.setBonuses) && c.setBonuses.length && members.length) {
+                        const hit = c.setBonuses.find((s) => Array.isArray(s.members) && sameMembers(s.members, members));
+                        if (hit && typeof hit.title === "string") title = hit.title.trim();
+                      }
+                      const membersAttr = escapeHtml(encodeURIComponent(JSON.stringify(members)));
+                      const titleAttr = escapeHtml(encodeURIComponent(title));
+                      const rawAttr = escapeHtml(encodeURIComponent(b.rawText));
+                      const titleChip = title ? `<div class="desc-set-title">${escapeHtml(title)}</div>` : "";
+                      return `<button type="button" class="${b.cls} desc-block--click" data-set-for="${c.id}" data-set-members="${membersAttr}" data-set-title="${titleAttr}" data-set-raw="${rawAttr}" aria-label="Open set bonus details">${titleChip}${b.html}</button>`;
+                    })()
                   : `<div class="${b.cls}">${b.html}</div>`,
               )
               .join("")}</div>`
-          : "—";
+          : "-";
       const imgUrl = escapeHtml(cardArtUrl(c));
       return `<tr>
         <td class="cards-col-art">
@@ -646,17 +711,46 @@ function mount(root: HTMLElement): void {
     if (e.target === modal) closeModal();
   });
 
-  const openSetModalForCard = (card: CardEntry): void => {
-    const dv = derivedById.get(card.id);
-    const members = dv?.setMembers ?? [];
-    modalTitle.textContent = `${card.name} — Set bonus`;
+  // Delegate clicks on set-bonus blocks inside the table.
+  rowsEl.addEventListener("click", (e) => {
+    const el = (e.target as HTMLElement | null)?.closest("button.desc-block--click") as HTMLElement | null;
+    if (!el) return;
+    const idAttr = el.getAttribute("data-set-for");
+    const id = idAttr ? Number.parseInt(idAttr, 10) : NaN;
+    if (!Number.isFinite(id)) return;
+    const card = cardsAll.find((c) => c.id === id);
+    if (!card) return;
+    const membersAttr = el.getAttribute("data-set-members") ?? "";
+    const titleAttr = el.getAttribute("data-set-title") ?? "";
+    const rawAttr = el.getAttribute("data-set-raw") ?? "";
+    let members: string[] = [];
+    let setTitle = "";
+    let rawText = "";
+    try {
+      const parsed = JSON.parse(decodeURIComponent(membersAttr));
+      if (Array.isArray(parsed)) members = parsed.filter((x) => typeof x === "string");
+    } catch {
+      members = [];
+    }
+    try {
+      setTitle = decodeURIComponent(titleAttr || "");
+    } catch {
+      setTitle = "";
+    }
+    try {
+      rawText = decodeURIComponent(rawAttr || "");
+    } catch {
+      rawText = "";
+    }
+
+    // Only show the specific set bonus clicked.
+    modalTitle.textContent = setTitle ? `${card.name} - ${setTitle}` : `${card.name} - Set bonus`;
     if (!members.length) {
       modalBody.innerHTML = `<div class="set-grid"><div class="set-col"><div class="set-col__body">No set bonus found.</div></div></div>`;
       modal.showModal();
       return;
     }
-    const setDesc = dv?.descText ?? "";
-    const setTopHtml = descriptionToSetBlocksHtml(setDesc);
+    const setTopHtml = setBlockRawToHtml(rawText || (el.textContent ?? "").trim());
     const cols = members.map((name) => {
       const hit = cardByNameLower.get(name.toLowerCase());
       const desc = hit ? (derivedById.get(hit.id)?.descText ?? "") : "";
@@ -678,8 +772,6 @@ function mount(root: HTMLElement): void {
     `;
     modal.showModal();
 
-    // Constrain modal width to the card columns row (set-grid), not the set-bonus description.
-    // The set-bonus block will wrap within this width.
     requestAnimationFrame(() => {
       const panel = modal.querySelector(".cards-modal__panel") as HTMLElement | null;
       const grid = modal.querySelector(".set-grid") as HTMLElement | null;
@@ -708,18 +800,6 @@ function mount(root: HTMLElement): void {
       panel.style.width = `${w}px`;
       panel.style.maxWidth = `${cap}px`;
     });
-  };
-
-  // Delegate clicks on set-bonus blocks inside the table.
-  rowsEl.addEventListener("click", (e) => {
-    const el = (e.target as HTMLElement | null)?.closest("button.desc-block--click") as HTMLElement | null;
-    if (!el) return;
-    const idAttr = el.getAttribute("data-set-for");
-    const id = idAttr ? Number.parseInt(idAttr, 10) : NaN;
-    if (!Number.isFinite(id)) return;
-    const card = cardsAll.find((c) => c.id === id);
-    if (!card) return;
-    openSetModalForCard(card);
   });
 }
 
