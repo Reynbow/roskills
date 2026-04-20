@@ -1,0 +1,6665 @@
+[
+  {
+    "id": 4140,
+    "aegisName": "Knight_Of_Abyss_Card",
+    "name": "Abysmal Knight Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Abysmal Knight",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage on [Boss] monsters by 25%.\nSet bonus with Lord of the Dead Helm [1]"
+  },
+  {
+    "id": 4409,
+    "aegisName": "Agav_Card",
+    "name": "Agav Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Agav",
+        "rate": 1
+      }
+    ],
+    "description": "If the user is a Mage job type,  Max SP +100."
+  },
+  {
+    "id": 4730,
+    "aegisName": "Agility1",
+    "name": "AGI+1",
+    "drops": [],
+    "description": "AGI +1"
+  },
+  {
+    "id": 4777,
+    "aegisName": "Agi1_J",
+    "name": "AGI+1",
+    "drops": []
+  },
+  {
+    "id": 4739,
+    "aegisName": "Agility10",
+    "name": "AGI+10",
+    "drops": [],
+    "description": "AGI +10"
+  },
+  {
+    "id": 4731,
+    "aegisName": "Agility2",
+    "name": "AGI+2",
+    "drops": [],
+    "description": "AGI +2"
+  },
+  {
+    "id": 4778,
+    "aegisName": "Agi2_J",
+    "name": "AGI+2",
+    "drops": []
+  },
+  {
+    "id": 4732,
+    "aegisName": "Agility3",
+    "name": "AGI+3",
+    "drops": [],
+    "description": "AGI +3"
+  },
+  {
+    "id": 4779,
+    "aegisName": "Agi3_J",
+    "name": "AGI+3",
+    "drops": []
+  },
+  {
+    "id": 4733,
+    "aegisName": "Agility4",
+    "name": "AGI+4",
+    "drops": [],
+    "description": "AGI +4"
+  },
+  {
+    "id": 4734,
+    "aegisName": "Agility5",
+    "name": "AGI+5",
+    "drops": [],
+    "description": "AGI +5"
+  },
+  {
+    "id": 4735,
+    "aegisName": "Agility6",
+    "name": "AGI+6",
+    "drops": [],
+    "description": "AGI +6"
+  },
+  {
+    "id": 4736,
+    "aegisName": "Agility7",
+    "name": "AGI+7",
+    "drops": [],
+    "description": "AGI +7"
+  },
+  {
+    "id": 4737,
+    "aegisName": "Agility8",
+    "name": "AGI+8",
+    "drops": [],
+    "description": "AGI +8"
+  },
+  {
+    "id": 4738,
+    "aegisName": "Agility9",
+    "name": "AGI+9",
+    "drops": [],
+    "description": "AGI +9"
+  },
+  {
+    "id": 4244,
+    "aegisName": "Alarm_Card",
+    "name": "Alarm Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Alarm",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 20% chance of using [Sight] Lv 1 when physically attacked.\nSet bonus with Tower Keeper Card, Clock Card, Punk Card\nDef +3MDef +3"
+  },
+  {
+    "id": 4253,
+    "aegisName": "Alice_Card",
+    "name": "Alice Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Alice",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Boss] monsters by 40%.\nIncreases damage from normal monsters and players by 40%."
+  },
+  {
+    "id": 4401,
+    "aegisName": "Alicel_Card",
+    "name": "Alicel Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Alicel",
+        "rate": 1
+      }
+    ],
+    "description": "FLEE +10\nDEF -5"
+  },
+  {
+    "id": 4402,
+    "aegisName": "Aliot_Card",
+    "name": "Aliot Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Aliot",
+        "rate": 1
+      }
+    ],
+    "description": "If used by a Swordman, Merchant or Thief job type\nStr +2Max HP +5%\nIf the user is an Acolyte, Mage, or Archer job type\nInt +2Max SP +5%"
+  },
+  {
+    "id": 4400,
+    "aegisName": "Aliza_Card",
+    "name": "Aliza Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Aliza",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Charming Wink] Lv 1 on the attacker when physically attacked.\nIf used by a Dancer job type, chance is increased to 10%."
+  },
+  {
+    "id": 4252,
+    "aegisName": "Alligator_Card",
+    "name": "Alligator Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Alligator",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from ranged attacks by 5%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Cruiser Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked."
+  },
+  {
+    "id": 4245,
+    "aegisName": "Am_Mut_Card",
+    "name": "Am Mut Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Am Mut",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Demi-Human] race monsters by 10%.\nIncreases damage received from [Demi-Human] race by 20%."
+  },
+  {
+    "id": 4032,
+    "aegisName": "Ambernite_Card",
+    "name": "Ambernite Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Ambernite",
+        "rate": 1
+      }
+    ],
+    "description": "DEF +2"
+  },
+  {
+    "id": 4236,
+    "aegisName": "Amon_Ra_Card",
+    "name": "Amon Ra Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Amon Ra",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of using [Kyrie Eleison] Lv 10 on the user when physically attacked.\nIf the user's base Int is 99 or higher, chance is increased to 10%."
+  },
+  {
+    "id": 4062,
+    "aegisName": "Anacondaq_Card",
+    "name": "Anacondaq Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Anacondaq",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Poison] element targets by 20%."
+  },
+  {
+    "id": 4387,
+    "aegisName": "Ancient_Mimic_Card",
+    "name": "Ancient Mimic Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Ancient Mimic",
+        "rate": 1
+      }
+    ],
+    "description": "Gives Agi +1 for every 18 points of base Luk."
+  },
+  {
+    "id": 4248,
+    "aegisName": "Ancient_Mummy_Card",
+    "name": "Ancient Mummy Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Ancient Mummy",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of using [Signum Crusis] Lv 5 when physically attacked.\nSet bonus with Mummy Card\nPerfect Hit +20"
+  },
+  {
+    "id": 4249,
+    "aegisName": "Ancient_Worm_Card",
+    "name": "Ancient Worm Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Ancient Worm",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Demon] race monsters by 10%.\nIncreases damage received from [Demon] race by 20%."
+  },
+  {
+    "id": 4043,
+    "aegisName": "Andre_Card",
+    "name": "Andre Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Andre",
+        "rate": 1
+      },
+      {
+        "monster": "Andre",
+        "rate": 1
+      },
+      {
+        "monster": "Deniro",
+        "rate": 1
+      },
+      {
+        "monster": "Deniro",
+        "rate": 1
+      },
+      {
+        "monster": "Piere",
+        "rate": 1
+      },
+      {
+        "monster": "Piere",
+        "rate": 1
+      }
+    ],
+    "description": "ATK +20"
+  },
+  {
+    "id": 4013,
+    "aegisName": "Andre_Egg_Card",
+    "name": "Andre Egg Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Ant Egg",
+        "rate": 1
+      },
+      {
+        "monster": "Ant Egg",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +5%"
+  },
+  {
+    "id": 4018,
+    "aegisName": "Andre_Larva_Card",
+    "name": "Andre Larva Card",
+    "slot": "Right Hand",
+    "drops": [],
+    "description": "INT +1\nMax SP +10"
+  },
+  {
+    "id": 4054,
+    "aegisName": "Angeling_Card",
+    "name": "Angeling Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Angeling",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Holy] element.\nSet bonus with Kardui Robe [1]"
+  },
+  {
+    "id": 4234,
+    "aegisName": "Anolian_Card",
+    "name": "Anolian Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Anolian",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of using [Improve Concentration] Lv 1, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Dragon Tail Card, Merman Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked."
+  },
+  {
+    "id": 4344,
+    "aegisName": "Anopheles_Card",
+    "name": "Anopheles Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Anopheles",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance of the Tentacle Cheese Gratin item dropping when killing an [Insect] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Insect] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Insect] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Insect] race monsters by an additional 5%."
+  },
+  {
+    "id": 4243,
+    "aegisName": "Antonio_Card",
+    "name": "Antonio Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Antonio",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 50% chance of using [Teleport] Lv 1 when physically attacked.\nSet bonus with Antonio's Coat [1]\nDef + 250Enables [Teleport] Lv 1Disables Antonio Card's autocast Teleport chance effect.If Antonio Coat[1] upgrade level  is +7 or higher,Immune to [Frozen]If Antonio Coat[1] upgrade level  is +9 or higher,Prevents the user from being knocked back."
+  },
+  {
+    "id": 4138,
+    "aegisName": "Anubis_Card",
+    "name": "Anubis Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Anubis",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Angel] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Angel] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Angel] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Angel] race monsters by an additional 5%."
+  },
+  {
+    "id": 4242,
+    "aegisName": "Apocalips_Card",
+    "name": "Apocalipse Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Apocalypse",
+        "rate": 1
+      }
+    ],
+    "description": "If the armor is upgraded to +9 or higher,  Max HP +800."
+  },
+  {
+    "id": 4443,
+    "aegisName": "Aqua_Elemental_Card",
+    "name": "Aqua Elemental Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Aqua Elemental",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Water] element monsters and players by 20%.\nIncreases physical damage against [Water] element targets by 5%."
+  },
+  {
+    "id": 4241,
+    "aegisName": "Archangeling_Card",
+    "name": "Arc Angeling Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Arc Angeling",
+        "rate": 1
+      }
+    ],
+    "description": "If the user's base Luk is 77 or higher\nHP Recovery Rate +100%SP Regen +100%"
+  },
+  {
+    "id": 4371,
+    "aegisName": "Archdam_Card",
+    "name": "Archdam Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Archdam",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the variable cast time of skills by an additional 20%.\nSet bonus with Permeter Card, Freezer Card, Heater Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element."
+  },
+  {
+    "id": 4094,
+    "aegisName": "Archer_Skeleton_Card",
+    "name": "Archer Skeleton Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Archer Skeleton",
+        "rate": 1
+      }
+    ],
+    "description": "Increases damage with ranged attacks by 10%."
+  },
+  {
+    "id": 4240,
+    "aegisName": "Arclouse_Card",
+    "name": "Arclouze Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Arclouze",
+        "rate": 1
+      }
+    ],
+    "description": "If the shield is upgraded to +5 or less\nAdditional Def +2MDef +3"
+  },
+  {
+    "id": 4114,
+    "aegisName": "Argiope_Card",
+    "name": "Argiope Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Argiope",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Poison] element.\nSet bonus with Medical Scrubs [1]\nIf upgrade level is +9 or higher,,Immune to Frozen."
+  },
+  {
+    "id": 4075,
+    "aegisName": "Argos_Card",
+    "name": "Argos Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Argos",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Stone Curse] status by 20%."
+  },
+  {
+    "id": 4347,
+    "aegisName": "Armaia_Card",
+    "name": "Armeyer Dinze Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Armeyer Dinze",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance of the Clam Soup item dropping when killing a [Fish] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Fish] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Fish] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Fish] race monsters by an additional 5%."
+  },
+  {
+    "id": 4359,
+    "aegisName": "B_Eremes_Card",
+    "name": "Assassin Cross Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Assassin Cross Eremes",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Cloaking] Lv 3."
+  },
+  {
+    "id": 4246,
+    "aegisName": "Assulter_Card",
+    "name": "Assaulter Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Assaulter",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Demi-Human] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Solider Card, Permeter Card, Freezer Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%."
+  },
+  {
+    "id": 4247,
+    "aegisName": "Aster_Card",
+    "name": "Aster Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Aster",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against the Shellfish monster by 30%.\nSet bonus with Crab Card, Shell Fish Card\nIncreases physical damage against [Water] element targets by 30%.Adds a 30% chance of the Raw Fish item dropping when killing a [Fish] race monster."
+  },
+  {
+    "id": 4766,
+    "aegisName": "Atk2",
+    "name": "ATK+2%",
+    "drops": []
+  },
+  {
+    "id": 4767,
+    "aegisName": "Atk3",
+    "name": "ATK+3%",
+    "drops": []
+  },
+  {
+    "id": 4425,
+    "aegisName": "Atroce_Card",
+    "name": "Atroce Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Atroce",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance for when dealing physical damage, the user will have max Aspd for 5 seconds."
+  },
+  {
+    "id": 4023,
+    "aegisName": "Desert_Wolf_Babe_Card",
+    "name": "Baby Desert Wolf Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Baby Desert Wolf",
+        "rate": 1
+      }
+    ],
+    "description": "INT +1"
+  },
+  {
+    "id": 4233,
+    "aegisName": "Baby_Leopard_Card",
+    "name": "Baby Leopard Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Baby Leopard",
+        "rate": 1
+      }
+    ],
+    "description": "LUK +3\nSet bonus with Raggler Card, Myst Case Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Zipper Bear Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster."
+  },
+  {
+    "id": 4438,
+    "aegisName": "Banshee_Card",
+    "name": "Banshee Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Banshee",
+        "rate": 1
+      }
+    ],
+    "description": "If used by an Mage job type\nMax HP -100Max SP +100Increases the damage inflicted with [Napalm Beat], [Soul Strike] and [Naplam Vulcan] by 20%."
+  },
+  {
+    "id": 4450,
+    "aegisName": "Banshee_Master_Card",
+    "name": "Banshee Master Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Banshee Master",
+        "rate": 1
+      }
+    ],
+    "description": "INT +1\nMATK +10"
+  },
+  {
+    "id": 4129,
+    "aegisName": "Baphomet__Card",
+    "name": "Bapho Jr. Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Baphomet Jr.",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +3\nCRIT +1"
+  },
+  {
+    "id": 4147,
+    "aegisName": "Baphomet_Card",
+    "name": "Baphomet Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Baphomet",
+        "rate": 1
+      },
+      {
+        "monster": "Great Demon Baphomet",
+        "rate": 1
+      }
+    ],
+    "description": "Normal attacks do splash damage in a 3x3 area around the target."
+  },
+  {
+    "id": 4391,
+    "aegisName": "Retribution_Card",
+    "name": "Baroness of Retribution Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Baroness of Retribution",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance of the Fried Sweet Potato item dropping when killing an [Angel] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Angel] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Angel] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Angel] race monsters by an additional 5%."
+  },
+  {
+    "id": 4119,
+    "aegisName": "Bathory_Card",
+    "name": "Bathory Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Bathory",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Shadow] element.\nSet bonus with Ritual Robe [1]\nImmune to Freeze."
+  },
+  {
+    "id": 4307,
+    "aegisName": "Kind_Of_Beetle_Card",
+    "name": "Beetle King Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Beetle King",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking a [Fish] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4356,
+    "aegisName": "Beholder_Card",
+    "name": "Beholder Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Beholder",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Cast Cancel] Lv 1."
+  },
+  {
+    "id": 4145,
+    "aegisName": "Berzebub_Card",
+    "name": "Berzebub Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Beelzebub",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the variable cast time of skills by 30%."
+  },
+  {
+    "id": 4074,
+    "aegisName": "BigFoot_Card",
+    "name": "Bigfoot Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Bigfoot",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Insect] race by 30%.\nSet bonus with Grizzly Card\nIncreases the chance of [Blind] being inflicted to 6%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Insect] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Insect] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Insect] race monsters by an additional 5%."
+  },
+  {
+    "id": 4215,
+    "aegisName": "Blazzer_Card",
+    "name": "Blazer Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Blazer",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a  chance of a food type item dropping when a monster is killed."
+  },
+  {
+    "id": 4327,
+    "aegisName": "Blood_Butterfly_Card",
+    "name": "Bloody Butterfly Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Bloody Butterfly",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the cast time of skills by 30%.\nPrevents skill casting from being interrupted.\nIncreases the damage inflicted with [Fire Wall] by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Harpy Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster."
+  },
+  {
+    "id": 4320,
+    "aegisName": "Bloody_Knight_Card",
+    "name": "Bloody Knight Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Bloody Knight",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Meteor Storm] Lv 1 on the target when doing a physical attack."
+  },
+  {
+    "id": 4214,
+    "aegisName": "Bloody_Murderer_Card",
+    "name": "Bloody Murderer Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Bloody Murderer",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Insect] race targets.\nIncreases critical attack damage by 10%."
+  },
+  {
+    "id": 4379,
+    "aegisName": "Acidus__Card",
+    "name": "Blue Acidus Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Acidus",
+        "rate": 1
+      }
+    ],
+    "description": "If the headgear is upgraded to +4 or less\nAdditional Max SP +40SP Regen +5%"
+  },
+  {
+    "id": 4212,
+    "aegisName": "Bon_Gun_Card",
+    "name": "Bongun Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Bongun",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Bash] Lv 1 on the target when doing a physical attack.\nThe target gets knock backed by 5 cells when [Bash] is used.\nDoubles damage received from the Munak monster.\nSet bonus with Munak Card, Yao Jun Card\nAll stats +1"
+  },
+  {
+    "id": 4428,
+    "aegisName": "Bow_Guardian_Card",
+    "name": "Bow Guardian Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Bow Master",
+        "rate": 1
+      }
+    ],
+    "description": "If compounded into a Bow weapon\nHit +5Crit +5Increases the damage inflicted with [Arrow Shower] by 50%."
+  },
+  {
+    "id": 4390,
+    "aegisName": "Breeze_Card",
+    "name": "Breeze Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Breeze",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Bleeding] on the target when doing a physical attack."
+  },
+  {
+    "id": 4213,
+    "aegisName": "Brilight_Card",
+    "name": "Brilight Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Brilight",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Silence] on the attacker when physically attacked."
+  },
+  {
+    "id": 4426,
+    "aegisName": "Byorgue_Card",
+    "name": "Byorgue Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Byorgue",
+        "rate": 1
+      }
+    ],
+    "description": "If the user is a Rogue job type\nMAtk +10%Atk +10%"
+  },
+  {
+    "id": 4063,
+    "aegisName": "Caramel_Card",
+    "name": "Caramel Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Caramel",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Insect] race targets by 20%."
+  },
+  {
+    "id": 4288,
+    "aegisName": "Carat_Card",
+    "name": "Carat Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Carat",
+        "rate": 1
+      }
+    ],
+    "description": "If the headgear is upgraded to +9 or higher, Max SP +150."
+  },
+  {
+    "id": 4290,
+    "aegisName": "Cat_O_Nine_Tail_Card",
+    "name": "Cat O' Nine Tails Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Cat o' Nine Tails",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of reflecting received targetted magic damage at the caster."
+  },
+  {
+    "id": 4289,
+    "aegisName": "Caterpillar_Card",
+    "name": "Caterpillar Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Caterpillar",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking a [Plant] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4368,
+    "aegisName": "Shecil_Card",
+    "name": "Cecil Damon Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Cecil Damon",
+        "rate": 1
+      }
+    ],
+    "description": "ASPD +5%\nHIT -30"
+  },
+  {
+    "id": 4447,
+    "aegisName": "Centipede_Card",
+    "name": "Centipede Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Centipede",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Poison] element monsters and players by 20%.\nIncreases physical damage against [Poison] element targets by 5%."
+  },
+  {
+    "id": 4452,
+    "aegisName": "Centipede_Larva_Card",
+    "name": "Centipede Larva Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Centipede Larva",
+        "rate": 1
+      }
+    ],
+    "description": "INT +1\nMATK +3"
+  },
+  {
+    "id": 4284,
+    "aegisName": "Chepet_Card",
+    "name": "Chepet Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Chepet",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Heal] Lv 5 on the target when doing a physical attack."
+  },
+  {
+    "id": 4300,
+    "aegisName": "Chimera_Card",
+    "name": "Chimera Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Chimera",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Poison] on the attacker when physically attacked.\nIf used by an Assassin job type, chance is increased to 6%."
+  },
+  {
+    "id": 4285,
+    "aegisName": "Choco_Card",
+    "name": "Choco Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Choco",
+        "rate": 1
+      },
+      {
+        "monster": "Choco",
+        "rate": 1
+      }
+    ],
+    "description": "Perfect Dodge +5\nFLEE +10"
+  },
+  {
+    "id": 4009,
+    "aegisName": "Chonchon_Card",
+    "name": "Chonchon Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Chonchon",
+        "rate": 1
+      },
+      {
+        "monster": "Chonchon",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +1\nFLEE +2\nSet bonus with Dragon Fly Card\nFlee +18\nSet bonus with Sandals [1], Old Pink Poo Hat [1]\nMax HP + 4%Max SP + 4%.Additional Max HP + 2% and Max SP + 2% per upgrade level of Sandals [1]."
+  },
+  {
+    "id": 4235,
+    "aegisName": "Cookie_XMAS_Card",
+    "name": "Christmas Cookie Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Christmas Cookie",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Angel] race monsters by 10%.\nIncreases damage received from [Angel] race by 20%."
+  },
+  {
+    "id": 4299,
+    "aegisName": "Clock_Card",
+    "name": "Clock Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Clock",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of using [Guard] Lv 3, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Punk Card\nDef +3MDef +3"
+  },
+  {
+    "id": 4262,
+    "aegisName": "Evil_Cloud_Hermit_Card",
+    "name": "Cloud Hermit Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Taoist Hermit",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Box of Gloom item dropping when killing a [Plant] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Plant] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Plant] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Plant] race monsters by an additional 5%."
+  },
+  {
+    "id": 4041,
+    "aegisName": "Coco_Card",
+    "name": "Coco Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Coco",
+        "rate": 1
+      },
+      {
+        "monster": "Coco",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Sleep] status by 20%."
+  },
+  {
+    "id": 4015,
+    "aegisName": "Condor_Card",
+    "name": "Condor Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Condor",
+        "rate": 1
+      }
+    ],
+    "description": "FLEE +10\nSet bonus with Flying Galapago\nReduces damage taken from all property attacks by 10%."
+  },
+  {
+    "id": 4293,
+    "aegisName": "Cookie_Card",
+    "name": "Cookie Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Cookie",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Holy Light] by 10%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Fur Seal Card, Waste Stove Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted."
+  },
+  {
+    "id": 4448,
+    "aegisName": "Cornus_Card",
+    "name": "Cornus Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Cornus",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Holy] element monsters and players by 20%.\nIncreases physical damage against [Holy] element targets by 5%."
+  },
+  {
+    "id": 4061,
+    "aegisName": "Cornutus_Card",
+    "name": "Cornutus Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Cornutus",
+        "rate": 1
+      }
+    ],
+    "description": "Makes the armor unbreakable."
+  },
+  {
+    "id": 4153,
+    "aegisName": "Crab_Card",
+    "name": "Crab Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Crab",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against the Aster monster by 30%.\nSet bonus with Aster Card, Shell Fish Card\nIncreases physical damage against [Water] element targets by 30%.Adds a 30% chance of the Raw Fish item dropping when killing a [Fish] race monster."
+  },
+  {
+    "id": 4296,
+    "aegisName": "Cramp_Card",
+    "name": "Cramp Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Cramp",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% of the user gaining 1 to 500 zeny when a monster is killed.\nSet bonus with Tarou Card\nStr +3"
+  },
+  {
+    "id": 4040,
+    "aegisName": "Creamy_Card",
+    "name": "Creamy Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Creamy",
+        "rate": 1
+      },
+      {
+        "monster": "Creamy",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Teleport] Lv 1."
+  },
+  {
+    "id": 4298,
+    "aegisName": "Cremy_Fear_Card",
+    "name": "Creamy Fear Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Creamy Fear",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Confusion] on the attacker when physically attacked."
+  },
+  {
+    "id": 4764,
+    "aegisName": "Critical5",
+    "name": "CRI+5",
+    "drops": [],
+    "description": "CRIT +5"
+  },
+  {
+    "id": 4765,
+    "aegisName": "Critical7",
+    "name": "CRI+7",
+    "drops": [],
+    "description": "CRIT +7"
+  },
+  {
+    "id": 4297,
+    "aegisName": "Cruiser_Card",
+    "name": "Cruiser Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Cruiser",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Brute] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Alligator Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked."
+  },
+  {
+    "id": 4392,
+    "aegisName": "Observation_Card",
+    "name": "Dame of Sentinel Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Dame of Sentinel",
+        "rate": 1
+      }
+    ],
+    "description": "Gives Dex +1 for every 18 points of base Vit."
+  },
+  {
+    "id": 4170,
+    "aegisName": "Dark_Frame_Card",
+    "name": "Dark Frame Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Dark Frame",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Stone Curse] on the attacker when physically attacked."
+  },
+  {
+    "id": 4169,
+    "aegisName": "Dark_Illusion_Card",
+    "name": "Dark Illusion Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Dark Illusion",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the variable cast time of skills by 10%.\nSet bonus with Dark Lord Card\nMax HP +20%Max SP +20%Reduces the variable cast time of skills by 10%."
+  },
+  {
+    "id": 4168,
+    "aegisName": "Dark_Lord_Card",
+    "name": "Dark Lord Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Dark Lord",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 10% chance of using [Meteor Storm] Lv 5 on the attacker when physically attacked.\nSet bonus with Dark Illusion Card\nMax HP +20%Max SP +20%Reduces the variable cast time of skills by 10%."
+  },
+  {
+    "id": 4171,
+    "aegisName": "Dark_Priest_Card",
+    "name": "Dark Priest Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Dark Priest",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance to decreasing the target's SP by 10%.\nIf used by a Sage job type\nRestores 1 SP to the user when physically attacking."
+  },
+  {
+    "id": 4449,
+    "aegisName": "Dark_Shadow_Card",
+    "name": "Dark Shadow Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Dark Shadow",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Shadow] element monsters and players by 20%.\nIncreases physical damage against [Shadow] element targets by 5%."
+  },
+  {
+    "id": 4388,
+    "aegisName": "Deathword_Card",
+    "name": "Death Word Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Death Word",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Napalm Beat], [Naplam Vulcan] and [Soul Strike] by 5%.\nDrains 50 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4173,
+    "aegisName": "Demon_Pungus_Card",
+    "name": "Demon Pungus Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Demon Pungus",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Sleep] on the attacker when physically attacked."
+  },
+  {
+    "id": 4082,
+    "aegisName": "Desert_Wolf_Card",
+    "name": "Desert Wolf Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Desert Wolf",
+        "rate": 1
+      },
+      {
+        "monster": "Desert Wolf",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Small] size targets by 15%."
+  },
+  {
+    "id": 4397,
+    "aegisName": "Tha_Despero_Card",
+    "name": "Despero of Thanatos Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Despero of Thanatos",
+        "rate": 1
+      }
+    ],
+    "description": "Each upgrade made to the shield gives Int +1."
+  },
+  {
+    "id": 4386,
+    "aegisName": "Detale_Card",
+    "name": "Detardeurus Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Detardeurus",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 7% chance of using [Magnetic Earth] Lv 1 when attacked by magic.\nGives immunity to [Frozen] status."
+  },
+  {
+    "id": 4125,
+    "aegisName": "Deviace_Card",
+    "name": "Deviace Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Deviace",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Brute], [Demi-Human], [Insect] and [Plant] race targets by 7%."
+  },
+  {
+    "id": 4174,
+    "aegisName": "Deviling_Card",
+    "name": "Deviling Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Deviling",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Neutral] element attacks by 50%.\nIncreases damage received from all elements except [Neutral] element by 50%.\nSet bonus with Etran's Undershirt [1]\nDisables Deviling Card's effect of increasing damage from elemental property attacks.\nSet bonus with Hero Cape [1]\nDisables Deviling Card's effect that reduces [Neutral] property attacks."
+  },
+  {
+    "id": 4122,
+    "aegisName": "Deviruchi_Card",
+    "name": "Deviruchi Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Deviruchi",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Blind] status."
+  },
+  {
+    "id": 4720,
+    "aegisName": "Dexterity1",
+    "name": "DEX+1",
+    "drops": [],
+    "description": "DEX +1"
+  },
+  {
+    "id": 4780,
+    "aegisName": "Dex1_J",
+    "name": "DEX+1",
+    "drops": []
+  },
+  {
+    "id": 4729,
+    "aegisName": "Dexterity10",
+    "name": "DEX+10",
+    "drops": [],
+    "description": "DEX +10"
+  },
+  {
+    "id": 4721,
+    "aegisName": "Dexterity2",
+    "name": "DEX+2",
+    "drops": [],
+    "description": "DEX +2"
+  },
+  {
+    "id": 4781,
+    "aegisName": "Dex2_J",
+    "name": "DEX+2",
+    "drops": []
+  },
+  {
+    "id": 4722,
+    "aegisName": "Dexterity3",
+    "name": "DEX+3",
+    "drops": [],
+    "description": "DEX +3"
+  },
+  {
+    "id": 4782,
+    "aegisName": "Dex3_J",
+    "name": "DEX+3",
+    "drops": []
+  },
+  {
+    "id": 4723,
+    "aegisName": "Dexterity4",
+    "name": "DEX+4",
+    "drops": [],
+    "description": "DEX +4"
+  },
+  {
+    "id": 4724,
+    "aegisName": "Dexterity5",
+    "name": "DEX+5",
+    "drops": [],
+    "description": "DEX +5"
+  },
+  {
+    "id": 4725,
+    "aegisName": "Dexterity6",
+    "name": "DEX+6",
+    "drops": [],
+    "description": "DEX +6"
+  },
+  {
+    "id": 4726,
+    "aegisName": "Dexterity7",
+    "name": "DEX+7",
+    "drops": [],
+    "description": "DEX +7"
+  },
+  {
+    "id": 4727,
+    "aegisName": "Dexterity8",
+    "name": "DEX+8",
+    "drops": [],
+    "description": "DEX +8"
+  },
+  {
+    "id": 4728,
+    "aegisName": "Dexterity9",
+    "name": "DEX+9",
+    "drops": [],
+    "description": "DEX +9"
+  },
+  {
+    "id": 4182,
+    "aegisName": "Diabolic_Card",
+    "name": "Diabolic Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Diabolic",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking a [Demon] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4370,
+    "aegisName": "Dimik_Card",
+    "name": "Dimik Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Dimik",
+        "rate": 1
+      },
+      {
+        "monster": "Dimik",
+        "rate": 1
+      },
+      {
+        "monster": "Dimik",
+        "rate": 1
+      },
+      {
+        "monster": "Dimik",
+        "rate": 1
+      },
+      {
+        "monster": "Dimik",
+        "rate": 1
+      }
+    ],
+    "description": "Each upgrade made to the armor gives Vit +1."
+  },
+  {
+    "id": 4181,
+    "aegisName": "Disguise_Card",
+    "name": "Disguise Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Disguise",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Silence] on the attacker when physically attacked.\nIf the user's base Vit is 77 or higher, chance is increased to 6%."
+  },
+  {
+    "id": 4098,
+    "aegisName": "Dokebi_Card",
+    "name": "Dokebi Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Dokebi",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Wind] element."
+  },
+  {
+    "id": 4398,
+    "aegisName": "Tha_Dolor_Card",
+    "name": "Dolor of Thanatos Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Dolor of Thanatos",
+        "rate": 1
+      }
+    ],
+    "description": "Increases magic damage against [Angel] race targets by 10%."
+  },
+  {
+    "id": 4142,
+    "aegisName": "Doppelganger_Card",
+    "name": "Doppelganger Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Doppelganger",
+        "rate": 1
+      }
+    ],
+    "description": "ASPD +10%"
+  },
+  {
+    "id": 4444,
+    "aegisName": "Draco_Card",
+    "name": "Draco Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Draco",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Earth] element monsters and players by 20%.\nIncreases physical damage against [Earth] element targets by 5%."
+  },
+  {
+    "id": 4134,
+    "aegisName": "Dracula_Card",
+    "name": "Dracula Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Dracula",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 10% chance to restore 5% of the damage dealt as SP to the user with each physical attack."
+  },
+  {
+    "id": 4385,
+    "aegisName": "Dragon_Egg_Card",
+    "name": "Dragon Egg Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Dragon Egg",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance of the Honey Herbal Tea item dropping when killing a [Dragon] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Dragon] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Dragon] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Dragon] race monsters by an additional 5%."
+  },
+  {
+    "id": 4179,
+    "aegisName": "Dragon_Fly_Card",
+    "name": "Dragon Fly Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Dragon Fly",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +1\nSet bonus with Chonchon Card\nFlee +18"
+  },
+  {
+    "id": 4178,
+    "aegisName": "Dragon_Tail_Card",
+    "name": "Dragon Tail Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Dragon Tail",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Double Strafe] and [Arrow Shower] by 5%.\nSet bonus with Merman Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Anolian Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked."
+  },
+  {
+    "id": 4069,
+    "aegisName": "Drainliar_Card",
+    "name": "Drainliar Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Drainliar",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Water] element targets by 20%."
+  },
+  {
+    "id": 4137,
+    "aegisName": "Drake_Card",
+    "name": "Drake Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Drake",
+        "rate": 1
+      }
+    ],
+    "description": "Removes the size penalties of the weapon."
+  },
+  {
+    "id": 4180,
+    "aegisName": "Driller_Card",
+    "name": "Driller Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Driller",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking a [Dragon] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4004,
+    "aegisName": "Drops_Card",
+    "name": "Drops Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Drops",
+        "rate": 1
+      }
+    ],
+    "description": "DEX +1\nHIT +3"
+  },
+  {
+    "id": 4421,
+    "aegisName": "Drosera_Card",
+    "name": "Drosera Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Drosera",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +15 bonus when using ranged attacks."
+  },
+  {
+    "id": 4177,
+    "aegisName": "Dryad_Card",
+    "name": "Dryad Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Dryad",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Earth] element attacks by 10%.\nAdds a 1% chance of the Green Live item dropping when a [Plant] race monster is killed."
+  },
+  {
+    "id": 4176,
+    "aegisName": "Dullahan_Card",
+    "name": "Dullahan Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Dullahan",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Dragon] race targets.\nIncreases critical attack damage by 10%."
+  },
+  {
+    "id": 4154,
+    "aegisName": "Rice_Cake_Boy_Card",
+    "name": "Dumpling Child Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Dumpling Child",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of the Candy item dropping when killing a [Demi-Human] race monster.\nAdds a 1% chance of the Candy Cane item dropping when killing a [Demi-Human] race monster.\nIncreases the recovery rate of the Candy and Candy Cane items by 50%."
+  },
+  {
+    "id": 4056,
+    "aegisName": "Dustiness_Card",
+    "name": "Dustiness Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Dustiness",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Wind] element attacks by 30%."
+  },
+  {
+    "id": 4279,
+    "aegisName": "Deleter_Card",
+    "name": "Earth Deleter Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Deleter",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 10 SP to the user when a monster is killed with a melee attack.\nDrains 100 SP from the user when the armor is unequipped."
+  },
+  {
+    "id": 4118,
+    "aegisName": "Petit_Card",
+    "name": "Earth Petite Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Petite",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Dragon] race targets by 20%."
+  },
+  {
+    "id": 4410,
+    "aegisName": "Echio_Card",
+    "name": "Echio Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Echio",
+        "rate": 1
+      }
+    ],
+    "description": "If the user is a Swordman job type,  Max HP +500."
+  },
+  {
+    "id": 4266,
+    "aegisName": "Eclipse_Card",
+    "name": "Eclipse Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Eclipse",
+        "rate": 1
+      }
+    ],
+    "description": "VIT +1\nSet bonus with Lunatic Card\nFlee +18"
+  },
+  {
+    "id": 4123,
+    "aegisName": "Eddga_Card",
+    "name": "Eddga Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Eddga",
+        "rate": 1
+      }
+    ],
+    "description": "Provides the user with the [Endure] effect."
+  },
+  {
+    "id": 4070,
+    "aegisName": "Eggyra_Card",
+    "name": "Eggyra Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Eggyra",
+        "rate": 1
+      }
+    ],
+    "description": "SP Recovery +15%"
+  },
+  {
+    "id": 4346,
+    "aegisName": "Ygnizem_Card",
+    "name": "Egnigem Cenia Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Egnigem Cenia",
+        "rate": 1
+      }
+    ],
+    "description": "Gives Str +1 for every 18 points of base Int."
+  },
+  {
+    "id": 4251,
+    "aegisName": "Elder_Card",
+    "name": "Elder Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Elder",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against WoE guardians by 40%."
+  },
+  {
+    "id": 4052,
+    "aegisName": "Elder_Wilow_Card",
+    "name": "Elder Willow Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Elder Willow",
+        "rate": 1
+      }
+    ],
+    "description": "INT +2"
+  },
+  {
+    "id": 4217,
+    "aegisName": "Live_Peach_Tree_Card",
+    "name": "Enchanted Peach Tree Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Enchanted Peach Tree",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Heal] Lv 1, or Lv 10 if learned by the user, on the user when doing a physical attack.\nSet bonus with Rideword Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%."
+  },
+  {
+    "id": 4451,
+    "aegisName": "Ant_Buyanne_Card",
+    "name": "Entweihen Crothen Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Entweihen Crothen",
+        "rate": 1
+      }
+    ],
+    "description": "MATK +100"
+  },
+  {
+    "id": 4360,
+    "aegisName": "Eremes_Card",
+    "name": "Eremes Guile Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Eremes Guile",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the user's critical attack rate on [Demi-Human] race targets by 10%."
+  },
+  {
+    "id": 4349,
+    "aegisName": "Erend_Card",
+    "name": "Errende Ebecee Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Errende Ebecee",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Pneuma] Lv 1 on the user when physically attacked."
+  },
+  {
+    "id": 4141,
+    "aegisName": "Evil_Druid_Card",
+    "name": "Evil Druid Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Evil Druid",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Undead] element.\nSet bonus with Fallen Warrior Armor [1]\nIf upgrade level is +9 or higher,,Immune to Curse."
+  },
+  {
+    "id": 4258,
+    "aegisName": "Wicked_Nymph_Card",
+    "name": "Evil Nymph Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Evil Nymph",
+        "rate": 1
+      }
+    ],
+    "description": "INT +1\nMax SP +50\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster."
+  },
+  {
+    "id": 4330,
+    "aegisName": "Dark_Snake_Lord_Card",
+    "name": "Evil Snake Lord Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Evil Snake Lord",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Blind] and [Curse] statuses."
+  },
+  {
+    "id": 4250,
+    "aegisName": "Executioner_Card",
+    "name": "Executioner Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Executioner",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Large] size enemies by 25%."
+  },
+  {
+    "id": 4267,
+    "aegisName": "Explosion_Card",
+    "name": "Explosion Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Explosion",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Dragon] race monsters by 10%.\nIncreases damage received from [Dragon] race by 20%."
+  },
+  {
+    "id": 4002,
+    "aegisName": "Fabre_Card",
+    "name": "Fabre Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Fabre",
+        "rate": 1
+      },
+      {
+        "monster": "Fabre",
+        "rate": 1
+      }
+    ],
+    "description": "VIT +1\nMax HP +100"
+  },
+  {
+    "id": 4441,
+    "aegisName": "Fallen_Bishop_Card",
+    "name": "Fallen Bishop Hibram Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Fallen Bishop Hibram",
+        "rate": 1
+      }
+    ],
+    "description": "Increases magic damage against [Angel] and [Demi-Human] race targets by 50%."
+  },
+  {
+    "id": 4316,
+    "aegisName": "Fake_Angel_Card",
+    "name": "False Angel Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "False Angel",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking an [Angel] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4020,
+    "aegisName": "Farmiliar_Card",
+    "name": "Familiar Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Familiar",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Blind] on the target when doing a physical attack."
+  },
+  {
+    "id": 4026,
+    "aegisName": "Thief_Bug_Female_Card",
+    "name": "Female Thief Bug Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Thief Bug Female",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +1\nFLEE +1"
+  },
+  {
+    "id": 4160,
+    "aegisName": "Antique_Firelock_Card",
+    "name": "Firelock Soldier Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Firelock Soldier",
+        "rate": 1
+      }
+    ],
+    "description": "If the footgear is upgraded to +9 or higher\nMax HP +10%Max SP +10%"
+  },
+  {
+    "id": 4439,
+    "aegisName": "Flame_Skull_Card",
+    "name": "Flame Skull Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Flame Skull",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Blind], [Curse], [Stone Curse] and [Stun] statuses by 30%.\nAdds a 5% chance of inflicting [Blind], [Curse], [Stone Curse] or [Stun] on the attacker when physically attacked."
+  },
+  {
+    "id": 4763,
+    "aegisName": "Evasion12",
+    "name": "FLEE+12",
+    "drops": [],
+    "description": "FLEE +12"
+  },
+  {
+    "id": 4762,
+    "aegisName": "Evasion6",
+    "name": "FLEE+6",
+    "drops": [],
+    "description": "FLEE +6"
+  },
+  {
+    "id": 4080,
+    "aegisName": "Flora_Card",
+    "name": "Flora Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Flora",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Fish] race targets by 20%."
+  },
+  {
+    "id": 4319,
+    "aegisName": "Freezer_Card",
+    "name": "Freezer Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Freezer",
+        "rate": 1
+      }
+    ],
+    "description": "If the footgear is upgraded to +9 or higher, increases the damage inflicted with [Bash] by 10%.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Heater Card, Archdam Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element."
+  },
+  {
+    "id": 4088,
+    "aegisName": "Frilldora_Card",
+    "name": "Frilldora Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Frilldora",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Cloaking] Lv 1."
+  },
+  {
+    "id": 4405,
+    "aegisName": "Frus_Card",
+    "name": "Frus Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Frus",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a chance of reflecting received magical damage to the caster equal to 2 times the upgrade of the armor.\nIf the user is a Mage job type, MDef +3."
+  },
+  {
+    "id": 4151,
+    "aegisName": "Gajomart_Card",
+    "name": "Gajomart Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Gajomart",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Plant] race monsters by 10%.\nIncreases damage received from [Plant] race by 20%."
+  },
+  {
+    "id": 4152,
+    "aegisName": "Galapago_Card",
+    "name": "Galapago Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Galapago",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of the Apple Juice, Banana Juice or Carrot Juice item dropping when killing an [Insect] race monster.\nIncreases the recovery rate of the Apple Juice, Banana Juice and Carrot Juice items by 50%.\nSet bonus with Flying Galapago\nIncreases the recovery rate of Apple Juice consumables by 1000%.Increases the recovery rate of Banana Juice consumables by 1000%.Increases the recovery rate of Carrot Juice consumables by 1000%."
+  },
+  {
+    "id": 4423,
+    "aegisName": "Galion_Card",
+    "name": "Galion Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Galion",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Water] element targets by 5%."
+  },
+  {
+    "id": 4149,
+    "aegisName": "Gargoyle_Card",
+    "name": "Gargoyle Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Gargoyle",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Box of Thunder item dropping when killing an [Insect] race monster."
+  },
+  {
+    "id": 4418,
+    "aegisName": "Gazeti_Card",
+    "name": "Gazeti Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Gazeti",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 10% chance of using [Cold Bolt] Lv 2 on the target when doing a physical attack."
+  },
+  {
+    "id": 4354,
+    "aegisName": "Gemini_Card",
+    "name": "Gemini-S58 Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Gemini-S58",
+        "rate": 1
+      }
+    ],
+    "description": "If the user's base Agi is 90 or higher, increases resistance to [Silence] and [Stun] statuses by 30%.\nIf the user's base Vit is 80 or higher, increases resistance to [Sleep] and [Stone Curse] statuses by 50%."
+  },
+  {
+    "id": 4352,
+    "aegisName": "B_Ygnizem_Card",
+    "name": "General Egnigem Cenia Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Egnigem Cenia",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 50 HP and 10 SP to the user every 10 seconds."
+  },
+  {
+    "id": 4280,
+    "aegisName": "Geographer_Card",
+    "name": "Geographer Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Geographer",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Blessing] Lv 2, or Lv 10 if learned by the user, on the user when physically attacked.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%."
+  },
+  {
+    "id": 4047,
+    "aegisName": "Ghostring_Card",
+    "name": "Ghostring Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Ghostring",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Ghost] element."
+  },
+  {
+    "id": 4110,
+    "aegisName": "Ghoul_Card",
+    "name": "Ghoul Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Ghoul",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Poison] status by 20%."
+  },
+  {
+    "id": 4271,
+    "aegisName": "Giant_Honet_Card",
+    "name": "Giant Hornet Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Giant Hornet",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Wind] element attacks by 10%.\nAdds a 1% chance of the Wind of Verdure item dropping when a [Insect] race monster is killed."
+  },
+  {
+    "id": 4270,
+    "aegisName": "Giant_Spider_Card",
+    "name": "Giant Spider Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Giant Spider",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Poison] on the attacker when physically attacked."
+  },
+  {
+    "id": 4303,
+    "aegisName": "Whisper_Boss_Card",
+    "name": "Giant Whisper Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Giant Whisper",
+        "rate": 1
+      }
+    ],
+    "description": "If the user's base Str is 80 or higher,  Atk +20.\nIf the user's base Vit is 80 or higher,  Max HP +3%.\nIf the user's base Luk is 80 or higher,  Crit +3."
+  },
+  {
+    "id": 4278,
+    "aegisName": "Gibbet_Card",
+    "name": "Gibbet Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Gibbet",
+        "rate": 1
+      }
+    ],
+    "description": "If the headgear is upgraded to +5 or less, MDef +5."
+  },
+  {
+    "id": 4087,
+    "aegisName": "Giearth_Card",
+    "name": "Giearth Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Giearth",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Confusion] status.\nReduces damage received from [Earth] element attacks by 15%."
+  },
+  {
+    "id": 4165,
+    "aegisName": "Gig_Card",
+    "name": "Gig Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Gig",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking an [Insect] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4408,
+    "aegisName": "Gloom_Under_Night_Card",
+    "name": "Gloom Under Night Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Gloom Under Night",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Angel] and [Demon] race targets by 40%.\nIncreases physical damage against [Shadow] and [Holy] element targets by 40%."
+  },
+  {
+    "id": 4150,
+    "aegisName": "Goat_Card",
+    "name": "Goat Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Goat",
+        "rate": 1
+      }
+    ],
+    "description": "If the armor is upgraded to +5 or less\nAdditional Def +2MDef +5"
+  },
+  {
+    "id": 4157,
+    "aegisName": "Goblin_Archer_Card",
+    "name": "Goblin Archer Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Goblin Archer",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Undead] race targets.\nIncreases critical attack damage by 10%."
+  },
+  {
+    "id": 4060,
+    "aegisName": "Goblin_Card",
+    "name": "Goblin Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Christmas Goblin",
+        "rate": 1
+      },
+      {
+        "monster": "Goblin",
+        "rate": 1
+      },
+      {
+        "monster": "Goblin",
+        "rate": 1
+      },
+      {
+        "monster": "Goblin",
+        "rate": 1
+      },
+      {
+        "monster": "Goblin",
+        "rate": 1
+      },
+      {
+        "monster": "Goblin",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Brute] race targets by 20%."
+  },
+  {
+    "id": 4155,
+    "aegisName": "Goblin_Leader_Card",
+    "name": "Goblin Leader Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Goblin Leader",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against the Goblin (Axe), Goblin (Dagger), Goblin (Flail), Goblin (Hammer), Goblin (Mace), Goblin Archer and Goblin Leader monsters by 30%."
+  },
+  {
+    "id": 4156,
+    "aegisName": "Steam_Goblin_Card",
+    "name": "Goblin Steamrider Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Goblin Steamrider",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Formless] race targets.\nIncreases critical attack damage by 10%."
+  },
+  {
+    "id": 4378,
+    "aegisName": "Acidus_Card",
+    "name": "Gold Acidus Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Acidus",
+        "rate": 1
+      }
+    ],
+    "description": "If the footgear is upgraded to +4 or less\nAdditional Max HP +4%Additional Max SP +4%HP Regen +5%SP Regen +5%"
+  },
+  {
+    "id": 4128,
+    "aegisName": "Golden_Bug_Card",
+    "name": "Golden Thief Bug Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Golden Thief Bug",
+        "rate": 1
+      }
+    ],
+    "description": "Makes the user immune to the effects of magic spells.\nDoubles the SP cost of skills."
+  },
+  {
+    "id": 4072,
+    "aegisName": "Golem_Card",
+    "name": "Golem Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Golem",
+        "rate": 1
+      }
+    ],
+    "description": "Makes the weapon unbreakable."
+  },
+  {
+    "id": 4161,
+    "aegisName": "Grand_Peco_Card",
+    "name": "Grand Peco Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Grand Peco",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 15% chance of using [Gloria] Lv 1 when physically attacked.\nSet bonus with Pecopeco Card\nVit +3Def +3"
+  },
+  {
+    "id": 4283,
+    "aegisName": "Greatest_General_Card",
+    "name": "Greatest General Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Greatest General",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.2% chance of using [Summon Spirit Sphere] Lv 5 when doing a physical attack.\nIf the user is an Acolyte job type, chance is increased to 2%."
+  },
+  {
+    "id": 4381,
+    "aegisName": "Ferus__Card",
+    "name": "Green Ferus Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Ferus",
+        "rate": 1
+      }
+    ],
+    "description": "VIT +1\nMax HP +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked."
+  },
+  {
+    "id": 4373,
+    "aegisName": "Chung_E_Card",
+    "name": "Green Maiden Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Green Maiden",
+        "rate": 1
+      }
+    ],
+    "description": "Each upgrade made to the garment gives\nLuk +1Crit +1"
+  },
+  {
+    "id": 4355,
+    "aegisName": "Gremlin_Card",
+    "name": "Gremlin Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Gremlin",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance of the Bomber Steak item dropping when killing a [Brute] race monster."
+  },
+  {
+    "id": 4162,
+    "aegisName": "Grizzly_Card",
+    "name": "Grizzly Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Grizzly",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Blind] on the attacker when physically attacked.\nSet bonus with Bigfoot Card\nIncreases the chance of [Blind] being inflicted to 6%."
+  },
+  {
+    "id": 4377,
+    "aegisName": "Green_Iguana_Card",
+    "name": "Grove Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Grove",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance of the Fruit Mix item dropping when killing a [Formless] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Formless] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Formless] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Formless] race monsters by an additional 5%."
+  },
+  {
+    "id": 4163,
+    "aegisName": "Gryphon_Card",
+    "name": "Gryphon Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Gryphon",
+        "rate": 1
+      }
+    ],
+    "description": "If used by a Swordman job type\nAdds a 1% chance of using [Bowling Bash] Lv 5 on the target when doing a physical attack.\nSet bonus with Flying Galapago\nAspd + 3%Aspd + 1Atk - 5%If compounded to an upgrade level of +10 or higher bow type weapon, additional Aspd + 1."
+  },
+  {
+    "id": 4164,
+    "aegisName": "Gullinbursti_Card",
+    "name": "Gullinbursti Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Gullinbursti",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Fish] race monsters by 10%.\nIncreases damage received from [Fish] race by 20%."
+  },
+  {
+    "id": 4325,
+    "aegisName": "Harpy_Card",
+    "name": "Harpy Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Harpy",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Neutral] element attacks by 15%.\nIncreases the damage inflicted with [Napalm Beat] by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Parasite Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster."
+  },
+  {
+    "id": 4323,
+    "aegisName": "Garm_Baby_Card",
+    "name": "Hatii Babe Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Baby Hatii",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Frost Diver] Lv 3 on the target when doing a physical attack.\nSet bonus with Hatii Card\n30% chance of casting level 3 [Frost Diver] when doing a physical attack"
+  },
+  {
+    "id": 4324,
+    "aegisName": "Garm_Card",
+    "name": "Hatii Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Hatii",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 50% chance of inflicting [Frozen] on the attacker when physically attacked.\nSet bonus with Hatii Bebe Card\n30% chance of casting level 3 [Frost Diver] when doing a physical attack"
+  },
+  {
+    "id": 4331,
+    "aegisName": "Heater_Card",
+    "name": "Heater Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Heater",
+        "rate": 1
+      }
+    ],
+    "description": "If the user is a Swordman job type, P. Dodge +3.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Freezer Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Freezer Card, Archdam Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element."
+  },
+  {
+    "id": 4437,
+    "aegisName": "Hell_Poodle_Card",
+    "name": "Hell Poodle Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Hell Poodle",
+        "rate": 1
+      }
+    ],
+    "description": "Doubles the recovery rate of the Meat item.\nAdds a 0.5% chance of inflicting [Bleeding] on the target when doing a melee attack."
+  },
+  {
+    "id": 4232,
+    "aegisName": "Wild_Ginseng_Card",
+    "name": "Hermit Plant Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Hermit Plant",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of the Red Herb item dropping when killing a [Plant] race monster.\nAdds a 2% chance of the Yellow Herb item dropping when killing a [Plant] race monster.\nAdds a 1% chance of the White Herb item dropping when killing a [Plant] race monster.\nIncreases the recovery rate of the Red Herb, Yellow Herb and White Herb items by 50%."
+  },
+  {
+    "id": 4322,
+    "aegisName": "High_Orc_Card",
+    "name": "High Orc Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "High Orc",
+        "rate": 1
+      }
+    ],
+    "description": "Reflects 5% of the received melee damage back at the attacker."
+  },
+  {
+    "id": 4363,
+    "aegisName": "B_Magaleta_Card",
+    "name": "High Priest Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "High Priest Margaretha",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Assumptio] Lv 1 on the attacker when attacked."
+  },
+  {
+    "id": 4365,
+    "aegisName": "B_Katrinn_Card",
+    "name": "High Wizard Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "High Wizard Kathryne",
+        "rate": 1
+      }
+    ],
+    "description": "Magic attacks ignore the defense of all targets.\nDoubles the cast time of skills.\nDrains 2000 SP from the user when the headgear is unequipped."
+  },
+  {
+    "id": 4345,
+    "aegisName": "Hill_Wind_Card",
+    "name": "Hill Wind Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Hill Wind",
+        "rate": 1
+      },
+      {
+        "monster": "Hill Wind",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Jupitel Thunder], [Lord of Vermilion] and [Thunder Storm] by 5%.\nDrains 50 SP from the user when the weapon is unequipped.\nSet bonus with Lunar Rainbow [1]\nAdds a 4% chance of casting [Lightning Bolt] Lv 4 or [Thunder Storm] Lv 4 on the target when performing a physical attack, where the skill level and chance to cast is increased by 1% per upgrade above 4 to maximum of 10."
+  },
+  {
+    "id": 4453,
+    "aegisName": "Hilsrion_Card",
+    "name": "Hillsrion Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Hillslion",
+        "rate": 1
+      }
+    ],
+    "description": "ATK +25"
+  },
+  {
+    "id": 4081,
+    "aegisName": "Hode_Card",
+    "name": "Hode Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Hode",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Earth] element attacks by 30%."
+  },
+  {
+    "id": 4413,
+    "aegisName": "Hodremlin_Card",
+    "name": "Hodremlin Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Hodremlin",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Small], [Medium], [Large] size enemies by 15%.\nAdds a 0.3% chance for when attacked, the user will be given P. Dodge +30 for 10 seconds."
+  },
+  {
+    "id": 4343,
+    "aegisName": "Mole_Card",
+    "name": "Holden Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Holden",
+        "rate": 1
+      }
+    ],
+    "description": "LUK +2\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Zipper Bear Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster."
+  },
+  {
+    "id": 4045,
+    "aegisName": "Horn_Card",
+    "name": "Horn Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Horn",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from ranged attacks by 35%.\nSet bonus with Imuke Upper Shield [1]\nSet bonus with Enforcer Cape [1]\nIncreases damage taken from long-ranged attacks by 35%."
+  },
+  {
+    "id": 4019,
+    "aegisName": "Hornet_Card",
+    "name": "Hornet Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Hornet",
+        "rate": 1
+      }
+    ],
+    "description": "STR +1\nATK +3"
+  },
+  {
+    "id": 4103,
+    "aegisName": "Horong_Card",
+    "name": "Horong Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Horong",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Sight] Lv 1."
+  },
+  {
+    "id": 4362,
+    "aegisName": "Harword_Card",
+    "name": "Howard Alt-Eisen Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Howard Alt-Eisen",
+        "rate": 1
+      }
+    ],
+    "description": "ASPD -5%\nHIT +30"
+  },
+  {
+    "id": 4115,
+    "aegisName": "Hunter_Fly_Card",
+    "name": "Hunter Fly Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Hunter Fly",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance to restore 15% of the damage dealt as HP to the user with each physical attack."
+  },
+  {
+    "id": 4035,
+    "aegisName": "Hydra_Card",
+    "name": "Hydra Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Hydra",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Demi-Human] race targets by 20%."
+  },
+  {
+    "id": 4384,
+    "aegisName": "Hydro_Card",
+    "name": "Hydrolancer Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Hydrolancer",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 10% chance of using [Spell Breaker] Lv 1 on the target when doing a physical attack."
+  },
+  {
+    "id": 4321,
+    "aegisName": "Hylozoist_Card",
+    "name": "Hylozoist Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Heirozoist",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance to transform a normal monster into another when attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Zipper Bear Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster."
+  },
+  {
+    "id": 4417,
+    "aegisName": "Ice_Titan_Card",
+    "name": "Ice Titan Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Ice Titan",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.3% chance for when attacked, the user will gain Def +10 for 10 seconds."
+  },
+  {
+    "id": 4430,
+    "aegisName": "Ifrit_Card",
+    "name": "Ifrit Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Ifrit",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Earthquake] Lv 2 on the attacker when physically attacked.\nFor every 10 job levels\nAtk +1Hit +1Crit +1"
+  },
+  {
+    "id": 4433,
+    "aegisName": "Imp_Card",
+    "name": "Imp Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Fire Imp",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the cast time for [Fire Bolt] by 25%.\nIncreases the damage inflicted with [Fire Bolt] by 25%."
+  },
+  {
+    "id": 4269,
+    "aegisName": "Incubus_Card",
+    "name": "Incubus Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Incubus",
+        "rate": 1
+      }
+    ],
+    "description": "INT -3\nSP Recovery -20%\nMax SP +150\nSet bonus with Succubus Card\nVit +4Int +4HP Recovery Rate +30%SP Recovery Rate +30%"
+  },
+  {
+    "id": 4268,
+    "aegisName": "Injustice_Card",
+    "name": "Injustice Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Injustice",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Sonic Blow] Lv 1 on the target when doing a physical attack.\nSet bonus with Zealotus Card\nLuk +3Atk +20"
+  },
+  {
+    "id": 4710,
+    "aegisName": "Inteligence1",
+    "name": "INT+1",
+    "drops": [],
+    "description": "INT +1"
+  },
+  {
+    "id": 4771,
+    "aegisName": "Int1_J",
+    "name": "INT+1",
+    "drops": []
+  },
+  {
+    "id": 4719,
+    "aegisName": "Inteligence10",
+    "name": "INT+10",
+    "drops": [],
+    "description": "INT +10"
+  },
+  {
+    "id": 4711,
+    "aegisName": "Inteligence2",
+    "name": "INT+2",
+    "drops": [],
+    "description": "INT +2"
+  },
+  {
+    "id": 4772,
+    "aegisName": "Int2_J",
+    "name": "INT+2",
+    "drops": []
+  },
+  {
+    "id": 4712,
+    "aegisName": "Inteligence3",
+    "name": "INT+3",
+    "drops": [],
+    "description": "INT +3"
+  },
+  {
+    "id": 4773,
+    "aegisName": "Int3_J",
+    "name": "INT+3",
+    "drops": []
+  },
+  {
+    "id": 4713,
+    "aegisName": "Inteligence4",
+    "name": "INT+4",
+    "drops": [],
+    "description": "INT +4"
+  },
+  {
+    "id": 4714,
+    "aegisName": "Inteligence5",
+    "name": "INT+5",
+    "drops": [],
+    "description": "INT +5"
+  },
+  {
+    "id": 4715,
+    "aegisName": "Inteligence6",
+    "name": "INT+6",
+    "drops": [],
+    "description": "INT +6"
+  },
+  {
+    "id": 4716,
+    "aegisName": "Inteligence7",
+    "name": "INT+7",
+    "drops": [],
+    "description": "INT +7"
+  },
+  {
+    "id": 4717,
+    "aegisName": "Inteligence8",
+    "name": "INT+8",
+    "drops": [],
+    "description": "INT +8"
+  },
+  {
+    "id": 4718,
+    "aegisName": "Inteligence9",
+    "name": "INT+9",
+    "drops": [],
+    "description": "INT +9"
+  },
+  {
+    "id": 4239,
+    "aegisName": "Iron_Fist_Card",
+    "name": "Iron Fist Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Iron Fist",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Formless] race monsters by 10%.\nIncreases damage received from [Formless] race by 20%."
+  },
+  {
+    "id": 4412,
+    "aegisName": "Isilla_Card",
+    "name": "Isilla Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Isilla",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance for when dealing magic damage, the user will gain Flee +30 and the cast time of skills will be reduced by 50% for 5 seconds."
+  },
+  {
+    "id": 4116,
+    "aegisName": "Isis_Card",
+    "name": "Isis Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Isis",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Shadow] element attacks by 30%."
+  },
+  {
+    "id": 4109,
+    "aegisName": "Jakk_Card",
+    "name": "Jakk Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Christmas Jakk",
+        "rate": 1
+      },
+      {
+        "monster": "Jakk",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Fire] element attacks by 30%."
+  },
+  {
+    "id": 4265,
+    "aegisName": "Li_Me_Mang_Ryang_Card",
+    "name": "Jing Guai Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Jing Guai",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Box of Sunlight item dropping when killing an [Angel] race monster."
+  },
+  {
+    "id": 4139,
+    "aegisName": "Joker_Card",
+    "name": "Joker Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Joker",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Steal] Lv 1."
+  },
+  {
+    "id": 4065,
+    "aegisName": "Kaho_Card",
+    "name": "Kaho Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Kaho",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Earth] element targets by 20%."
+  },
+  {
+    "id": 4287,
+    "aegisName": "Kapha_Card",
+    "name": "Kapha Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Kapha",
+        "rate": 1
+      }
+    ],
+    "description": "If the garment is upgraded to +5 or less,  MDef +8."
+  },
+  {
+    "id": 4286,
+    "aegisName": "Karakasa_Card",
+    "name": "Karakasa Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Karakasa",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Confusion] on the attacker when physically attacked.\nIf the user's base Str is 77 or higher, chance is increased to 6%."
+  },
+  {
+    "id": 4431,
+    "aegisName": "Kasa_Card",
+    "name": "Kasa Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Kasa",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Fire Bolt] Lv 5 or  [Fire Ball] Lv 5 on the target when doing a physical attack."
+  },
+  {
+    "id": 4366,
+    "aegisName": "Katrinn_Card",
+    "name": "Kathryne Keyron Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Kathryne Keyron",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the variable cast time of skills by 1% for each refinement to the compounded item.\nIf the headgear is upgraded to +9 or higher, MAtk +2%."
+  },
+  {
+    "id": 4351,
+    "aegisName": "Kavac_Card",
+    "name": "Kavach Icarus Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Kavach Icarus",
+        "rate": 1
+      }
+    ],
+    "description": "If the garment is upgraded to +4 or less\nAdditonal Flee +10P. Dodge +1"
+  },
+  {
+    "id": 4136,
+    "aegisName": "Khalitzburg_Card",
+    "name": "Khalitzburg Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Khalitzburg",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Demon] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Demon] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Demon] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Demon] race monsters by an additional 5%."
+  },
+  {
+    "id": 4403,
+    "aegisName": "Kiel_Card",
+    "name": "Kiel-D-01 Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Kiel D-01",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the skill usage delay by 30%."
+  },
+  {
+    "id": 4301,
+    "aegisName": "Killer_Mantis_Card",
+    "name": "Killer Mantis Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Killer Mantis",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Bleeding] on the attacker when physically attacked."
+  },
+  {
+    "id": 4434,
+    "aegisName": "Knocker_Card",
+    "name": "Knocker Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Knocker",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Formless] race targets by 5%.\nAdds a 0.1% chance of the Rough Oridecon or Rough Elunium items dropping when killing a [Formless] race monster."
+  },
+  {
+    "id": 4292,
+    "aegisName": "Kobold_Archer_Card",
+    "name": "Kobold Archer Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Kobold Archer",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Plant] race targets.\nIncreases critical attack damage by 10%."
+  },
+  {
+    "id": 4091,
+    "aegisName": "Kobold_Card",
+    "name": "Kobold Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Kobold",
+        "rate": 1
+      },
+      {
+        "monster": "Kobold",
+        "rate": 1
+      },
+      {
+        "monster": "Kobold",
+        "rate": 1
+      }
+    ],
+    "description": "STR +1\nCRIT +4"
+  },
+  {
+    "id": 4291,
+    "aegisName": "Kobold_Leader_Card",
+    "name": "Kobold Leader Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Kobold Leader",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against the Kobold (Axe), Kobold (Hammer), Kobold (Mace), Kobold Archer and Kobold Leader monsters by 30%."
+  },
+  {
+    "id": 4295,
+    "aegisName": "Kraben_Card",
+    "name": "Kraben Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Kraben",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Blind] on the attacker when physically attacked."
+  },
+  {
+    "id": 4419,
+    "aegisName": "Ktullanux_Card",
+    "name": "Ktullanux Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Ktullanux",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Fire] element targets by 50%.\nAdds a 2% chance of using [Frost Nova] Lv 10 on the attacker when attacked."
+  },
+  {
+    "id": 4027,
+    "aegisName": "Kukre_Card",
+    "name": "Kukre Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Kukre",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +2"
+  },
+  {
+    "id": 4394,
+    "aegisName": "Solace_Card",
+    "name": "Lady Solace Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Lady Solace",
+        "rate": 1
+      }
+    ],
+    "description": "If used by a Priest job type\nAdds a 1% chance of using [Grand Cross] Lv 5 when doing a physical attack."
+  },
+  {
+    "id": 4376,
+    "aegisName": "Lady_Tanee_Card",
+    "name": "Lady Tanee Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Lady Tanee",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of the Banana item dropping when a monster is killed.\nDoubles the recovery rate of the Banana item."
+  },
+  {
+    "id": 4350,
+    "aegisName": "Rawrel_Card",
+    "name": "Laurell Weinder Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Laurell Weinder",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Frost Nova] and [Storm Gust] by 5%.\nDrains 50 SP from the user when the weapon is unequipped.\nSet bonus with Lunar Rainbow [1]\nAdds a 4% chance of casting [Cold Bolt] Lv 4 or [Frost Diver] Lv 4 on the target when performing a physical attack, where the level of the skill is equal to and where the chance to cast is increased by 1% per upgrade level of the item past the upgrade level of 4 to a maximum upgrade level of 10."
+  },
+  {
+    "id": 4184,
+    "aegisName": "Lava_Golem_Card",
+    "name": "Lava Golem Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Lava Golem",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against the Golem, Lava Golem, Stalactic Golem, Wooden Golem and Bradium Golem monsters by 30%."
+  },
+  {
+    "id": 4195,
+    "aegisName": "Leaf_Cat_Card",
+    "name": "Leaf Cat Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Leaf Cat",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Water] element attacks by 10%.\nAdds a 1% chance of the Crystal Blue item dropping when a [Fish] race monster is killed."
+  },
+  {
+    "id": 4188,
+    "aegisName": "Leib_Olmai_Card",
+    "name": "Leib Olmai Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Leib Olmai",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Fire] element attacks by 10%.\nAdds a 1% chance of the Red Blood item dropping when a [Brute] race monster is killed."
+  },
+  {
+    "id": 4191,
+    "aegisName": "Loli_Ruri_Card",
+    "name": "Loli Ruri Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Loli Ruri",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Heal] Lv 3 on the user when physically attacked.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%."
+  },
+  {
+    "id": 4357,
+    "aegisName": "B_Seyren_Card",
+    "name": "Lord Knight Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Lord Knight Seyren",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Frenzy] Lv 1."
+  },
+  {
+    "id": 4276,
+    "aegisName": "Lord_Of_Death_Card",
+    "name": "Lord of The Dead Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Lord of the Dead",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Bleeding], [Curse], [Poison], [Silence] and [Stun] on the target when doing a melee attack.\nAdds a 0.01% chance of inflicting [Coma] on the target when doing a physical attack."
+  },
+  {
+    "id": 4445,
+    "aegisName": "Luciola_Vespa_Card",
+    "name": "Luciola Vespa Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Luciola Vespa",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Wind] element monsters and players by 20%.\nIncreases physical damage against [Wind] element targets by 5%."
+  },
+  {
+    "id": 4193,
+    "aegisName": "Lude_Card",
+    "name": "Lude Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Lude",
+        "rate": 1
+      }
+    ],
+    "description": "If the user is a Novice job type, adds a 20% chance of using [Endure] Lv 1 when physically attacked.\nSet bonus with Quve Card\nMax HP +300Max SP +60"
+  },
+  {
+    "id": 4750,
+    "aegisName": "Luck1",
+    "name": "LUK+1",
+    "drops": [],
+    "description": "LUK +1"
+  },
+  {
+    "id": 4783,
+    "aegisName": "Luk1_J",
+    "name": "LUK+1",
+    "drops": []
+  },
+  {
+    "id": 4759,
+    "aegisName": "Luck10",
+    "name": "LUK+10",
+    "drops": [],
+    "description": "LUK +10"
+  },
+  {
+    "id": 4751,
+    "aegisName": "Luck2",
+    "name": "LUK+2",
+    "drops": [],
+    "description": "LUK +2"
+  },
+  {
+    "id": 4784,
+    "aegisName": "Luk2_J",
+    "name": "LUK+2",
+    "drops": []
+  },
+  {
+    "id": 4752,
+    "aegisName": "Luck3",
+    "name": "LUK+3",
+    "drops": [],
+    "description": "LUK +3"
+  },
+  {
+    "id": 4785,
+    "aegisName": "Luk3_J",
+    "name": "LUK+3",
+    "drops": []
+  },
+  {
+    "id": 4753,
+    "aegisName": "Luck4",
+    "name": "LUK+4",
+    "drops": [],
+    "description": "LUK +4"
+  },
+  {
+    "id": 4754,
+    "aegisName": "Luck5",
+    "name": "LUK+5",
+    "drops": [],
+    "description": "LUK +5"
+  },
+  {
+    "id": 4755,
+    "aegisName": "Luck6",
+    "name": "LUK+6",
+    "drops": [],
+    "description": "LUK +6"
+  },
+  {
+    "id": 4756,
+    "aegisName": "Luck7",
+    "name": "LUK+7",
+    "drops": [],
+    "description": "LUK +7"
+  },
+  {
+    "id": 4757,
+    "aegisName": "Luck8",
+    "name": "LUK+8",
+    "drops": [],
+    "description": "LUK +8"
+  },
+  {
+    "id": 4758,
+    "aegisName": "Luck9",
+    "name": "LUK+9",
+    "drops": [],
+    "description": "LUK +9"
+  },
+  {
+    "id": 4006,
+    "aegisName": "Lunatic_Card",
+    "name": "Lunatic Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Lunatic",
+        "rate": 1
+      }
+    ],
+    "description": "LUK +1\nCRIT +1\nPerfect Dodge +1\nSet bonus with Eclipse Card\nFlee +18"
+  },
+  {
+    "id": 4395,
+    "aegisName": "Tha_Maero_Card",
+    "name": "Maero of Thanatos Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Maero of Thanatos",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Decrease AGI] Lv 3 on the target when doing a physical attack."
+  },
+  {
+    "id": 4432,
+    "aegisName": "Magmaring_Card",
+    "name": "Magmaring Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Magmaring",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Earth] element targets by 10%.\nGives a Crit +15 bonus when attacking [Brute] and [Plant] race targets."
+  },
+  {
+    "id": 4076,
+    "aegisName": "Magnolia_Card",
+    "name": "Magnolia Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Magnolia",
+        "rate": 1
+      },
+      {
+        "monster": "Magnolia",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Curse] on the target when doing a physical attack."
+  },
+  {
+    "id": 4201,
+    "aegisName": "Majoruros_Card",
+    "name": "Majoruros Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Majoruros",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Stun] on the attacker when physically attacked."
+  },
+  {
+    "id": 4050,
+    "aegisName": "Thief_Bug_Male_Card",
+    "name": "Male Thief Bug Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Thief Bug Male",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +2"
+  },
+  {
+    "id": 4030,
+    "aegisName": "Mandragora_Card",
+    "name": "Mandragora Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Mandragora",
+        "rate": 1
+      },
+      {
+        "monster": "Mandragora",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Wind] element targets by 20%."
+  },
+  {
+    "id": 4079,
+    "aegisName": "Mantis_Card",
+    "name": "Mantis Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Mantis",
+        "rate": 1
+      }
+    ],
+    "description": "STR +3"
+  },
+  {
+    "id": 4202,
+    "aegisName": "Civil_Servant_Card",
+    "name": "Mao Guai Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Mao Guai",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Ghost] element targets by 20%."
+  },
+  {
+    "id": 4105,
+    "aegisName": "Marc_Card",
+    "name": "Marc Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Marc",
+        "rate": 1
+      },
+      {
+        "monster": "Marc",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Frozen] status.\nReduces damage received from [Water] element attacks by 5%."
+  },
+  {
+    "id": 4112,
+    "aegisName": "Marduk_Card",
+    "name": "Marduk Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Marduk",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Silence] status."
+  },
+  {
+    "id": 4364,
+    "aegisName": "Magaleta_Card",
+    "name": "Margaretha Sorin Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Margaretha Sorin",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 15% chance of using [Lex Divina] Lv 5 on the attacking enemy when attacked by magic."
+  },
+  {
+    "id": 4196,
+    "aegisName": "Marin_Card",
+    "name": "Marin Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Marin",
+        "rate": 1
+      },
+      {
+        "monster": "Marin",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 20% chance of the Jellopy item dropping when killing a monster.\nAdds a 0.1% chance of the Large Jellopy item dropping when killing a monster."
+  },
+  {
+    "id": 4055,
+    "aegisName": "Marina_Card",
+    "name": "Marina Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Marina",
+        "rate": 1
+      },
+      {
+        "monster": "Marina",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Frozen] on the target when doing a physical attack."
+  },
+  {
+    "id": 4084,
+    "aegisName": "Marine_Sphere_Card",
+    "name": "Marine Sphere Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Marine Sphere",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Magnum Break] Lv 3."
+  },
+  {
+    "id": 4113,
+    "aegisName": "Marionette_Card",
+    "name": "Marionette Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Marionette",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Ghost] element attacks by 30%."
+  },
+  {
+    "id": 4095,
+    "aegisName": "Marse_Card",
+    "name": "Marse Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Marse",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Water] element attacks by 30%."
+  },
+  {
+    "id": 4046,
+    "aegisName": "Martin_Card",
+    "name": "Martin Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Martin",
+        "rate": 1
+      },
+      {
+        "monster": "Martin",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Blind] status by 20%."
+  },
+  {
+    "id": 4197,
+    "aegisName": "Mastering_Card",
+    "name": "Mastering Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Mastering",
+        "rate": 1
+      }
+    ],
+    "description": "LUK +1\nSet bonus with Poring Card\nFlee +18\nSet bonus with Phoenix Muffler [1]\nMdef + 10Flee + 20Reduces damage taken from [Neutral] property attacks by 20%."
+  },
+  {
+    "id": 4361,
+    "aegisName": "B_Harword_Card",
+    "name": "MasterSmith Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Whitesmith Howard",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 10% chance of damging the target's weapon when doing a physical attack.\nAdds a 7% chance of damging the target's armor when doing a physical attack."
+  },
+  {
+    "id": 4760,
+    "aegisName": "Matk1",
+    "name": "MATK+1%",
+    "drops": []
+  },
+  {
+    "id": 4761,
+    "aegisName": "Matk2",
+    "name": "MATK+2%",
+    "drops": []
+  },
+  {
+    "id": 4097,
+    "aegisName": "Matyr_Card",
+    "name": "Matyr Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Matyr",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +10%\nAGI +1"
+  },
+  {
+    "id": 4146,
+    "aegisName": "Maya_Card",
+    "name": "Maya Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Maya",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 50% chance of reflecting received targeted magic damage at the caster."
+  },
+  {
+    "id": 4198,
+    "aegisName": "Maya_Puple_Card",
+    "name": "Maya Purple Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Maya Purple",
+        "rate": 1
+      }
+    ],
+    "description": "Makes hidden monsters and players visible."
+  },
+  {
+    "id": 4124,
+    "aegisName": "Medusa_Card",
+    "name": "Medusa Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Medusa",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to Stone Curse status\nReduces damage received from [Demon] race by 15%."
+  },
+  {
+    "id": 4200,
+    "aegisName": "Megalith_Card",
+    "name": "Megalith Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Megalith",
+        "rate": 1
+      }
+    ],
+    "description": "If the footgear is upgraded to +5 or less, MDef +7."
+  },
+  {
+    "id": 4067,
+    "aegisName": "Megalodon_Card",
+    "name": "Megalodon Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Megalodon",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Frozen] status by 20%."
+  },
+  {
+    "id": 4399,
+    "aegisName": "Thanatos_Card",
+    "name": "Memory of Thanatos Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Memory of Thanatos",
+        "rate": 1
+      }
+    ],
+    "description": "Physical attacks deal [Occult Impaction] style damage.\nDrains 1 SP from the user when physically attacking."
+  },
+  {
+    "id": 4199,
+    "aegisName": "Merman_Card",
+    "name": "Merman Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Merman",
+        "rate": 1
+      }
+    ],
+    "description": "HP Recovery +10%\nSP Recovery +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack."
+  },
+  {
+    "id": 4341,
+    "aegisName": "Metaling_Card",
+    "name": "Metaling Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Metaling",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Divest Weapon] Lv 1 on the target when doing a physical attack."
+  },
+  {
+    "id": 4057,
+    "aegisName": "Metaller_Card",
+    "name": "Metaller Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Metaller",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Silence] on the target when doing a physical attack."
+  },
+  {
+    "id": 4231,
+    "aegisName": "Increase_Soil_Card",
+    "name": "Mi Gao Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Mi Gao",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage from WoE 1 guardians by 50%."
+  },
+  {
+    "id": 4205,
+    "aegisName": "Mimic_Card",
+    "name": "Mimic Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Mimic",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.1% chance of the Old Blue Box item dropping when killing a monster."
+  },
+  {
+    "id": 4339,
+    "aegisName": "Mineral_Card",
+    "name": "Mineral Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Mineral",
+        "rate": 1
+      }
+    ],
+    "description": "ATK -25\nDEF +3"
+  },
+  {
+    "id": 4204,
+    "aegisName": "Mini_Demon_Card",
+    "name": "Mini Demon Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Mini Demon",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Brute] race monsters by 10%.\nIncreases damage received from [Brute] race by 20%."
+  },
+  {
+    "id": 4126,
+    "aegisName": "Minorous_Card",
+    "name": "Minorous Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Minorous",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Large] size targets by 15%."
+  },
+  {
+    "id": 4132,
+    "aegisName": "Mistress_Card",
+    "name": "Mistress Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Mistress",
+        "rate": 1
+      }
+    ],
+    "description": "Removes one gemstone from the requirement of skills.\nIncreases the SP cost of skills by 25%."
+  },
+  {
+    "id": 4393,
+    "aegisName": "Shelter_Card",
+    "name": "Mistress of Shelter Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Mistress of Shelter",
+        "rate": 1
+      }
+    ],
+    "description": "Gives Int +1 for every 18 points of base Str."
+  },
+  {
+    "id": 4208,
+    "aegisName": "Miyabi_Ningyo_Card",
+    "name": "Miyabi Doll Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Miyabi Doll",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Frost Diver] by 5%.\nSet bonus with Loli Ruri Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Evil Nymph Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster."
+  },
+  {
+    "id": 4317,
+    "aegisName": "Mobster_Card",
+    "name": "Mobster Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Mobster",
+        "rate": 1
+      }
+    ],
+    "description": "Increases critical attack damage by 15%.\nIf used by a Thief job type,  Crit +4."
+  },
+  {
+    "id": 4131,
+    "aegisName": "Moonlight_Flower_Card",
+    "name": "Moonlight Flower Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Moonlight Flower",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the user's movement speed."
+  },
+  {
+    "id": 4036,
+    "aegisName": "Muka_Card",
+    "name": "Muka Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Muka",
+        "rate": 1
+      },
+      {
+        "monster": "Muka",
+        "rate": 1
+      }
+    ],
+    "description": "HP Recovery +10%\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster."
+  },
+  {
+    "id": 4106,
+    "aegisName": "Mummy_Card",
+    "name": "Mummy Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Mummy",
+        "rate": 1
+      }
+    ],
+    "description": "HIT +20\nSet bonus with Ancient Mummy Card\nPerfect Hit +20"
+  },
+  {
+    "id": 4090,
+    "aegisName": "Munak_Card",
+    "name": "Munak Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Munak",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Stone Curse] status by 15%.\nReduces damage received from [Earth] element attacks by 5%.\nSet bonus with Bongun Card, Yao Jun Card\nAll stats +1"
+  },
+  {
+    "id": 4420,
+    "aegisName": "Muscipular_Card",
+    "name": "Muscipular Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Muscipular",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 10% chance of using [Heal] Lv 1 or [Increase AGI] Lv 1 on the user when physically attacked."
+  },
+  {
+    "id": 4203,
+    "aegisName": "Mutant_Dragon_Card",
+    "name": "Mutant Dragonoid Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Mutant Dragonoid",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Fire Ball] Lv 3, or the user's level if its higher, of the user's level on the target when doing a physical attack."
+  },
+  {
+    "id": 4108,
+    "aegisName": "Myst_Card",
+    "name": "Myst Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Myst",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Poison] element attacks by 30%."
+  },
+  {
+    "id": 4206,
+    "aegisName": "Mystcase_Card",
+    "name": "Myst Case Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Myst Case",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.3% chance of the Gift Box (Plain) item dropping when a monster is killed.\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster."
+  },
+  {
+    "id": 4207,
+    "aegisName": "Mysteltainn_Card",
+    "name": "Mysteltainn Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Mysteltainn",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Small] size enemies by 25%."
+  },
+  {
+    "id": 4440,
+    "aegisName": "Necromancer_Card",
+    "name": "Necromancer Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Necromancer",
+        "rate": 1
+      }
+    ],
+    "description": "If compounded into a Rod weapon\nInt +1Magic attacks bypass 2% mdef of normal and boss monsters and players."
+  },
+  {
+    "id": 4167,
+    "aegisName": "Neraid_Card",
+    "name": "Nereid Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Nereid",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking a [Brute] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4127,
+    "aegisName": "Nightmare_Card",
+    "name": "Nightmare Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Nightmare",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Sleep] status.\nSet bonus with Nightmare Terror Card\nIncreases the chance of [Curse] being inflicted to 6%."
+  },
+  {
+    "id": 4166,
+    "aegisName": "Nightmare_Terror_Card",
+    "name": "Nightmare Terror Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Nightmare Terror",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Curse] on the attacker when physically attacked.\nSet bonus with Nightmare Card\nIncreases the chance of [Curse] being inflicted to 6%."
+  },
+  {
+    "id": 4159,
+    "aegisName": "Nine_Tail_Card",
+    "name": "Nine Tail Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Nine Tail",
+        "rate": 1
+      }
+    ],
+    "description": "If the garment is upgraded to +9 or higher, Flee +20."
+  },
+  {
+    "id": 4334,
+    "aegisName": "Noxious_Card",
+    "name": "Noxious Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Noxious",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Neutral] element attacks by 10%.\nReduces damage received from ranged attacks by 10%."
+  },
+  {
+    "id": 4093,
+    "aegisName": "Obeaune_Card",
+    "name": "Obeaune Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Obeaune",
+        "rate": 1
+      },
+      {
+        "monster": "Obeune",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Cure] Lv 1."
+  },
+  {
+    "id": 4338,
+    "aegisName": "Obsidian_Card",
+    "name": "Obsidian Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Obsidian",
+        "rate": 1
+      }
+    ],
+    "description": "Gives Vit +1 for every 18 points of base Dex."
+  },
+  {
+    "id": 4396,
+    "aegisName": "Tha_Odium_Card",
+    "name": "Odium of Thanatos Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Odium of Thanatos",
+        "rate": 1
+      }
+    ],
+    "description": "Each upgrade made to the footgear gives Agi +1."
+  },
+  {
+    "id": 4254,
+    "aegisName": "Tirfing_Card",
+    "name": "Ogretooth Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Ogretooth",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Medium] size enemies by 25%."
+  },
+  {
+    "id": 4256,
+    "aegisName": "Orc_Archer_Card",
+    "name": "Orc Archer Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Orc Archer",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Box of Panting item dropping when killing a [Demi-Human] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Demi-Human] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Demi-Human] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Demi-Human] race monsters by an additional 5%."
+  },
+  {
+    "id": 4375,
+    "aegisName": "Orc_Baby_Card",
+    "name": "Orc Baby Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Orc Baby",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage taken from [Neutral] property attacks by 10%.\nIf upgrade level is +9 or higher\nAdditional Flee +5Reduces damage taken from [Neutral] property attacks by an additional 5%."
+  },
+  {
+    "id": 4143,
+    "aegisName": "Orc_Hero_Card",
+    "name": "Orc Hero Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Orc Hero",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Stun] status."
+  },
+  {
+    "id": 4255,
+    "aegisName": "Orc_Lady_Card",
+    "name": "Orc Lady Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Orc Lady",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against the High Orc, Orc Archer, Orc Lady, Orc Skeleton, Orc Warrior and Orc Zombie monsters by 30%."
+  },
+  {
+    "id": 4135,
+    "aegisName": "Orc_Load_Card",
+    "name": "Orc Lord Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Orc Lord",
+        "rate": 1
+      }
+    ],
+    "description": "Reflects 30% of the received melee damage back at the attacker."
+  },
+  {
+    "id": 4085,
+    "aegisName": "Orc_Skeleton_Card",
+    "name": "Orc Skeleton Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Orc Skeleton",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Holy] element targets by 20%."
+  },
+  {
+    "id": 4066,
+    "aegisName": "Orc_Warrior_Card",
+    "name": "Orc Warrior Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Christmas Orc",
+        "rate": 1
+      },
+      {
+        "monster": "Orc Warrior",
+        "rate": 1
+      },
+      {
+        "monster": "Smoking Orc",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Brute] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Brute] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Brute] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Brute] race monsters by an additional 5%."
+  },
+  {
+    "id": 4071,
+    "aegisName": "Orc_Zombie_Card",
+    "name": "Orc Zombie Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Orc Zombie",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Undead] element attacks by 30%."
+  },
+  {
+    "id": 4144,
+    "aegisName": "Osiris_Card",
+    "name": "Osiris Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Osiris",
+        "rate": 1
+      }
+    ],
+    "description": "Restores the user's HP and SP entirely when revived or respawning from death.\nSet bonus with Old Morroc Shawl [1]\nAdditional Max HP + 15%Reduces damage taken from [Fire] property attacks by 50%.Reduces damage taken from [Shadow] property attacks by 100%.Immune to [Curse]."
+  },
+  {
+    "id": 4238,
+    "aegisName": "Owl_Baron_Card",
+    "name": "Owl Baron Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Owl Baron",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of using [Lex Aeterna] Lv 1 on the target when doing a physical attack.\nSet bonus with Owl Duke Card\nAdds a 2% chance of using [Lightning Bolt] Lv 5 on the target when doing a physical attack."
+  },
+  {
+    "id": 4237,
+    "aegisName": "Owl_Duke_Card",
+    "name": "Owl Duke Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Owl Duke",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.3% chance of using [Impositio Manus] Lv 3 on the user when doing a physical attack.\nSet bonus with Owl Baron Card\nAdds a 2% chance of using [Lightning Bolt] Lv 5 on the target when doing a physical attack."
+  },
+  {
+    "id": 4310,
+    "aegisName": "Panzer_Goblin_Card",
+    "name": "Panzer Goblin Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Panzer Goblin",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Demon] race targets.\nIncreases critical attack damage by 10%."
+  },
+  {
+    "id": 4309,
+    "aegisName": "Parasite_Card",
+    "name": "Parasite Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Parasite",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Neutral] element attacks by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%."
+  },
+  {
+    "id": 4099,
+    "aegisName": "Pasana_Card",
+    "name": "Pasana Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Pasana",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Fire] element."
+  },
+  {
+    "id": 4031,
+    "aegisName": "Pecopeco_Card",
+    "name": "Peco Peco Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Peco Peco",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +10%\nSet bonus with Grand Peco Card\nVit +3Def +3"
+  },
+  {
+    "id": 4007,
+    "aegisName": "Pecopeco_Egg_Card",
+    "name": "Peco Peco Egg Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Peco Peco Egg",
+        "rate": 1
+      },
+      {
+        "monster": "Peco Peco Egg",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Formless] race targets by 20%."
+  },
+  {
+    "id": 4314,
+    "aegisName": "Penomena_Card",
+    "name": "Penomena Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Penomena",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Formless] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Formless] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Formless] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Formless] race monsters by an additional 5%."
+  },
+  {
+    "id": 4311,
+    "aegisName": "Permeter_Card",
+    "name": "Permeter Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Permeter",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Shadow] and [Undead] element attacks by 15%.\nSet bonus with Solider Card, Assaulter Card, Freezer Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Freezer Card, Heater Card, Archdam Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element."
+  },
+  {
+    "id": 4315,
+    "aegisName": "Pest_Card",
+    "name": "Pest Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Pest",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Stone Curse] on the attacker when physically attacked.\nIf the user's base Int is 77 or higher, chance is increased to 6%."
+  },
+  {
+    "id": 4148,
+    "aegisName": "Pharaoh_Card",
+    "name": "Pharaoh Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Pharaoh",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the SP cost of skills by 30%."
+  },
+  {
+    "id": 4077,
+    "aegisName": "Phen_Card",
+    "name": "Phen Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Phen",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the cast time of skills by 25%.\nPrevents skill casting from being interrupted."
+  },
+  {
+    "id": 4329,
+    "aegisName": "Phendark_Card",
+    "name": "Phendark Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Phendark",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking a [Demi-Human] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4121,
+    "aegisName": "Phreeoni_Card",
+    "name": "Phreeoni Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Phreeoni",
+        "rate": 1
+      }
+    ],
+    "description": "HIT +100\nSet bonus with Phreeoni Wings [1]\nPerfect Hit +50Immune to [Stone Curse]."
+  },
+  {
+    "id": 4008,
+    "aegisName": "Picky_Card",
+    "name": "Picky Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Picky",
+        "rate": 1
+      },
+      {
+        "monster": "Picky",
+        "rate": 1
+      }
+    ],
+    "description": "STR +1\nATK +10"
+  },
+  {
+    "id": 4011,
+    "aegisName": "Picky__Card",
+    "name": "Picky Egg Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Picky",
+        "rate": 1
+      },
+      {
+        "monster": "Picky",
+        "rate": 1
+      }
+    ],
+    "description": "VIT +1\nMax HP +100"
+  },
+  {
+    "id": 4073,
+    "aegisName": "Pirate_Skel_Card",
+    "name": "Pirate Skeleton Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Pirate Skeleton",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Discount] Lv 5."
+  },
+  {
+    "id": 4335,
+    "aegisName": "Pitman_Card",
+    "name": "Pitman Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Pitman",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Earth Spike] and [Heaven's Drive] by 5%.\nDrains 50 SP from the user when the weapon is unequipped.\nSet bonus with Lunar Rainbow [1]\nAdds a 4% chance of casting [Earth Spike] Lv 4 or [Heaven's Drive] Lv 4 on the target when performing a physical attack, where the skill level and chance to cast is increased by 1% per upgrade above 4 to maximum of 10."
+  },
+  {
+    "id": 4024,
+    "aegisName": "Plankton_Card",
+    "name": "Plankton Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Plankton",
+        "rate": 1
+      },
+      {
+        "monster": "Plankton",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Sleep] on the target when doing a physical attack."
+  },
+  {
+    "id": 4389,
+    "aegisName": "Plasma_Card",
+    "name": "Plasma Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Plasma",
+        "rate": 1
+      },
+      {
+        "monster": "Plasma",
+        "rate": 1
+      },
+      {
+        "monster": "Plasma",
+        "rate": 1
+      },
+      {
+        "monster": "Plasma",
+        "rate": 1
+      },
+      {
+        "monster": "Plasma",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance of the Fireproof Potion, Earthproof Potion, Thunderproof Potion or Coldproof Potion items of dropping when killing a monster."
+  },
+  {
+    "id": 4048,
+    "aegisName": "Poison_Spore_Card",
+    "name": "Poison Spore Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Poison Spore",
+        "rate": 1
+      },
+      {
+        "monster": "Poison Spore",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Envenom] Lv 3."
+  },
+  {
+    "id": 4175,
+    "aegisName": "Poison_Toad_Card",
+    "name": "Poisonous Toad Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Poison Toad",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Envenom] Lv 1 on the target when doing a physical attack.\nThe target gets knock backed by 5 cells when [Envenom] is used."
+  },
+  {
+    "id": 4033,
+    "aegisName": "Poporing_Card",
+    "name": "Poporing Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Poporing",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Detoxify] Lv 1."
+  },
+  {
+    "id": 4337,
+    "aegisName": "Porcellio_Card",
+    "name": "Porcellio Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Porcellio",
+        "rate": 1
+      }
+    ],
+    "description": "ATK +25\nDEF -5"
+  },
+  {
+    "id": 4001,
+    "aegisName": "Poring_Card",
+    "name": "Poring Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Poring",
+        "rate": 1
+      }
+    ],
+    "description": "LUK +2\nPerfect Dodge +1\nSet bonus with Mastering Card\nFlee +18"
+  },
+  {
+    "id": 4313,
+    "aegisName": "Punk_Card",
+    "name": "Punk Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Punk",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Quagmire] Lv 1, or Lv 5 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Clock Card\nDef +3MDef +3"
+  },
+  {
+    "id": 4003,
+    "aegisName": "Pupa_Card",
+    "name": "Pupa Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Pupa",
+        "rate": 1
+      },
+      {
+        "monster": "Pupa",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +700"
+  },
+  {
+    "id": 4294,
+    "aegisName": "Quve_Card",
+    "name": "Quve Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Quve",
+        "rate": 1
+      }
+    ],
+    "description": "If the user is a Novice job type, adds a 10% chance of using [Increase AGI] Lv 1 on the user when physically attacked.\nSet bonus with Lude Card\nMax HP +300Max SP +60"
+  },
+  {
+    "id": 4083,
+    "aegisName": "Rafflesia_Card",
+    "name": "Rafflesia Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Rafflesia",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Fish] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Fish] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Fish] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Fish] race monsters by an additional 5%."
+  },
+  {
+    "id": 4436,
+    "aegisName": "Ragged_Zombie_Card",
+    "name": "Ragged Zombie Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Ragged Zombie",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical and magic damage against [Demi-Human] race targets by 1%.\nGives a Crit +5 bonus when attacking [Demi-Human] race targets.\nAdds a 0.1% chance of inflicting [Bleeding] on the user when doing a melee attack.\nSet bonus with Zombie Slaughter Card\nRestores 2 SP to the user when a [Demi-Human] race monster is killed with a physical attack."
+  },
+  {
+    "id": 4186,
+    "aegisName": "Raggler_Card",
+    "name": "Raggler Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Raggler",
+        "rate": 1
+      }
+    ],
+    "description": "STR +1\nVIT +1\nSet bonus with Myst Case Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster."
+  },
+  {
+    "id": 4407,
+    "aegisName": "Randgris_Card",
+    "name": "Randgris Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Valkyrie Randgris",
+        "rate": 1
+      }
+    ],
+    "description": "Atk +10%\nAdds a 5% chance of using [Dispell] Lv 1 on the target when doing a physical attack.\nMakes the weapon unbreakable."
+  },
+  {
+    "id": 4187,
+    "aegisName": "Raydric_Archer_Card",
+    "name": "Raydric Archer Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Raydric Archer",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Box of Resentment item dropping when killing a [Demon] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Demon] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Demon] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Demon] race monsters by an additional 5%."
+  },
+  {
+    "id": 4133,
+    "aegisName": "Daydric_Card",
+    "name": "Raydric Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Raydric",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Neutral] element attacks by 20%."
+  },
+  {
+    "id": 4380,
+    "aegisName": "Ferus_Card",
+    "name": "Red Ferus Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Ferus",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Fire Pillar] and [Meteor Storm] by 5%.\nDrains 50 SP from the user when the weapon is unequipped.\nSet bonus with Lunar Rainbow [1]\nAdds a 4% chance of casting [Fire Ball] Lv 4 or [Fire Bolt] Lv 4 on the target when performing a physical attack, where the skill level and chance to cast is increased by 1% per upgrade above 4 to maximum of 10."
+  },
+  {
+    "id": 4383,
+    "aegisName": "Novus_Card",
+    "name": "Red Novus Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Novus",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 30% chance of inflicting [Confusion] on the user or attacker when physically attacked."
+  },
+  {
+    "id": 4353,
+    "aegisName": "Removal_Card",
+    "name": "Remover Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Remover",
+        "rate": 1
+      }
+    ],
+    "description": "Each upgrade made to the armor reduces the Max HP bonus by 40."
+  },
+  {
+    "id": 4104,
+    "aegisName": "Requiem_Card",
+    "name": "Requiem Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Requiem",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Chaos] on the target when doing a physical attack."
+  },
+  {
+    "id": 4185,
+    "aegisName": "Rideword_Card",
+    "name": "Rideword Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Rideword",
+        "rate": 1
+      }
+    ],
+    "description": "If used by an Acolyte job type\nInt +1MDef +1\nSet bonus with Enchanted Peach Tree Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Cookie Card, Fur Seal Card, Waste Stove Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted."
+  },
+  {
+    "id": 4021,
+    "aegisName": "Rocker_Card",
+    "name": "Rocker Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Rocker",
+        "rate": 1
+      }
+    ],
+    "description": "DEX +1\nATK +5\nSet bonus with Vocal Card\nFlee +18"
+  },
+  {
+    "id": 4014,
+    "aegisName": "Roda_Frog_Card",
+    "name": "Roda Frog Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Roda Frog",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +400\nMax SP +50\nSet bonus with Toad Card\nFlee +18"
+  },
+  {
+    "id": 4192,
+    "aegisName": "Rotar_Zairo_Card",
+    "name": "Rotar Zairo Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Rotar Zairo",
+        "rate": 1
+      }
+    ],
+    "description": "Gives a Crit +7 bonus when attacking [Fish] race targets.\nIncreases critical attack damage by 10%."
+  },
+  {
+    "id": 4422,
+    "aegisName": "Roween_Card",
+    "name": "Roween Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Roween",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Water] element targets by 10%.\nGives a Crit +15 bonus when attacking [Fish] race targets."
+  },
+  {
+    "id": 4342,
+    "aegisName": "Rsx_0806_Card",
+    "name": "RSX-0806 Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "RSX-0806",
+        "rate": 1
+      }
+    ],
+    "description": "Prevents the user from being moved or pushed back by skills.\nMakes the armor unbreakable."
+  },
+  {
+    "id": 4194,
+    "aegisName": "Rybio_Card",
+    "name": "Rybio Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Rybio",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Stun] on the attacker when physically attacked.\nIf the user's base Dex is 77 or higher, chance is increased to 6%."
+  },
+  {
+    "id": 4219,
+    "aegisName": "Sageworm_Card",
+    "name": "Sage Worm Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Sage Worm",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.3% chance of the Blue Gemstone, Red Gemstone or Yellow Gemstone item dropping when killing a monster."
+  },
+  {
+    "id": 4429,
+    "aegisName": "Salamander_Card",
+    "name": "Salamander Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Salamander",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Fire Pillar] and [Meteor Storm] by 40%."
+  },
+  {
+    "id": 4263,
+    "aegisName": "Incant_Samurai_Card",
+    "name": "Samurai Spector Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Samurai Specter",
+        "rate": 1
+      }
+    ],
+    "description": "Physical attacks ignore the defense of normal monsters and players.\nDisables the user's natural HP recovery.\nDrains 666 HP from the user every 10 seconds.\nDrains 999 HP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4101,
+    "aegisName": "Sand_Man_Card",
+    "name": "Sandman Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Sandman",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Earth] element."
+  },
+  {
+    "id": 4005,
+    "aegisName": "Poring__Card",
+    "name": "Santa Poring Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Bring it on!",
+        "rate": 100
+      },
+      {
+        "monster": "Santa Poring",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Shadow] element targets by 20%."
+  },
+  {
+    "id": 4216,
+    "aegisName": "Sasquatch_Card",
+    "name": "Sasquatch Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Sasquatch",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Frozen] on the attacker when physically attacked."
+  },
+  {
+    "id": 4017,
+    "aegisName": "Savage_Babe_Card",
+    "name": "Savage Babe Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Savage Babe",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Stun] on the target when doing a physical attack."
+  },
+  {
+    "id": 4078,
+    "aegisName": "Savage_Card",
+    "name": "Savage Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Savage",
+        "rate": 1
+      },
+      {
+        "monster": "Savage",
+        "rate": 1
+      }
+    ],
+    "description": "VIT +3"
+  },
+  {
+    "id": 4068,
+    "aegisName": "Scorpion_Card",
+    "name": "Scorpion Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Scorpion",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Plant] race targets by 20%."
+  },
+  {
+    "id": 4130,
+    "aegisName": "Scorpion_King_Card",
+    "name": "Scorpion King Card",
+    "slot": "Right Hand",
+    "drops": []
+  },
+  {
+    "id": 4326,
+    "aegisName": "See_Otter_Card",
+    "name": "Sea-Otter Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Sea Otter",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of the Raw Fish or Sushi item dropping when killing a [Fish] race monster.\nIncreases the recovery rate of the Raw Fish and Sushi items by 50%."
+  },
+  {
+    "id": 4312,
+    "aegisName": "Fur_Seal_Card",
+    "name": "Seal Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Seal",
+        "rate": 1
+      }
+    ],
+    "description": "If equipped by an Acolyte job type\nIncreases the user's critical attack rate on [Demon] and [Undead] race targets by 9%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Cookie Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Cookie Card, Waste Stove Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted."
+  },
+  {
+    "id": 4414,
+    "aegisName": "Seeker_Card",
+    "name": "Seeker Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Seeker",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Stone Curse] Lv 1.\nIncreases resistance to [Stone Curse] status by 30%."
+  },
+  {
+    "id": 4358,
+    "aegisName": "Seyren_Card",
+    "name": "Seyren Windsor Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Seyren Windsor",
+        "rate": 1
+      }
+    ],
+    "description": "Each upgrade on the headgear gives Str +1."
+  },
+  {
+    "id": 4273,
+    "aegisName": "Shellfish_Card",
+    "name": "Shell Fish Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Shellfish",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against the Crab monster by 30%.\nSet bonus with Crab Card, Aster Card\nIncreases physical damage against [Water] element targets by 30%.Adds a 30% chance of the Raw Fish item dropping when killing a [Fish] race monster."
+  },
+  {
+    "id": 4230,
+    "aegisName": "Shinobi_Card",
+    "name": "Shinobi Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Shinobi",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 10% chance of using [Cloaking] of the highest level known (to a maximum of level 5) when physically attacked. If [Cloaking] is not learned, level 1 is used instead.\nSet bonus with The Paper Card, Wanderer Card, Wild Rose Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch]."
+  },
+  {
+    "id": 4117,
+    "aegisName": "Side_Winder_Card",
+    "name": "Sidewinder Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Side Winder",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Double Attack] Lv 1 or the user's level if its higher, on the weapon."
+  },
+  {
+    "id": 4416,
+    "aegisName": "Siroma_Card",
+    "name": "Siroma Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Siroma",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the cast time for [Cold Bolt] by 25%.\nIncreases the damage inflicted with [Cold Bolt] by 25%."
+  },
+  {
+    "id": 4406,
+    "aegisName": "Skeggiold_Card",
+    "name": "Skeggiold Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Skeggiold",
+        "rate": 1
+      },
+      {
+        "monster": "Skeggiold",
+        "rate": 1
+      }
+    ],
+    "description": "Increases magic damage against [Demon] Race targets by 2%."
+  },
+  {
+    "id": 4025,
+    "aegisName": "Skeleton_Card",
+    "name": "Skeleton Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Skeleton",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of inflicting [Stun] on the target when doing a physical attack.\nSet bonus with Skel Prisoner Card"
+  },
+  {
+    "id": 4221,
+    "aegisName": "Skeleton_General_Card",
+    "name": "Skeleton General Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Skeleton General",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Insect] race monsters by 10%.\nIncreases damage received from [Insect] race by 20%."
+  },
+  {
+    "id": 4222,
+    "aegisName": "Skel_Prisoner_Card",
+    "name": "Skeleton Prisoner Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Skeleton Prisoner",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 3% chance of inflicting [Sleep] on the attacker when physically attacked.\nSet bonus with Skeleton Card"
+  },
+  {
+    "id": 4092,
+    "aegisName": "Skel_Worker_Card",
+    "name": "Skeleton Worker Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Skeleton Worker",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Medium] size targets by 15%."
+  },
+  {
+    "id": 4404,
+    "aegisName": "Skogul_Card",
+    "name": "Skogul Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Skogul",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 30% chance of inflicting [Bleeding] on the user or attacker when physically attacked."
+  },
+  {
+    "id": 4158,
+    "aegisName": "Flying_Deleter_Card",
+    "name": "Sky Deleter Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Deleter",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 100 HP to the user when a monster is killed with a melee attack."
+  },
+  {
+    "id": 4120,
+    "aegisName": "Petit__Card",
+    "name": "Sky Petite Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Petite",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Dragon] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Dragon] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Dragon] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Dragon] race monsters by an additional 5%."
+  },
+  {
+    "id": 4228,
+    "aegisName": "Sleeper_Card",
+    "name": "Sleeper Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Sleeper",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Box of Drowsiness item dropping when killing a [Fish] race monster."
+  },
+  {
+    "id": 4044,
+    "aegisName": "Smokie_Card",
+    "name": "Smokie Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Smokie",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Hiding] Lv 1."
+  },
+  {
+    "id": 4037,
+    "aegisName": "Snake_Card",
+    "name": "Snake Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Boa",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of inflicting [Poison] on the target when doing a physical attack."
+  },
+  {
+    "id": 4367,
+    "aegisName": "B_Shecil_Card",
+    "name": "Sniper Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Sniper Cecil",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance to restore 20% of the damage dealt as HP to the user with each physical attack."
+  },
+  {
+    "id": 4415,
+    "aegisName": "Snowier_Card",
+    "name": "Snowier Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Snowier",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 20% chance of the Ice Cream item dropping when killing a monster.\nDoubles the recovery rate of the Ice Cream item."
+  },
+  {
+    "id": 4100,
+    "aegisName": "Sohee_Card",
+    "name": "Sohee Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Sohee",
+        "rate": 1
+      }
+    ],
+    "description": "Max SP +15%\nSP Recovery +3%"
+  },
+  {
+    "id": 4059,
+    "aegisName": "Soldier_Andre_Card",
+    "name": "Soldier Andre Card",
+    "slot": "Left Hand",
+    "drops": []
+  },
+  {
+    "id": 4086,
+    "aegisName": "Soldier_Skeleton_Card",
+    "name": "Soldier Skeleton Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Soldier Skeleton",
+        "rate": 1
+      }
+    ],
+    "description": "CRIT +9"
+  },
+  {
+    "id": 4220,
+    "aegisName": "Solider_Card",
+    "name": "Solider Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Solider",
+        "rate": 1
+      }
+    ],
+    "description": "DEF +2\nMDEF +2\nSet bonus with Assaulter Card, Permeter Card, Freezer Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%."
+  },
+  {
+    "id": 4022,
+    "aegisName": "Spore_Card",
+    "name": "Spore Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Spore",
+        "rate": 1
+      }
+    ],
+    "description": "VIT +2"
+  },
+  {
+    "id": 4227,
+    "aegisName": "Spring_Rabbit_Card",
+    "name": "Spring Rabbit Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Spring Rabbit",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of the Meat or Monster's Feed item dropping when killing a [Brute] race monster.\nIncreases the recovery rate of the Meat and Monster's Feed items by 50%."
+  },
+  {
+    "id": 4039,
+    "aegisName": "Stainer_Card",
+    "name": "Stainer Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Stainer",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Silence] status by 20%.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch]."
+  },
+  {
+    "id": 4223,
+    "aegisName": "Stalactic_Golem_Card",
+    "name": "Stalactic Golem Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Stalactic Golem",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Stun] status by 20%."
+  },
+  {
+    "id": 4424,
+    "aegisName": "Stapo_Card",
+    "name": "Stapo Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Stapo",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Find Stone] Lv 1 and [Stone Fling] Lv 1."
+  },
+  {
+    "id": 4042,
+    "aegisName": "Steel_Chonchon_Card",
+    "name": "Steel Chonchon Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Steel Chonchon",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Wind] element attacks by 5%.\nSet bonus with Old Pink Poo Hat [1]\nImmune to Frozen.Adds a chance of inflicting Frozen on any target within 11-11 cells of the user when receiving a physical or a magical attack."
+  },
+  {
+    "id": 4224,
+    "aegisName": "Stem_Worm_Card",
+    "name": "Stem Worm Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Stem Worm",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Box of Storms item dropping when killing a [Brute] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Brute] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Brute] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Brute] race monsters by an additional 5%."
+  },
+  {
+    "id": 4226,
+    "aegisName": "Sting_Card",
+    "name": "Sting Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Sting",
+        "rate": 1
+      }
+    ],
+    "description": "If the shield is upgraded to +9 or higher\nAdditional Def +2MDef +5\nSet bonus with Sting Silk Ribbon [1]"
+  },
+  {
+    "id": 4225,
+    "aegisName": "Stone_Shooter_Card",
+    "name": "Stone Shooter Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Stone Shooter",
+        "rate": 1
+      }
+    ],
+    "description": "ATK +10\nHIT +10"
+  },
+  {
+    "id": 4318,
+    "aegisName": "Knight_Windstorm_Card",
+    "name": "Stormy Knight Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Stormy Knight",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Storm Gust] Lv 2 on the target when doing a physical attack.\nAdds a 20% chance of inflicting [Frozen] on the target when doing a physical attack."
+  },
+  {
+    "id": 4700,
+    "aegisName": "Strength1",
+    "name": "STR+1",
+    "drops": [],
+    "description": "STR +1"
+  },
+  {
+    "id": 4768,
+    "aegisName": "Str1_J",
+    "name": "STR+1",
+    "drops": []
+  },
+  {
+    "id": 4709,
+    "aegisName": "Strength10",
+    "name": "STR+10",
+    "drops": [],
+    "description": "STR +10"
+  },
+  {
+    "id": 4701,
+    "aegisName": "Strength2",
+    "name": "STR+2",
+    "drops": [],
+    "description": "STR +2"
+  },
+  {
+    "id": 4769,
+    "aegisName": "Str2_J",
+    "name": "STR+2",
+    "drops": []
+  },
+  {
+    "id": 4702,
+    "aegisName": "Strength3",
+    "name": "STR+3",
+    "drops": [],
+    "description": "STR +3"
+  },
+  {
+    "id": 4770,
+    "aegisName": "Str3_J",
+    "name": "STR+3",
+    "drops": []
+  },
+  {
+    "id": 4703,
+    "aegisName": "Strength4",
+    "name": "STR+4",
+    "drops": [],
+    "description": "STR +4"
+  },
+  {
+    "id": 4704,
+    "aegisName": "Strength5",
+    "name": "STR+5",
+    "drops": [],
+    "description": "STR +5"
+  },
+  {
+    "id": 4705,
+    "aegisName": "Strength6",
+    "name": "STR+6",
+    "drops": [],
+    "description": "STR +6"
+  },
+  {
+    "id": 4706,
+    "aegisName": "Strength7",
+    "name": "STR+7",
+    "drops": [],
+    "description": "STR +7"
+  },
+  {
+    "id": 4707,
+    "aegisName": "Strength8",
+    "name": "STR+8",
+    "drops": [],
+    "description": "STR +8"
+  },
+  {
+    "id": 4708,
+    "aegisName": "Strength9",
+    "name": "STR+9",
+    "drops": [],
+    "description": "STR +9"
+  },
+  {
+    "id": 4111,
+    "aegisName": "Strouf_Card",
+    "name": "Strouf Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Strouf",
+        "rate": 1
+      },
+      {
+        "monster": "Strouf",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Demon] race targets by 20%."
+  },
+  {
+    "id": 4218,
+    "aegisName": "Succubus_Card",
+    "name": "Succubus Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Succubus",
+        "rate": 1
+      }
+    ],
+    "description": "VIT -3\nHP Recovery -20%\nMax HP +1000\nSet bonus with Incubus Card\nVit +4Int +4HP Recovery Rate +30%SP Recovery Rate +30%"
+  },
+  {
+    "id": 4427,
+    "aegisName": "Sword_Guardian_Card",
+    "name": "Sword Guardian Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Sword Master",
+        "rate": 1
+      }
+    ],
+    "description": "If compounded into a One-Handed or Two-Handed Sword weapon\nHit +5Crit +5Increases the damage inflicted with [Bowling Bash] by 25%."
+  },
+  {
+    "id": 4089,
+    "aegisName": "Sword_Fish_Card",
+    "name": "Swordfish Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Swordfish",
+        "rate": 1
+      }
+    ],
+    "description": "Changes the user to [Water] element."
+  },
+  {
+    "id": 4304,
+    "aegisName": "Tamruan_Card",
+    "name": "Tamruan Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Tamruan",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Smite] and [Shield Boomerang] by 10%."
+  },
+  {
+    "id": 4302,
+    "aegisName": "Tao_Gunka_Card",
+    "name": "Tao Gunka Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Tao Gunka",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +100%\nDEF -50\nMDEF -50"
+  },
+  {
+    "id": 4028,
+    "aegisName": "Tarou_Card",
+    "name": "Tarou Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Tarou",
+        "rate": 1
+      }
+    ],
+    "description": "STR +2\nSet bonus with Cramp Card\nStr +3"
+  },
+  {
+    "id": 4442,
+    "aegisName": "Tatacho_Card",
+    "name": "Tatacho Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Tatacho",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Neutral] element monsters and players by 20%.\nIncreases physical damage against [Neutral] element targets by 5%."
+  },
+  {
+    "id": 4340,
+    "aegisName": "Teddy_Bear_Card",
+    "name": "Teddy Bear Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Teddy Bear",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Undead] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Undead] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Undead] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Undead] race monsters by an additional 5%."
+  },
+  {
+    "id": 4282,
+    "aegisName": "Tengu_Card",
+    "name": "Tengu Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Tengu",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a  chance of a healing type item dropping when a monster is killed."
+  },
+  {
+    "id": 4058,
+    "aegisName": "Thara_Frog_Card",
+    "name": "Thara Frog Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Thara Frog",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces damage received from [Demi-Human] race by 30%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Demi-Human] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Demi-Human] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Demi-Human] race monsters by an additional 5%."
+  },
+  {
+    "id": 4172,
+    "aegisName": "The_Paper_Card",
+    "name": "The Paper Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "The Paper",
+        "rate": 1
+      }
+    ],
+    "description": "Increases critical attack damage by 20%.\nDrains 1 SP from the user when physically attacking.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills."
+  },
+  {
+    "id": 4016,
+    "aegisName": "Thief_Bug_Card",
+    "name": "Thief Bug Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Thief Bug",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +1"
+  },
+  {
+    "id": 4012,
+    "aegisName": "Thief_Bug_Egg_Card",
+    "name": "Thief Bug Egg Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Thief Bug Egg",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +400"
+  },
+  {
+    "id": 4306,
+    "aegisName": "Toad_Card",
+    "name": "Toad Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Toad",
+        "rate": 1
+      }
+    ],
+    "description": "Perfect Dodge +1\nSet bonus with Roda Frog Card\nFlee +18\nSet bonus with Leviathan Muffler [1]\nMax HP +10%Additional Mdef + 10Reduces damage taken from [Neutral] property attacks by 20%."
+  },
+  {
+    "id": 4229,
+    "aegisName": "C_Tower_Manager_Card",
+    "name": "Tower Keeper Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Clock Tower Manager",
+        "rate": 1
+      }
+    ],
+    "description": "Reduces the variable cast time of skills by an additional 5%.\nSet bonus with Alarm Card, Clock Card, Punk Card\nDef +3MDef +3\nSet bonus with Mechanical Plant Hat [1]\nReduces the variable casting time of skills by 10%."
+  },
+  {
+    "id": 4308,
+    "aegisName": "Tri_Joint_Card",
+    "name": "Tri Joint Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Tri Joint",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking a [Formless] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4305,
+    "aegisName": "Turtle_General_Card",
+    "name": "Turtle General Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Turtle General",
+        "rate": 1
+      }
+    ],
+    "description": "Atk +20%\nAdds a 2% chance of using [Magnum Break] Lv 10 on the target when doing a physical attack."
+  },
+  {
+    "id": 4336,
+    "aegisName": "Ungoliant_Card",
+    "name": "Ungoliant Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Ungoliant",
+        "rate": 1
+      }
+    ],
+    "description": "Gives immunity to [Bleeding] status."
+  },
+  {
+    "id": 4049,
+    "aegisName": "Vadon_Card",
+    "name": "Vadon Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Vadon",
+        "rate": 1
+      },
+      {
+        "monster": "Vadon",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical damage against [Fire] element targets by 20%."
+  },
+  {
+    "id": 4183,
+    "aegisName": "Vagabond_Wolf_Card",
+    "name": "Vagabond Wolf Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Vagabond Wolf",
+        "rate": 1
+      }
+    ],
+    "description": "STR +1\nSet bonus with Wolf Card\nFlee +18"
+  },
+  {
+    "id": 4411,
+    "aegisName": "Vanberk_Card",
+    "name": "Vanberk Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Vanberk",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 0.5% chance for when dealing physical damage, the user will gain Crit +100 for 5 seconds."
+  },
+  {
+    "id": 4369,
+    "aegisName": "Venatu_Card",
+    "name": "Venatu Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Venatu",
+        "rate": 1
+      },
+      {
+        "monster": "Venatu",
+        "rate": 1
+      },
+      {
+        "monster": "Venatu",
+        "rate": 1
+      },
+      {
+        "monster": "Venatu",
+        "rate": 1
+      },
+      {
+        "monster": "Venatu",
+        "rate": 1
+      }
+    ],
+    "description": "Gives Luk +1 for every 18 points of base Agi."
+  },
+  {
+    "id": 4333,
+    "aegisName": "Venomous_Card",
+    "name": "Venomous Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Venomous",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 30% chance of inflicting [Poison] on the user or attacker when physically attacked."
+  },
+  {
+    "id": 4107,
+    "aegisName": "Verit_Card",
+    "name": "Verit Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Verit",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +8%\nMax SP +8%"
+  },
+  {
+    "id": 4374,
+    "aegisName": "Apocalips_H_Card",
+    "name": "Vesper Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Vesper",
+        "rate": 1
+      }
+    ],
+    "description": "Magic attacks bypass the defense of boss monsters by 30%."
+  },
+  {
+    "id": 4209,
+    "aegisName": "Violy_Card",
+    "name": "Violy Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Violy",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Unbarring Octave] Lv 1, or Lv 5 if learned by the user, when doing a physical attack."
+  },
+  {
+    "id": 4740,
+    "aegisName": "Vitality1",
+    "name": "VIT+1",
+    "drops": [],
+    "description": "VIT +1"
+  },
+  {
+    "id": 4774,
+    "aegisName": "Vit1_J",
+    "name": "VIT+1",
+    "drops": []
+  },
+  {
+    "id": 4749,
+    "aegisName": "Vitality10",
+    "name": "VIT+10",
+    "drops": [],
+    "description": "VIT +10"
+  },
+  {
+    "id": 4741,
+    "aegisName": "Vitality2",
+    "name": "VIT+2",
+    "drops": [],
+    "description": "VIT +2"
+  },
+  {
+    "id": 4775,
+    "aegisName": "Vit2_J",
+    "name": "VIT+2",
+    "drops": []
+  },
+  {
+    "id": 4742,
+    "aegisName": "Vitality3",
+    "name": "VIT+3",
+    "drops": [],
+    "description": "VIT +3"
+  },
+  {
+    "id": 4776,
+    "aegisName": "Vit3_J",
+    "name": "VIT+3",
+    "drops": []
+  },
+  {
+    "id": 4743,
+    "aegisName": "Vitality4",
+    "name": "VIT+4",
+    "drops": [],
+    "description": "VIT +4"
+  },
+  {
+    "id": 4744,
+    "aegisName": "Vitality5",
+    "name": "VIT+5",
+    "drops": [],
+    "description": "VIT +5"
+  },
+  {
+    "id": 4745,
+    "aegisName": "Vitality6",
+    "name": "VIT+6",
+    "drops": [],
+    "description": "VIT +6"
+  },
+  {
+    "id": 4746,
+    "aegisName": "Vitality7",
+    "name": "VIT+7",
+    "drops": [],
+    "description": "VIT +7"
+  },
+  {
+    "id": 4747,
+    "aegisName": "Vitality8",
+    "name": "VIT+8",
+    "drops": [],
+    "description": "VIT +8"
+  },
+  {
+    "id": 4748,
+    "aegisName": "Vitality9",
+    "name": "VIT+9",
+    "drops": [],
+    "description": "VIT +9"
+  },
+  {
+    "id": 4053,
+    "aegisName": "Vitata_Card",
+    "name": "Vitata Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Vitata",
+        "rate": 1
+      }
+    ],
+    "description": "Enables the use of [Heal] Lv 1."
+  },
+  {
+    "id": 4211,
+    "aegisName": "Vocal_Card",
+    "name": "Vocal Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Vocal",
+        "rate": 1
+      }
+    ],
+    "description": "MDEF +3\nSet bonus with Rocker Card\nFlee +18"
+  },
+  {
+    "id": 4210,
+    "aegisName": "Wander_Man_Card",
+    "name": "Wanderer Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Wanderer",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Snatch] Lv 1 on the target when doing a physical attack.\nIf the user is a Thief job type,  Flee +20.\nSet bonus with The Paper Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch]."
+  },
+  {
+    "id": 4332,
+    "aegisName": "Waste_Stove_Card",
+    "name": "Waste Stove Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Old Stove",
+        "rate": 1
+      }
+    ],
+    "description": "ATK +5\nINT +1\nSet bonus with Rideword Card, Cookie Card, Fur Seal Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted."
+  },
+  {
+    "id": 4102,
+    "aegisName": "Whisper_Card",
+    "name": "Whisper Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Whisper",
+        "rate": 1
+      }
+    ],
+    "description": "Increases damage received from [Ghost] element attacks by 50%."
+  },
+  {
+    "id": 4372,
+    "aegisName": "Bacsojin_Card",
+    "name": "White Lady Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "White Lady",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the recovery power of the user's healing skills by 30%.\nIncreases the SP cost of skills by 15%."
+  },
+  {
+    "id": 4348,
+    "aegisName": "Whikebain_Card",
+    "name": "Wickebine Tres Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Wickebine Tres",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 5% chance of using [Divest Armor] Lv 1 on the target when doing a physical attack.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch]."
+  },
+  {
+    "id": 4257,
+    "aegisName": "Wild_Rose_Card",
+    "name": "Wild Rose Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Wild Rose",
+        "rate": 1
+      }
+    ],
+    "description": "If the user is a Thief job type, P. Dodge +5.\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch]."
+  },
+  {
+    "id": 4010,
+    "aegisName": "Wilow_Card",
+    "name": "Willow Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Willow",
+        "rate": 1
+      }
+    ],
+    "description": "Max SP +80"
+  },
+  {
+    "id": 4264,
+    "aegisName": "Wind_Ghost_Card",
+    "name": "Wind Ghost Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Wind Ghost",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 2% chance of using [Jupitel Thunder] Lv 3, or Lv 10 if learned by the user, on the target when doing a physical attack."
+  },
+  {
+    "id": 4029,
+    "aegisName": "Wolf_Card",
+    "name": "Wolf Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Wolf",
+        "rate": 1
+      }
+    ],
+    "description": "ATK +15\nCRIT +1\nSet bonus with Vagabond Wolf Card\nFlee +18"
+  },
+  {
+    "id": 4259,
+    "aegisName": "Wooden_Golem_Card",
+    "name": "Wooden Golem Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Wooden Golem",
+        "rate": 1
+      }
+    ],
+    "description": "DEF +1\nHP Recovery +30%"
+  },
+  {
+    "id": 4261,
+    "aegisName": "Wootan_Fighter_Card",
+    "name": "Wootan Fighter Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Wootan Fighter",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Bleeding] status by 20%."
+  },
+  {
+    "id": 4260,
+    "aegisName": "Wootan_Shooter_Card",
+    "name": "Wootan Shooter Card",
+    "slot": "Head Low, Head Mid, Head Top",
+    "drops": [
+      {
+        "monster": "Wootan Shooter",
+        "rate": 1
+      }
+    ],
+    "description": "Increases resistance to [Confusion] status by 20%."
+  },
+  {
+    "id": 4034,
+    "aegisName": "Worm_Tail_Card",
+    "name": "Wormtail Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Wormtail",
+        "rate": 1
+      }
+    ],
+    "description": "DEX +2"
+  },
+  {
+    "id": 4190,
+    "aegisName": "Wraith_Card",
+    "name": "Wraith Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Wraith",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 1% chance of the Giggling Box item dropping when killing an [Undead] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Undead] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Undead] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Undead] race monsters by an additional 5%."
+  },
+  {
+    "id": 4189,
+    "aegisName": "Wraith_Dead_Card",
+    "name": "Wraith Dead Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Wraith Dead",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 6% chance of inflicting [Curse] on the attacker when physically attacked."
+  },
+  {
+    "id": 4328,
+    "aegisName": "Hyegun_Card",
+    "name": "Yao Jun Card",
+    "slot": "Garment",
+    "drops": [
+      {
+        "monster": "Yao Jun",
+        "rate": 1
+      }
+    ],
+    "description": "FLEE +15\nCRIT +1\nSet bonus with Munak Card, Bongun Card\nAll stats +1"
+  },
+  {
+    "id": 4382,
+    "aegisName": "Novus__Card",
+    "name": "Yellow Novus Card",
+    "slot": "Armor",
+    "drops": [
+      {
+        "monster": "Novus",
+        "rate": 1
+      }
+    ],
+    "description": "Max HP +500\nHP Recovery +10%\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Harpy Card, Bloody Butterfly Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster."
+  },
+  {
+    "id": 4051,
+    "aegisName": "Yoyo_Card",
+    "name": "Yoyo Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Yoyo",
+        "rate": 1
+      },
+      {
+        "monster": "Yoyo",
+        "rate": 1
+      }
+    ],
+    "description": "Perfect Dodge +5\nAGI +1"
+  },
+  {
+    "id": 4277,
+    "aegisName": "Zherlthsh_Card",
+    "name": "Zealotus Card",
+    "slot": "Left Hand",
+    "drops": [
+      {
+        "monster": "Zealotus",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.\nSet bonus with Injustice Card\nLuk +3Atk +20"
+  },
+  {
+    "id": 4096,
+    "aegisName": "Zenorc_Card",
+    "name": "Zenorc Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Zenorc",
+        "rate": 1
+      }
+    ],
+    "description": "Adds a 4% chance of inflicting [Poison] on the target when doing a physical attack."
+  },
+  {
+    "id": 4064,
+    "aegisName": "Zerom_Card",
+    "name": "Zerom Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Zerom",
+        "rate": 1
+      }
+    ],
+    "description": "DEX +3"
+  },
+  {
+    "id": 4272,
+    "aegisName": "Dancing_Dragon_Card",
+    "name": "Zhu Po Long Card",
+    "slot": "Both Accessory",
+    "drops": [
+      {
+        "monster": "Zhu Po Long",
+        "rate": 1
+      }
+    ],
+    "description": "AGI +1\nCRIT +3\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills."
+  },
+  {
+    "id": 4281,
+    "aegisName": "Zipper_Bear_Card",
+    "name": "Zipper Bear Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Zipper Bear",
+        "rate": 1
+      }
+    ],
+    "description": "Drains 1 SP from the user when physically attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster."
+  },
+  {
+    "id": 4038,
+    "aegisName": "Zombie_Card",
+    "name": "Zombie Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Zombie",
+        "rate": 1
+      }
+    ],
+    "description": "HP Recovery +20%"
+  },
+  {
+    "id": 4274,
+    "aegisName": "Zombie_Master_Card",
+    "name": "Zombie Master Card",
+    "slot": "Right Hand",
+    "drops": [
+      {
+        "monster": "Zombie Master",
+        "rate": 1
+      }
+    ],
+    "description": "Restores 5 SP to the user when physically attacking an [Undead] race target.\nDrains 5 SP from the user when the weapon is unequipped."
+  },
+  {
+    "id": 4275,
+    "aegisName": "Zombie_Prisoner_Card",
+    "name": "Zombie Prisoner Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Zombie Prisoner",
+        "rate": 1
+      }
+    ],
+    "description": "Increases the experience given from [Undead] race monsters by 10%.\nIncreases damage received from [Undead] race by 20%."
+  },
+  {
+    "id": 4435,
+    "aegisName": "Zombie_Slaughter_Card",
+    "name": "Zombie Slaughter Card",
+    "slot": "Shoes",
+    "drops": [
+      {
+        "monster": "Zombie Slaughter",
+        "rate": 1
+      }
+    ],
+    "description": "Increases physical and magic damage against [Demi-Human] race targets by 1%.\nRestores 50 HP to the user when a monster is killed with a melee attack.\nSet bonus with Ragged Zombie Card\nRestores 2 SP to the user when a [Demi-Human] race monster is killed with a physical attack."
+  }
+]

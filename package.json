@@ -6,6 +6,8 @@
   "scripts": {
     "setup-fonts": "node scripts/setup-web-fonts.mjs",
     "import-skillinfo": "node scripts/import-skillinfo.mjs",
+    "import-cards": "node scripts/import-cards.mjs",
+    "import-data": "node scripts/import-skillinfo.mjs && node scripts/import-cards.mjs",
     "predev": "node scripts/import-skillinfo.mjs",
     "prebuild": "node scripts/import-skillinfo.mjs",
     "dev": "vite",
@@ -20,7 +22,8 @@
   "devDependencies": {
     "iconv-lite": "^0.7.2",
     "typescript": "~5.9.3",
-    "vite": "^8.0.1"
+    "vite": "^8.0.1",
+    "yaml": "^2.8.3"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1"

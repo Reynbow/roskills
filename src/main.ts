@@ -1187,7 +1187,13 @@ function renderApp(root: HTMLElement): void {
 
   root.innerHTML = `
     <header class="planner-header">
-      <h1>Pre-Renewal Skill Planner</h1>
+      <div class="planner-header__left">
+        <h1>Pre-Renewal Skill Planner</h1>
+        <nav class="site-nav" aria-label="Site">
+          <a class="site-nav__link site-nav__link--active" href="/index.html" aria-current="page">Skill Planner</a>
+          <a class="site-nav__link" href="/cards.html">Card Library</a>
+        </nav>
+      </div>
     </header>
     <div class="toolbar">
       <div class="job-picker-field">
