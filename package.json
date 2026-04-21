@@ -9,6 +9,7 @@
     "build:navi-defaults": "node scripts/build-navi-defaults.mjs",
     "build:mob-maps": "node scripts/build-mob-spawn-maps.mjs",
     "import-cards": "node scripts/import-cards.mjs",
+    "fetch:card-affixes": "node scripts/fetch-card-affixes.mjs",
     "import-data": "node scripts/import-skillinfo.mjs && node scripts/import-cards.mjs",
     "predev": "node scripts/import-skillinfo.mjs",
     "prebuild": "node scripts/import-skillinfo.mjs",

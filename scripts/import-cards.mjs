@@ -9,11 +9,16 @@
  * SKIP_RATHENA_FETCH=1 uses only those files; if missing, leaves existing cards.json unchanged.
  *
  * Top spawn maps per monster: optional src/data/mob-spawn-maps.json (run scripts/build-mob-spawn-maps.mjs).
+ *
+ * Prefix/suffix (compound name when carded): scraped from Divine Pride item HTML for every card unless
+ * SKIP_DIVINE_PRIDE_FETCH=1 (then preserved from existing cards.json when re-importing).
+ * SKIP_DIVINE_PRIDE_SETS=1 still fetches DP for affixes, but skips parsing set-bonus titles from HTML.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { parseDivinePrideAffixes } from "./parse-divine-pride-affixes.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -469,6 +474,9 @@ async function main() {
             description: typeof row.description === "string" ? row.description : "",
             img: typeof row.img === "string" ? row.img : "",
             cardArt: typeof row.cardArt === "string" ? row.cardArt : "",
+            prefix: typeof row.prefix === "string" ? row.prefix : "",
+            suffix: typeof row.suffix === "string" ? row.suffix : "",
+            setBonuses: Array.isArray(row.setBonuses) ? row.setBonuses : undefined,
           });
         }
       }
@@ -486,6 +494,9 @@ async function main() {
       if (!row.description && prev.description) row.description = prev.description;
       if (!row.img && prev.img) row.img = prev.img;
       if (!row.cardArt && prev.cardArt) row.cardArt = prev.cardArt;
+      if (!row.prefix && prev.prefix) row.prefix = prev.prefix;
+      if (!row.suffix && prev.suffix) row.suffix = prev.suffix;
+      if (!row.setBonuses?.length && prev.setBonuses?.length) row.setBonuses = prev.setBonuses;
     }
   } else {
     let ok = 0;
@@ -514,17 +525,26 @@ async function main() {
     );
   }
 
-  // Divine Pride set titles (e.g. "Hunter Card Set") are not included in RagnaAPI text.
-  // Best-effort scrape them from Divine Pride and attach structured data for the UI.
-  const skipDp = process.env.SKIP_DIVINE_PRIDE_SETS === "1";
-  if (skipDp) {
-    console.warn("import-cards: SKIP_DIVINE_PRIDE_SETS=1 — set titles omitted");
+  // Divine Pride: prefix/suffix (compound names) for every card; set titles only when description mentions set bonus.
+  const skipDpFetch = process.env.SKIP_DIVINE_PRIDE_FETCH === "1";
+  const skipDpSets = process.env.SKIP_DIVINE_PRIDE_SETS === "1";
+  if (skipDpFetch) {
+    console.warn(
+      "import-cards: SKIP_DIVINE_PRIDE_FETCH=1 — no Divine Pride requests; affixes / set titles kept only from existing cards.json",
+    );
+    for (const row of out) {
+      const prev = existingById.get(row.id);
+      if (!prev) continue;
+      if (!row.prefix && prev.prefix) row.prefix = prev.prefix;
+      if (!row.suffix && prev.suffix) row.suffix = prev.suffix;
+      if (!row.setBonuses?.length && prev.setBonuses?.length) row.setBonuses = prev.setBonuses;
+    }
   } else {
-    let ok = 0;
+    let okAff = 0;
+    let okSets = 0;
     let fail = 0;
     const delayMs = Number(process.env.CARD_DESC_FETCH_DELAY_MS ?? 80);
     for (const row of out) {
-      if (typeof row.description !== "string" || !row.description.toLowerCase().includes("set bonus")) continue;
       try {
         const slug = slugify(row.name);
         const res = await fetch(DIVINE_PRIDE_ITEM(row.id, slug), {
@@ -535,12 +555,28 @@ async function main() {
           continue;
         }
         const html = await res.text();
-        const sets = parseDivinePrideSets(html);
-        if (sets.length) {
-          row.setBonuses = sets;
-          ok++;
-        } else {
-          fail++;
+        const aff = parseDivinePrideAffixes(html);
+        let anyAff = false;
+        if (aff.prefix) {
+          row.prefix = aff.prefix;
+          anyAff = true;
+        }
+        if (aff.suffix) {
+          row.suffix = aff.suffix;
+          anyAff = true;
+        }
+        if (anyAff) okAff++;
+
+        if (
+          !skipDpSets &&
+          typeof row.description === "string" &&
+          row.description.toLowerCase().includes("set bonus")
+        ) {
+          const sets = parseDivinePrideSets(html);
+          if (sets.length) {
+            row.setBonuses = sets;
+            okSets++;
+          }
         }
       } catch {
         fail++;
@@ -549,7 +585,16 @@ async function main() {
         await new Promise((r) => setTimeout(r, delayMs));
       }
     }
-    console.log(`import-cards: Divine Pride set titles — ${ok} cards with set titles, ${fail} empty/failed`);
+    console.log(
+      `import-cards: Divine Pride — ${okAff} cards with prefix and/or suffix, ${okSets} with set titles, ${fail} fetch/parse failures`,
+    );
+  }
+
+  if (!skipDpFetch && skipDpSets) {
+    for (const row of out) {
+      const prev = existingById.get(row.id);
+      if (!row.setBonuses?.length && prev?.setBonuses?.length) row.setBonuses = prev.setBonuses;
+    }
   }
 
   // If RagnaAPI had no effect text, fall back to rAthena script-derived stats-only text when safe.

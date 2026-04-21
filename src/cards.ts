@@ -24,6 +24,10 @@ type CardEntry = {
   id: number;
   aegisName: string;
   name: string;
+  /** Compound name prefix when carded (Divine Pride). */
+  prefix?: string;
+  /** Compound name suffix when carded (Divine Pride). */
+  suffix?: string;
   slot?: string;
   /** Plain-language effect text (from import; iRO Wiki DB via RagnaAPI). */
   description?: string;
@@ -115,6 +119,28 @@ function dropsDisplayHtml(c: CardEntry): string {
       return `<div class="cards-drop-entry"><div class="cards-drop-main">${escapeHtml(d.monster)} (${escapeHtml(rate)})</div>${maps}</div>`;
     })
     .join("");
+}
+
+/** RO-style suffix compounds usually read as "… of X"; DP sometimes stores them on the Prefix row. */
+function affixUiLabel(text: string, fromPrefixField: boolean): "Prefix" | "Suffix" {
+  const t = text.trim();
+  if (!fromPrefixField) return "Suffix";
+  return /^of\b/i.test(t) ? "Suffix" : "Prefix";
+}
+
+function cardAffixLineHtml(c: CardEntry): string {
+  const p = typeof c.prefix === "string" ? c.prefix.trim() : "";
+  const s = typeof c.suffix === "string" ? c.suffix.trim() : "";
+  if (!p && !s) return "";
+  const parts: string[] = [];
+  if (p) {
+    const lbl = affixUiLabel(p, true);
+    parts.push(`<span class="cards-name-affix__bit"><span class="cards-name-affix__lbl">${lbl}</span> ${escapeHtml(p)}</span>`);
+  }
+  if (s) {
+    parts.push(`<span class="cards-name-affix__bit"><span class="cards-name-affix__lbl">Suffix</span> ${escapeHtml(s)}</span>`);
+  }
+  return `<div class="cards-name-affix">${parts.join('<span class="cards-name-affix__sep" aria-hidden="true">·</span>')}</div>`;
 }
 
 function normalizeSlotLabel(slotRaw: string | undefined): string {
@@ -543,7 +569,10 @@ function renderRows(rows: CardEntry[]): string {
           </button>
         </td>
         <td class="cards-col-name" data-label="Card">
-          <div class="cards-name">${escapeHtml(c.name)}</div>
+          <div class="cards-name-block">
+            <div class="cards-name">${escapeHtml(c.name)}</div>
+            ${cardAffixLineHtml(c)}
+          </div>
         </td>
         <td class="cards-col-slot" data-label="Slot">${slot}</td>
         <td class="cards-col-desc" data-label="Description">${descHtml}</td>
@@ -815,6 +844,8 @@ function mount(root: HTMLElement): void {
       const hay = [
         c.name,
         c.aegisName,
+        c.prefix ?? "",
+        c.suffix ?? "",
         c.slot ?? "",
         dv?.descText ?? "",
         ...c.drops.flatMap((d) => [d.monster, ...dropMapSpawns(d.maps).map((s) => s.map)]),

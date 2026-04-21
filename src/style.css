@@ -1627,9 +1627,38 @@ header.planner-header h1 {
 }
 
 /* The description is now its own column; keep the old class harmless if present anywhere. */
+.cards-name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
 .cards-name {
   font-weight: 800;
   color: var(--text);
+}
+
+.cards-name-affix {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.35;
+  max-width: 100%;
+}
+
+.cards-name-affix__lbl {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: rgba(180, 205, 240, 0.62);
+  margin-right: 0.22rem;
+}
+
+.cards-name-affix__sep {
+  margin: 0 0.35rem;
+  opacity: 0.45;
 }
 
 .cards-desc {
