@@ -1,9 +1,6 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  optimizeDeps: {
-    include: ["@vercel/analytics"],
-  },
   build: {
     rollupOptions: {
       input: {
@@ -15,6 +12,8 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
+    /** Avoid silently moving to 5174+ while the browser tab still points at 5173. */
+    strictPort: true,
     open: false,
   },
 });

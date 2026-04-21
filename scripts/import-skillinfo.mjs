@@ -244,9 +244,21 @@ async function fetchRathenaYaml() {
   if (process.env.SKIP_RATHENA_FETCH === "1") {
     return "";
   }
-  const res = await fetch(RATHENA_URL, {
-    headers: { "User-Agent": "ro-skill-planner-import" },
-  });
+  let res;
+  try {
+    res = await fetch(RATHENA_URL, {
+      headers: { "User-Agent": "ro-skill-planner-import" },
+      signal: AbortSignal.timeout(25_000),
+    });
+  } catch (e) {
+    const name = e && typeof e === "object" && "name" in e ? e.name : "";
+    if (name === "AbortError" || name === "TimeoutError") {
+      throw new Error(
+        "Timed out fetching rAthena skill_db.yml (25s). Put a copy at skillinfo/skill_db.yml, fix the network, or set SKIP_RATHENA_FETCH=1.",
+      );
+    }
+    throw e;
+  }
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.text();
 }

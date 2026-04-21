@@ -64,6 +64,38 @@ function normalizeSlotLabel(slotRaw: string | undefined): string {
   return s;
 }
 
+/**
+ * Slot filter icons are **self-hosted** under `public/ro-slot-icons/` (PNG filenames below).
+ * Most mirror Divine Pride `images/items/collection/{id}.png`; **Shoes** uses `images/items/item/22092.png`.
+ * Divine Pride `/item/logo/` and `/items/small/` URLs often return an identical placeholder off-site, which
+ * broke hotlinked chips in the browser; local copies load reliably. Display size is small (CSS),
+ * matching inventory-scale presentation.
+ */
+const SLOT_FILTER_ICON_FILE: Partial<Record<string, string>> = {
+  "-": "unknown", // Poring Card
+  Weapon: "weapon", // Main Gauche
+  Shield: "shield", // Buckler
+  Armor: "armor", // Cotton Shirt
+  Garment: "garment", // Hood
+  Shoes: "shoes", // https://static.divine-pride.net/images/items/item/22092.png
+  Accessory: "accessory", // Ring
+  "Head Low, Head Mid, Head Top": "head", // Poring Hat
+};
+
+function slotFilterIconBasename(slotLabel: string): string {
+  return SLOT_FILTER_ICON_FILE[slotLabel] ?? "unknown";
+}
+
+function slotChipIconUrl(slotLabel: string): string {
+  const file = slotFilterIconBasename(slotLabel);
+  return `${import.meta.env.BASE_URL}ro-slot-icons/${file}.png`;
+}
+
+/** Hover tooltip text — matches normalized slot labels shown in the table. */
+function slotFilterDisplayName(slotLabel: string): string {
+  return slotLabel === "-" ? "Unknown" : slotLabel;
+}
+
 /** Strip RO client colour codes (^RRGGBB) for readable table text. */
 function stripRoColorCodes(s: string): string {
   return s.replace(/\^[0-9a-fA-F]{6}/g, "");
@@ -194,9 +226,45 @@ function deriveCard(c: CardEntry): CardDerived {
 const derivedById = new Map<number, CardDerived>();
 for (const c of cardsAll) derivedById.set(c.id, deriveCard(c));
 
+/** Equip slot chip order (normalized labels — see `normalizeSlotLabel`). */
+const SLOT_FILTER_ORDER: readonly string[] = [
+  "Head Low, Head Mid, Head Top",
+  "Armor",
+  "Weapon",
+  "Shield",
+  "Garment",
+  "Shoes",
+  "Accessory",
+];
+
+const slotLabelsInData = new Set(cardsAll.map((c) => normalizeSlotLabel(c.slot)));
+const SLOT_FILTER_OPTIONS: string[] = [
+  ...SLOT_FILTER_ORDER.filter((s) => slotLabelsInData.has(s)),
+  ...[...slotLabelsInData]
+    .filter((s) => !SLOT_FILTER_ORDER.includes(s))
+    .sort((a, b) => a.localeCompare(b)),
+];
+
 const cardByNameLower = new Map<string, CardEntry>();
 for (const c of cardsAll) {
-  cardByNameLower.set(c.name.toLowerCase(), c);
+  const k = c.name.toLowerCase();
+  cardByNameLower.set(k, c);
+  // Same card as "Fur Seal Card" in wiki / Divine Pride set text; DB name is "Seal Card".
+  if (c.name === "Seal Card") {
+    cardByNameLower.set("fur seal card", c);
+  }
+}
+
+/** Canonical key for comparing or resolving set member names (aliases). */
+function normalizeCardNameKey(lower: string): string {
+  const t = lower.trim().toLowerCase();
+  if (t === "fur seal card" || t === "seal card") return "seal card";
+  return t;
+}
+
+function lookupCardEntryBySetMemberName(name: string): CardEntry | undefined {
+  const k = name.trim().toLowerCase();
+  return cardByNameLower.get(k) ?? cardByNameLower.get(normalizeCardNameKey(k));
 }
 
 function escapeHtml(s: string): string {
@@ -326,7 +394,7 @@ function parseSetBonusTitleAndMembers(setBlockRawText: string): { title: string;
 
 /** Sorted multiset key for comparing member lists (order-insensitive). */
 function memberListKey(names: string[]): string {
-  return [...new Set(names.map((n) => n.trim().toLowerCase()).filter(Boolean))].sort().join("\0");
+  return [...new Set(names.map((n) => normalizeCardNameKey(n)).filter(Boolean))].sort().join("\0");
 }
 
 /**
@@ -424,12 +492,14 @@ type FilterState = {
   q: string;
   categories: Set<CategoryKey>;
   stats: Set<StatKey>;
+  /** Normalized slot labels (same as `normalizeSlotLabel` / Slot column). */
+  slots: Set<string>;
 };
 
 const CATEGORY_LABELS: Record<CategoryKey, string> = {
-  mvp: "MVP cards",
-  set: "Set bonus",
-  autocast: "Autocast / proc",
+  mvp: "MVP",
+  set: "Sets",
+  autocast: "Autocast",
   stats: "Stats",
   damage: "Damage",
   resist: "Resist",
@@ -473,8 +543,14 @@ function mount(root: HTMLElement): void {
           <div class="cards-filter-title">Stats</div>
           <div class="cards-filter-chips" id="chips-stat"></div>
         </div>
+        <div class="cards-filter-group">
+          <div class="cards-filter-title">Slot</div>
+          <div class="cards-filter-chips" id="chips-slot"></div>
+        </div>
         <button type="button" class="cards-filter-clear" id="btn-clear">Clear filters</button>
       </div>
+
+      <div id="cards-slot-tooltip" class="cards-slot-tooltip" role="tooltip" aria-hidden="true"></div>
 
       <div class="cards-table-wrap">
         <table class="cards-table">
@@ -529,6 +605,8 @@ function mount(root: HTMLElement): void {
   const countEl = root.querySelector("#count") as HTMLElement;
   const catWrap = root.querySelector("#chips-cat") as HTMLElement;
   const statWrap = root.querySelector("#chips-stat") as HTMLElement;
+  const slotWrap = root.querySelector("#chips-slot") as HTMLElement;
+  const slotTooltip = root.querySelector("#cards-slot-tooltip") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
   const modal = root.querySelector("#set-modal") as HTMLDialogElement;
   const modalBody = root.querySelector("#set-modal-body") as HTMLElement;
@@ -543,13 +621,22 @@ function mount(root: HTMLElement): void {
   const artModalPanel = root.querySelector("#art-modal .cards-art-modal__panel") as HTMLElement;
   const imgFallbackFor = (id: number): string => `https://static.divine-pride.net/images/items/collection/${id}.png`;
 
-  const state: FilterState = { q: "", categories: new Set(), stats: new Set() };
+  const state: FilterState = { q: "", categories: new Set(), stats: new Set(), slots: new Set() };
   let visibleArtIds: number[] = [];
   let artIndex = -1;
 
   const chipButton = (id: string, label: string, pressed: boolean, kind: "cat" | "stat"): string => {
     const cls = pressed ? "cards-chip cards-chip--on" : "cards-chip";
     return `<button type="button" class="${cls}" data-kind="${kind}" data-id="${escapeHtml(id)}" aria-pressed="${pressed ? "true" : "false"}">${escapeHtml(label)}</button>`;
+  };
+
+  const slotChipButton = (slotLabel: string, pressed: boolean): string => {
+    const cls = pressed ? "cards-chip cards-chip--on cards-chip--slot" : "cards-chip cards-chip--slot";
+    const idEsc = escapeHtml(slotLabel);
+    const aria =
+      slotLabel === "-" ? "Filter cards with unknown equip slot" : `Filter by ${slotLabel} slot`;
+    const src = escapeHtml(slotChipIconUrl(slotLabel));
+    return `<button type="button" class="${cls}" data-kind="slot" data-id="${idEsc}" aria-pressed="${pressed ? "true" : "false"}" aria-label="${escapeHtml(aria)}"><img class="cards-chip-slot-icon" src="${src}" alt="" width="24" height="24" decoding="async" loading="lazy" referrerpolicy="no-referrer" /></button>`;
   };
 
   const renderChips = (): void => {
@@ -561,6 +648,10 @@ function mount(root: HTMLElement): void {
     statWrap.innerHTML = stats
       .map((k) => chipButton(k, k, state.stats.has(k), "stat"))
       .join("");
+    slotWrap.innerHTML = SLOT_FILTER_OPTIONS.map((slotLabel) =>
+      slotChipButton(slotLabel, state.slots.has(slotLabel)),
+    ).join("");
+    hideSlotTooltip();
   };
 
   const apply = (): void => {
@@ -593,6 +684,11 @@ function mount(root: HTMLElement): void {
         }
       }
 
+      if (state.slots.size) {
+        const slotLabel = normalizeSlotLabel(c.slot);
+        if (!state.slots.has(slotLabel)) return false;
+      }
+
       return true;
     });
     rowsEl.innerHTML = renderRows(filtered);
@@ -614,6 +710,119 @@ function mount(root: HTMLElement): void {
     },
     true,
   );
+
+  slotWrap.addEventListener(
+    "error",
+    (e) => {
+      const img = e.target as HTMLImageElement | null;
+      if (!img || img.tagName !== "IMG" || !img.classList.contains("cards-chip-slot-icon")) return;
+      if (img.dataset.fallbackApplied === "1") return;
+      img.dataset.fallbackApplied = "1";
+      img.src = `${import.meta.env.BASE_URL}ro-slot-icons/unknown.png`;
+    },
+    true,
+  );
+
+  let slotTipActiveBtn: HTMLButtonElement | null = null;
+
+  const hideSlotTooltip = (): void => {
+    slotTooltip.classList.remove("cards-slot-tooltip--visible");
+    slotTooltip.classList.remove("cards-slot-tooltip--below");
+    slotTooltip.setAttribute("aria-hidden", "true");
+    slotTooltip.textContent = "";
+    slotTipActiveBtn?.removeAttribute("aria-describedby");
+    slotTipActiveBtn = null;
+  };
+
+  const showSlotTooltip = (btn: HTMLButtonElement): void => {
+    const id = btn.dataset.id ?? "";
+    const label = slotFilterDisplayName(id);
+    if (
+      slotTipActiveBtn === btn &&
+      slotTooltip.textContent === label &&
+      slotTooltip.classList.contains("cards-slot-tooltip--visible")
+    ) {
+      return;
+    }
+
+    slotTooltip.textContent = label;
+    slotTipActiveBtn?.removeAttribute("aria-describedby");
+    slotTipActiveBtn = btn;
+    btn.setAttribute("aria-describedby", "cards-slot-tooltip");
+    slotTooltip.setAttribute("aria-hidden", "false");
+
+    slotTooltip.classList.remove("cards-slot-tooltip--visible");
+    slotTooltip.classList.remove("cards-slot-tooltip--below");
+    void slotTooltip.offsetWidth;
+
+    const r = btn.getBoundingClientRect();
+    const gap = 10;
+    const cx = r.left + r.width / 2;
+    slotTooltip.style.left = `${cx}px`;
+    slotTooltip.style.top = `${r.top - gap}px`;
+
+    requestAnimationFrame(() => {
+      const tr = slotTooltip.getBoundingClientRect();
+      if (tr.top < 8) {
+        slotTooltip.classList.add("cards-slot-tooltip--below");
+        slotTooltip.style.top = `${r.bottom + gap}px`;
+      }
+      const tr2 = slotTooltip.getBoundingClientRect();
+      const pad = 8;
+      let shift = 0;
+      if (tr2.left < pad) shift = pad - tr2.left;
+      else if (tr2.right > window.innerWidth - pad) shift = window.innerWidth - pad - tr2.right;
+      if (shift !== 0) {
+        const cur = parseFloat(slotTooltip.style.left) || cx;
+        slotTooltip.style.left = `${cur + shift}px`;
+      }
+      requestAnimationFrame(() => {
+        slotTooltip.classList.add("cards-slot-tooltip--visible");
+      });
+    });
+  };
+
+  slotWrap.addEventListener("pointerover", (e) => {
+    const btn = (e.target as HTMLElement).closest("button.cards-chip--slot") as HTMLButtonElement | null;
+    if (!btn || !slotWrap.contains(btn)) return;
+    showSlotTooltip(btn);
+  });
+
+  slotWrap.addEventListener("pointerout", (e) => {
+    const related = e.relatedTarget as Node | null;
+    if (related && slotWrap.contains(related)) {
+      const toBtn = (related as HTMLElement).closest("button.cards-chip--slot") as HTMLButtonElement | null;
+      if (toBtn) {
+        showSlotTooltip(toBtn);
+        return;
+      }
+      return;
+    }
+    hideSlotTooltip();
+  });
+
+  slotWrap.addEventListener("focusin", (e) => {
+    const btn = (e.target as HTMLElement).closest("button.cards-chip--slot") as HTMLButtonElement | null;
+    if (btn) showSlotTooltip(btn);
+  });
+
+  slotWrap.addEventListener("focusout", (e) => {
+    const related = e.relatedTarget as Node | null;
+    if (
+      related &&
+      slotWrap.contains(related) &&
+      (related as HTMLElement).closest("button.cards-chip--slot")
+    ) {
+      return;
+    }
+    hideSlotTooltip();
+  });
+
+  const hideSlotTooltipOnScroll = (): void => {
+    if (slotTipActiveBtn) hideSlotTooltip();
+  };
+  window.addEventListener("scroll", hideSlotTooltipOnScroll, true);
+  window.addEventListener("resize", hideSlotTooltipOnScroll);
 
   const closeArtModal = (): void => {
     if (artModal.open) artModal.close();
@@ -696,22 +905,27 @@ function mount(root: HTMLElement): void {
       const k = id as CategoryKey;
       if (state.categories.has(k)) state.categories.delete(k);
       else state.categories.add(k);
-    } else {
+    } else if (kind === "stat") {
       const k = id as StatKey;
       if (state.stats.has(k)) state.stats.delete(k);
       else state.stats.add(k);
+    } else if (kind === "slot") {
+      if (state.slots.has(id)) state.slots.delete(id);
+      else state.slots.add(id);
     }
     renderChips();
     apply();
   };
   catWrap.addEventListener("click", onChipClick);
   statWrap.addEventListener("click", onChipClick);
+  slotWrap.addEventListener("click", onChipClick);
 
   clearBtn.addEventListener("click", () => {
     state.q = "";
     q.value = "";
     state.categories.clear();
     state.stats.clear();
+    state.slots.clear();
     renderChips();
     apply();
     q.focus();
@@ -775,13 +989,13 @@ function mount(root: HTMLElement): void {
       return;
     }
     // Wiki text often omits the equipped card from "Set bonus with ..."; always include the row card in the modal.
-    const selfKey = card.name.trim().toLowerCase();
-    const hasSelf = members.some((m) => m.trim().toLowerCase() === selfKey);
+    const selfCanon = normalizeCardNameKey(card.name);
+    const hasSelf = members.some((m) => normalizeCardNameKey(m) === selfCanon);
     const displayMembers = hasSelf ? members : [card.name, ...members];
 
     const setTopHtml = setBlockRawToHtml(rawText || (el.textContent ?? "").trim());
     const cols = displayMembers.map((name) => {
-      const hit = cardByNameLower.get(name.toLowerCase());
+      const hit = lookupCardEntryBySetMemberName(name);
       const desc = hit ? (derivedById.get(hit.id)?.descText ?? "") : "";
       const bodyHtml = hit ? descriptionToNonSetBlocksHtml(desc) : "";
       const body =

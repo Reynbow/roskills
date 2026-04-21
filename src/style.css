@@ -308,6 +308,11 @@ header.planner-header h1 {
   background: rgba(0, 0, 0, 0.14);
   color: var(--text-muted);
   cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.22s ease;
 }
 
 .cards-chip:hover {
@@ -317,14 +322,133 @@ header.planner-header h1 {
 }
 
 .cards-chip--on {
-  border-color: rgba(140, 195, 255, 0.55);
-  background: rgba(70, 120, 190, 0.16);
-  color: #e8f2ff;
+  border-color: rgba(142, 197, 255, 0.88);
+  background: linear-gradient(
+    165deg,
+    rgba(95, 155, 235, 0.38) 0%,
+    rgba(55, 105, 185, 0.42) 55%,
+    rgba(45, 88, 160, 0.48) 100%
+  );
+  color: #f5f9ff;
+  box-shadow:
+    0 0 0 1px rgba(142, 197, 255, 0.35),
+    0 0 14px rgba(100, 175, 255, 0.45),
+    0 0 28px rgba(80, 150, 255, 0.28),
+    0 0 42px rgba(70, 130, 230, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.cards-chip--on:hover {
+  border-color: rgba(190, 225, 255, 0.95);
+  background: linear-gradient(
+    165deg,
+    rgba(110, 170, 245, 0.44) 0%,
+    rgba(65, 118, 200, 0.48) 55%,
+    rgba(52, 98, 175, 0.52) 100%
+  );
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(170, 215, 255, 0.5),
+    0 0 18px rgba(130, 200, 255, 0.55),
+    0 0 34px rgba(100, 175, 255, 0.35),
+    0 0 48px rgba(85, 155, 240, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-chip {
+    transition-duration: 0.01ms;
+  }
+
+  .cards-chip--on {
+    box-shadow:
+      0 0 0 1px rgba(142, 197, 255, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .cards-chip--on:hover {
+    box-shadow:
+      0 0 0 1px rgba(170, 215, 255, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
 }
 
 .cards-chip:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.cards-chip--slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.28rem 0.4rem;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+}
+
+.cards-chip-slot-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Slot filter chips — custom tooltip (matches planner .tooltip / cards surfaces) */
+.cards-slot-tooltip {
+  position: fixed;
+  z-index: 1001;
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  max-width: min(22rem, calc(100vw - 20px));
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui);
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  text-align: center;
+  overflow-wrap: break-word;
+  pointer-events: none;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-panel);
+  border-radius: 8px;
+  box-shadow: 0 10px 36px var(--shadow), inset 0 1px 0 var(--inset-highlight);
+  transform: translate(-50%, calc(-100% + 12px));
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.22s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.32s;
+}
+
+.cards-slot-tooltip.cards-slot-tooltip--below {
+  transform: translate(-50%, -14px);
+}
+
+.cards-slot-tooltip.cards-slot-tooltip--visible:not(.cards-slot-tooltip--below) {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -100%);
+}
+
+.cards-slot-tooltip.cards-slot-tooltip--visible.cards-slot-tooltip--below {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-slot-tooltip {
+    transition-duration: 0.01ms;
+  }
 }
 
 .cards-filter-clear {

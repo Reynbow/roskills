@@ -2,6 +2,7 @@ import "./style.css";
 import { inject } from "@vercel/analytics";
 import {
   listJobPickerTabs,
+  listJobs,
   getJobData,
   buildSkillsForJob,
   getEdgesForJob,
@@ -18,11 +19,24 @@ import {
 import { jobPreviewSpriteUrl } from "./job-previews";
 import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl } from "./job-sit-sprite";
 
-// Initialize Vercel Web Analytics
-inject();
+// Initialize Vercel Web Analytics (never block app shell if script fails)
+try {
+  inject();
+} catch {
+  /* ignore */
+}
 
 const STORAGE_KEY = "ro-planner-state-v2";
 const DEFAULT_JOB = "JT_PRIEST";
+
+/** If stored or default job key is missing from bundled data, fall back so the tree can render. */
+function ensureCurrentJobInData(): void {
+  if (getJobData(currentJob)) return;
+  currentJob = DEFAULT_JOB;
+  if (getJobData(currentJob)) return;
+  const first = listJobs()[0]?.key;
+  if (first) currentJob = first;
+}
 
 /** Client skill icons by SKID (same numeric id as rAthena / planner `skidId`). Divine Pride: singular `skill`, not `skills`. */
 function skillIconUrl(skidId: number): string {
@@ -1918,6 +1932,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
 }
 
 loadState();
+ensureCurrentJobInData();
 const fromShare = readShareFromUrl();
 if (fromShare) {
   applyJob(fromShare.j, fromShare.l);
