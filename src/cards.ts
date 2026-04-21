@@ -619,6 +619,28 @@ function mount(root: HTMLElement): void {
         <button type="button" class="cards-overflow-btn" id="cards-overflow-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cards-overflow">Menu</button>
       </div>
 
+      <div id="cards-inline-meta-home">
+        <div class="cards-inline-meta" id="cards-inline-meta">
+          <p class="page-sub">Search by card name, effect, equip slot, monster, or map. Drops and IDs come from rAthena pre-re; under each dropper, map names are the top field/dungeon spawns from rAthena npc/pre-re/mobs scripts (spawn totals shown). Click a map row to copy a /navi command; hover for a minimap preview (Divine Pride when available). Effect text is filled from the iRO Wiki database (via RagnaAPI) when available.</p>
+
+          <div class="cards-filters" aria-label="Filters">
+            <div class="cards-filter-group">
+              <div class="cards-filter-title">Categories</div>
+              <div class="cards-filter-chips" id="chips-cat"></div>
+            </div>
+            <div class="cards-filter-group">
+              <div class="cards-filter-title">Stats</div>
+              <div class="cards-filter-chips" id="chips-stat"></div>
+            </div>
+            <div class="cards-filter-group">
+              <div class="cards-filter-title">Slot</div>
+              <div class="cards-filter-chips" id="chips-slot"></div>
+            </div>
+            <button type="button" class="cards-filter-clear" id="btn-clear">Clear filters</button>
+          </div>
+        </div>
+      </div>
+
       <div class="cards-toolbar" role="search">
         <label class="cards-search">
           <span class="cards-search__label">Search</span>
@@ -634,23 +656,7 @@ function mount(root: HTMLElement): void {
             <div class="cards-overflow__title">Menu</div>
             <button type="button" class="cards-overflow__close" data-cards-overflow-close="1" aria-label="Close">×</button>
           </div>
-          <p class="page-sub page-sub--cards">Search by card name, effect, equip slot, monster, or map. Drops and IDs come from rAthena pre-re; under each dropper, map names are the top field/dungeon spawns from rAthena npc/pre-re/mobs scripts (spawn totals shown). Click a map row to copy a /navi command; hover for a minimap preview (Divine Pride when available). Effect text is filled from the iRO Wiki database (via RagnaAPI) when available.</p>
-
-          <div class="cards-filters cards-filters--in-overflow" aria-label="Filters">
-            <div class="cards-filter-group">
-              <div class="cards-filter-title">Categories</div>
-              <div class="cards-filter-chips" id="chips-cat"></div>
-            </div>
-            <div class="cards-filter-group">
-              <div class="cards-filter-title">Stats</div>
-              <div class="cards-filter-chips" id="chips-stat"></div>
-            </div>
-            <div class="cards-filter-group">
-              <div class="cards-filter-title">Slot</div>
-              <div class="cards-filter-chips" id="chips-slot"></div>
-            </div>
-            <button type="button" class="cards-filter-clear" id="btn-clear">Clear filters</button>
-          </div>
+          <div class="cards-overflow__body" id="cards-overflow-body"></div>
         </div>
       </div>
 
@@ -720,6 +726,9 @@ function mount(root: HTMLElement): void {
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
   const overflowBtn = root.querySelector("#cards-overflow-btn") as HTMLButtonElement;
   const overflowEl = root.querySelector("#cards-overflow") as HTMLElement;
+  const overflowBodyEl = root.querySelector("#cards-overflow-body") as HTMLElement;
+  const inlineMetaHomeEl = root.querySelector("#cards-inline-meta-home") as HTMLElement;
+  const inlineMetaEl = root.querySelector("#cards-inline-meta") as HTMLElement;
   const modal = root.querySelector("#set-modal") as HTMLDialogElement;
   const modalBody = root.querySelector("#set-modal-body") as HTMLElement;
   const modalTitle = root.querySelector("#set-modal-title") as HTMLElement;
@@ -742,11 +751,19 @@ function mount(root: HTMLElement): void {
     overflowEl.classList.remove("cards-overflow--open");
     overflowEl.setAttribute("aria-hidden", "true");
     overflowBtn?.setAttribute("aria-expanded", "false");
+    // Restore desktop meta container to its home position.
+    if (inlineMetaHomeEl && inlineMetaEl && inlineMetaEl.parentElement !== inlineMetaHomeEl) {
+      inlineMetaHomeEl.appendChild(inlineMetaEl);
+    }
   };
   const openOverflow = (): void => {
     overflowEl.classList.add("cards-overflow--open");
     overflowEl.setAttribute("aria-hidden", "false");
     overflowBtn?.setAttribute("aria-expanded", "true");
+    // Move meta container (description + filters) into the drawer.
+    if (overflowBodyEl && inlineMetaEl && inlineMetaEl.parentElement !== overflowBodyEl) {
+      overflowBodyEl.appendChild(inlineMetaEl);
+    }
   };
   const toggleOverflow = (): void => {
     if (isOverflowOpen()) closeOverflow();

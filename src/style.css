@@ -708,12 +708,8 @@ header.planner-header h1 {
     flex: 0 0 auto;
   }
 
-  /* Hide the inline (desktop) description/filters; they live in the overflow drawer. */
-  .page-sub {
-    display: none;
-  }
-
-  .cards-filters:not(.cards-filters--in-overflow) {
+  /* Hide the inline (desktop) meta; it moves into the drawer when opened. */
+  #cards-inline-meta-home {
     display: none;
   }
 
@@ -792,28 +788,23 @@ header.planner-header h1 {
     line-height: 1;
   }
 
-  .page-sub--cards {
-    display: block;
-    margin: 0.75rem 0.9rem 0.85rem;
-    font-size: 0.9rem;
-  }
-
-  .cards-filters--in-overflow {
-    margin: 0 0.9rem 1rem;
+  .cards-overflow__body {
+    padding: 0.75rem 0.9rem 1rem;
   }
 
   /* Each filter group becomes its own block for easier scanning/tapping */
-  .cards-filters--in-overflow {
+  .cards-overflow__body .cards-filters {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    padding: 0;
+    padding: 0.75rem 0.9rem;
+    margin: 0.75rem 0 0;
     background: transparent;
     border: none;
     box-shadow: none;
   }
 
-  .cards-filters--in-overflow .cards-filter-group {
+  .cards-overflow__body .cards-filter-group {
     padding: 0.75rem 0.85rem;
     border-radius: 10px;
     border: 1px solid rgba(120, 165, 220, 0.18);
@@ -821,15 +812,15 @@ header.planner-header h1 {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
-  .cards-filters--in-overflow .cards-filter-title {
+  .cards-overflow__body .cards-filter-title {
     margin-bottom: 0.25rem;
   }
 
-  .cards-filters--in-overflow .cards-filter-chips {
+  .cards-overflow__body .cards-filter-chips {
     gap: 0.45rem;
   }
 
-  .cards-filters--in-overflow .cards-filter-clear {
+  .cards-overflow__body .cards-filter-clear {
     align-self: stretch;
     justify-self: stretch;
     width: 100%;
