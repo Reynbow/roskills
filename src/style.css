@@ -2682,6 +2682,11 @@ header.planner-header h1 {
   overflow: visible;
 }
 
+/* Default (desktop/tablet): mobile skill list hidden */
+.skill-list {
+  display: none;
+}
+
 .skill-slot--empty {
   min-height: 4.5rem;
   border: 2px dashed rgba(255, 255, 255, 0.14);
