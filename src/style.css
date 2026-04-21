@@ -398,22 +398,19 @@ header.planner-header h1 {
   user-select: none;
 }
 
-/* Slot filter chips — custom tooltip (matches planner .tooltip / cards surfaces) */
-.cards-slot-tooltip {
+/* Filter chips — shared hover tooltip (categories, stats, slots) */
+.cards-filter-tooltip {
   position: fixed;
   z-index: 1001;
   box-sizing: border-box;
   left: 0;
   top: 0;
-  max-width: min(22rem, calc(100vw - 20px));
-  padding: 0.5rem 0.75rem;
+  max-width: min(28rem, calc(100vw - 20px));
+  padding: 0.55rem 0.85rem;
   font-family: var(--font-ui);
-  font-size: 0.84rem;
-  font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.45;
   letter-spacing: 0.02em;
-  color: var(--text);
-  text-align: center;
+  text-align: left;
   overflow-wrap: break-word;
   pointer-events: none;
   background: var(--bg-panel);
@@ -429,24 +426,46 @@ header.planner-header h1 {
     visibility 0.32s;
 }
 
-.cards-slot-tooltip.cards-slot-tooltip--below {
+.cards-filter-tooltip__inner {
+  display: block;
+  min-width: 0;
+}
+
+.cards-filter-tooltip__label {
+  display: block;
+  margin: 0 0 0.35rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.cards-filter-tooltip__desc {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.cards-filter-tooltip.cards-filter-tooltip--below {
   transform: translate(-50%, -14px);
 }
 
-.cards-slot-tooltip.cards-slot-tooltip--visible:not(.cards-slot-tooltip--below) {
+.cards-filter-tooltip.cards-filter-tooltip--visible:not(.cards-filter-tooltip--below) {
   visibility: visible;
   opacity: 1;
   transform: translate(-50%, -100%);
 }
 
-.cards-slot-tooltip.cards-slot-tooltip--visible.cards-slot-tooltip--below {
+.cards-filter-tooltip.cards-filter-tooltip--visible.cards-filter-tooltip--below {
   visibility: visible;
   opacity: 1;
   transform: translate(-50%, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cards-slot-tooltip {
+  .cards-filter-tooltip {
     transition-duration: 0.01ms;
   }
 }

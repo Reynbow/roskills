@@ -508,6 +508,34 @@ const CATEGORY_LABELS: Record<CategoryKey, string> = {
   utility: "Utility",
 };
 
+/** Hover tooltip — matches how `deriveCard` assigns each category. */
+const CATEGORY_TOOLTIPS: Record<CategoryKey, string> = {
+  mvp: "Cards dropped only by MVP bosses.",
+  set: 'Cards that are part of an equipment set — the description includes a "set bonus with ..." line listing partner cards or gear.',
+  autocast:
+    'Effects that can cast or trigger skills automatically: "chance of using ...", "adds a ... level" lines, when attacking / when physically attacked, or other auto-cast style wording.',
+  stats: "Card text mentions a bonus to STR, AGI, VIT, INT, DEX, or LUK.",
+  damage:
+    'Increases damage dealt: weapon or magic damage bonuses, extra damage vs race / size / element, "perfect hit" damage lines, and similar offensive modifiers.',
+  resist:
+    'Mitigation or protection: take less damage, resist elements, immunity, or "reduces damage received" style effects.',
+  exp: "Changes experience gain: EXP bonuses, penalties, or other XP-related wording in the effect text.",
+  status:
+    "Status combat: inflict, resist, or reference stun, freeze, curse, silence, poison, bleeding, sleep, stone, coma, blind, and similar states.",
+  utility:
+    "Utility effects such as teleport, healing or SP recovery, or lines that enable / disable mechanics.",
+};
+
+/** Classic RO stat roles (pre-renewal) — what each primary stat does in-game. */
+const STAT_TOOLTIPS: Record<StatKey, string> = {
+  STR: "Strength — increases melee physical damage with most weapons, weight limit, and some skill damage.",
+  AGI: "Agility — increases flee, ASPD, and helps resist some status effects.",
+  VIT: "Vitality — increases Max HP, HP regeneration, soft DEF, and resilience to some status effects.",
+  INT: "Intelligence — increases Max SP, SP regeneration, MATK, MDEF, and lowers variable cast time.",
+  DEX: "Dexterity — increases HIT, damage with ranged weapons and some melee types, and lowers variable cast time.",
+  LUK: "Luck — increases critical hit rate, perfect dodge, and slightly influences many chance-based formulas.",
+};
+
 function mount(root: HTMLElement): void {
   root.innerHTML = `
     <header class="site-header">
@@ -550,7 +578,7 @@ function mount(root: HTMLElement): void {
         <button type="button" class="cards-filter-clear" id="btn-clear">Clear filters</button>
       </div>
 
-      <div id="cards-slot-tooltip" class="cards-slot-tooltip" role="tooltip" aria-hidden="true"></div>
+      <div id="cards-filter-tooltip" class="cards-filter-tooltip" role="tooltip" aria-hidden="true"></div>
 
       <div class="cards-table-wrap">
         <table class="cards-table">
@@ -606,7 +634,8 @@ function mount(root: HTMLElement): void {
   const catWrap = root.querySelector("#chips-cat") as HTMLElement;
   const statWrap = root.querySelector("#chips-stat") as HTMLElement;
   const slotWrap = root.querySelector("#chips-slot") as HTMLElement;
-  const slotTooltip = root.querySelector("#cards-slot-tooltip") as HTMLElement;
+  const filtersEl = root.querySelector(".cards-filters") as HTMLElement;
+  const filterTooltip = root.querySelector("#cards-filter-tooltip") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
   const modal = root.querySelector("#set-modal") as HTMLDialogElement;
   const modalBody = root.querySelector("#set-modal-body") as HTMLElement;
@@ -651,7 +680,7 @@ function mount(root: HTMLElement): void {
     slotWrap.innerHTML = SLOT_FILTER_OPTIONS.map((slotLabel) =>
       slotChipButton(slotLabel, state.slots.has(slotLabel)),
     ).join("");
-    hideSlotTooltip();
+    hideFilterTooltip();
   };
 
   const apply = (): void => {
@@ -723,106 +752,137 @@ function mount(root: HTMLElement): void {
     true,
   );
 
-  let slotTipActiveBtn: HTMLButtonElement | null = null;
+  let filterTipActiveBtn: HTMLButtonElement | null = null;
+  let filterTipContentKey = "";
 
-  const hideSlotTooltip = (): void => {
-    slotTooltip.classList.remove("cards-slot-tooltip--visible");
-    slotTooltip.classList.remove("cards-slot-tooltip--below");
-    slotTooltip.setAttribute("aria-hidden", "true");
-    slotTooltip.textContent = "";
-    slotTipActiveBtn?.removeAttribute("aria-describedby");
-    slotTipActiveBtn = null;
+  function filterTooltipParts(btn: HTMLButtonElement): { label: string; body: string } | null {
+    const kind = btn.dataset.kind;
+    const id = btn.dataset.id ?? "";
+    if (kind === "slot") {
+      return {
+        label: slotFilterDisplayName(id),
+        body: "Shows only cards for this equip slot.",
+      };
+    }
+    if (kind === "cat") {
+      const k = id as CategoryKey;
+      if (CATEGORY_TOOLTIPS[k]) {
+        return { label: CATEGORY_LABELS[k], body: CATEGORY_TOOLTIPS[k] };
+      }
+      return null;
+    }
+    if (kind === "stat") {
+      const k = id as StatKey;
+      if (STAT_TOOLTIPS[k]) {
+        return { label: k, body: STAT_TOOLTIPS[k] };
+      }
+      return null;
+    }
+    return null;
+  }
+
+  const hideFilterTooltip = (): void => {
+    filterTooltip.classList.remove("cards-filter-tooltip--visible");
+    filterTooltip.classList.remove("cards-filter-tooltip--below");
+    filterTooltip.setAttribute("aria-hidden", "true");
+    filterTooltip.innerHTML = "";
+    filterTipContentKey = "";
+    filterTipActiveBtn?.removeAttribute("aria-describedby");
+    filterTipActiveBtn = null;
   };
 
-  const showSlotTooltip = (btn: HTMLButtonElement): void => {
-    const id = btn.dataset.id ?? "";
-    const label = slotFilterDisplayName(id);
+  const showFilterTooltip = (btn: HTMLButtonElement): void => {
+    const parts = filterTooltipParts(btn);
+    if (!parts) return;
+    const key = `${parts.label}\0${parts.body}`;
     if (
-      slotTipActiveBtn === btn &&
-      slotTooltip.textContent === label &&
-      slotTooltip.classList.contains("cards-slot-tooltip--visible")
+      filterTipActiveBtn === btn &&
+      filterTipContentKey === key &&
+      filterTooltip.classList.contains("cards-filter-tooltip--visible")
     ) {
       return;
     }
 
-    slotTooltip.textContent = label;
-    slotTipActiveBtn?.removeAttribute("aria-describedby");
-    slotTipActiveBtn = btn;
-    btn.setAttribute("aria-describedby", "cards-slot-tooltip");
-    slotTooltip.setAttribute("aria-hidden", "false");
+    filterTipContentKey = key;
+    filterTooltip.innerHTML = `<div class="cards-filter-tooltip__inner"><strong class="cards-filter-tooltip__label">${escapeHtml(parts.label)}</strong><p class="cards-filter-tooltip__desc">${escapeHtml(parts.body)}</p></div>`;
+    filterTipActiveBtn?.removeAttribute("aria-describedby");
+    filterTipActiveBtn = btn;
+    btn.setAttribute("aria-describedby", "cards-filter-tooltip");
+    filterTooltip.setAttribute("aria-hidden", "false");
 
-    slotTooltip.classList.remove("cards-slot-tooltip--visible");
-    slotTooltip.classList.remove("cards-slot-tooltip--below");
-    void slotTooltip.offsetWidth;
+    filterTooltip.classList.remove("cards-filter-tooltip--visible");
+    filterTooltip.classList.remove("cards-filter-tooltip--below");
+    void filterTooltip.offsetWidth;
 
     const r = btn.getBoundingClientRect();
     const gap = 10;
     const cx = r.left + r.width / 2;
-    slotTooltip.style.left = `${cx}px`;
-    slotTooltip.style.top = `${r.top - gap}px`;
+    filterTooltip.style.left = `${cx}px`;
+    filterTooltip.style.top = `${r.top - gap}px`;
 
     requestAnimationFrame(() => {
-      const tr = slotTooltip.getBoundingClientRect();
+      const tr = filterTooltip.getBoundingClientRect();
       if (tr.top < 8) {
-        slotTooltip.classList.add("cards-slot-tooltip--below");
-        slotTooltip.style.top = `${r.bottom + gap}px`;
+        filterTooltip.classList.add("cards-filter-tooltip--below");
+        filterTooltip.style.top = `${r.bottom + gap}px`;
       }
-      const tr2 = slotTooltip.getBoundingClientRect();
+      const tr2 = filterTooltip.getBoundingClientRect();
       const pad = 8;
       let shift = 0;
       if (tr2.left < pad) shift = pad - tr2.left;
       else if (tr2.right > window.innerWidth - pad) shift = window.innerWidth - pad - tr2.right;
       if (shift !== 0) {
-        const cur = parseFloat(slotTooltip.style.left) || cx;
-        slotTooltip.style.left = `${cur + shift}px`;
+        const cur = parseFloat(filterTooltip.style.left) || cx;
+        filterTooltip.style.left = `${cur + shift}px`;
       }
       requestAnimationFrame(() => {
-        slotTooltip.classList.add("cards-slot-tooltip--visible");
+        filterTooltip.classList.add("cards-filter-tooltip--visible");
       });
     });
   };
 
-  slotWrap.addEventListener("pointerover", (e) => {
-    const btn = (e.target as HTMLElement).closest("button.cards-chip--slot") as HTMLButtonElement | null;
-    if (!btn || !slotWrap.contains(btn)) return;
-    showSlotTooltip(btn);
+  filtersEl.addEventListener("pointerover", (e) => {
+    const btn = (e.target as HTMLElement).closest("button.cards-chip") as HTMLButtonElement | null;
+    if (!btn || !filtersEl.contains(btn)) return;
+    showFilterTooltip(btn);
   });
 
-  slotWrap.addEventListener("pointerout", (e) => {
+  filtersEl.addEventListener("pointerout", (e) => {
     const related = e.relatedTarget as Node | null;
-    if (related && slotWrap.contains(related)) {
-      const toBtn = (related as HTMLElement).closest("button.cards-chip--slot") as HTMLButtonElement | null;
+    if (related && filtersEl.contains(related)) {
+      const toBtn = (related as HTMLElement).closest("button.cards-chip") as HTMLButtonElement | null;
       if (toBtn) {
-        showSlotTooltip(toBtn);
+        showFilterTooltip(toBtn);
         return;
       }
+      hideFilterTooltip();
       return;
     }
-    hideSlotTooltip();
+    hideFilterTooltip();
   });
 
-  slotWrap.addEventListener("focusin", (e) => {
-    const btn = (e.target as HTMLElement).closest("button.cards-chip--slot") as HTMLButtonElement | null;
-    if (btn) showSlotTooltip(btn);
+  filtersEl.addEventListener("focusin", (e) => {
+    const btn = (e.target as HTMLElement).closest("button.cards-chip") as HTMLButtonElement | null;
+    if (btn && filtersEl.contains(btn)) showFilterTooltip(btn);
   });
 
-  slotWrap.addEventListener("focusout", (e) => {
+  filtersEl.addEventListener("focusout", (e) => {
     const related = e.relatedTarget as Node | null;
     if (
       related &&
-      slotWrap.contains(related) &&
-      (related as HTMLElement).closest("button.cards-chip--slot")
+      filtersEl.contains(related) &&
+      (related as HTMLElement).closest("button.cards-chip")
     ) {
       return;
     }
-    hideSlotTooltip();
+    hideFilterTooltip();
   });
 
-  const hideSlotTooltipOnScroll = (): void => {
-    if (slotTipActiveBtn) hideSlotTooltip();
+  const hideFilterTooltipOnScroll = (): void => {
+    if (filterTipActiveBtn) hideFilterTooltip();
   };
-  window.addEventListener("scroll", hideSlotTooltipOnScroll, true);
-  window.addEventListener("resize", hideSlotTooltipOnScroll);
+  window.addEventListener("scroll", hideFilterTooltipOnScroll, true);
+  window.addEventListener("resize", hideFilterTooltipOnScroll);
 
   const closeArtModal = (): void => {
     if (artModal.open) artModal.close();
