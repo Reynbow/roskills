@@ -1133,14 +1133,11 @@ header.planner-header h1 {
     display: none;
   }
 
-  .cards-table tbody,
-  .cards-table tr,
-  .cards-table td {
-    display: block;
-    width: 100%;
-  }
-
   .cards-table tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-auto-rows: min-content;
+    align-items: start;
     background: linear-gradient(165deg, #323a4a 0%, var(--bg-panel) 40%, var(--bg-panel-deep) 100%);
     border: 1px solid var(--border-panel);
     border-radius: 12px;
@@ -1154,8 +1151,10 @@ header.planner-header h1 {
   }
 
   .cards-table td {
+    display: block;
     border-bottom: 1px solid rgba(130, 190, 255, 0.14);
     padding: 0.7rem 0.85rem;
+    grid-column: 1 / -1;
   }
 
   .cards-table td:last-child {
@@ -1174,37 +1173,36 @@ header.planner-header h1 {
   }
 
   /* Art + Card name compact header */
-  .cards-col-art,
-  .cards-col-name {
-    display: inline-block;
-    vertical-align: middle;
-    width: auto;
-  }
-
   .cards-col-name[data-label]::before,
-  .cards-col-art[data-label]::before {
+  .cards-col-art[data-label]::before,
+  .cards-col-slot[data-label]::before {
     display: none;
   }
 
   .cards-table td.cards-col-art {
-    float: left;
-    width: auto;
-    padding-right: 0.65rem;
+    grid-column: 1;
     border-bottom: none;
+    padding-right: 0.55rem;
   }
 
   .cards-table td.cards-col-name {
+    grid-column: 2;
     border-bottom: none;
     padding-left: 0;
+    padding-right: 0.55rem;
+  }
+
+  .cards-table td.cards-col-slot {
+    grid-column: 3;
+    border-bottom: none;
+    padding-left: 0;
+    text-align: right;
+    white-space: normal;
   }
 
   .cards-name {
     font-size: 1.05rem;
-  }
-
-  /* Clear the floats for the rest of the cells */
-  .cards-table td.cards-col-slot {
-    clear: both;
+    overflow-wrap: anywhere;
   }
 
   .cards-col-desc,
