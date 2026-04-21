@@ -7,6 +7,8 @@
  *
  * Local override: place files in third_party/rathena-pre-re/{item_db_etc.yml,mob_db.yml}
  * SKIP_RATHENA_FETCH=1 uses only those files; if missing, leaves existing cards.json unchanged.
+ *
+ * Top spawn maps per monster: optional src/data/mob-spawn-maps.json (run scripts/build-mob-spawn-maps.mjs).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -16,6 +18,7 @@ import { parse as parseYaml } from "yaml";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const OUT = path.join(ROOT, "src", "data", "cards.json");
+const SPAWN_MAPS_JSON = path.join(ROOT, "src", "data", "mob-spawn-maps.json");
 const RATHENA_DIR = path.join(ROOT, "third_party", "rathena-pre-re");
 
 const ITEM_URL =
@@ -180,6 +183,102 @@ function bodyArray(body) {
   return Array.isArray(body) ? body : [];
 }
 
+/** @returns {Record<string, unknown>} */
+function loadSpawnMapsByMonster() {
+  if (!fs.existsSync(SPAWN_MAPS_JSON)) return {};
+  try {
+    const raw = JSON.parse(fs.readFileSync(SPAWN_MAPS_JSON, "utf8"));
+    if (raw && typeof raw === "object" && !Array.isArray(raw)) return raw;
+  } catch (e) {
+    console.warn("import-cards: could not read mob-spawn-maps.json", (e && e.message) || e);
+  }
+  return {};
+}
+
+/**
+ * @param {unknown} maps
+ * @returns {Array<{ map: string; count: number }> | null}
+ */
+function normalizeSpawnMapsList(maps) {
+  if (!Array.isArray(maps) || maps.length === 0) return null;
+  /** @type {Array<{ map: string; count: number }>} */
+  const out = [];
+  for (const x of maps) {
+    if (typeof x === "string") {
+      out.push({ map: x, count: 0 });
+      continue;
+    }
+    if (x && typeof x === "object" && typeof x.map === "string") {
+      const count = typeof x.count === "number" && Number.isFinite(x.count) ? x.count : 0;
+      out.push({ map: x.map, count });
+    }
+  }
+  return out.length ? out.slice(0, 5) : null;
+}
+
+/**
+ * @param {Array<{ monster: string; rate: number; isMvp: boolean; maps?: unknown }>} drops
+ * @param {Record<string, unknown>} byMonster
+ */
+function attachSpawnMaps(drops, byMonster) {
+  return drops.map((d) => {
+    const maps = normalizeSpawnMapsList(byMonster[d.monster]);
+    if (!maps) return d;
+    return { ...d, maps };
+  });
+}
+
+/**
+ * One row per mob display name (rAthena may define several mob_db Body entries with the same Name).
+ * Keeps the first row after sort (stable: lowest rate, then MVP flag).
+ * @param {Array<Record<string, unknown>>} drops
+ */
+function dedupeDropsByMonsterName(drops) {
+  if (!Array.isArray(drops)) return [];
+  const seen = new Set();
+  /** @type {Array<Record<string, unknown>>} */
+  const res = [];
+  for (const d of drops) {
+    if (!d || typeof d !== "object") continue;
+    if (typeof d.monster !== "string") continue;
+    if (typeof d.rate !== "number") continue;
+    if (seen.has(d.monster)) continue;
+    seen.add(d.monster);
+    res.push(d);
+  }
+  return res;
+}
+
+const ANT_WORKER_MOBS = new Set(["Andre", "Deniro", "Piere"]);
+
+/**
+ * rAthena pre-re uses Item Andre_Card for Andre, Deniro, and Piere. Present one combined drop line;
+ * map list uses Andre spawns only.
+ * @param {Array<Record<string, unknown>>} drops
+ * @param {Record<string, unknown>} spawnMapsByMonster
+ */
+function collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster) {
+  if (!Array.isArray(drops) || drops.length === 0) return drops;
+
+  const antOnly = drops.filter((d) => d && ANT_WORKER_MOBS.has(String(d.monster)));
+  if (antOnly.length === 0) return drops;
+  if (antOnly.length !== drops.length) return drops;
+
+  const rate = antOnly[0].rate;
+  const isMvp = Boolean(antOnly[0].isMvp);
+  if (!antOnly.every((d) => d.rate === rate && Boolean(d.isMvp) === isMvp)) return drops;
+
+  const maps = normalizeSpawnMapsList(spawnMapsByMonster["Andre"]);
+  /** @type {Record<string, unknown>} */
+  const row = {
+    monster: "Andre/Piere/Deniro",
+    rate,
+    isMvp,
+  };
+  if (maps && maps.length) row.maps = maps;
+  return [row];
+}
+
 /**
  * @param {Map<string, Array<{ monster: string; rate: number; isMvp: boolean }>>} byAegis
  * @param {string} monsterName
@@ -273,6 +372,13 @@ function scriptToStatsOnlyDescription(script) {
 }
 
 async function main() {
+  const spawnMapsByMonster = loadSpawnMapsByMonster();
+  if (Object.keys(spawnMapsByMonster).length) {
+    console.log(
+      `import-cards: merging spawn maps for ${Object.keys(spawnMapsByMonster).length} monsters from mob-spawn-maps.json`,
+    );
+  }
+
   let itemText;
   let mobText;
   try {
@@ -330,6 +436,11 @@ async function main() {
     drops = drops
       .slice()
       .sort((a, b) => a.monster.localeCompare(b.monster) || a.rate - b.rate);
+    drops = dedupeDropsByMonsterName(drops);
+    drops = attachSpawnMaps(drops, spawnMapsByMonster);
+    if (aegisName === "Andre_Card") {
+      drops = collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster);
+    }
     const row = {
       id,
       aegisName,

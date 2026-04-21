@@ -1,0 +1,5672 @@
+{
+  "Thief Bug": [
+    {
+      "map": "prt_sewb2",
+      "count": 70
+    },
+    {
+      "map": "ein_fild08",
+      "count": 30
+    },
+    {
+      "map": "prt_fild01",
+      "count": 30
+    },
+    {
+      "map": "prt_sewb1",
+      "count": 30
+    },
+    {
+      "map": "ein_fild09",
+      "count": 20
+    }
+  ],
+  "Wild Rose": [
+    {
+      "map": "gef_fild05",
+      "count": 50
+    },
+    {
+      "map": "ra_fild04",
+      "count": 10
+    },
+    {
+      "map": "yuno_fild02",
+      "count": 5
+    },
+    {
+      "map": "yuno_fild08",
+      "count": 5
+    },
+    {
+      "map": "yuno_fild09",
+      "count": 5
+    }
+  ],
+  "Zombie Slaughter": [
+    {
+      "map": "abbey02",
+      "count": 210
+    },
+    {
+      "map": "abbey01",
+      "count": 30
+    },
+    {
+      "map": "nameless_n",
+      "count": 12
+    }
+  ],
+  "Ragged Zombie": [
+    {
+      "map": "abbey02",
+      "count": 70
+    },
+    {
+      "map": "abbey01",
+      "count": 33
+    },
+    {
+      "map": "nameless_n",
+      "count": 12
+    }
+  ],
+  "Hell Poodle": [
+    {
+      "map": "abbey01",
+      "count": 25
+    },
+    {
+      "map": "nameless_n",
+      "count": 17
+    }
+  ],
+  "Banshee": [
+    {
+      "map": "abbey01",
+      "count": 93
+    },
+    {
+      "map": "abbey03",
+      "count": 30
+    },
+    {
+      "map": "nameless_n",
+      "count": 16
+    }
+  ],
+  "Flame Skull": [
+    {
+      "map": "abbey03",
+      "count": 25
+    },
+    {
+      "map": "abbey01",
+      "count": 21
+    },
+    {
+      "map": "abbey02",
+      "count": 21
+    },
+    {
+      "map": "nameless_n",
+      "count": 3
+    }
+  ],
+  "Ghoul": [
+    {
+      "map": "abbey01",
+      "count": 56
+    },
+    {
+      "map": "gl_church",
+      "count": 50
+    },
+    {
+      "map": "gef_dun01",
+      "count": 40
+    },
+    {
+      "map": "nameless_n",
+      "count": 40
+    },
+    {
+      "map": "gl_chyard",
+      "count": 35
+    }
+  ],
+  "Necromancer": [
+    {
+      "map": "abbey03",
+      "count": 60
+    },
+    {
+      "map": "arug_dun01",
+      "count": 18
+    },
+    {
+      "map": "abbey02",
+      "count": 7
+    }
+  ],
+  "Mimic": [
+    {
+      "map": "tha_t02",
+      "count": 30
+    },
+    {
+      "map": "moc_pryd06",
+      "count": 20
+    },
+    {
+      "map": "tha_t01",
+      "count": 20
+    },
+    {
+      "map": "tha_t04",
+      "count": 20
+    },
+    {
+      "map": "moc_pryd04",
+      "count": 15
+    }
+  ],
+  "Ancient Mimic": [
+    {
+      "map": "tha_t02",
+      "count": 80
+    },
+    {
+      "map": "tha_t05",
+      "count": 40
+    },
+    {
+      "map": "tha_t06",
+      "count": 40
+    },
+    {
+      "map": "tha_t04",
+      "count": 20
+    },
+    {
+      "map": "abyss_01",
+      "count": 10
+    }
+  ],
+  "Ferus": [
+    {
+      "map": "abyss_01",
+      "count": 55
+    },
+    {
+      "map": "abyss_03",
+      "count": 10
+    }
+  ],
+  "Novus": [
+    {
+      "map": "hu_fild02",
+      "count": 41
+    },
+    {
+      "map": "hu_fild04",
+      "count": 10
+    },
+    {
+      "map": "hu_fild07",
+      "count": 10
+    },
+    {
+      "map": "abyss_01",
+      "count": 9
+    },
+    {
+      "map": "hu_fild05",
+      "count": 6
+    }
+  ],
+  "Penomena": [
+    {
+      "map": "alde_dun03",
+      "count": 85
+    },
+    {
+      "map": "treasure02",
+      "count": 38
+    },
+    {
+      "map": "abyss_01",
+      "count": 30
+    }
+  ],
+  "Dragon Egg": [
+    {
+      "map": "abyss_02",
+      "count": 10
+    },
+    {
+      "map": "abyss_03",
+      "count": 10
+    },
+    {
+      "map": "abyss_01",
+      "count": 8
+    },
+    {
+      "map": "hu_fild05",
+      "count": 4
+    }
+  ],
+  "Acidus": [
+    {
+      "map": "abyss_02",
+      "count": 60
+    },
+    {
+      "map": "abyss_03",
+      "count": 10
+    }
+  ],
+  "Hydrolancer": [
+    {
+      "map": "abyss_03",
+      "count": 3
+    }
+  ],
+  "Arclouze": [
+    {
+      "map": "alde_dun01",
+      "count": 50
+    },
+    {
+      "map": "gl_dun01",
+      "count": 50
+    },
+    {
+      "map": "alde_dun02",
+      "count": 20
+    },
+    {
+      "map": "moc_pryd06",
+      "count": 20
+    },
+    {
+      "map": "gl_sew01",
+      "count": 10
+    }
+  ],
+  "Drainliar": [
+    {
+      "map": "alde_dun03",
+      "count": 55
+    },
+    {
+      "map": "alde_dun01",
+      "count": 40
+    },
+    {
+      "map": "in_sphinx1",
+      "count": 40
+    },
+    {
+      "map": "gef_dun01",
+      "count": 20
+    },
+    {
+      "map": "mjo_dun02",
+      "count": 20
+    }
+  ],
+  "High Orc": [
+    {
+      "map": "gef_fild14",
+      "count": 70
+    },
+    {
+      "map": "alde_dun02",
+      "count": 50
+    },
+    {
+      "map": "gef_fild03",
+      "count": 1
+    }
+  ],
+  "Orc Archer": [
+    {
+      "map": "gef_fild14",
+      "count": 30
+    },
+    {
+      "map": "alde_dun02",
+      "count": 20
+    },
+    {
+      "map": "orcsdun02",
+      "count": 5
+    }
+  ],
+  "Brilight": [
+    {
+      "map": "alde_dun02",
+      "count": 20
+    }
+  ],
+  "Cramp": [
+    {
+      "map": "alde_dun03",
+      "count": 56
+    },
+    {
+      "map": "gl_sew02",
+      "count": 15
+    },
+    {
+      "map": "gl_prison1",
+      "count": 5
+    },
+    {
+      "map": "prt_sewb4",
+      "count": 5
+    },
+    {
+      "map": "mjo_dun03",
+      "count": 3
+    }
+  ],
+  "Bathory": [
+    {
+      "map": "alde_dun04",
+      "count": 50
+    },
+    {
+      "map": "c_tower1",
+      "count": 1
+    }
+  ],
+  "Joker": [
+    {
+      "map": "alde_dun04",
+      "count": 10
+    }
+  ],
+  "Executioner": [
+    {
+      "map": "alde_dun04",
+      "count": 1
+    },
+    {
+      "map": "c_tower4",
+      "count": 1
+    },
+    {
+      "map": "gefenia01",
+      "count": 1
+    },
+    {
+      "map": "gefenia02",
+      "count": 1
+    },
+    {
+      "map": "gefenia03",
+      "count": 1
+    }
+  ],
+  "Mysteltainn": [
+    {
+      "map": "alde_dun04",
+      "count": 1
+    },
+    {
+      "map": "gefenia01",
+      "count": 1
+    },
+    {
+      "map": "gefenia02",
+      "count": 1
+    },
+    {
+      "map": "gefenia03",
+      "count": 1
+    },
+    {
+      "map": "gefenia04",
+      "count": 1
+    }
+  ],
+  "Ogretooth": [
+    {
+      "map": "alde_dun04",
+      "count": 1
+    },
+    {
+      "map": "gef_dun01",
+      "count": 1
+    },
+    {
+      "map": "gefenia01",
+      "count": 1
+    },
+    {
+      "map": "gefenia02",
+      "count": 1
+    },
+    {
+      "map": "gefenia03",
+      "count": 1
+    }
+  ],
+  "Whisper": [
+    {
+      "map": "pay_dun03",
+      "count": 4
+    },
+    {
+      "map": "gl_cas02",
+      "count": 2
+    }
+  ],
+  "Miyabi Doll": [
+    {
+      "map": "ama_dun01",
+      "count": 65
+    },
+    {
+      "map": "ama_dun02",
+      "count": 5
+    },
+    {
+      "map": "ama_fild01",
+      "count": 2
+    },
+    {
+      "map": "ama_dun03",
+      "count": 1
+    }
+  ],
+  "Firelock Soldier": [
+    {
+      "map": "ama_dun01",
+      "count": 45
+    },
+    {
+      "map": "ama_dun03",
+      "count": 25
+    },
+    {
+      "map": "ama_dun02",
+      "count": 20
+    }
+  ],
+  "Shinobi": [
+    {
+      "map": "ama_dun03",
+      "count": 55
+    },
+    {
+      "map": "ama_dun01",
+      "count": 2
+    },
+    {
+      "map": "ama_dun02",
+      "count": 2
+    }
+  ],
+  "Poison Toad": [
+    {
+      "map": "ama_dun02",
+      "count": 35
+    },
+    {
+      "map": "ama_fild01",
+      "count": 1
+    }
+  ],
+  "Horong": [
+    {
+      "map": "pay_dun04",
+      "count": 30
+    },
+    {
+      "map": "lou_dun01",
+      "count": 15
+    },
+    {
+      "map": "ama_dun02",
+      "count": 10
+    }
+  ],
+  "The Paper": [
+    {
+      "map": "ama_dun03",
+      "count": 20
+    },
+    {
+      "map": "ama_dun02",
+      "count": 1
+    }
+  ],
+  "Tengu": [
+    {
+      "map": "ama_dun03",
+      "count": 55
+    }
+  ],
+  "Familiar": [
+    {
+      "map": "moc_pryd01",
+      "count": 50
+    },
+    {
+      "map": "mjo_dun01",
+      "count": 30
+    },
+    {
+      "map": "anthell01",
+      "count": 20
+    },
+    {
+      "map": "anthell02",
+      "count": 20
+    },
+    {
+      "map": "prt_sewb3",
+      "count": 20
+    }
+  ],
+  "Andre": [
+    {
+      "map": "anthell02",
+      "count": 50
+    },
+    {
+      "map": "moc_fild20",
+      "count": 20
+    },
+    {
+      "map": "anthell01",
+      "count": 15
+    },
+    {
+      "map": "moc_fild11",
+      "count": 10
+    },
+    {
+      "map": "moc_fild16",
+      "count": 10
+    }
+  ],
+  "Piere": [
+    {
+      "map": "anthell01",
+      "count": 50
+    },
+    {
+      "map": "moc_fild20",
+      "count": 20
+    },
+    {
+      "map": "anthell02",
+      "count": 15
+    },
+    {
+      "map": "moc_fild11",
+      "count": 10
+    }
+  ],
+  "Deniro": [
+    {
+      "map": "anthell01",
+      "count": 40
+    },
+    {
+      "map": "moc_fild16",
+      "count": 20
+    },
+    {
+      "map": "moc_fild20",
+      "count": 20
+    },
+    {
+      "map": "anthell02",
+      "count": 15
+    },
+    {
+      "map": "moc_fild11",
+      "count": 10
+    }
+  ],
+  "Vitata": [
+    {
+      "map": "anthell02",
+      "count": 30
+    },
+    {
+      "map": "anthell01",
+      "count": 10
+    }
+  ],
+  "Giearth": [
+    {
+      "map": "mjo_dun02",
+      "count": 35
+    },
+    {
+      "map": "ein_fild04",
+      "count": 10
+    },
+    {
+      "map": "mjo_dun03",
+      "count": 5
+    },
+    {
+      "map": "anthell02",
+      "count": 3
+    },
+    {
+      "map": "ein_fild06",
+      "count": 2
+    }
+  ],
+  "Maya Purple": [
+    {
+      "map": "gld_dun03",
+      "count": 3
+    },
+    {
+      "map": "anthell01",
+      "count": 1
+    }
+  ],
+  "Ant Egg": [
+    {
+      "map": "anthell01",
+      "count": 87
+    },
+    {
+      "map": "moc_fild01",
+      "count": 20
+    },
+    {
+      "map": "anthell02",
+      "count": 15
+    },
+    {
+      "map": "moc_fild02",
+      "count": 10
+    },
+    {
+      "map": "moc_fild11",
+      "count": 10
+    }
+  ],
+  "Leaf Cat": [
+    {
+      "map": "ayo_dun01",
+      "count": 65
+    },
+    {
+      "map": "ayo_fild02",
+      "count": 50
+    },
+    {
+      "map": "ayo_fild01",
+      "count": 3
+    }
+  ],
+  "Kraben": [
+    {
+      "map": "ayo_dun02",
+      "count": 20
+    },
+    {
+      "map": "ayo_dun01",
+      "count": 5
+    }
+  ],
+  "Tamruan": [
+    {
+      "map": "ayo_dun02",
+      "count": 100
+    }
+  ],
+  "Medusa": [
+    {
+      "map": "beach_dun",
+      "count": 60
+    }
+  ],
+  "Merman": [
+    {
+      "map": "iz_dun04",
+      "count": 52
+    },
+    {
+      "map": "beach_dun",
+      "count": 3
+    },
+    {
+      "map": "iz_dun03",
+      "count": 3
+    },
+    {
+      "map": "iz_dun02",
+      "count": 1
+    }
+  ],
+  "Nereid": [
+    {
+      "map": "beach_dun",
+      "count": 20
+    },
+    {
+      "map": "beach_dun2",
+      "count": 10
+    },
+    {
+      "map": "beach_dun3",
+      "count": 1
+    }
+  ],
+  "Pest": [
+    {
+      "map": "cmd_fild03",
+      "count": 30
+    },
+    {
+      "map": "beach_dun",
+      "count": 20
+    },
+    {
+      "map": "tur_dun01",
+      "count": 15
+    },
+    {
+      "map": "tur_dun02",
+      "count": 15
+    },
+    {
+      "map": "cmd_fild05",
+      "count": 5
+    }
+  ],
+  "Megalith": [
+    {
+      "map": "beach_dun2",
+      "count": 15
+    }
+  ],
+  "Stalactic Golem": [
+    {
+      "map": "beach_dun2",
+      "count": 65
+    },
+    {
+      "map": "moc_fild21",
+      "count": 46
+    }
+  ],
+  "Tri Joint": [
+    {
+      "map": "beach_dun2",
+      "count": 20
+    }
+  ],
+  "Hydra": [
+    {
+      "map": "treasure01",
+      "count": 71
+    },
+    {
+      "map": "iz_dun02",
+      "count": 40
+    },
+    {
+      "map": "iz_dun03",
+      "count": 40
+    },
+    {
+      "map": "pay_dun02",
+      "count": 31
+    },
+    {
+      "map": "beach_dun3",
+      "count": 30
+    }
+  ],
+  "Thara Frog": [
+    {
+      "map": "beach_dun3",
+      "count": 50
+    },
+    {
+      "map": "tur_dun01",
+      "count": 10
+    }
+  ],
+  "Megalodon": [
+    {
+      "map": "beach_dun3",
+      "count": 30
+    }
+  ],
+  "Iara": [
+    {
+      "map": "bra_dun02",
+      "count": 120
+    },
+    {
+      "map": "bra_dun01",
+      "count": 60
+    }
+  ],
+  "Piranha": [
+    {
+      "map": "bra_dun01",
+      "count": 100
+    },
+    {
+      "map": "bra_dun02",
+      "count": 80
+    }
+  ],
+  "Plankton": [
+    {
+      "map": "iz_dun00",
+      "count": 65
+    },
+    {
+      "map": "prt_sewb2",
+      "count": 30
+    },
+    {
+      "map": "bra_dun02",
+      "count": 20
+    },
+    {
+      "map": "bra_dun01",
+      "count": 10
+    },
+    {
+      "map": "iz_dun01",
+      "count": 10
+    }
+  ],
+  "Marina": [
+    {
+      "map": "iz_dun00",
+      "count": 45
+    },
+    {
+      "map": "iz_dun01",
+      "count": 15
+    },
+    {
+      "map": "bra_dun01",
+      "count": 10
+    },
+    {
+      "map": "bra_dun02",
+      "count": 10
+    }
+  ],
+  "Black Mushroom": [
+    {
+      "map": "gef_fild11",
+      "count": 21
+    },
+    {
+      "map": "iz_dun02",
+      "count": 15
+    },
+    {
+      "map": "pay_fild01",
+      "count": 15
+    },
+    {
+      "map": "gl_knt01",
+      "count": 12
+    },
+    {
+      "map": "bra_dun01",
+      "count": 10
+    }
+  ],
+  "Punk": [
+    {
+      "map": "c_tower1",
+      "count": 70
+    },
+    {
+      "map": "ein_fild01",
+      "count": 50
+    },
+    {
+      "map": "c_tower2",
+      "count": 40
+    }
+  ],
+  "Rideword": [
+    {
+      "map": "c_tower1",
+      "count": 70
+    },
+    {
+      "map": "tha_t03",
+      "count": 30
+    },
+    {
+      "map": "gl_cas02",
+      "count": 29
+    },
+    {
+      "map": "gl_knt01",
+      "count": 21
+    },
+    {
+      "map": "tha_t01",
+      "count": 20
+    }
+  ],
+  "Clock Tower Manager": [
+    {
+      "map": "c_tower3",
+      "count": 3
+    },
+    {
+      "map": "c_tower4",
+      "count": 3
+    },
+    {
+      "map": "c_tower1",
+      "count": 1
+    },
+    {
+      "map": "c_tower2",
+      "count": 1
+    }
+  ],
+  "Clock": [
+    {
+      "map": "c_tower2",
+      "count": 40
+    },
+    {
+      "map": "c_tower4",
+      "count": 35
+    }
+  ],
+  "Elder": [
+    {
+      "map": "tha_t04",
+      "count": 20
+    },
+    {
+      "map": "tha_t05",
+      "count": 20
+    },
+    {
+      "map": "tha_t06",
+      "count": 20
+    },
+    {
+      "map": "tha_t02",
+      "count": 10
+    },
+    {
+      "map": "tha_t03",
+      "count": 10
+    }
+  ],
+  "Alarm": [
+    {
+      "map": "c_tower3",
+      "count": 80
+    },
+    {
+      "map": "c_tower4",
+      "count": 30
+    }
+  ],
+  "Owl Duke": [
+    {
+      "map": "tha_t05",
+      "count": 80
+    },
+    {
+      "map": "tha_t06",
+      "count": 40
+    },
+    {
+      "map": "c_tower4",
+      "count": 30
+    },
+    {
+      "map": "gl_cas01",
+      "count": 20
+    },
+    {
+      "map": "tha_t04",
+      "count": 10
+    }
+  ],
+  "Pitman": [
+    {
+      "map": "ein_dun01",
+      "count": 70
+    }
+  ],
+  "Noxious": [
+    {
+      "map": "ein_dun01",
+      "count": 30
+    }
+  ],
+  "Porcellio": [
+    {
+      "map": "ein_fild09",
+      "count": 70
+    },
+    {
+      "map": "ein_dun01",
+      "count": 30
+    },
+    {
+      "map": "ein_fild10",
+      "count": 30
+    },
+    {
+      "map": "ein_fild08",
+      "count": 10
+    }
+  ],
+  "Venomous": [
+    {
+      "map": "ein_dun01",
+      "count": 10
+    }
+  ],
+  "Old Stove": [
+    {
+      "map": "ein_dun02",
+      "count": 30
+    },
+    {
+      "map": "ein_dun01",
+      "count": 1
+    }
+  ],
+  "Ungoliant": [
+    {
+      "map": "ein_dun01",
+      "count": 1
+    },
+    {
+      "map": "ein_fild02",
+      "count": 1
+    },
+    {
+      "map": "ein_fild07",
+      "count": 1
+    }
+  ],
+  "Obsidian": [
+    {
+      "map": "ein_dun02",
+      "count": 40
+    },
+    {
+      "map": "ein_fild05",
+      "count": 17
+    }
+  ],
+  "Mineral": [
+    {
+      "map": "ein_dun02",
+      "count": 50
+    },
+    {
+      "map": "ein_fild05",
+      "count": 35
+    },
+    {
+      "map": "ein_fild04",
+      "count": 5
+    }
+  ],
+  "Teddy Bear": [
+    {
+      "map": "ein_dun02",
+      "count": 30
+    }
+  ],
+  "Hunter Fly": [
+    {
+      "map": "gef_dun00",
+      "count": 30
+    },
+    {
+      "map": "prt_maze03",
+      "count": 30
+    },
+    {
+      "map": "gef_dun02",
+      "count": 10
+    },
+    {
+      "map": "gl_prison",
+      "count": 10
+    },
+    {
+      "map": "gl_prison1",
+      "count": 10
+    }
+  ],
+  "Poporing": [
+    {
+      "map": "yuno_fild03",
+      "count": 50
+    },
+    {
+      "map": "prt_maze03",
+      "count": 45
+    },
+    {
+      "map": "pay_fild04",
+      "count": 40
+    },
+    {
+      "map": "cmd_fild01",
+      "count": 30
+    },
+    {
+      "map": "prt_fild07",
+      "count": 30
+    }
+  ],
+  "Poison Spore": [
+    {
+      "map": "pay_fild05",
+      "count": 65
+    },
+    {
+      "map": "mjolnir_07",
+      "count": 60
+    },
+    {
+      "map": "gef_dun00",
+      "count": 25
+    },
+    {
+      "map": "cmd_fild01",
+      "count": 20
+    },
+    {
+      "map": "gef_fild08",
+      "count": 20
+    }
+  ],
+  "Red Plant": [
+    {
+      "map": "ein_fild10",
+      "count": 20
+    },
+    {
+      "map": "pay_dun03",
+      "count": 16
+    },
+    {
+      "map": "gef_fild05",
+      "count": 15
+    },
+    {
+      "map": "pay_dun00",
+      "count": 15
+    },
+    {
+      "map": "yggdrasil01",
+      "count": 15
+    }
+  ],
+  "Yellow Plant": [
+    {
+      "map": "yuno_fild01",
+      "count": 23
+    },
+    {
+      "map": "ein_fild10",
+      "count": 20
+    },
+    {
+      "map": "hu_fild07",
+      "count": 20
+    },
+    {
+      "map": "ein_fild03",
+      "count": 15
+    },
+    {
+      "map": "lhz_fild02",
+      "count": 15
+    }
+  ],
+  "Green Plant": [
+    {
+      "map": "yggdrasil01",
+      "count": 26
+    },
+    {
+      "map": "mjolnir_02",
+      "count": 23
+    },
+    {
+      "map": "gef_fild03",
+      "count": 21
+    },
+    {
+      "map": "prt_fild03",
+      "count": 20
+    },
+    {
+      "map": "yuno_fild01",
+      "count": 20
+    }
+  ],
+  "Shining Plant": [
+    {
+      "map": "yggdrasil01",
+      "count": 26
+    },
+    {
+      "map": "odin_tem03",
+      "count": 15
+    },
+    {
+      "map": "um_dun02",
+      "count": 6
+    },
+    {
+      "map": "um_fild01",
+      "count": 6
+    },
+    {
+      "map": "lou_dun01",
+      "count": 5
+    }
+  ],
+  "Nightmare": [
+    {
+      "map": "gef_dun02",
+      "count": 40
+    },
+    {
+      "map": "gef_dun01",
+      "count": 30
+    }
+  ],
+  "Zombie": [
+    {
+      "map": "gef_dun01",
+      "count": 25
+    },
+    {
+      "map": "gl_chyard",
+      "count": 20
+    },
+    {
+      "map": "pay_dun00",
+      "count": 20
+    }
+  ],
+  "Jakk": [
+    {
+      "map": "gef_dun01",
+      "count": 40
+    }
+  ],
+  "Blue Plant": [
+    {
+      "map": "ein_fild10",
+      "count": 20
+    },
+    {
+      "map": "odin_tem03",
+      "count": 15
+    },
+    {
+      "map": "yggdrasil01",
+      "count": 15
+    },
+    {
+      "map": "odin_tem02",
+      "count": 10
+    },
+    {
+      "map": "mjolnir_05",
+      "count": 9
+    }
+  ],
+  "White Plant": [
+    {
+      "map": "gef_dun02",
+      "count": 12
+    },
+    {
+      "map": "gef_dun01",
+      "count": 10
+    },
+    {
+      "map": "gef_dun03",
+      "count": 10
+    },
+    {
+      "map": "gon_dun01",
+      "count": 10
+    },
+    {
+      "map": "gon_dun03",
+      "count": 10
+    }
+  ],
+  "Marionette": [
+    {
+      "map": "gef_dun02",
+      "count": 20
+    },
+    {
+      "map": "gl_in01",
+      "count": 20
+    },
+    {
+      "map": "treasure02",
+      "count": 1
+    }
+  ],
+  "Deviruchi": [
+    {
+      "map": "gef_dun02",
+      "count": 35
+    }
+  ],
+  "Hellion Revenant": [
+    {
+      "map": "gef_dun03",
+      "count": 1
+    }
+  ],
+  "Wraith": [
+    {
+      "map": "gl_chyard",
+      "count": 45
+    },
+    {
+      "map": "gef_dun03",
+      "count": 8
+    },
+    {
+      "map": "gl_church",
+      "count": 5
+    }
+  ],
+  "Wraith Dead": [
+    {
+      "map": "gld_dun04",
+      "count": 20
+    },
+    {
+      "map": "gef_dun03",
+      "count": 2
+    }
+  ],
+  "Wind Ghost": [
+    {
+      "map": "gl_step",
+      "count": 100
+    },
+    {
+      "map": "gef_dun03",
+      "count": 3
+    }
+  ],
+  "False Angel": [
+    {
+      "map": "gefenia01",
+      "count": 60
+    },
+    {
+      "map": "gefenia03",
+      "count": 40
+    },
+    {
+      "map": "gefenia02",
+      "count": 30
+    },
+    {
+      "map": "gefenia04",
+      "count": 30
+    }
+  ],
+  "Succubus": [
+    {
+      "map": "gefenia02",
+      "count": 20
+    },
+    {
+      "map": "gefenia01",
+      "count": 10
+    },
+    {
+      "map": "gefenia03",
+      "count": 10
+    },
+    {
+      "map": "gefenia04",
+      "count": 10
+    }
+  ],
+  "Incubus": [
+    {
+      "map": "gefenia03",
+      "count": 20
+    },
+    {
+      "map": "gefenia01",
+      "count": 10
+    },
+    {
+      "map": "gefenia02",
+      "count": 10
+    },
+    {
+      "map": "gefenia04",
+      "count": 10
+    }
+  ],
+  "Violy": [
+    {
+      "map": "gefenia02",
+      "count": 40
+    },
+    {
+      "map": "gefenia03",
+      "count": 40
+    },
+    {
+      "map": "gefenia01",
+      "count": 30
+    },
+    {
+      "map": "gefenia04",
+      "count": 30
+    }
+  ],
+  "Mini Demon": [
+    {
+      "map": "gefenia02",
+      "count": 30
+    },
+    {
+      "map": "gefenia03",
+      "count": 30
+    },
+    {
+      "map": "gefenia01",
+      "count": 20
+    },
+    {
+      "map": "gefenia04",
+      "count": 20
+    },
+    {
+      "map": "gld_dun04",
+      "count": 20
+    }
+  ],
+  "Abysmal Knight": [
+    {
+      "map": "gefenia01",
+      "count": 10
+    },
+    {
+      "map": "gefenia02",
+      "count": 10
+    },
+    {
+      "map": "gefenia03",
+      "count": 10
+    },
+    {
+      "map": "gefenia04",
+      "count": 10
+    },
+    {
+      "map": "gl_knt01",
+      "count": 10
+    }
+  ],
+  "Bloody Knight": [
+    {
+      "map": "gefenia01",
+      "count": 1
+    },
+    {
+      "map": "gefenia02",
+      "count": 1
+    },
+    {
+      "map": "gefenia03",
+      "count": 1
+    },
+    {
+      "map": "gefenia04",
+      "count": 1
+    },
+    {
+      "map": "gl_knt02",
+      "count": 1
+    }
+  ],
+  "Sage Worm": [
+    {
+      "map": "gl_in01",
+      "count": 14
+    },
+    {
+      "map": "gl_cas01",
+      "count": 10
+    }
+  ],
+  "Carat": [
+    {
+      "map": "gl_cas01",
+      "count": 50
+    }
+  ],
+  "Dark Frame": [
+    {
+      "map": "gl_cas01",
+      "count": 20
+    },
+    {
+      "map": "gl_in01",
+      "count": 10
+    }
+  ],
+  "Alice": [
+    {
+      "map": "kh_dun01",
+      "count": 25
+    },
+    {
+      "map": "tha_t02",
+      "count": 10
+    },
+    {
+      "map": "tha_t01",
+      "count": 5
+    },
+    {
+      "map": "gl_cas01",
+      "count": 1
+    },
+    {
+      "map": "gl_cas02",
+      "count": 1
+    }
+  ],
+  "Owl Baron": [
+    {
+      "map": "tha_t06",
+      "count": 40
+    },
+    {
+      "map": "tha_t05",
+      "count": 20
+    },
+    {
+      "map": "tha_t04",
+      "count": 10
+    },
+    {
+      "map": "gl_cas01",
+      "count": 6
+    },
+    {
+      "map": "gld_dun02",
+      "count": 3
+    }
+  ],
+  "Wanderer": [
+    {
+      "map": "gl_cas02",
+      "count": 41
+    },
+    {
+      "map": "tur_dun04",
+      "count": 7
+    },
+    {
+      "map": "gl_in01",
+      "count": 1
+    },
+    {
+      "map": "treasure02",
+      "count": 1
+    }
+  ],
+  "Raydric": [
+    {
+      "map": "gl_knt01",
+      "count": 60
+    },
+    {
+      "map": "gl_knt02",
+      "count": 50
+    },
+    {
+      "map": "gl_cas02",
+      "count": 36
+    }
+  ],
+  "Raydric Archer": [
+    {
+      "map": "gl_cas02",
+      "count": 20
+    },
+    {
+      "map": "gl_knt01",
+      "count": 20
+    },
+    {
+      "map": "gl_knt02",
+      "count": 20
+    },
+    {
+      "map": "gl_step",
+      "count": 10
+    }
+  ],
+  "Chimera": [
+    {
+      "map": "gl_cas02",
+      "count": 3
+    }
+  ],
+  "Evil Druid": [
+    {
+      "map": "gl_church",
+      "count": 60
+    },
+    {
+      "map": "gl_chyard",
+      "count": 10
+    },
+    {
+      "map": "gl_cas02",
+      "count": 9
+    }
+  ],
+  "Khalitzburg": [
+    {
+      "map": "gl_knt02",
+      "count": 40
+    },
+    {
+      "map": "gl_knt01",
+      "count": 10
+    },
+    {
+      "map": "gl_cas02",
+      "count": 6
+    }
+  ],
+  "Injustice": [
+    {
+      "map": "gl_prison1",
+      "count": 40
+    },
+    {
+      "map": "gl_prison",
+      "count": 20
+    }
+  ],
+  "Zombie Prisoner": [
+    {
+      "map": "gl_prison",
+      "count": 30
+    }
+  ],
+  "Rybio": [
+    {
+      "map": "gl_prison",
+      "count": 15
+    },
+    {
+      "map": "gl_prison1",
+      "count": 10
+    }
+  ],
+  "Skeleton Prisoner": [
+    {
+      "map": "gl_prison1",
+      "count": 30
+    }
+  ],
+  "Zealotus": [
+    {
+      "map": "gl_prison1",
+      "count": 1
+    }
+  ],
+  "Phendark": [
+    {
+      "map": "gl_prison1",
+      "count": 10
+    }
+  ],
+  "Gargoyle": [
+    {
+      "map": "gl_sew02",
+      "count": 55
+    },
+    {
+      "map": "gl_sew03",
+      "count": 40
+    },
+    {
+      "map": "gl_sew01",
+      "count": 30
+    },
+    {
+      "map": "gl_sew04",
+      "count": 20
+    },
+    {
+      "map": "gl_dun02",
+      "count": 15
+    }
+  ],
+  "Dark Illusion": [
+    {
+      "map": "gl_church",
+      "count": 1
+    },
+    {
+      "map": "gld_dun04",
+      "count": 1
+    }
+  ],
+  "Sting": [
+    {
+      "map": "gl_sew03",
+      "count": 70
+    },
+    {
+      "map": "gl_dun01",
+      "count": 40
+    }
+  ],
+  "Anolian": [
+    {
+      "map": "gl_sew04",
+      "count": 100
+    },
+    {
+      "map": "cmd_fild03",
+      "count": 90
+    }
+  ],
+  "Giant Whisper": [
+    {
+      "map": "gl_knt01",
+      "count": 1
+    },
+    {
+      "map": "pay_dun03",
+      "count": 1
+    }
+  ],
+  "Majoruros": [
+    {
+      "map": "gl_dun02",
+      "count": 45
+    }
+  ],
+  "Skeleton General": [
+    {
+      "map": "gld_dun01",
+      "count": 10
+    },
+    {
+      "map": "pay_dun04",
+      "count": 1
+    }
+  ],
+  "Am Mut": [
+    {
+      "map": "gld_dun01",
+      "count": 20
+    },
+    {
+      "map": "pay_dun04",
+      "count": 1
+    }
+  ],
+  "Cat o' Nine Tails": [
+    {
+      "map": "gld_dun01",
+      "count": 3
+    },
+    {
+      "map": "pay_dun04",
+      "count": 1
+    }
+  ],
+  "Gajomart": [
+    {
+      "map": "gld_dun01",
+      "count": 10
+    }
+  ],
+  "Vagabond Wolf": [
+    {
+      "map": "gld_dun01",
+      "count": 1
+    },
+    {
+      "map": "moc_fild03",
+      "count": 1
+    },
+    {
+      "map": "prt_maze01",
+      "count": 1
+    },
+    {
+      "map": "prt_maze03",
+      "count": 1
+    }
+  ],
+  "Giant Spider": [
+    {
+      "map": "gld_dun02",
+      "count": 10
+    }
+  ],
+  "Ancient Worm": [
+    {
+      "map": "gld_dun02",
+      "count": 5
+    }
+  ],
+  "Killer Mantis": [
+    {
+      "map": "gld_dun02",
+      "count": 5
+    },
+    {
+      "map": "prt_maze03",
+      "count": 1
+    }
+  ],
+  "Giant Hornet": [
+    {
+      "map": "gld_dun02",
+      "count": 10
+    }
+  ],
+  "Caterpillar": [
+    {
+      "map": "gld_dun03",
+      "count": 20
+    }
+  ],
+  "Gullinbursti": [
+    {
+      "map": "gld_dun03",
+      "count": 10
+    }
+  ],
+  "Creamy Fear": [
+    {
+      "map": "gld_dun03",
+      "count": 20
+    }
+  ],
+  "Leib Olmai": [
+    {
+      "map": "gld_dun03",
+      "count": 20
+    },
+    {
+      "map": "lou_dun01",
+      "count": 1
+    },
+    {
+      "map": "prt_maze02",
+      "count": 1
+    }
+  ],
+  "Zombie Master": [
+    {
+      "map": "gld_dun04",
+      "count": 20
+    }
+  ],
+  "Ghostring": [
+    {
+      "map": "gld_dun04",
+      "count": 1
+    },
+    {
+      "map": "pay_fild04",
+      "count": 1
+    },
+    {
+      "map": "prt_maze03",
+      "count": 1
+    },
+    {
+      "map": "treasure02",
+      "count": 1
+    }
+  ],
+  "Banshee Master": [
+    {
+      "map": "arug_dun01",
+      "count": 22
+    }
+  ],
+  "Beholder master": [
+    {
+      "map": "arug_dun01",
+      "count": 17
+    }
+  ],
+  "Fanat": [
+    {
+      "map": "arug_dun01",
+      "count": 17
+    }
+  ],
+  "Aunoe": [
+    {
+      "map": "arug_dun01",
+      "count": 17
+    }
+  ],
+  "Hell Apocalypse": [
+    {
+      "map": "schg_dun01",
+      "count": 20
+    }
+  ],
+  "Zakudam": [
+    {
+      "map": "schg_dun01",
+      "count": 20
+    }
+  ],
+  "Heavy Metaling": [
+    {
+      "map": "schg_dun01",
+      "count": 15
+    }
+  ],
+  "Cobalt Mineral": [
+    {
+      "map": "schg_dun01",
+      "count": 15
+    }
+  ],
+  "Bloody Butterfly": [
+    {
+      "map": "gon_dun01",
+      "count": 55
+    },
+    {
+      "map": "gon_dun02",
+      "count": 20
+    }
+  ],
+  "Enchanted Peach Tree": [
+    {
+      "map": "gon_dun01",
+      "count": 35
+    },
+    {
+      "map": "gon_dun02",
+      "count": 21
+    }
+  ],
+  "Zipper Bear": [
+    {
+      "map": "gon_dun01",
+      "count": 30
+    },
+    {
+      "map": "gon_fild01",
+      "count": 20
+    }
+  ],
+  "Baby Leopard": [
+    {
+      "map": "gon_fild01",
+      "count": 40
+    },
+    {
+      "map": "gon_dun02",
+      "count": 6
+    }
+  ],
+  "Taoist Hermit": [
+    {
+      "map": "gon_dun03",
+      "count": 30
+    },
+    {
+      "map": "gon_dun02",
+      "count": 20
+    }
+  ],
+  "Hermit Plant": [
+    {
+      "map": "gon_dun03",
+      "count": 20
+    },
+    {
+      "map": "gon_fild01",
+      "count": 2
+    }
+  ],
+  "Evil Nymph": [
+    {
+      "map": "gon_dun03",
+      "count": 50
+    }
+  ],
+  "Siroma": [
+    {
+      "map": "ice_dun01",
+      "count": 75
+    },
+    {
+      "map": "ice_dun02",
+      "count": 30
+    }
+  ],
+  "Roween": [
+    {
+      "map": "ra_fild04",
+      "count": 60
+    },
+    {
+      "map": "ra_fild07",
+      "count": 50
+    },
+    {
+      "map": "ve_fild02",
+      "count": 20
+    },
+    {
+      "map": "ve_fild04",
+      "count": 20
+    },
+    {
+      "map": "ve_fild05",
+      "count": 15
+    }
+  ],
+  "Gazeti": [
+    {
+      "map": "ice_dun03",
+      "count": 42
+    },
+    {
+      "map": "ice_dun02",
+      "count": 15
+    },
+    {
+      "map": "ice_dun01",
+      "count": 2
+    }
+  ],
+  "Muscipular": [
+    {
+      "map": "ra_fild01",
+      "count": 60
+    },
+    {
+      "map": "ra_fild02",
+      "count": 60
+    },
+    {
+      "map": "ve_fild04",
+      "count": 10
+    },
+    {
+      "map": "ice_dun01",
+      "count": 5
+    }
+  ],
+  "Snowier": [
+    {
+      "map": "ice_dun02",
+      "count": 70
+    },
+    {
+      "map": "ice_dun03",
+      "count": 15
+    }
+  ],
+  "Ice Titan": [
+    {
+      "map": "ice_dun03",
+      "count": 70
+    },
+    {
+      "map": "ice_dun02",
+      "count": 7
+    }
+  ],
+  "Iceicle": [
+    {
+      "map": "ice_dun03",
+      "count": 32
+    },
+    {
+      "map": "ice_dun02",
+      "count": 19
+    }
+  ],
+  "Requiem": [
+    {
+      "map": "in_sphinx2",
+      "count": 50
+    },
+    {
+      "map": "in_sphinx1",
+      "count": 20
+    }
+  ],
+  "Zerom": [
+    {
+      "map": "in_sphinx2",
+      "count": 50
+    },
+    {
+      "map": "in_sphinx1",
+      "count": 20
+    }
+  ],
+  "Matyr": [
+    {
+      "map": "in_sphinx2",
+      "count": 20
+    },
+    {
+      "map": "moc_pryd04",
+      "count": 20
+    },
+    {
+      "map": "in_sphinx3",
+      "count": 15
+    },
+    {
+      "map": "in_sphinx1",
+      "count": 10
+    },
+    {
+      "map": "in_sphinx5",
+      "count": 10
+    }
+  ],
+  "Pasana": [
+    {
+      "map": "in_sphinx5",
+      "count": 70
+    },
+    {
+      "map": "in_sphinx4",
+      "count": 20
+    },
+    {
+      "map": "in_sphinx3",
+      "count": 5
+    }
+  ],
+  "Marduk": [
+    {
+      "map": "in_sphinx3",
+      "count": 65
+    }
+  ],
+  "Minorous": [
+    {
+      "map": "moc_pryd05",
+      "count": 60
+    },
+    {
+      "map": "in_sphinx4",
+      "count": 50
+    }
+  ],
+  "Anubis": [
+    {
+      "map": "in_sphinx4",
+      "count": 15
+    },
+    {
+      "map": "in_sphinx5",
+      "count": 10
+    }
+  ],
+  "Side Winder": [
+    {
+      "map": "ve_fild07",
+      "count": 70
+    },
+    {
+      "map": "prt_maze03",
+      "count": 30
+    },
+    {
+      "map": "cmd_fild08",
+      "count": 20
+    },
+    {
+      "map": "in_sphinx5",
+      "count": 20
+    },
+    {
+      "map": "lou_dun01",
+      "count": 10
+    }
+  ],
+  "Kukre": [
+    {
+      "map": "iz_dun01",
+      "count": 50
+    },
+    {
+      "map": "treasure01",
+      "count": 20
+    },
+    {
+      "map": "treasure02",
+      "count": 20
+    },
+    {
+      "map": "iz_dun00",
+      "count": 15
+    }
+  ],
+  "Vadon": [
+    {
+      "map": "iz_dun01",
+      "count": 60
+    },
+    {
+      "map": "iz_dun00",
+      "count": 15
+    }
+  ],
+  "Cornutus": [
+    {
+      "map": "iz_dun02",
+      "count": 60
+    },
+    {
+      "map": "cmd_fild02",
+      "count": 15
+    },
+    {
+      "map": "iz_dun01",
+      "count": 15
+    }
+  ],
+  "Marse": [
+    {
+      "map": "iz_dun02",
+      "count": 40
+    }
+  ],
+  "Obeaune": [
+    {
+      "map": "iz_dun02",
+      "count": 40
+    }
+  ],
+  "Phen": [
+    {
+      "map": "iz_dun03",
+      "count": 45
+    }
+  ],
+  "Marine Sphere": [
+    {
+      "map": "iz_dun03",
+      "count": 20
+    },
+    {
+      "map": "iz_dun04",
+      "count": 10
+    }
+  ],
+  "Swordfish": [
+    {
+      "map": "iz_dun03",
+      "count": 40
+    },
+    {
+      "map": "iz_dun04",
+      "count": 10
+    }
+  ],
+  "Marc": [
+    {
+      "map": "iz_dun03",
+      "count": 40
+    }
+  ],
+  "Strouf": [
+    {
+      "map": "iz_dun04",
+      "count": 50
+    }
+  ],
+  "Deviace": [
+    {
+      "map": "iz_dun04",
+      "count": 3
+    }
+  ],
+  "Venatu": [
+    {
+      "map": "juperos_01",
+      "count": 70
+    },
+    {
+      "map": "juperos_02",
+      "count": 65
+    },
+    {
+      "map": "jupe_core",
+      "count": 25
+    }
+  ],
+  "Dimik": [
+    {
+      "map": "jupe_core",
+      "count": 40
+    },
+    {
+      "map": "juperos_01",
+      "count": 5
+    }
+  ],
+  "Apocalypse": [
+    {
+      "map": "juperos_02",
+      "count": 70
+    }
+  ],
+  "Archdam": [
+    {
+      "map": "jupe_core",
+      "count": 40
+    }
+  ],
+  "Constant": [
+    {
+      "map": "kh_dun02",
+      "count": 15
+    },
+    {
+      "map": "kh_dun01",
+      "count": 8
+    }
+  ],
+  "Aliot": [
+    {
+      "map": "kh_dun02",
+      "count": 25
+    },
+    {
+      "map": "kh_dun01",
+      "count": 3
+    },
+    {
+      "map": "kh_kiehl01",
+      "count": 2
+    }
+  ],
+  "Aliza": [
+    {
+      "map": "kh_dun01",
+      "count": 45
+    },
+    {
+      "map": "kh_dun02",
+      "count": 10
+    },
+    {
+      "map": "kh_kiehl01",
+      "count": 1
+    }
+  ],
+  "Alicel": [
+    {
+      "map": "kh_dun02",
+      "count": 30
+    },
+    {
+      "map": "kh_dun01",
+      "count": 3
+    },
+    {
+      "map": "kh_kiehl01",
+      "count": 1
+    }
+  ],
+  "Metaling": [
+    {
+      "map": "lhz_fild01",
+      "count": 70
+    },
+    {
+      "map": "ein_fild07",
+      "count": 60
+    },
+    {
+      "map": "ein_fild04",
+      "count": 50
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 50
+    },
+    {
+      "map": "lhz_fild02",
+      "count": 50
+    }
+  ],
+  "Anopheles": [
+    {
+      "map": "lhz_dun01",
+      "count": 70
+    },
+    {
+      "map": "hu_fild05",
+      "count": 53
+    },
+    {
+      "map": "ein_fild05",
+      "count": 30
+    },
+    {
+      "map": "hu_fild02",
+      "count": 30
+    },
+    {
+      "map": "hu_fild04",
+      "count": 30
+    }
+  ],
+  "Remover": [
+    {
+      "map": "lhz_dun01",
+      "count": 100
+    },
+    {
+      "map": "lhz_dun02",
+      "count": 20
+    }
+  ],
+  "Egnigem Cenia": [
+    {
+      "map": "lhz_dun02",
+      "count": 50
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 8
+    }
+  ],
+  "Wickebine Tres": [
+    {
+      "map": "lhz_dun02",
+      "count": 50
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 11
+    }
+  ],
+  "Armeyer Dinze": [
+    {
+      "map": "lhz_dun02",
+      "count": 50
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 8
+    }
+  ],
+  "Errende Ebecee": [
+    {
+      "map": "lhz_dun02",
+      "count": 50
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 13
+    }
+  ],
+  "Kavach Icarus": [
+    {
+      "map": "lhz_dun02",
+      "count": 50
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 13
+    }
+  ],
+  "Laurell Weinder": [
+    {
+      "map": "lhz_dun02",
+      "count": 50
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 11
+    }
+  ],
+  "Gemini-S58": [
+    {
+      "map": "lhz_dun02",
+      "count": 10
+    },
+    {
+      "map": "lhz_dun01",
+      "count": 1
+    }
+  ],
+  "Eremes Guile": [
+    {
+      "map": "lhz_dun03",
+      "count": 42
+    },
+    {
+      "map": "lhz_dun02",
+      "count": 1
+    }
+  ],
+  "Seyren Windsor": [
+    {
+      "map": "lhz_dun03",
+      "count": 42
+    }
+  ],
+  "Howard Alt-Eisen": [
+    {
+      "map": "lhz_dun03",
+      "count": 42
+    }
+  ],
+  "Margaretha Sorin": [
+    {
+      "map": "lhz_dun03",
+      "count": 42
+    }
+  ],
+  "Cecil Damon": [
+    {
+      "map": "lhz_dun03",
+      "count": 81
+    }
+  ],
+  "Kathryne Keyron": [
+    {
+      "map": "lhz_dun03",
+      "count": 57
+    }
+  ],
+  "Lord Knight Seyren": [
+    {
+      "map": "lhz_dun03",
+      "count": 1
+    }
+  ],
+  "Whitesmith Howard": [
+    {
+      "map": "lhz_dun03",
+      "count": 1
+    }
+  ],
+  "Assassin Cross Eremes": [
+    {
+      "map": "lhz_dun03",
+      "count": 1
+    }
+  ],
+  "Sniper Cecil": [
+    {
+      "map": "lhz_dun03",
+      "count": 1
+    }
+  ],
+  "High Priest Margaretha": [
+    {
+      "map": "lhz_dun03",
+      "count": 1
+    }
+  ],
+  "High Wizard Kathryne": [
+    {
+      "map": "lhz_dun03",
+      "count": 1
+    }
+  ],
+  "Mi Gao": [
+    {
+      "map": "lou_fild01",
+      "count": 30
+    },
+    {
+      "map": "lou_dun01",
+      "count": 15
+    }
+  ],
+  "Jing Guai": [
+    {
+      "map": "lou_dun01",
+      "count": 45
+    }
+  ],
+  "Grizzly": [
+    {
+      "map": "lou_dun01",
+      "count": 15
+    },
+    {
+      "map": "mag_dun01",
+      "count": 10
+    }
+  ],
+  "Yao Jun": [
+    {
+      "map": "lou_dun02",
+      "count": 40
+    },
+    {
+      "map": "lou_dun03",
+      "count": 25
+    }
+  ],
+  "Munak": [
+    {
+      "map": "pay_dun02",
+      "count": 40
+    },
+    {
+      "map": "lou_dun02",
+      "count": 25
+    },
+    {
+      "map": "pay_dun03",
+      "count": 3
+    }
+  ],
+  "Zhu Po Long": [
+    {
+      "map": "lou_dun03",
+      "count": 25
+    },
+    {
+      "map": "lou_dun02",
+      "count": 5
+    }
+  ],
+  "Mao Guai": [
+    {
+      "map": "lou_dun03",
+      "count": 15
+    }
+  ],
+  "Green Maiden": [
+    {
+      "map": "lou_dun03",
+      "count": 5
+    }
+  ],
+  "Blazer": [
+    {
+      "map": "mag_dun01",
+      "count": 20
+    },
+    {
+      "map": "mag_dun02",
+      "count": 20
+    }
+  ],
+  "Lava Golem": [
+    {
+      "map": "moc_fild21",
+      "count": 46
+    },
+    {
+      "map": "mag_dun01",
+      "count": 20
+    }
+  ],
+  "Kaho": [
+    {
+      "map": "mag_dun01",
+      "count": 20
+    },
+    {
+      "map": "thor_v02",
+      "count": 10
+    }
+  ],
+  "Explosion": [
+    {
+      "map": "mag_dun01",
+      "count": 30
+    }
+  ],
+  "Gig": [
+    {
+      "map": "mag_dun02",
+      "count": 10
+    }
+  ],
+  "Deleter": [
+    {
+      "map": "mag_dun02",
+      "count": 40
+    },
+    {
+      "map": "hu_fild04",
+      "count": 10
+    },
+    {
+      "map": "hu_fild07",
+      "count": 10
+    }
+  ],
+  "Diabolic": [
+    {
+      "map": "mag_dun02",
+      "count": 15
+    }
+  ],
+  "Nightmare Terror": [
+    {
+      "map": "mag_dun02",
+      "count": 46
+    }
+  ],
+  "Tarou": [
+    {
+      "map": "mjo_dun01",
+      "count": 60
+    },
+    {
+      "map": "prt_sewb2",
+      "count": 60
+    },
+    {
+      "map": "prt_sewb3",
+      "count": 15
+    },
+    {
+      "map": "prt_sewb1",
+      "count": 10
+    }
+  ],
+  "Martin": [
+    {
+      "map": "mjo_dun02",
+      "count": 60
+    },
+    {
+      "map": "mjo_dun01",
+      "count": 20
+    },
+    {
+      "map": "mjo_dun03",
+      "count": 5
+    },
+    {
+      "map": "prt_maze01",
+      "count": 5
+    }
+  ],
+  "Skeleton Worker": [
+    {
+      "map": "mjo_dun03",
+      "count": 70
+    },
+    {
+      "map": "mjo_dun02",
+      "count": 20
+    }
+  ],
+  "Myst": [
+    {
+      "map": "mjo_dun03",
+      "count": 35
+    }
+  ],
+  "Mummy": [
+    {
+      "map": "moc_pryd03",
+      "count": 70
+    },
+    {
+      "map": "moc_pryd02",
+      "count": 30
+    },
+    {
+      "map": "moc_pryd04",
+      "count": 25
+    },
+    {
+      "map": "moc_pryd05",
+      "count": 10
+    }
+  ],
+  "Isis": [
+    {
+      "map": "moc_pryd04",
+      "count": 50
+    },
+    {
+      "map": "moc_pryd02",
+      "count": 5
+    }
+  ],
+  "Soldier Skeleton": [
+    {
+      "map": "pay_dun01",
+      "count": 50
+    },
+    {
+      "map": "moc_pryd02",
+      "count": 30
+    },
+    {
+      "map": "pay_dun02",
+      "count": 15
+    }
+  ],
+  "Archer Skeleton": [
+    {
+      "map": "moc_pryd02",
+      "count": 30
+    },
+    {
+      "map": "pay_dun01",
+      "count": 30
+    },
+    {
+      "map": "pay_dun02",
+      "count": 20
+    },
+    {
+      "map": "pay_dun04",
+      "count": 15
+    }
+  ],
+  "Verit": [
+    {
+      "map": "moc_pryd05",
+      "count": 50
+    },
+    {
+      "map": "moc_pryd03",
+      "count": 20
+    },
+    {
+      "map": "moc_pryd06",
+      "count": 10
+    }
+  ],
+  "Ancient Mummy": [
+    {
+      "map": "moc_pryd06",
+      "count": 20
+    },
+    {
+      "map": "moc_pryd04",
+      "count": 3
+    }
+  ],
+  "Wood Goblin": [
+    {
+      "map": "mosk_dun01",
+      "count": 66
+    },
+    {
+      "map": "mosk_dun02",
+      "count": 30
+    }
+  ],
+  "Les": [
+    {
+      "map": "mosk_dun02",
+      "count": 40
+    },
+    {
+      "map": "mosk_dun01",
+      "count": 33
+    }
+  ],
+  "Mantis": [
+    {
+      "map": "mjolnir_08",
+      "count": 60
+    },
+    {
+      "map": "mjolnir_05",
+      "count": 40
+    },
+    {
+      "map": "lou_fild01",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_03",
+      "count": 30
+    },
+    {
+      "map": "mosk_fild02",
+      "count": 30
+    }
+  ],
+  "Baba Yaga": [
+    {
+      "map": "mosk_dun03",
+      "count": 60
+    },
+    {
+      "map": "mosk_dun02",
+      "count": 20
+    }
+  ],
+  "Uzhas": [
+    {
+      "map": "mosk_dun03",
+      "count": 35
+    },
+    {
+      "map": "mosk_dun02",
+      "count": 5
+    }
+  ],
+  "Mavka": [
+    {
+      "map": "mosk_dun03",
+      "count": 15
+    }
+  ],
+  "Draco": [
+    {
+      "map": "nyd_dun01",
+      "count": 40
+    }
+  ],
+  "Draco Egg": [
+    {
+      "map": "nyd_dun01",
+      "count": 10
+    }
+  ],
+  "Aqua Elemental": [
+    {
+      "map": "nyd_dun01",
+      "count": 20
+    }
+  ],
+  "Dark Pinguicula": [
+    {
+      "map": "nyd_dun01",
+      "count": 10
+    }
+  ],
+  "Rata": [
+    {
+      "map": "nyd_dun01",
+      "count": 2
+    }
+  ],
+  "Duneyrr": [
+    {
+      "map": "nyd_dun01",
+      "count": 2
+    }
+  ],
+  "Breeze": [
+    {
+      "map": "hu_fild04",
+      "count": 20
+    },
+    {
+      "map": "hu_fild02",
+      "count": 10
+    },
+    {
+      "map": "hu_fild07",
+      "count": 10
+    },
+    {
+      "map": "odin_tem01",
+      "count": 10
+    },
+    {
+      "map": "hu_fild01",
+      "count": 5
+    }
+  ],
+  "Plasma": [
+    {
+      "map": "odin_tem03",
+      "count": 20
+    },
+    {
+      "map": "odin_tem02",
+      "count": 15
+    },
+    {
+      "map": "odin_tem01",
+      "count": 10
+    },
+    {
+      "map": "hu_fild01",
+      "count": 5
+    },
+    {
+      "map": "tha_t12",
+      "count": 5
+    }
+  ],
+  "Frus": [
+    {
+      "map": "odin_tem03",
+      "count": 5
+    },
+    {
+      "map": "odin_tem02",
+      "count": 3
+    }
+  ],
+  "Skogul": [
+    {
+      "map": "odin_tem03",
+      "count": 5
+    },
+    {
+      "map": "odin_tem02",
+      "count": 2
+    }
+  ],
+  "Skeggiold": [
+    {
+      "map": "odin_tem03",
+      "count": 16
+    },
+    {
+      "map": "odin_tem02",
+      "count": 1
+    }
+  ],
+  "Valkyrie": [
+    {
+      "map": "odin_tem03",
+      "count": 2
+    },
+    {
+      "map": "odin_tem02",
+      "count": 1
+    }
+  ],
+  "Steel Chonchon": [
+    {
+      "map": "moc_fild18",
+      "count": 70
+    },
+    {
+      "map": "moc_fild17",
+      "count": 30
+    },
+    {
+      "map": "cmd_fild09",
+      "count": 20
+    },
+    {
+      "map": "gef_fild08",
+      "count": 20
+    },
+    {
+      "map": "orcsdun02",
+      "count": 20
+    }
+  ],
+  "Orc Zombie": [
+    {
+      "map": "orcsdun01",
+      "count": 80
+    }
+  ],
+  "Orc Skeleton": [
+    {
+      "map": "orcsdun02",
+      "count": 50
+    },
+    {
+      "map": "orcsdun01",
+      "count": 10
+    }
+  ],
+  "Zenorc": [
+    {
+      "map": "orcsdun02",
+      "count": 50
+    }
+  ],
+  "Skeleton": [
+    {
+      "map": "pay_dun00",
+      "count": 35
+    }
+  ],
+  "Eggyra": [
+    {
+      "map": "pay_fild07",
+      "count": 40
+    },
+    {
+      "map": "pay_dun01",
+      "count": 15
+    },
+    {
+      "map": "moc_fild03",
+      "count": 10
+    }
+  ],
+  "Bongun": [
+    {
+      "map": "pay_dun02",
+      "count": 30
+    },
+    {
+      "map": "pay_dun03",
+      "count": 3
+    }
+  ],
+  "Mandragora": [
+    {
+      "map": "prt_fild02",
+      "count": 70
+    },
+    {
+      "map": "mjolnir_11",
+      "count": 50
+    },
+    {
+      "map": "pay_dun03",
+      "count": 10
+    },
+    {
+      "map": "pay_dun02",
+      "count": 3
+    }
+  ],
+  "Nine Tail": [
+    {
+      "map": "pay_fild11",
+      "count": 60
+    },
+    {
+      "map": "pay_dun04",
+      "count": 30
+    },
+    {
+      "map": "pay_fild10",
+      "count": 4
+    },
+    {
+      "map": "pay_dun03",
+      "count": 2
+    },
+    {
+      "map": "pay_dun02",
+      "count": 1
+    }
+  ],
+  "Sohee": [
+    {
+      "map": "pay_dun03",
+      "count": 70
+    }
+  ],
+  "Greatest General": [
+    {
+      "map": "pay_fild10",
+      "count": 65
+    },
+    {
+      "map": "moc_fild03",
+      "count": 30
+    },
+    {
+      "map": "pay_fild11",
+      "count": 30
+    },
+    {
+      "map": "pay_dun04",
+      "count": 15
+    },
+    {
+      "map": "pay_dun03",
+      "count": 3
+    }
+  ],
+  "Dokebi": [
+    {
+      "map": "pay_fild10",
+      "count": 70
+    },
+    {
+      "map": "pay_dun04",
+      "count": 40
+    },
+    {
+      "map": "bra_fild01",
+      "count": 20
+    }
+  ],
+  "Poring": [
+    {
+      "map": "prt_fild05",
+      "count": 70
+    },
+    {
+      "map": "prt_fild08",
+      "count": 70
+    },
+    {
+      "map": "prt_fild06",
+      "count": 60
+    },
+    {
+      "map": "yuno_fild04",
+      "count": 60
+    },
+    {
+      "map": "gef_fild00",
+      "count": 50
+    }
+  ],
+  "Lunatic": [
+    {
+      "map": "prt_fild01",
+      "count": 80
+    },
+    {
+      "map": "prt_fild06",
+      "count": 60
+    },
+    {
+      "map": "pay_fild03",
+      "count": 50
+    },
+    {
+      "map": "prt_fild08",
+      "count": 40
+    },
+    {
+      "map": "prt_fild00",
+      "count": 30
+    }
+  ],
+  "Fabre": [
+    {
+      "map": "gef_fild07",
+      "count": 60
+    },
+    {
+      "map": "gef_fild00",
+      "count": 50
+    },
+    {
+      "map": "prt_fild02",
+      "count": 50
+    },
+    {
+      "map": "gef_fild04",
+      "count": 20
+    },
+    {
+      "map": "prt_fild00",
+      "count": 20
+    }
+  ],
+  "Creamy": [
+    {
+      "map": "gef_fild13",
+      "count": 40
+    },
+    {
+      "map": "prt_fild04",
+      "count": 40
+    },
+    {
+      "map": "mjolnir_01",
+      "count": 20
+    },
+    {
+      "map": "mjolnir_02",
+      "count": 20
+    },
+    {
+      "map": "mjolnir_03",
+      "count": 10
+    }
+  ],
+  "Pupa": [
+    {
+      "map": "gef_fild04",
+      "count": 60
+    },
+    {
+      "map": "pay_fild03",
+      "count": 50
+    },
+    {
+      "map": "prt_fild00",
+      "count": 30
+    },
+    {
+      "map": "prt_fild05",
+      "count": 30
+    },
+    {
+      "map": "gef_fild00",
+      "count": 20
+    }
+  ],
+  "Rocker": [
+    {
+      "map": "prt_fild07",
+      "count": 80
+    },
+    {
+      "map": "prt_fild04",
+      "count": 70
+    },
+    {
+      "map": "prt_maze01",
+      "count": 5
+    }
+  ],
+  "Bigfoot": [
+    {
+      "map": "pay_fild09",
+      "count": 70
+    },
+    {
+      "map": "mosk_fild02",
+      "count": 40
+    },
+    {
+      "map": "pay_fild07",
+      "count": 30
+    },
+    {
+      "map": "ama_fild01",
+      "count": 15
+    },
+    {
+      "map": "lou_fild01",
+      "count": 15
+    }
+  ],
+  "Smokie": [
+    {
+      "map": "pay_fild09",
+      "count": 80
+    },
+    {
+      "map": "prt_fild03",
+      "count": 40
+    },
+    {
+      "map": "ayo_fild01",
+      "count": 30
+    },
+    {
+      "map": "gef_fild02",
+      "count": 10
+    },
+    {
+      "map": "prt_maze01",
+      "count": 5
+    }
+  ],
+  "Boa": [
+    {
+      "map": "moc_fild13",
+      "count": 30
+    },
+    {
+      "map": "pay_fild02",
+      "count": 30
+    },
+    {
+      "map": "prt_maze01",
+      "count": 5
+    }
+  ],
+  "Wolf": [
+    {
+      "map": "pay_fild02",
+      "count": 70
+    },
+    {
+      "map": "mjolnir_09",
+      "count": 30
+    },
+    {
+      "map": "prt_maze01",
+      "count": 5
+    }
+  ],
+  "Argiope": [
+    {
+      "map": "mjolnir_05",
+      "count": 70
+    },
+    {
+      "map": "mjolnir_08",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_04",
+      "count": 20
+    },
+    {
+      "map": "mjolnir_11",
+      "count": 10
+    },
+    {
+      "map": "prt_maze01",
+      "count": 3
+    }
+  ],
+  "Argos": [
+    {
+      "map": "mjolnir_10",
+      "count": 60
+    },
+    {
+      "map": "mjolnir_03",
+      "count": 20
+    },
+    {
+      "map": "mjolnir_05",
+      "count": 20
+    },
+    {
+      "map": "mjolnir_08",
+      "count": 20
+    },
+    {
+      "map": "prt_maze01",
+      "count": 3
+    }
+  ],
+  "Chonchon": [
+    {
+      "map": "moc_fild18",
+      "count": 40
+    },
+    {
+      "map": "gef_fild04",
+      "count": 30
+    },
+    {
+      "map": "gef_fild07",
+      "count": 30
+    },
+    {
+      "map": "prt_maze01",
+      "count": 5
+    }
+  ],
+  "Horn": [
+    {
+      "map": "mjolnir_09",
+      "count": 70
+    },
+    {
+      "map": "yuno_fild02",
+      "count": 40
+    },
+    {
+      "map": "yuno_fild09",
+      "count": 40
+    },
+    {
+      "map": "yuno_fild05",
+      "count": 30
+    },
+    {
+      "map": "um_fild04",
+      "count": 21
+    }
+  ],
+  "Stainer": [
+    {
+      "map": "mjolnir_06",
+      "count": 70
+    },
+    {
+      "map": "mjolnir_01",
+      "count": 20
+    },
+    {
+      "map": "mjolnir_09",
+      "count": 20
+    },
+    {
+      "map": "yuno_fild09",
+      "count": 20
+    },
+    {
+      "map": "yuno_fild10",
+      "count": 20
+    }
+  ],
+  "Yoyo": [
+    {
+      "map": "prt_fild03",
+      "count": 80
+    },
+    {
+      "map": "ayo_fild01",
+      "count": 30
+    },
+    {
+      "map": "ein_fild10",
+      "count": 10
+    },
+    {
+      "map": "gef_fild02",
+      "count": 10
+    },
+    {
+      "map": "prt_maze01",
+      "count": 4
+    }
+  ],
+  "Choco": [
+    {
+      "map": "um_fild02",
+      "count": 5
+    },
+    {
+      "map": "prt_maze01",
+      "count": 2
+    },
+    {
+      "map": "um_fild04",
+      "count": 2
+    },
+    {
+      "map": "gef_fild02",
+      "count": 1
+    },
+    {
+      "map": "prt_fild03",
+      "count": 1
+    }
+  ],
+  "Coco": [
+    {
+      "map": "mjolnir_01",
+      "count": 70
+    },
+    {
+      "map": "ayo_fild01",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_06",
+      "count": 20
+    },
+    {
+      "map": "mjolnir_07",
+      "count": 20
+    },
+    {
+      "map": "gef_fild02",
+      "count": 10
+    }
+  ],
+  "Caramel": [
+    {
+      "map": "mjolnir_01",
+      "count": 40
+    },
+    {
+      "map": "lhz_fild02",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_06",
+      "count": 30
+    },
+    {
+      "map": "lou_fild01",
+      "count": 21
+    },
+    {
+      "map": "hu_fild06",
+      "count": 20
+    }
+  ],
+  "Dustiness": [
+    {
+      "map": "mjolnir_12",
+      "count": 50
+    },
+    {
+      "map": "yuno_fild01",
+      "count": 50
+    },
+    {
+      "map": "gef_fild05",
+      "count": 30
+    },
+    {
+      "map": "yuno_fild05",
+      "count": 30
+    },
+    {
+      "map": "yuno_fild12",
+      "count": 30
+    }
+  ],
+  "Savage": [
+    {
+      "map": "prt_fild10",
+      "count": 70
+    },
+    {
+      "map": "ve_fild02",
+      "count": 60
+    },
+    {
+      "map": "gef_fild03",
+      "count": 40
+    },
+    {
+      "map": "cmd_fild01",
+      "count": 30
+    },
+    {
+      "map": "bra_fild01",
+      "count": 20
+    }
+  ],
+  "Red Mushroom": [
+    {
+      "map": "prt_fild10",
+      "count": 15
+    },
+    {
+      "map": "moc_fild13",
+      "count": 13
+    },
+    {
+      "map": "mjolnir_09",
+      "count": 11
+    },
+    {
+      "map": "ein_fild07",
+      "count": 10
+    },
+    {
+      "map": "ein_fild08",
+      "count": 10
+    }
+  ],
+  "Sasquatch": [
+    {
+      "map": "xmas_fild01",
+      "count": 20
+    },
+    {
+      "map": "prt_maze02",
+      "count": 1
+    }
+  ],
+  "Vocal": [
+    {
+      "map": "prt_fild04",
+      "count": 1
+    },
+    {
+      "map": "prt_fild07",
+      "count": 1
+    },
+    {
+      "map": "prt_maze03",
+      "count": 1
+    }
+  ],
+  "Stem Worm": [
+    {
+      "map": "lhz_fild03",
+      "count": 50
+    },
+    {
+      "map": "cmd_fild08",
+      "count": 25
+    },
+    {
+      "map": "mjolnir_12",
+      "count": 20
+    },
+    {
+      "map": "prt_maze03",
+      "count": 20
+    },
+    {
+      "map": "um_fild01",
+      "count": 15
+    }
+  ],
+  "Eclipse": [
+    {
+      "map": "prt_fild02",
+      "count": 1
+    },
+    {
+      "map": "prt_maze03",
+      "count": 1
+    }
+  ],
+  "Mastering": [
+    {
+      "map": "pay_fild04",
+      "count": 1
+    },
+    {
+      "map": "prt_maze03",
+      "count": 1
+    },
+    {
+      "map": "xmas_dun01",
+      "count": 1
+    },
+    {
+      "map": "yuno_fild04",
+      "count": 1
+    }
+  ],
+  "Baphomet Jr.": [
+    {
+      "map": "prt_maze03",
+      "count": 25
+    }
+  ],
+  "Thief Bug Egg": [
+    {
+      "map": "prt_sewb1",
+      "count": 80
+    },
+    {
+      "map": "prt_fild05",
+      "count": 20
+    },
+    {
+      "map": "prt_fild06",
+      "count": 20
+    },
+    {
+      "map": "prt_sewb2",
+      "count": 20
+    },
+    {
+      "map": "prt_sewb3",
+      "count": 10
+    }
+  ],
+  "Spore": [
+    {
+      "map": "pay_fild01",
+      "count": 100
+    },
+    {
+      "map": "pay_fild08",
+      "count": 70
+    },
+    {
+      "map": "pay_fild06",
+      "count": 20
+    },
+    {
+      "map": "prt_sewb2",
+      "count": 20
+    },
+    {
+      "map": "pay_fild02",
+      "count": 10
+    }
+  ],
+  "Thief Bug Female": [
+    {
+      "map": "prt_sewb3",
+      "count": 65
+    },
+    {
+      "map": "pay_fild06",
+      "count": 40
+    },
+    {
+      "map": "mjolnir_12",
+      "count": 20
+    },
+    {
+      "map": "prt_sewb4",
+      "count": 20
+    },
+    {
+      "map": "prt_sewb2",
+      "count": 10
+    }
+  ],
+  "Thief Bug Male": [
+    {
+      "map": "prt_sewb4",
+      "count": 70
+    },
+    {
+      "map": "prt_sewb3",
+      "count": 65
+    },
+    {
+      "map": "mjolnir_11",
+      "count": 30
+    }
+  ],
+  "Vanberk": [
+    {
+      "map": "ra_san01",
+      "count": 82
+    },
+    {
+      "map": "ra_san02",
+      "count": 30
+    }
+  ],
+  "Isilla": [
+    {
+      "map": "ra_san02",
+      "count": 85
+    },
+    {
+      "map": "ra_san01",
+      "count": 36
+    },
+    {
+      "map": "ra_san05",
+      "count": 10
+    }
+  ],
+  "Gremlin": [
+    {
+      "map": "ra_san01",
+      "count": 10
+    },
+    {
+      "map": "ra_san02",
+      "count": 10
+    },
+    {
+      "map": "ra_san03",
+      "count": 5
+    }
+  ],
+  "Hodremlin": [
+    {
+      "map": "ra_san03",
+      "count": 60
+    },
+    {
+      "map": "ra_san05",
+      "count": 20
+    },
+    {
+      "map": "ra_san04",
+      "count": 10
+    },
+    {
+      "map": "ra_san01",
+      "count": 6
+    },
+    {
+      "map": "ra_san02",
+      "count": 3
+    }
+  ],
+  "Beholder": [
+    {
+      "map": "ra_san02",
+      "count": 10
+    },
+    {
+      "map": "ra_san01",
+      "count": 6
+    },
+    {
+      "map": "ra_san03",
+      "count": 5
+    }
+  ],
+  "Seeker": [
+    {
+      "map": "ra_san03",
+      "count": 40
+    },
+    {
+      "map": "ra_san05",
+      "count": 20
+    },
+    {
+      "map": "ra_san04",
+      "count": 10
+    },
+    {
+      "map": "ra_san02",
+      "count": 2
+    }
+  ],
+  "Echio": [
+    {
+      "map": "ra_san04",
+      "count": 60
+    },
+    {
+      "map": "ra_san05",
+      "count": 30
+    }
+  ],
+  "Agav": [
+    {
+      "map": "ra_san05",
+      "count": 80
+    },
+    {
+      "map": "ra_san04",
+      "count": 20
+    }
+  ],
+  "Lady Solace": [
+    {
+      "map": "tha_t09",
+      "count": 20
+    },
+    {
+      "map": "tha_t07",
+      "count": 7
+    },
+    {
+      "map": "tha_t08",
+      "count": 5
+    },
+    {
+      "map": "tha_t10",
+      "count": 5
+    },
+    {
+      "map": "tha_t11",
+      "count": 5
+    }
+  ],
+  "Death Word": [
+    {
+      "map": "tha_t03",
+      "count": 80
+    },
+    {
+      "map": "tha_t05",
+      "count": 40
+    },
+    {
+      "map": "tha_t06",
+      "count": 40
+    },
+    {
+      "map": "tha_t04",
+      "count": 20
+    },
+    {
+      "map": "tha_t02",
+      "count": 10
+    }
+  ],
+  "Baroness of Retribution": [
+    {
+      "map": "tha_t08",
+      "count": 20
+    },
+    {
+      "map": "tha_t10",
+      "count": 20
+    },
+    {
+      "map": "tha_t07",
+      "count": 15
+    },
+    {
+      "map": "tha_t09",
+      "count": 5
+    },
+    {
+      "map": "tha_t11",
+      "count": 5
+    }
+  ],
+  "Mistress of Shelter": [
+    {
+      "map": "tha_t11",
+      "count": 20
+    },
+    {
+      "map": "tha_t07",
+      "count": 7
+    },
+    {
+      "map": "tha_t08",
+      "count": 5
+    },
+    {
+      "map": "tha_t09",
+      "count": 5
+    },
+    {
+      "map": "tha_t10",
+      "count": 5
+    }
+  ],
+  "Dame of Sentinel": [
+    {
+      "map": "tha_t12",
+      "count": 13
+    },
+    {
+      "map": "tha_t07",
+      "count": 7
+    },
+    {
+      "map": "tha_t08",
+      "count": 5
+    },
+    {
+      "map": "tha_t09",
+      "count": 5
+    },
+    {
+      "map": "tha_t10",
+      "count": 5
+    }
+  ],
+  "Dolor of Thanatos": [
+    {
+      "map": "tha_t09",
+      "count": 3
+    }
+  ],
+  "Maero of Thanatos": [
+    {
+      "map": "tha_t10",
+      "count": 3
+    }
+  ],
+  "Despero of Thanatos": [
+    {
+      "map": "tha_t11",
+      "count": 3
+    }
+  ],
+  "Odium of Thanatos": [
+    {
+      "map": "tha_t12",
+      "count": 4
+    }
+  ],
+  "Magmaring": [
+    {
+      "map": "thor_v01",
+      "count": 10
+    },
+    {
+      "map": "thor_v02",
+      "count": 10
+    },
+    {
+      "map": "ve_fild03",
+      "count": 10
+    }
+  ],
+  "Fire Imp": [
+    {
+      "map": "thor_v01",
+      "count": 25
+    },
+    {
+      "map": "thor_v02",
+      "count": 10
+    }
+  ],
+  "Kasa": [
+    {
+      "map": "thor_v01",
+      "count": 45
+    },
+    {
+      "map": "thor_v03",
+      "count": 40
+    }
+  ],
+  "Sword Master": [
+    {
+      "map": "thor_v03",
+      "count": 10
+    },
+    {
+      "map": "thor_v01",
+      "count": 5
+    },
+    {
+      "map": "thor_v02",
+      "count": 1
+    }
+  ],
+  "Bow Master": [
+    {
+      "map": "thor_v03",
+      "count": 10
+    },
+    {
+      "map": "thor_v01",
+      "count": 5
+    },
+    {
+      "map": "thor_v02",
+      "count": 1
+    }
+  ],
+  "Salamander": [
+    {
+      "map": "thor_v03",
+      "count": 60
+    },
+    {
+      "map": "thor_v01",
+      "count": 5
+    },
+    {
+      "map": "thor_v02",
+      "count": 1
+    }
+  ],
+  "Byorgue": [
+    {
+      "map": "thor_v03",
+      "count": 5
+    },
+    {
+      "map": "thor_v01",
+      "count": 1
+    }
+  ],
+  "Knocker": [
+    {
+      "map": "thor_v02",
+      "count": 55
+    }
+  ],
+  "Pirate Skeleton": [
+    {
+      "map": "treasure01",
+      "count": 43
+    },
+    {
+      "map": "treasure02",
+      "count": 20
+    }
+  ],
+  "Dragon Tail": [
+    {
+      "map": "pay_fild11",
+      "count": 50
+    },
+    {
+      "map": "tur_dun01",
+      "count": 25
+    },
+    {
+      "map": "um_fild03",
+      "count": 20
+    },
+    {
+      "map": "pay_fild05",
+      "count": 5
+    }
+  ],
+  "Spring Rabbit": [
+    {
+      "map": "tur_dun01",
+      "count": 25
+    }
+  ],
+  "Permeter": [
+    {
+      "map": "tur_dun02",
+      "count": 40
+    },
+    {
+      "map": "tur_dun03",
+      "count": 15
+    },
+    {
+      "map": "tur_dun01",
+      "count": 10
+    },
+    {
+      "map": "tur_dun04",
+      "count": 4
+    },
+    {
+      "map": "tur_dun05",
+      "count": 3
+    }
+  ],
+  "Solider": [
+    {
+      "map": "tur_dun02",
+      "count": 40
+    }
+  ],
+  "Freezer": [
+    {
+      "map": "tur_dun03",
+      "count": 40
+    },
+    {
+      "map": "tur_dun02",
+      "count": 20
+    },
+    {
+      "map": "tur_dun04",
+      "count": 15
+    },
+    {
+      "map": "tur_dun05",
+      "count": 5
+    }
+  ],
+  "Assaulter": [
+    {
+      "map": "tur_dun04",
+      "count": 41
+    },
+    {
+      "map": "tur_dun03",
+      "count": 35
+    },
+    {
+      "map": "tur_dun05",
+      "count": 1
+    }
+  ],
+  "Heater": [
+    {
+      "map": "tur_dun04",
+      "count": 33
+    },
+    {
+      "map": "tur_dun03",
+      "count": 10
+    }
+  ],
+  "Stone Shooter": [
+    {
+      "map": "um_dun01",
+      "count": 70
+    },
+    {
+      "map": "um_fild02",
+      "count": 25
+    }
+  ],
+  "Wootan Fighter": [
+    {
+      "map": "um_fild02",
+      "count": 50
+    },
+    {
+      "map": "ayo_fild02",
+      "count": 20
+    },
+    {
+      "map": "um_dun01",
+      "count": 10
+    },
+    {
+      "map": "um_fild01",
+      "count": 10
+    }
+  ],
+  "Wootan Shooter": [
+    {
+      "map": "um_dun02",
+      "count": 20
+    },
+    {
+      "map": "um_dun01",
+      "count": 10
+    },
+    {
+      "map": "um_fild04",
+      "count": 10
+    }
+  ],
+  "Wooden Golem": [
+    {
+      "map": "um_dun02",
+      "count": 82
+    }
+  ],
+  "Driller": [
+    {
+      "map": "ein_fild02",
+      "count": 45
+    },
+    {
+      "map": "yuno_fild07",
+      "count": 10
+    },
+    {
+      "map": "um_dun02",
+      "count": 5
+    }
+  ],
+  "Dryad": [
+    {
+      "map": "um_fild01",
+      "count": 65
+    },
+    {
+      "map": "um_dun02",
+      "count": 25
+    }
+  ],
+  "Marin": [
+    {
+      "map": "xmas_fild01",
+      "count": 35
+    },
+    {
+      "map": "xmas_dun01",
+      "count": 20
+    },
+    {
+      "map": "yuno_fild03",
+      "count": 20
+    },
+    {
+      "map": "pay_fild04",
+      "count": 10
+    }
+  ],
+  "Drops": [
+    {
+      "map": "ra_fild11",
+      "count": 100
+    },
+    {
+      "map": "ra_fild12",
+      "count": 100
+    },
+    {
+      "map": "moc_fild07",
+      "count": 70
+    },
+    {
+      "map": "pay_fild04",
+      "count": 40
+    },
+    {
+      "map": "ra_fild08",
+      "count": 40
+    }
+  ],
+  "Cookie": [
+    {
+      "map": "xmas_dun01",
+      "count": 40
+    },
+    {
+      "map": "xmas_dun02",
+      "count": 20
+    }
+  ],
+  "Christmas Cookie": [
+    {
+      "map": "xmas_dun01",
+      "count": 40
+    },
+    {
+      "map": "xmas_dun02",
+      "count": 20
+    }
+  ],
+  "Myst Case": [
+    {
+      "map": "xmas_dun02",
+      "count": 50
+    },
+    {
+      "map": "xmas_dun01",
+      "count": 5
+    }
+  ],
+  "Chepet": [
+    {
+      "map": "xmas_dun01",
+      "count": 1
+    }
+  ],
+  "Angeling": [
+    {
+      "map": "pay_fild04",
+      "count": 1
+    },
+    {
+      "map": "xmas_dun01",
+      "count": 1
+    },
+    {
+      "map": "yuno_fild03",
+      "count": 1
+    }
+  ],
+  "Cruiser": [
+    {
+      "map": "xmas_dun02",
+      "count": 35
+    }
+  ],
+  "Baby Hatii": [
+    {
+      "map": "xmas_dun02",
+      "count": 1
+    },
+    {
+      "map": "xmas_fild01",
+      "count": 1
+    }
+  ],
+  "Karakasa": [
+    {
+      "map": "ama_fild01",
+      "count": 50
+    }
+  ],
+  "Kapha": [
+    {
+      "map": "ama_fild01",
+      "count": 50
+    }
+  ],
+  "Beetle King": [
+    {
+      "map": "um_fild04",
+      "count": 50
+    },
+    {
+      "map": "yuno_fild02",
+      "count": 40
+    },
+    {
+      "map": "yuno_fild09",
+      "count": 40
+    },
+    {
+      "map": "yuno_fild10",
+      "count": 40
+    },
+    {
+      "map": "ayo_fild02",
+      "count": 30
+    }
+  ],
+  "Strange Hydra": [
+    {
+      "map": "brasilis",
+      "count": 18
+    }
+  ],
+  "Headless Mule": [
+    {
+      "map": "bra_fild01",
+      "count": 40
+    }
+  ],
+  "Curupira": [
+    {
+      "map": "bra_fild01",
+      "count": 80
+    }
+  ],
+  "Jaguar": [
+    {
+      "map": "bra_fild01",
+      "count": 10
+    }
+  ],
+  "Toucan": [
+    {
+      "map": "bra_fild01",
+      "count": 10
+    }
+  ],
+  "Alligator": [
+    {
+      "map": "cmd_fild01",
+      "count": 60
+    },
+    {
+      "map": "cmd_fild04",
+      "count": 40
+    },
+    {
+      "map": "cmd_fild05",
+      "count": 20
+    },
+    {
+      "map": "cmd_fild02",
+      "count": 10
+    },
+    {
+      "map": "um_fild03",
+      "count": 10
+    }
+  ],
+  "Aster": [
+    {
+      "map": "cmd_fild04",
+      "count": 45
+    },
+    {
+      "map": "cmd_fild02",
+      "count": 10
+    },
+    {
+      "map": "ve_fild07",
+      "count": 10
+    },
+    {
+      "map": "cmd_fild07",
+      "count": 5
+    }
+  ],
+  "Crab": [
+    {
+      "map": "cmd_fild02",
+      "count": 20
+    },
+    {
+      "map": "cmd_fild04",
+      "count": 20
+    },
+    {
+      "map": "cmd_fild07",
+      "count": 5
+    }
+  ],
+  "Raggler": [
+    {
+      "map": "ve_fild07",
+      "count": 35
+    },
+    {
+      "map": "cmd_fild02",
+      "count": 32
+    },
+    {
+      "map": "cmd_fild04",
+      "count": 20
+    },
+    {
+      "map": "cmd_fild07",
+      "count": 4
+    }
+  ],
+  "Shellfish": [
+    {
+      "map": "cmd_fild02",
+      "count": 40
+    },
+    {
+      "map": "cmd_fild04",
+      "count": 20
+    },
+    {
+      "map": "ve_fild07",
+      "count": 10
+    },
+    {
+      "map": "cmd_fild07",
+      "count": 5
+    }
+  ],
+  "Mobster": [
+    {
+      "map": "cmd_fild02",
+      "count": 1
+    }
+  ],
+  "Seal": [
+    {
+      "map": "cmd_fild02",
+      "count": 20
+    }
+  ],
+  "Galapago": [
+    {
+      "map": "cmd_fild02",
+      "count": 20
+    }
+  ],
+  "Mutant Dragonoid": [
+    {
+      "map": "hu_fild05",
+      "count": 4
+    },
+    {
+      "map": "cmd_fild03",
+      "count": 1
+    }
+  ],
+  "Toad": [
+    {
+      "map": "cmd_fild03",
+      "count": 1
+    },
+    {
+      "map": "gef_fild01",
+      "count": 1
+    }
+  ],
+  "Sea Otter": [
+    {
+      "map": "cmd_fild04",
+      "count": 20
+    }
+  ],
+  "Frilldora": [
+    {
+      "map": "cmd_fild05",
+      "count": 45
+    },
+    {
+      "map": "moc_fild17",
+      "count": 25
+    }
+  ],
+  "Kobold Archer": [
+    {
+      "map": "cmd_fild08",
+      "count": 79
+    },
+    {
+      "map": "gef_fild12",
+      "count": 40
+    },
+    {
+      "map": "cmd_fild06",
+      "count": 27
+    },
+    {
+      "map": "gef_fild05",
+      "count": 10
+    }
+  ],
+  "Goblin Archer": [
+    {
+      "map": "cmd_fild06",
+      "count": 47
+    },
+    {
+      "map": "cmd_fild08",
+      "count": 28
+    },
+    {
+      "map": "gef_fild11",
+      "count": 20
+    },
+    {
+      "map": "prt_fild11",
+      "count": 10
+    }
+  ],
+  "Harpy": [
+    {
+      "map": "yuno_fild07",
+      "count": 40
+    },
+    {
+      "map": "ein_fild06",
+      "count": 5
+    },
+    {
+      "map": "um_fild01",
+      "count": 2
+    },
+    {
+      "map": "cmd_fild06",
+      "count": 1
+    },
+    {
+      "map": "ra_fild09",
+      "count": 1
+    }
+  ],
+  "Sandman": [
+    {
+      "map": "moc_fild16",
+      "count": 70
+    },
+    {
+      "map": "ve_fild03",
+      "count": 45
+    },
+    {
+      "map": "ve_fild05",
+      "count": 30
+    },
+    {
+      "map": "cmd_fild08",
+      "count": 15
+    }
+  ],
+  "Gryphon": [
+    {
+      "map": "ra_fild01",
+      "count": 3
+    },
+    {
+      "map": "cmd_fild08",
+      "count": 1
+    },
+    {
+      "map": "um_fild03",
+      "count": 1
+    }
+  ],
+  "Anacondaq": [
+    {
+      "map": "moc_fild13",
+      "count": 75
+    },
+    {
+      "map": "cmd_fild09",
+      "count": 60
+    },
+    {
+      "map": "lou_fild01",
+      "count": 5
+    }
+  ],
+  "Condor": [
+    {
+      "map": "cmd_fild09",
+      "count": 20
+    },
+    {
+      "map": "yuno_fild04",
+      "count": 20
+    },
+    {
+      "map": "prt_fild09",
+      "count": 10
+    }
+  ],
+  "Hode": [
+    {
+      "map": "moc_fild17",
+      "count": 100
+    },
+    {
+      "map": "moc_fild16",
+      "count": 30
+    },
+    {
+      "map": "moc_fild11",
+      "count": 10
+    },
+    {
+      "map": "cmd_fild09",
+      "count": 3
+    }
+  ],
+  "Demon Pungus": [
+    {
+      "map": "ein_fild01",
+      "count": 55
+    },
+    {
+      "map": "ein_fild02",
+      "count": 30
+    },
+    {
+      "map": "hu_fild01",
+      "count": 30
+    },
+    {
+      "map": "yuno_fild06",
+      "count": 20
+    },
+    {
+      "map": "yuno_fild12",
+      "count": 20
+    }
+  ],
+  "Geographer": [
+    {
+      "map": "ein_fild04",
+      "count": 80
+    },
+    {
+      "map": "yuno_fild11",
+      "count": 32
+    },
+    {
+      "map": "hu_fild01",
+      "count": 30
+    },
+    {
+      "map": "ra_fild01",
+      "count": 30
+    },
+    {
+      "map": "yuno_fild08",
+      "count": 30
+    }
+  ],
+  "Holden": [
+    {
+      "map": "hu_fild06",
+      "count": 50
+    },
+    {
+      "map": "ein_fild03",
+      "count": 40
+    },
+    {
+      "map": "lhz_fild01",
+      "count": 30
+    },
+    {
+      "map": "ein_fild04",
+      "count": 20
+    },
+    {
+      "map": "lhz_fild02",
+      "count": 10
+    }
+  ],
+  "Goat": [
+    {
+      "map": "ein_fild06",
+      "count": 55
+    },
+    {
+      "map": "yuno_fild06",
+      "count": 40
+    },
+    {
+      "map": "yuno_fild07",
+      "count": 10
+    }
+  ],
+  "Flora": [
+    {
+      "map": "mjolnir_11",
+      "count": 60
+    },
+    {
+      "map": "mjolnir_02",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_04",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_10",
+      "count": 30
+    },
+    {
+      "map": "ein_fild07",
+      "count": 20
+    }
+  ],
+  "Roda Frog": [
+    {
+      "map": "gef_fild01",
+      "count": 50
+    },
+    {
+      "map": "gef_fild04",
+      "count": 20
+    }
+  ],
+  "Orc Warrior": [
+    {
+      "map": "gef_fild02",
+      "count": 60
+    },
+    {
+      "map": "gef_fild03",
+      "count": 60
+    },
+    {
+      "map": "gef_fild10",
+      "count": 20
+    },
+    {
+      "map": "gef_fild14",
+      "count": 10
+    }
+  ],
+  "Kobold": [
+    {
+      "map": "gef_fild12",
+      "count": 30
+    },
+    {
+      "map": "gef_fild08",
+      "count": 20
+    },
+    {
+      "map": "gef_fild06",
+      "count": 10
+    }
+  ],
+  "Petite": [
+    {
+      "map": "hu_fild07",
+      "count": 60
+    },
+    {
+      "map": "mjolnir_02",
+      "count": 50
+    },
+    {
+      "map": "hu_fild04",
+      "count": 10
+    },
+    {
+      "map": "mjolnir_10",
+      "count": 10
+    }
+  ],
+  "Golem": [
+    {
+      "map": "moc_fild11",
+      "count": 70
+    },
+    {
+      "map": "moc_fild21",
+      "count": 61
+    },
+    {
+      "map": "gef_fild08",
+      "count": 40
+    }
+  ],
+  "Ambernite": [
+    {
+      "map": "gef_fild09",
+      "count": 60
+    },
+    {
+      "map": "gef_fild13",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_07",
+      "count": 30
+    }
+  ],
+  "Orc Lady": [
+    {
+      "map": "gef_fild10",
+      "count": 70
+    },
+    {
+      "map": "gef_fild14",
+      "count": 20
+    }
+  ],
+  "Orc Baby": [
+    {
+      "map": "gef_fild10",
+      "count": 5
+    }
+  ],
+  "Goblin Leader": [
+    {
+      "map": "gef_fild11",
+      "count": 1
+    }
+  ],
+  "Goblin": [
+    {
+      "map": "prt_fild11",
+      "count": 30
+    },
+    {
+      "map": "gef_fild11",
+      "count": 20
+    }
+  ],
+  "Rotar Zairo": [
+    {
+      "map": "gef_fild11",
+      "count": 10
+    }
+  ],
+  "Kobold Leader": [
+    {
+      "map": "gef_fild12",
+      "count": 1
+    }
+  ],
+  "Dumpling Child": [
+    {
+      "map": "gon_fild01",
+      "count": 30
+    }
+  ],
+  "Grove": [
+    {
+      "map": "hu_fild03",
+      "count": 70
+    },
+    {
+      "map": "hu_fild05",
+      "count": 60
+    },
+    {
+      "map": "hu_fild02",
+      "count": 20
+    },
+    {
+      "map": "hu_fild04",
+      "count": 20
+    },
+    {
+      "map": "hu_fild07",
+      "count": 10
+    }
+  ],
+  "Sleeper": [
+    {
+      "map": "yuno_fild06",
+      "count": 70
+    },
+    {
+      "map": "ve_fild05",
+      "count": 55
+    },
+    {
+      "map": "yuno_fild11",
+      "count": 43
+    },
+    {
+      "map": "hu_fild04",
+      "count": 7
+    },
+    {
+      "map": "ve_fild03",
+      "count": 5
+    }
+  ],
+  "Rafflesia": [
+    {
+      "map": "yuno_fild05",
+      "count": 70
+    },
+    {
+      "map": "lhz_fild03",
+      "count": 5
+    }
+  ],
+  "Hill Wind": [
+    {
+      "map": "ra_fild05",
+      "count": 70
+    },
+    {
+      "map": "ra_fild06",
+      "count": 50
+    },
+    {
+      "map": "lhz_fild03",
+      "count": 10
+    },
+    {
+      "map": "ra_fild09",
+      "count": 10
+    }
+  ],
+  "Nepenthes": [
+    {
+      "map": "man_fild01",
+      "count": 105
+    }
+  ],
+  "Hillslion": [
+    {
+      "map": "man_fild03",
+      "count": 25
+    },
+    {
+      "map": "man_fild01",
+      "count": 10
+    }
+  ],
+  "Centipede Larva": [
+    {
+      "map": "man_fild01",
+      "count": 30
+    }
+  ],
+  "Centipede": [
+    {
+      "map": "man_fild02",
+      "count": 35
+    },
+    {
+      "map": "man_fild03",
+      "count": 25
+    },
+    {
+      "map": "man_fild01",
+      "count": 2
+    }
+  ],
+  "Bradium Golem": [
+    {
+      "map": "man_fild02",
+      "count": 50
+    }
+  ],
+  "Tatacho": [
+    {
+      "map": "man_fild02",
+      "count": 25
+    },
+    {
+      "map": "man_fild03",
+      "count": 25
+    }
+  ],
+  "Hardrock Mammoth": [
+    {
+      "map": "man_fild03",
+      "count": 1
+    }
+  ],
+  "Hornet": [
+    {
+      "map": "mjolnir_04",
+      "count": 70
+    },
+    {
+      "map": "prt_fild00",
+      "count": 70
+    },
+    {
+      "map": "mjolnir_02",
+      "count": 30
+    },
+    {
+      "map": "mjolnir_07",
+      "count": 20
+    }
+  ],
+  "Baby Desert Wolf": [
+    {
+      "map": "moc_fild01",
+      "count": 70
+    },
+    {
+      "map": "prt_fild09",
+      "count": 20
+    }
+  ],
+  "Peco Peco Egg": [
+    {
+      "map": "moc_fild07",
+      "count": 50
+    },
+    {
+      "map": "moc_fild02",
+      "count": 40
+    },
+    {
+      "map": "moc_fild12",
+      "count": 35
+    },
+    {
+      "map": "moc_fild01",
+      "count": 20
+    },
+    {
+      "map": "prt_fild09",
+      "count": 20
+    }
+  ],
+  "Picky": [
+    {
+      "map": "moc_fild12",
+      "count": 50
+    },
+    {
+      "map": "moc_fild20",
+      "count": 50
+    },
+    {
+      "map": "moc_fild07",
+      "count": 30
+    }
+  ],
+  "Peco Peco": [
+    {
+      "map": "moc_fild02",
+      "count": 70
+    }
+  ],
+  "Elder Willow": [
+    {
+      "map": "moc_fild03",
+      "count": 70
+    },
+    {
+      "map": "pay_fild07",
+      "count": 70
+    }
+  ],
+  "Willow": [
+    {
+      "map": "pay_fild08",
+      "count": 50
+    },
+    {
+      "map": "pay_fild03",
+      "count": 30
+    },
+    {
+      "map": "moc_fild03",
+      "count": 20
+    },
+    {
+      "map": "pay_fild07",
+      "count": 20
+    },
+    {
+      "map": "pay_fild01",
+      "count": 10
+    }
+  ],
+  "Magnolia": [
+    {
+      "map": "moc_fild16",
+      "count": 25
+    },
+    {
+      "map": "moc_fild11",
+      "count": 20
+    },
+    {
+      "map": "moc_fild17",
+      "count": 15
+    }
+  ],
+  "Muka": [
+    {
+      "map": "moc_fild18",
+      "count": 80
+    },
+    {
+      "map": "ve_fild01",
+      "count": 70
+    },
+    {
+      "map": "moc_fild11",
+      "count": 20
+    }
+  ],
+  "Desert Wolf": [
+    {
+      "map": "ve_fild04",
+      "count": 60
+    },
+    {
+      "map": "moc_fild13",
+      "count": 30
+    }
+  ],
+  "Scorpion": [
+    {
+      "map": "moc_fild20",
+      "count": 70
+    },
+    {
+      "map": "moc_fild17",
+      "count": 5
+    }
+  ],
+  "Metaller": [
+    {
+      "map": "moc_fild20",
+      "count": 20
+    },
+    {
+      "map": "moc_fild18",
+      "count": 10
+    }
+  ],
+  "Dragon Fly": [
+    {
+      "map": "moc_fild18",
+      "count": 1
+    }
+  ],
+  "Incarnation of Morocc": [
+    {
+      "map": "moc_fild21",
+      "count": 34
+    },
+    {
+      "map": "moc_fild22",
+      "count": 25
+    },
+    {
+      "map": "moc_fild20",
+      "count": 1
+    }
+  ],
+  "Disguise": [
+    {
+      "map": "nif_fild01",
+      "count": 50
+    }
+  ],
+  "Dullahan": [
+    {
+      "map": "nif_fild01",
+      "count": 20
+    },
+    {
+      "map": "nif_fild02",
+      "count": 10
+    },
+    {
+      "map": "niflheim",
+      "count": 5
+    }
+  ],
+  "Gibbet": [
+    {
+      "map": "nif_fild02",
+      "count": 20
+    },
+    {
+      "map": "nif_fild01",
+      "count": 10
+    },
+    {
+      "map": "niflheim",
+      "count": 10
+    }
+  ],
+  "Heirozoist": [
+    {
+      "map": "nif_fild01",
+      "count": 10
+    },
+    {
+      "map": "nif_fild02",
+      "count": 10
+    },
+    {
+      "map": "niflheim",
+      "count": 10
+    }
+  ],
+  "Quve": [
+    {
+      "map": "nif_fild01",
+      "count": 30
+    },
+    {
+      "map": "niflheim",
+      "count": 20
+    }
+  ],
+  "Lude": [
+    {
+      "map": "niflheim",
+      "count": 20
+    },
+    {
+      "map": "nif_fild02",
+      "count": 10
+    }
+  ],
+  "Bloody Murderer": [
+    {
+      "map": "nif_fild02",
+      "count": 11
+    }
+  ],
+  "Loli Ruri": [
+    {
+      "map": "nif_fild02",
+      "count": 21
+    }
+  ],
+  "Deviling": [
+    {
+      "map": "pay_fild04",
+      "count": 1
+    },
+    {
+      "map": "yuno_fild03",
+      "count": 1
+    }
+  ],
+  "Wormtail": [
+    {
+      "map": "pay_fild06",
+      "count": 90
+    }
+  ],
+  "Savage Babe": [
+    {
+      "map": "prt_fild09",
+      "count": 70
+    },
+    {
+      "map": "prt_fild10",
+      "count": 40
+    }
+  ],
+  "Panzer Goblin": [
+    {
+      "map": "prt_fild11",
+      "count": 1
+    }
+  ],
+  "Goblin Steamrider": [
+    {
+      "map": "prt_fild11",
+      "count": 30
+    }
+  ],
+  "Drosera": [
+    {
+      "map": "ra_fild09",
+      "count": 60
+    },
+    {
+      "map": "ra_fild01",
+      "count": 20
+    },
+    {
+      "map": "ra_fild02",
+      "count": 20
+    },
+    {
+      "map": "ra_fild05",
+      "count": 20
+    },
+    {
+      "map": "ra_fild08",
+      "count": 20
+    }
+  ],
+  "Galion": [
+    {
+      "map": "ra_fild03",
+      "count": 35
+    },
+    {
+      "map": "ra_fild07",
+      "count": 20
+    },
+    {
+      "map": "ra_fild10",
+      "count": 20
+    },
+    {
+      "map": "ra_fild02",
+      "count": 15
+    },
+    {
+      "map": "ra_fild01",
+      "count": 5
+    }
+  ],
+  "Stapo": [
+    {
+      "map": "ra_fild08",
+      "count": 100
+    },
+    {
+      "map": "ra_fild13",
+      "count": 60
+    },
+    {
+      "map": "ra_fild11",
+      "count": 40
+    },
+    {
+      "map": "ra_fild12",
+      "count": 40
+    },
+    {
+      "map": "ra_fild10",
+      "count": 30
+    }
+  ],
+  "Pinguicula": [
+    {
+      "map": "spl_fild02",
+      "count": 95
+    },
+    {
+      "map": "spl_fild01",
+      "count": 50
+    }
+  ],
+  "Naga": [
+    {
+      "map": "spl_fild01",
+      "count": 35
+    },
+    {
+      "map": "spl_fild03",
+      "count": 20
+    }
+  ],
+  "Cornus": [
+    {
+      "map": "spl_fild01",
+      "count": 25
+    },
+    {
+      "map": "spl_fild03",
+      "count": 25
+    }
+  ],
+  "Luciola Vespa": [
+    {
+      "map": "spl_fild03",
+      "count": 35
+    },
+    {
+      "map": "spl_fild02",
+      "count": 15
+    }
+  ],
+  "Tendrilion": [
+    {
+      "map": "spl_fild03",
+      "count": 1
+    }
+  ],
+  "Parasite": [
+    {
+      "map": "um_fild03",
+      "count": 95
+    }
+  ],
+  "Grand Peco": [
+    {
+      "map": "yuno_fild08",
+      "count": 80
+    },
+    {
+      "map": "yuno_fild01",
+      "count": 3
+    }
+  ],
+  "Arc Angeling": [
+    {
+      "map": "yuno_fild05",
+      "count": 1
+    }
+  ]
+}

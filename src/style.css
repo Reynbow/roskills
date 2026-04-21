@@ -470,6 +470,141 @@ header.planner-header h1 {
   }
 }
 
+/* Map name hover preview (Divine Pride large minimap PNG) */
+.cards-map-tooltip {
+  position: fixed;
+  z-index: 1002;
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  max-width: min(36rem, calc(100vw - 20px));
+  padding: 0.5rem 0.65rem;
+  pointer-events: none;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-panel);
+  border-radius: 8px;
+  box-shadow: 0 10px 36px var(--shadow), inset 0 1px 0 var(--inset-highlight);
+  transform: translate(-50%, calc(-100% + 12px));
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.22s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.32s;
+}
+
+.cards-map-tooltip__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.cards-map-tooltip__label {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.cards-map-tooltip__img {
+  display: block;
+  width: auto;
+  max-width: min(520px, calc(100vw - 48px));
+  max-height: min(520px, 70vh);
+  height: auto;
+  border-radius: 4px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.cards-map-tooltip__missing {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.cards-map-tooltip.cards-map-tooltip--below {
+  transform: translate(-50%, -14px);
+}
+
+.cards-map-tooltip.cards-map-tooltip--visible:not(.cards-map-tooltip--below) {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -100%);
+}
+
+.cards-map-tooltip.cards-map-tooltip--visible.cards-map-tooltip--below {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-map-tooltip {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Map id copy confirmation (fixed near clicked row) */
+.cards-copy-toast {
+  position: fixed;
+  z-index: 1003;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  padding: 0.42rem 0.85rem;
+  max-width: min(18rem, calc(100vw - 24px));
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #eafff4;
+  pointer-events: none;
+  text-align: center;
+  line-height: 1.35;
+  background: linear-gradient(155deg, rgba(52, 120, 88, 0.97) 0%, rgba(24, 56, 40, 0.98) 100%);
+  border: 1px solid rgba(130, 255, 190, 0.38);
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.18),
+    0 10px 32px rgba(0, 0, 0, 0.38),
+    0 0 28px rgba(70, 220, 130, 0.22);
+  transform: translate(-50%, calc(-100% - 10px));
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.3s;
+}
+
+.cards-copy-toast--below {
+  transform: translate(-50%, 10px);
+}
+
+.cards-copy-toast--visible:not(.cards-copy-toast--below) {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, calc(-100% - 2px));
+}
+
+.cards-copy-toast--visible.cards-copy-toast--below {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-copy-toast {
+    transition-duration: 0.01ms;
+  }
+}
+
 .cards-filter-clear {
   font-family: inherit;
   font-size: 0.85rem;
@@ -749,6 +884,149 @@ header.planner-header h1 {
 
 .cards-col-drop {
   width: 16rem;
+}
+
+.cards-drop-entry + .cards-drop-entry {
+  margin-top: 0.5rem;
+}
+
+.cards-drop-main {
+  color: #d8e4f4;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.cards-drop-maps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  margin-top: 0.35rem;
+}
+
+.cards-drop-map {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  text-align: left;
+  color: rgba(190, 210, 235, 0.78);
+  cursor: pointer;
+  word-break: break-word;
+  outline: none;
+}
+
+.cards-drop-map__name {
+  text-decoration: underline dotted rgba(140, 170, 210, 0.45);
+  text-underline-offset: 0.12em;
+}
+
+/* One-shot glow + light sweep across the map id text after copy */
+@keyframes cards-drop-map-name-glow-wave {
+  0% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 2px rgba(100, 255, 170, 0.2));
+  }
+  35% {
+    filter:
+      drop-shadow(0 0 10px rgba(170, 255, 220, 0.95))
+      drop-shadow(0 0 22px rgba(90, 230, 150, 0.6))
+      drop-shadow(0 0 36px rgba(50, 200, 120, 0.35));
+  }
+  100% {
+    background-position: -100% 50%;
+    filter: drop-shadow(0 0 6px rgba(120, 255, 180, 0.5));
+  }
+}
+
+@keyframes cards-drop-map-name-glow-wave-reduced {
+  0%,
+  100% {
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(160, 255, 210, 0.95),
+      0 0 20px rgba(80, 220, 140, 0.45);
+  }
+}
+
+.cards-drop-map__name--wave {
+  display: inline;
+  background-image: linear-gradient(
+    105deg,
+    #5ccd8a 0%,
+    #9cf0c0 18%,
+    #d8fff0 38%,
+    #ffffff 50%,
+    #c8ffe8 62%,
+    #86ecc0 82%,
+    #4dbe88 100%
+  );
+  background-size: 280% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* Underline hidden while gradient fill is active */
+  text-decoration: underline dotted rgba(255, 255, 255, 0.12);
+  text-underline-offset: 0.12em;
+  animation: cards-drop-map-name-glow-wave 1.05s cubic-bezier(0.45, 0, 0.25, 1) 1 forwards;
+}
+
+.cards-drop-map__count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: rgba(160, 200, 235, 0.62);
+}
+
+.cards-drop-map:hover .cards-drop-map__name,
+.cards-drop-map:focus-visible .cards-drop-map__name {
+  text-decoration-color: rgba(200, 220, 255, 0.65);
+}
+
+.cards-drop-map:hover,
+.cards-drop-map:focus-visible {
+  color: #e8f0ff;
+}
+
+.cards-drop-map:hover .cards-drop-map__count,
+.cards-drop-map:focus-visible .cards-drop-map__count {
+  color: rgba(190, 220, 250, 0.78);
+}
+
+.cards-drop-map:focus-visible {
+  box-shadow: 0 0 0 2px rgba(130, 190, 255, 0.35);
+  border-radius: 3px;
+}
+
+.cards-drop-map--copied,
+.cards-drop-map--copied .cards-drop-map__count {
+  color: #9de8b4;
+}
+
+.cards-drop-map--copied .cards-drop-map__name {
+  text-decoration-color: rgba(120, 220, 160, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-drop-map__name--wave {
+    background-image: none;
+    background-size: auto;
+    -webkit-text-fill-color: unset;
+    color: inherit;
+    animation: cards-drop-map-name-glow-wave-reduced 0.4s ease 1 forwards;
+  }
 }
 
 .desc-blocks {

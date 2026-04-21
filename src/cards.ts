@@ -4,11 +4,19 @@ import cardsRaw from "./data/cards.json";
 
 inject();
 
+type CardDropMapSpawn = {
+  map: string;
+  /** Summed spawn amounts from rAthena npc/pre-re/mobs scripts for this map. */
+  count: number;
+};
+
 type CardDrop = {
   monster: string;
   /** rAthena drop rate in 1/10000 units (e.g. 1 → 0.01%). */
   rate: number;
   isMvp?: boolean;
+  /** Top field/dungeon spawns from rAthena npc/pre-re/mobs (by spawn amount). */
+  maps?: CardDropMapSpawn[];
 };
 
 type CardEntry = {
@@ -47,9 +55,54 @@ function formatDropRate(rate: number): string {
   return `${(rate / 100).toFixed(2)}%`;
 }
 
-function dropsDisplayText(c: CardEntry): string {
+/** Divine Pride large minimap PNG; unknown ids return a tiny placeholder image. */
+function divinePrideMapImageUrl(mapId: string): string {
+  const id = mapId.trim();
+  return `https://static.divine-pride.net/images/maps/large/${encodeURIComponent(id)}.png`;
+}
+
+/** Normalize maps from JSON (current `{map,count}` or legacy string-only entries). */
+function dropMapSpawns(maps: CardDrop["maps"] | undefined): CardDropMapSpawn[] {
+  if (!maps?.length) return [];
+  const out: CardDropMapSpawn[] = [];
+  for (const x of maps as unknown[]) {
+    if (typeof x === "string") {
+      out.push({ map: x, count: 0 });
+      continue;
+    }
+    if (x && typeof x === "object" && typeof (x as CardDropMapSpawn).map === "string") {
+      const row = x as CardDropMapSpawn;
+      const c = row.count;
+      out.push({
+        map: row.map,
+        count: typeof c === "number" && Number.isFinite(c) ? c : 0,
+      });
+    }
+  }
+  return out;
+}
+
+function dropsDisplayHtml(c: CardEntry): string {
   if (!c.drops?.length) return "-";
-  return c.drops.map((d) => `${d.monster} (${formatDropRate(d.rate)})`).join(", ");
+  return c.drops
+    .map((d) => {
+      const rate = formatDropRate(d.rate);
+      const spawns = dropMapSpawns(d.maps);
+      const maps =
+        spawns.length ?
+          `<div class="cards-drop-maps">${spawns
+            .map(({ map, count }) => {
+              const countHtml =
+                count > 0 ?
+                  `<span class="cards-drop-map__count" aria-label="${count.toLocaleString()} spawns in rAthena scripts">${count.toLocaleString()}</span>`
+                : "";
+              return `<button type="button" class="cards-drop-map" data-map="${escapeHtml(map)}" aria-label="Map ${escapeHtml(map)}: click to copy name, hover for preview"><span class="cards-drop-map__name">${escapeHtml(map)}</span>${countHtml}</button>`;
+            })
+            .join("")}</div>`
+        : "";
+      return `<div class="cards-drop-entry"><div class="cards-drop-main">${escapeHtml(d.monster)} (${escapeHtml(rate)})</div>${maps}</div>`;
+    })
+    .join("");
 }
 
 function normalizeSlotLabel(slotRaw: string | undefined): string {
@@ -482,7 +535,7 @@ function renderRows(rows: CardEntry[]): string {
         </td>
         <td class="cards-col-slot">${slot}</td>
         <td class="cards-col-desc">${descHtml}</td>
-        <td class="cards-col-drop">${escapeHtml(dropsDisplayText(c))}</td>
+        <td class="cards-col-drop">${dropsDisplayHtml(c)}</td>
       </tr>`;
     })
     .join("");
@@ -551,7 +604,7 @@ function mount(root: HTMLElement): void {
     <section class="page">
       <div class="page-head">
         <h1 class="page-title">Card Library</h1>
-        <p class="page-sub">Search by card name, effect, equip slot, or monster. Drops and IDs come from rAthena pre-re; effect text is filled from the iRO Wiki database (via RagnaAPI) when available.</p>
+        <p class="page-sub">Search by card name, effect, equip slot, monster, or map. Drops and IDs come from rAthena pre-re; under each dropper, map names are the top field/dungeon spawns from rAthena npc/pre-re/mobs scripts (spawn totals shown). Click a map row to copy its map id; hover for a minimap preview (Divine Pride when available). Effect text is filled from the iRO Wiki database (via RagnaAPI) when available.</p>
       </div>
 
       <div class="cards-toolbar" role="search">
@@ -579,6 +632,8 @@ function mount(root: HTMLElement): void {
       </div>
 
       <div id="cards-filter-tooltip" class="cards-filter-tooltip" role="tooltip" aria-hidden="true"></div>
+      <div id="cards-map-tooltip" class="cards-map-tooltip" role="tooltip" aria-hidden="true"></div>
+      <div id="cards-copy-toast" class="cards-copy-toast" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true"></div>
 
       <div class="cards-table-wrap">
         <table class="cards-table">
@@ -636,6 +691,9 @@ function mount(root: HTMLElement): void {
   const slotWrap = root.querySelector("#chips-slot") as HTMLElement;
   const filtersEl = root.querySelector(".cards-filters") as HTMLElement;
   const filterTooltip = root.querySelector("#cards-filter-tooltip") as HTMLElement;
+  const mapTooltip = root.querySelector("#cards-map-tooltip") as HTMLElement;
+  const copyToastEl = root.querySelector("#cards-copy-toast") as HTMLElement;
+  const tableWrapEl = root.querySelector(".cards-table-wrap") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
   const modal = root.querySelector("#set-modal") as HTMLDialogElement;
   const modalBody = root.querySelector("#set-modal-body") as HTMLElement;
@@ -692,7 +750,7 @@ function mount(root: HTMLElement): void {
         c.aegisName,
         c.slot ?? "",
         dv?.descText ?? "",
-        ...c.drops.map((d) => d.monster),
+        ...c.drops.flatMap((d) => [d.monster, ...dropMapSpawns(d.maps).map((s) => s.map)]),
       ]
         .join(" ")
         .toLowerCase();
@@ -781,6 +839,105 @@ function mount(root: HTMLElement): void {
     return null;
   }
 
+  let mapTipActiveBtn: HTMLButtonElement | null = null;
+  let mapTipContentKey = "";
+
+  const hideMapTooltip = (): void => {
+    mapTooltip.classList.remove("cards-map-tooltip--visible");
+    mapTooltip.classList.remove("cards-map-tooltip--below");
+    mapTooltip.setAttribute("aria-hidden", "true");
+    mapTooltip.innerHTML = "";
+    mapTipContentKey = "";
+    mapTipActiveBtn?.removeAttribute("aria-describedby");
+    mapTipActiveBtn = null;
+  };
+
+  const showMapTooltip = (btn: HTMLButtonElement): void => {
+    const mapId = btn.dataset.map?.trim();
+    if (!mapId) return;
+    hideFilterTooltip();
+
+    const url = divinePrideMapImageUrl(mapId);
+    const key = `${mapId}\0${url}`;
+    if (
+      mapTipActiveBtn === btn &&
+      mapTipContentKey === key &&
+      mapTooltip.classList.contains("cards-map-tooltip--visible")
+    ) {
+      return;
+    }
+
+    mapTipContentKey = key;
+    mapTooltip.innerHTML = `<div class="cards-map-tooltip__inner">
+      <div class="cards-map-tooltip__label">${escapeHtml(mapId)}</div>
+      <img class="cards-map-tooltip__img" src="${escapeHtml(url)}" alt="" width="512" height="512" decoding="async" referrerpolicy="no-referrer" />
+      <p class="cards-map-tooltip__missing" hidden>No preview for this map id on Divine Pride.</p>
+    </div>`;
+    mapTipActiveBtn?.removeAttribute("aria-describedby");
+    mapTipActiveBtn = btn;
+    btn.setAttribute("aria-describedby", "cards-map-tooltip");
+    mapTooltip.setAttribute("aria-hidden", "false");
+
+    const img = mapTooltip.querySelector(".cards-map-tooltip__img") as HTMLImageElement | null;
+    const missing = mapTooltip.querySelector(".cards-map-tooltip__missing") as HTMLElement | null;
+    const finishImg = (): void => {
+      if (!img || !missing) return;
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      if (w > 0 && h > 0 && w <= 32 && h <= 32) {
+        img.hidden = true;
+        missing.hidden = false;
+      } else {
+        img.hidden = false;
+        missing.hidden = true;
+      }
+    };
+    if (img) {
+      if (img.complete) finishImg();
+      else {
+        img.addEventListener("load", finishImg, { once: true });
+        img.addEventListener(
+          "error",
+          () => {
+            img.hidden = true;
+            if (missing) missing.hidden = false;
+          },
+          { once: true },
+        );
+      }
+    }
+
+    mapTooltip.classList.remove("cards-map-tooltip--visible");
+    mapTooltip.classList.remove("cards-map-tooltip--below");
+    void mapTooltip.offsetWidth;
+
+    const r = btn.getBoundingClientRect();
+    const gap = 10;
+    const cx = r.left + r.width / 2;
+    mapTooltip.style.left = `${cx}px`;
+    mapTooltip.style.top = `${r.top - gap}px`;
+
+    requestAnimationFrame(() => {
+      const tr = mapTooltip.getBoundingClientRect();
+      if (tr.top < 8) {
+        mapTooltip.classList.add("cards-map-tooltip--below");
+        mapTooltip.style.top = `${r.bottom + gap}px`;
+      }
+      const tr2 = mapTooltip.getBoundingClientRect();
+      const pad = 8;
+      let shift = 0;
+      if (tr2.left < pad) shift = pad - tr2.left;
+      else if (tr2.right > window.innerWidth - pad) shift = window.innerWidth - pad - tr2.right;
+      if (shift !== 0) {
+        const cur = parseFloat(mapTooltip.style.left) || cx;
+        mapTooltip.style.left = `${cur + shift}px`;
+      }
+      requestAnimationFrame(() => {
+        mapTooltip.classList.add("cards-map-tooltip--visible");
+      });
+    });
+  };
+
   const hideFilterTooltip = (): void => {
     filterTooltip.classList.remove("cards-filter-tooltip--visible");
     filterTooltip.classList.remove("cards-filter-tooltip--below");
@@ -792,6 +949,7 @@ function mount(root: HTMLElement): void {
   };
 
   const showFilterTooltip = (btn: HTMLButtonElement): void => {
+    hideMapTooltip();
     const parts = filterTooltipParts(btn);
     if (!parts) return;
     const key = `${parts.label}\0${parts.body}`;
@@ -878,11 +1036,134 @@ function mount(root: HTMLElement): void {
     hideFilterTooltip();
   });
 
-  const hideFilterTooltipOnScroll = (): void => {
-    if (filterTipActiveBtn) hideFilterTooltip();
+  let copyToastHideTimer: number | undefined;
+
+  const hideCopyToast = (): void => {
+    if (copyToastHideTimer !== undefined) {
+      window.clearTimeout(copyToastHideTimer);
+      copyToastHideTimer = undefined;
+    }
+    copyToastEl.classList.remove("cards-copy-toast--visible");
+    copyToastEl.classList.remove("cards-copy-toast--below");
+    copyToastEl.setAttribute("aria-hidden", "true");
+    copyToastEl.textContent = "";
   };
-  window.addEventListener("scroll", hideFilterTooltipOnScroll, true);
-  window.addEventListener("resize", hideFilterTooltipOnScroll);
+
+  const showCopyToast = (anchor: HTMLElement): void => {
+    hideCopyToast();
+    copyToastEl.textContent = "Copied to clipboard";
+    copyToastEl.setAttribute("aria-hidden", "false");
+    copyToastEl.classList.remove("cards-copy-toast--visible");
+    copyToastEl.classList.remove("cards-copy-toast--below");
+    void copyToastEl.offsetWidth;
+
+    const gap = 10;
+    const r = anchor.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    copyToastEl.style.left = `${cx}px`;
+    copyToastEl.style.top = `${r.top - gap}px`;
+
+    requestAnimationFrame(() => {
+      const tr = copyToastEl.getBoundingClientRect();
+      if (tr.top < 8) {
+        copyToastEl.classList.add("cards-copy-toast--below");
+        copyToastEl.style.top = `${r.bottom + gap}px`;
+      }
+      const tr2 = copyToastEl.getBoundingClientRect();
+      const pad = 8;
+      let shift = 0;
+      if (tr2.left < pad) shift = pad - tr2.left;
+      else if (tr2.right > window.innerWidth - pad) shift = window.innerWidth - pad - tr2.right;
+      if (shift !== 0) {
+        const cur = parseFloat(copyToastEl.style.left) || cx;
+        copyToastEl.style.left = `${cur + shift}px`;
+      }
+      requestAnimationFrame(() => {
+        copyToastEl.classList.add("cards-copy-toast--visible");
+      });
+    });
+
+    copyToastHideTimer = window.setTimeout(() => {
+      hideCopyToast();
+    }, 2200);
+  };
+
+  const hideFloatingTooltipsOnScroll = (): void => {
+    if (filterTipActiveBtn) hideFilterTooltip();
+    hideMapTooltip();
+    hideCopyToast();
+  };
+  window.addEventListener("scroll", hideFloatingTooltipsOnScroll, true);
+  window.addEventListener("resize", hideFloatingTooltipsOnScroll);
+  tableWrapEl.addEventListener("scroll", hideFloatingTooltipsOnScroll, { passive: true });
+
+  root.addEventListener("pointerover", (e) => {
+    const btn = (e.target as HTMLElement).closest("button.cards-drop-map") as HTMLButtonElement | null;
+    if (!btn || !root.contains(btn)) return;
+    showMapTooltip(btn);
+  });
+
+  root.addEventListener("pointerout", (e) => {
+    const related = e.relatedTarget as Node | null;
+    if (related && root.contains(related)) {
+      const toBtn = (related as HTMLElement).closest("button.cards-drop-map") as HTMLButtonElement | null;
+      if (toBtn) {
+        showMapTooltip(toBtn);
+        return;
+      }
+    }
+    hideMapTooltip();
+  });
+
+  root.addEventListener("focusin", (e) => {
+    const btn = (e.target as HTMLElement).closest("button.cards-drop-map") as HTMLButtonElement | null;
+    if (btn && root.contains(btn)) showMapTooltip(btn);
+  });
+
+  root.addEventListener("focusout", (e) => {
+    const related = e.relatedTarget as Node | null;
+    if (
+      related &&
+      root.contains(related) &&
+      (related as HTMLElement).closest("button.cards-drop-map")
+    ) {
+      return;
+    }
+    hideMapTooltip();
+  });
+
+  root.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("button.cards-drop-map") as HTMLButtonElement | null;
+    if (!btn || !root.contains(btn)) return;
+    const mapId = btn.dataset.map?.trim();
+    if (!mapId) return;
+    e.preventDefault();
+    void (async () => {
+      try {
+        await navigator.clipboard.writeText(mapId);
+        hideMapTooltip();
+        btn.classList.add("cards-drop-map--copied");
+        const nameEl = btn.querySelector(".cards-drop-map__name");
+        if (nameEl) {
+          void (nameEl as HTMLElement).offsetWidth;
+          (nameEl as HTMLElement).classList.remove("cards-drop-map__name--wave");
+          void (nameEl as HTMLElement).offsetWidth;
+          (nameEl as HTMLElement).classList.add("cards-drop-map__name--wave");
+        }
+        showCopyToast(btn);
+        const prev = btn.dataset.copyTimerId;
+        if (prev) window.clearTimeout(Number.parseInt(prev, 10));
+        const tid = window.setTimeout(() => {
+          btn.classList.remove("cards-drop-map--copied");
+          btn.querySelector(".cards-drop-map__name")?.classList.remove("cards-drop-map__name--wave");
+          delete btn.dataset.copyTimerId;
+        }, 1200);
+        btn.dataset.copyTimerId = String(tid);
+      } catch {
+        /* clipboard API unavailable or blocked */
+      }
+    })();
+  });
 
   const closeArtModal = (): void => {
     if (artModal.open) artModal.close();
