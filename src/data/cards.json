@@ -199,7 +199,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4402.png",
-    "description": "If used by a Swordman, Merchant or Thief job type\nStr +2Max HP +5%\nIf the user is an Acolyte, Mage, or Archer job type\nInt +2Max SP +5%"
+    "description": "If used by a Swordman, Merchant or Thief job type\nStr +2\nMax HP +5%\nIf the user is an Acolyte, Mage, or Archer job type\nInt +2\nMax SP +5%"
   },
   {
     "id": 4400,
@@ -567,7 +567,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4241.png",
-    "description": "If the user's base Luk is 77 or higher\nHP Recovery Rate +100%SP Regen +100%"
+    "description": "If the user's base Luk is 77 or higher\nHP Recovery Rate +100%\nSP Regen +100%"
   },
   {
     "id": 4371,
@@ -623,7 +623,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4240.png",
-    "description": "If the shield is upgraded to +5 or less\nAdditional Def +2MDef +3"
+    "description": "If the shield is upgraded to +5 or less\nAdditional Def +2\nMDef +3"
   },
   {
     "id": 4114,
@@ -1046,7 +1046,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4379.png",
-    "description": "If the headgear is upgraded to +4 or less\nAdditional Max SP +40SP Regen +5%"
+    "description": "If the headgear is upgraded to +4 or less\nAdditional Max SP +40\nSP Regen +5%"
   },
   {
     "id": 4212,
@@ -1086,7 +1086,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4428.png",
-    "description": "If compounded into a Bow weapon\nHit +5Crit +5Increases the damage inflicted with [Arrow Shower] by 50%."
+    "description": "If compounded into a Bow weapon\nHit +5\nCrit +5\nIncreases the damage inflicted with [Arrow Shower] by 50%."
   },
   {
     "id": 4390,
@@ -1131,7 +1131,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4426.png",
-    "description": "If the user is a Rogue job type\nMAtk +10%Atk +10%"
+    "description": "If the user is a Rogue job type\nMAtk +10%\nAtk +10%"
   },
   {
     "id": 4063,
@@ -1306,7 +1306,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4009.png",
-    "description": "AGI +1\nFLEE +2\nSet bonus with Dragon Fly Card\nFlee +18\nSet bonus with Sandals [1], Old Pink Poo Hat [1]\nMax HP + 4%Max SP + 4%.Additional Max HP + 2% and Max SP + 2% per upgrade level of Sandals [1]."
+    "description": "AGI +1\nFLEE +2\nSet bonus with Dragon Fly Card\nFlee +18\nSet bonus with Sandals [1], Old Pink Poo Hat [1]\nMax HP + 4%\nMax SP + 4%.\nAdditional Max HP + 2% and Max SP + 2% per upgrade level of Sandals [1]."
   },
   {
     "id": 4235,
@@ -1336,7 +1336,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4299.png",
-    "description": "Adds a 3% chance of using [Guard] Lv 3, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Punk Card\nDef +3MDef +3",
+    "description": "Adds a 3% chance of using [Guard] Lv 3, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Punk Card\nDef +3\nMDef +3",
     "setBonuses": [
       {
         "title": "Clocktower Card Set",
@@ -1636,7 +1636,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4169.png",
-    "description": "Reduces the variable cast time of skills by 10%.\nSet bonus with Dark Lord Card\nMax HP +20%Max SP +20%Reduces the variable cast time of skills by 10%."
+    "description": "Reduces the variable cast time of skills by 10%.\nSet bonus with Dark Lord Card\nMax HP +20%\nMax SP +20%\nReduces the variable cast time of skills by 10%."
   },
   {
     "id": 4168,
@@ -1651,7 +1651,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4168.png",
-    "description": "Adds a 10% chance of using [Meteor Storm] Lv 5 on the attacker when physically attacked.\nSet bonus with Dark Illusion Card\nMax HP +20%Max SP +20%Reduces the variable cast time of skills by 10%."
+    "description": "Adds a 10% chance of using [Meteor Storm] Lv 5 on the attacker when physically attacked.\nSet bonus with Dark Illusion Card\nMax HP +20%\nMax SP +20%\nReduces the variable cast time of skills by 10%."
   },
   {
     "id": 4171,
@@ -3029,7 +3029,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4150.png",
-    "description": "If the armor is upgraded to +5 or less\nAdditional Def +2MDef +5"
+    "description": "If the armor is upgraded to +5 or less\nAdditional Def +2\nMDef +5"
   },
   {
     "id": 4157,
@@ -3129,7 +3129,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4378.png",
-    "description": "If the footgear is upgraded to +4 or less\nAdditional Max HP +4%Additional Max SP +4%HP Regen +5%SP Regen +5%"
+    "description": "Maximum HP and SP + 4%\nIf the footgear is upgraded to +4 or less\nAdditional Max HP and SP +4%\nHP Regen and SP Regen +5%"
   },
   {
     "id": 4128,
@@ -3231,7 +3231,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4373.png",
-    "description": "Each upgrade made to the garment gives\nLuk +1Crit +1"
+    "description": "Each upgrade made to the garment gives\nLuk +1\nCrit +1"
   },
   {
     "id": 4355,
@@ -3366,7 +3366,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4331.png",
-    "description": "If the user is a Swordman job type, P. Dodge +3.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Freezer Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Freezer Card, Archdam Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
+    "description": "If the user is a Swordman job type, P. Dodge +3.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Freezer Card\nStr +10Max HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Freezer Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
     "setBonuses": [
       {
         "title": "Swordman Card Set",
@@ -3542,7 +3542,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4343.png",
-    "description": "LUK +2\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Zipper Bear Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
+    "description": "LUK +2\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Zipper Bear Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.\nRemoves the draining of SP when attacking.\nIf used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.\nAdds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
     "setBonuses": [
       {
         "title": "Alchemist Card Set",
@@ -4312,7 +4312,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4191.png",
-    "description": "Adds a 5% chance of using [Heal] Lv 3 on the user when physically attacked.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%."
+    "description": "Adds a 5% chance of using [Heal] Lv 3 on the user when physically attacked.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%."
   },
   {
     "id": 4357,
@@ -5099,7 +5099,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4208.png",
-    "description": "Increases the damage inflicted with [Frost Diver] by 5%.\nSet bonus with Loli Ruri Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Evil Nymph Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster."
+    "description": "Increases the damage inflicted with [Frost Diver] by 5%.\nSet bonus with Loli Ruri Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Evil Nymph Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3\nIncreases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster."
   },
   {
     "id": 4317,
@@ -5149,7 +5149,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4036.png",
-    "description": "HP Recovery +10%\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
+    "description": "HP Recovery +10%\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.\nRemoves the draining of SP when attacking.\nIf used by an Alchemist job type, Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.\nAdds a 0.1% chance of the Stem item dropping when killing a monster.\nAdds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
     "setBonuses": [
       {
         "title": "Alchemist Card Set",
@@ -5588,7 +5588,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4144.png",
-    "description": "Restores the user's HP and SP entirely when revived or respawning from death.\nSet bonus with Old Morroc Shawl [1]\nAdditional Max HP + 15%Reduces damage taken from [Fire] property attacks by 50%.Reduces damage taken from [Shadow] property attacks by 100%.Immune to [Curse]."
+    "description": "Restores the user's HP and SP entirely when revived or respawning from death.\nSet bonus with Old Morroc Shawl [1]\nAdditional Max HP + 15%\nReduces damage taken from [Fire] property attacks by 50%.Reduces damage taken from [Shadow] property attacks by 100%.Immune to [Curse]."
   },
   {
     "id": 4238,
@@ -5678,7 +5678,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4031.png",
-    "description": "Max HP +10%\nSet bonus with Grand Peco Card\nVit +3Def +3"
+    "description": "Max HP +10%\nSet bonus with Grand Peco Card\nVit +3\nDef +3"
   },
   {
     "id": 4007,
@@ -5728,7 +5728,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4311.png",
-    "description": "Reduces damage received from [Shadow] and [Undead] element attacks by 15%.\nSet bonus with Solider Card, Assaulter Card, Freezer Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Freezer Card, Heater Card, Archdam Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
+    "description": "Reduces damage received from [Shadow] and [Undead] element attacks by 15%.\nSet bonus with Solider Card, Assaulter Card, Freezer Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.\nAdds a 5% chance of the Red Potion item dropping when killing a monster.\nIf used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Freezer Card, Heater Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%.\nIncreases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.\nIf used by a Crusader job type, changes the user to [Holy] element.",
     "setBonuses": [
       {
         "title": "Swordman Card Set",
@@ -5824,7 +5824,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4121.png",
-    "description": "HIT +100\nSet bonus with Phreeoni Wings [1]\nPerfect Hit +50Immune to [Stone Curse]."
+    "description": "HIT +100\nSet bonus with Phreeoni Wings [1]\nPerfect Hit +50\nImmune to [Stone Curse]."
   },
   {
     "id": 4008,
@@ -6044,7 +6044,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4313.png",
-    "description": "Adds a 5% chance of using [Quagmire] Lv 1, or Lv 5 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Clock Card\nDef +3MDef +3",
+    "description": "Adds a 5% chance of using [Quagmire] Lv 1, or Lv 5 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Clock Card\nDef +3\nMDef +3",
     "setBonuses": [
       {
         "title": "Clocktower Card Set",
@@ -6135,7 +6135,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4186.png",
-    "description": "STR +1\nVIT +1\nSet bonus with Myst Case Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
+    "description": "STR +1\nVIT +1\nSet bonus with Myst Case Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
     "setBonuses": [
       {
         "title": "Merchant Card Set",
@@ -6277,7 +6277,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4185.png",
-    "description": "If used by an Acolyte job type\nInt +1MDef +1\nSet bonus with Enchanted Peach Tree Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Cookie Card, Fur Seal Card, Waste Stove Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
+    "description": "If used by an Acolyte job type\nInt +1MDef +1\nSet bonus with Enchanted Peach Tree Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Cookie Card, Fur Seal Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
     "setBonuses": [
       {
         "title": "Acolyte Card Set",
@@ -6571,7 +6571,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4312.png",
-    "description": "If equipped by an Acolyte job type\nIncreases the user's critical attack rate on [Demon] and [Undead] race targets by 9%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Cookie Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Cookie Card, Waste Stove Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
+    "description": "If equipped by an Acolyte job type\nIncreases the user's critical attack rate on [Demon] and [Undead] race targets by 9%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Cookie Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Cookie Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
     "setBonuses": [
       {
         "title": "Acolyte Card Set",
@@ -6662,7 +6662,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4230.png",
-    "description": "Adds a 10% chance of using [Cloaking] of the highest level known (to a maximum of level 5) when physically attacked. If [Cloaking] is not learned, level 1 is used instead.\nSet bonus with The Paper Card, Wanderer Card, Wild Rose Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
+    "description": "Adds a 10% chance of using [Cloaking] of the highest level known (to a maximum of level 5) when physically attacked. If [Cloaking] is not learned, level 1 is used instead.\nSet bonus with The Paper Card, Wanderer Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
     "setBonuses": [
       {
         "title": "Thief Card Set",
@@ -7111,7 +7111,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4226.png",
-    "description": "If the shield is upgraded to +9 or higher\nAdditional Def +2MDef +5\nSet bonus with Sting Silk Ribbon [1]"
+    "description": "If the shield is upgraded to +9 or higher\nAdditional Def +2\nMDef +5\nSet bonus with Sting Silk Ribbon [1]"
   },
   {
     "id": 4225,
@@ -7499,7 +7499,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4229.png",
-    "description": "Reduces the variable cast time of skills by an additional 5%.\nSet bonus with Alarm Card, Clock Card, Punk Card\nDef +3MDef +3\nSet bonus with Mechanical Plant Hat [1]\nReduces the variable casting time of skills by 10%.",
+    "description": "Reduces the variable cast time of skills by an additional 5%.\nSet bonus with Alarm Card, Clock Card, Punk Card\nDef +3\nMDef +3\nSet bonus with Mechanical Plant Hat [1]\nReduces the variable casting time of skills by 10%.",
     "setBonuses": [
       {
         "title": "Clocktower Card Set",
@@ -7846,7 +7846,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4210.png",
-    "description": "Adds a 2% chance of using [Snatch] Lv 1 on the target when doing a physical attack.\nIf the user is a Thief job type,  Flee +20.\nSet bonus with The Paper Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
+    "description": "Adds a 2% chance of using [Snatch] Lv 1 on the target when doing a physical attack.\nIf the user is a Thief job type,  Flee +20.\nSet bonus with The Paper Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.\nRemoves the chance of using [Snatch].\nRemoves the draining of SP when attacking.\nIf used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.\nIf the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.\nIf used by a Rogue job type, reduces the SP cost of skills by 20%.\nRemoves the chance of using [Snatch].",
     "setBonuses": [
       {
         "title": "Thief Card Set",
@@ -7883,7 +7883,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4332.png",
-    "description": "ATK +5\nINT +1\nSet bonus with Rideword Card, Cookie Card, Fur Seal Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
+    "description": "ATK +5\nINT +1\nSet bonus with Rideword Card, Cookie Card, Fur Seal Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%.\nAdds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.\nIf used by a Monk job type, reduces the SP cost of skills by 10%.\nPrevents skill casting from being interrupted.",
     "setBonuses": [
       {
         "title": "Monk Card Set",
@@ -7966,7 +7966,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4257.png",
-    "description": "If the user is a Thief job type, P. Dodge +5.\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
+    "description": "If the user is a Thief job type, P. Dodge +5.\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.\nRemoves the chance of using [Snatch].\nRemoves the draining of SP when attacking.\nIf used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.\nIf the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.\nIf used by a Rogue job type, reduces the SP cost of skills by 20%.\nRemoves the chance of using [Snatch].",
     "setBonuses": [
       {
         "title": "Thief Card Set",
@@ -8198,7 +8198,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4277.png",
-    "description": "Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.\nSet bonus with Injustice Card\nLuk +3Atk +20"
+    "description": "Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.\nSet bonus with Injustice Card\nLuk +3\nAtk +20"
   },
   {
     "id": 4096,
@@ -8243,7 +8243,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4272.png",
-    "description": "AGI +1\nCRIT +3\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.",
+    "description": "AGI +1\nCRIT +3\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.\nRemoves the chance of using [Snatch].\nRemoves the draining of SP when attacking.\nIf used by a Thief job type, removes one gemstone from the requirement of skills.",
     "setBonuses": [
       {
         "title": "Thief Card Set",
@@ -8270,7 +8270,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4281.png",
-    "description": "Drains 1 SP from the user when physically attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
+    "description": "Drains 1 SP from the user when physically attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
     "setBonuses": [
       {
         "title": "Merchant Card Set",
