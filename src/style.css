@@ -3566,3 +3566,202 @@ header.planner-header h1 {
     min-width: min(100%, 52rem);
   }
 }
+
+/* Skill Planner — phone layout: render a vertical in-game-like skill list */
+@media (max-width: 820px) {
+  /* Top section (header + toolbar) framing */
+  header.planner-header {
+    margin-bottom: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+
+  header.planner-header .planner-header__left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+
+  header.planner-header h1 {
+    font-size: 1.15rem;
+    letter-spacing: 0.03em;
+  }
+
+  header.planner-header .site-nav {
+    width: 100%;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .job-picker-field {
+    width: 100%;
+  }
+
+  .job-picker-trigger {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .toolbar-class-stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  /* Make the long stat lines fit better */
+  .toolbar .stat {
+    display: block;
+    font-size: 0.86rem;
+    line-height: 1.25;
+  }
+
+  .toolbar .stat-note {
+    display: none;
+  }
+
+  /* Secondary controls: keep them compact */
+  .toolbar-toggle-text {
+    display: none;
+  }
+
+  /* No hover dimming on mobile (hide the toggle entirely). */
+  .toolbar label.toolbar-toggle {
+    display: none;
+  }
+
+  #btn-share,
+  #btn-reset {
+    width: 100%;
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+  }
+
+  .toolbar .share-status {
+    max-width: 100%;
+  }
+
+  /* Class picker dialog: switch from grid of cards → vertical list */
+  .job-picker-dialog-panel {
+    width: min(34rem, calc(100vw - 1rem));
+    padding: 0.95rem 0.95rem 1rem;
+  }
+
+  .job-picker-dialog-scroll {
+    padding: 0;
+  }
+
+  .job-picker-row-stack,
+  .job-picker-row-stack--expanded-tk,
+  .job-picker-tk-adv-pair-shell,
+  .job-picker-card-joined {
+    display: block;
+    width: 100%;
+  }
+
+  .job-picker-grid,
+  .job-picker-row-stack--expanded-tk .job-picker-grid--expanded-tk-row1,
+  .job-picker-row-stack--expanded-tk .job-picker-grid--expanded-tk-row2 {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    row-gap: 0.5rem;
+    column-gap: 0;
+    padding: 0;
+  }
+
+  .job-picker-card,
+  .job-picker-row-stack--expanded-tk .job-picker-tk-adv-pair-shell .job-picker-card,
+  .job-picker-card-joined .job-picker-card {
+    flex: none;
+    max-width: none;
+    min-height: 0;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border-radius: 12px;
+    text-align: left;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+  }
+
+  .job-picker-sprite--card {
+    width: 3.35rem;
+    height: 3.35rem;
+    flex: 0 0 auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .job-picker-card-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  /* Joined cards: remove the side-by-side presentation on mobile */
+  .job-picker-card-joined {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    gap: 0.5rem;
+  }
+
+  .job-picker-card-joined .job-picker-card--joined-start,
+  .job-picker-card-joined .job-picker-card--joined-end {
+    border-radius: 12px;
+    margin-left: 0;
+    border-left: 1px solid var(--border-node);
+    border-right: 1px solid var(--border-node);
+  }
+
+  /* Ensure all panels fill available width (match quest panel behavior). */
+  .tree-main,
+  .skill-panel {
+    width: 100%;
+    max-width: none;
+  }
+
+  .skill-grid {
+    display: none;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skill-panel {
+    overflow-x: visible;
+  }
+
+  /* Make skill nodes feel like list rows */
+  .skill-node {
+    width: 100%;
+  }
+
+  .skill-node-row {
+    gap: 0.65rem;
+  }
+
+  .skill-node .name {
+    font-size: 0.98rem;
+    line-height: 1.25;
+  }
+
+  .skill-node .lvl-row {
+    margin-top: 0.45rem;
+  }
+
+  /* Quest panel stack: hide grid cells; list will render inside the stack */
+  .quest-stack .skill-cell {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-21T12:14:09.750Z",
+  "generated": "2026-04-21T12:43:19.992Z",
   "source": "skillinfo/*.lua + skilldescript.lub (English descriptions) + rAthena skill_db.yml (names / fallback)",
   "jobs": {
     "JT_NOVICE": {

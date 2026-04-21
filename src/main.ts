@@ -861,6 +861,16 @@ function renderSkillGrid(panelSkills: SkillDef[]): HTMLElement {
   return grid;
 }
 
+function renderSkillList(panelSkills: SkillDef[]): HTMLElement {
+  const list = document.createElement("div");
+  list.className = "skill-list";
+  const ordered = panelSkills
+    .slice()
+    .sort((a, b) => a.column - b.column || a.row - b.row || a.gridRow - b.gridRow || a.gridCol - b.gridCol);
+  for (const s of ordered) list.appendChild(skillNodeEl(s));
+  return list;
+}
+
 function renderColumns(root: HTMLElement): void {
   const board = root.querySelector("#tree-board") as HTMLElement | null;
   const job = getJobData(currentJob);
@@ -890,6 +900,7 @@ function renderColumns(root: HTMLElement): void {
       panelSkills.push(...skillsByColumn(c));
     }
     sec.appendChild(renderSkillGrid(panelSkills));
+    sec.appendChild(renderSkillList(panelSkills));
     main.appendChild(sec);
   } else if (mergeTranscendentIntoSecond(job)) {
     const c0 = contentIdx[0]!;
@@ -901,7 +912,9 @@ function renderColumns(root: HTMLElement): void {
     sec0.className = "skill-panel";
     sec0.dataset.column = String(c0);
     sec0.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${escapeHtml(job.columns[c0]?.title ?? "")}</span><span class="panel-title__stats" data-content-tier="0" aria-label="Skill points used for this class column"></span></h2>`;
-    sec0.appendChild(renderSkillGrid(skillsByColumn(c0)));
+    const sec0Skills = skillsByColumn(c0);
+    sec0.appendChild(renderSkillGrid(sec0Skills));
+    sec0.appendChild(renderSkillList(sec0Skills));
     main.appendChild(sec0);
 
     const sec1 = document.createElement("section");
@@ -914,6 +927,7 @@ function renderColumns(root: HTMLElement): void {
       return a.row - b.row;
     });
     sec1.appendChild(renderSkillGrid(mergedSkills));
+    sec1.appendChild(renderSkillList(mergedSkills));
     main.appendChild(sec1);
   } else {
     for (let t = 0; t < contentIdx.length; t++) {
@@ -923,7 +937,9 @@ function renderColumns(root: HTMLElement): void {
       sec.className = "skill-panel";
       sec.dataset.column = String(c);
       sec.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${escapeHtml(colDef.title)}</span><span class="panel-title__stats" data-content-tier="${t}" aria-label="Skill points used for this class column"></span></h2>`;
-      sec.appendChild(renderSkillGrid(skillsByColumn(c)));
+      const secSkills = skillsByColumn(c);
+      sec.appendChild(renderSkillGrid(secSkills));
+      sec.appendChild(renderSkillList(secSkills));
       main.appendChild(sec);
     }
   }
@@ -938,9 +954,11 @@ function renderColumns(root: HTMLElement): void {
     aside.innerHTML = `<h2 class="panel-title panel-title--quest"><span class="panel-title__name">${escapeHtml(colDef.title)}</span><span class="panel-title__stats panel-title__stats--quest" id="panel-class-pts-quest" aria-label="Quest and special skills allocated"></span></h2>`;
     const stack = document.createElement("div");
     stack.className = "quest-stack";
-    for (const skill of skillsByColumn(questIdx)) {
+    const questSkills = skillsByColumn(questIdx);
+    for (const skill of questSkills) {
       stack.appendChild(skillCell(skill));
     }
+    stack.appendChild(renderSkillList(questSkills));
     aside.appendChild(stack);
     if (sitDockPreserve) aside.appendChild(sitDockPreserve);
     body.appendChild(aside);
