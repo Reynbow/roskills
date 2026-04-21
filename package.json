@@ -6,6 +6,7 @@
   "scripts": {
     "setup-fonts": "node scripts/setup-web-fonts.mjs",
     "import-skillinfo": "node scripts/import-skillinfo.mjs",
+    "build:navi-defaults": "node scripts/build-navi-defaults.mjs",
     "build:mob-maps": "node scripts/build-mob-spawn-maps.mjs",
     "import-cards": "node scripts/import-cards.mjs",
     "import-data": "node scripts/import-skillinfo.mjs && node scripts/import-cards.mjs",

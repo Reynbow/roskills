@@ -1,6 +1,7 @@
 import "./style.css";
 import { inject } from "@vercel/analytics";
 import cardsRaw from "./data/cards.json";
+import naviDefaultsRaw from "./data/navi-defaults.json";
 
 inject();
 
@@ -50,9 +51,20 @@ const cardsAll: CardEntry[] = (cardsRaw as CardEntry[])
   .slice()
   .sort((a, b) => a.name.localeCompare(b.name));
 
+type NaviDefaults = Record<string, { x: number; y: number }>;
+const NAVI_DEFAULTS: NaviDefaults = naviDefaultsRaw as NaviDefaults;
+
 function formatDropRate(rate: number): string {
   if (typeof rate !== "number" || !Number.isFinite(rate)) return "-";
   return `${(rate / 100).toFixed(2)}%`;
+}
+
+function formatNaviCommand(mapId: string): string | null {
+  const id = mapId.trim();
+  if (!id) return null;
+  const hit = NAVI_DEFAULTS[id];
+  if (!hit || !Number.isFinite(hit.x) || !Number.isFinite(hit.y)) return null;
+  return `/navi ${id} ${hit.x}/${hit.y}`;
 }
 
 /** Divine Pride large minimap PNG; unknown ids return a tiny placeholder image. */
@@ -525,17 +537,17 @@ function renderRows(rows: CardEntry[]): string {
           : "-";
       const imgUrl = escapeHtml(cardArtUrl(c));
       return `<tr>
-        <td class="cards-col-art">
+        <td class="cards-col-art" data-label="Art">
           <button type="button" class="cards-art-btn" data-art-for="${c.id}" aria-label="Open card artwork">
             <img class="cards-art" src="${imgUrl}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-id="${c.id}" />
           </button>
         </td>
-        <td class="cards-col-name">
+        <td class="cards-col-name" data-label="Card">
           <div class="cards-name">${escapeHtml(c.name)}</div>
         </td>
-        <td class="cards-col-slot">${slot}</td>
-        <td class="cards-col-desc">${descHtml}</td>
-        <td class="cards-col-drop">${dropsDisplayHtml(c)}</td>
+        <td class="cards-col-slot" data-label="Slot">${slot}</td>
+        <td class="cards-col-desc" data-label="Description">${descHtml}</td>
+        <td class="cards-col-drop" data-label="Dropped by">${dropsDisplayHtml(c)}</td>
       </tr>`;
     })
     .join("");
@@ -602,33 +614,44 @@ function mount(root: HTMLElement): void {
     </header>
 
     <section class="page">
-      <div class="page-head">
+      <div class="page-head page-head--cards">
         <h1 class="page-title">Card Library</h1>
-        <p class="page-sub">Search by card name, effect, equip slot, monster, or map. Drops and IDs come from rAthena pre-re; under each dropper, map names are the top field/dungeon spawns from rAthena npc/pre-re/mobs scripts (spawn totals shown). Click a map row to copy its map id; hover for a minimap preview (Divine Pride when available). Effect text is filled from the iRO Wiki database (via RagnaAPI) when available.</p>
+        <button type="button" class="cards-overflow-btn" id="cards-overflow-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cards-overflow">Menu</button>
       </div>
 
       <div class="cards-toolbar" role="search">
         <label class="cards-search">
           <span class="cards-search__label">Search</span>
-          <input id="q" class="cards-search__input" type="search" placeholder="e.g. hydra, poring, weapon..." autocomplete="off" />
+          <input id="q" class="cards-search__input" type="search" placeholder="search..." autocomplete="off" />
         </label>
         <div class="cards-count" id="count" role="status" aria-live="polite"></div>
       </div>
 
-      <div class="cards-filters" aria-label="Filters">
-        <div class="cards-filter-group">
-          <div class="cards-filter-title">Categories</div>
-          <div class="cards-filter-chips" id="chips-cat"></div>
+      <div class="cards-overflow" id="cards-overflow" aria-hidden="true">
+        <div class="cards-overflow__backdrop" data-cards-overflow-close="1"></div>
+        <div class="cards-overflow__panel" role="dialog" aria-label="Card library menu">
+          <div class="cards-overflow__head">
+            <div class="cards-overflow__title">Menu</div>
+            <button type="button" class="cards-overflow__close" data-cards-overflow-close="1" aria-label="Close">×</button>
+          </div>
+          <p class="page-sub page-sub--cards">Search by card name, effect, equip slot, monster, or map. Drops and IDs come from rAthena pre-re; under each dropper, map names are the top field/dungeon spawns from rAthena npc/pre-re/mobs scripts (spawn totals shown). Click a map row to copy a /navi command; hover for a minimap preview (Divine Pride when available). Effect text is filled from the iRO Wiki database (via RagnaAPI) when available.</p>
+
+          <div class="cards-filters cards-filters--in-overflow" aria-label="Filters">
+            <div class="cards-filter-group">
+              <div class="cards-filter-title">Categories</div>
+              <div class="cards-filter-chips" id="chips-cat"></div>
+            </div>
+            <div class="cards-filter-group">
+              <div class="cards-filter-title">Stats</div>
+              <div class="cards-filter-chips" id="chips-stat"></div>
+            </div>
+            <div class="cards-filter-group">
+              <div class="cards-filter-title">Slot</div>
+              <div class="cards-filter-chips" id="chips-slot"></div>
+            </div>
+            <button type="button" class="cards-filter-clear" id="btn-clear">Clear filters</button>
+          </div>
         </div>
-        <div class="cards-filter-group">
-          <div class="cards-filter-title">Stats</div>
-          <div class="cards-filter-chips" id="chips-stat"></div>
-        </div>
-        <div class="cards-filter-group">
-          <div class="cards-filter-title">Slot</div>
-          <div class="cards-filter-chips" id="chips-slot"></div>
-        </div>
-        <button type="button" class="cards-filter-clear" id="btn-clear">Clear filters</button>
       </div>
 
       <div id="cards-filter-tooltip" class="cards-filter-tooltip" role="tooltip" aria-hidden="true"></div>
@@ -695,6 +718,8 @@ function mount(root: HTMLElement): void {
   const copyToastEl = root.querySelector("#cards-copy-toast") as HTMLElement;
   const tableWrapEl = root.querySelector(".cards-table-wrap") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
+  const overflowBtn = root.querySelector("#cards-overflow-btn") as HTMLButtonElement;
+  const overflowEl = root.querySelector("#cards-overflow") as HTMLElement;
   const modal = root.querySelector("#set-modal") as HTMLDialogElement;
   const modalBody = root.querySelector("#set-modal-body") as HTMLElement;
   const modalTitle = root.querySelector("#set-modal-title") as HTMLElement;
@@ -711,6 +736,31 @@ function mount(root: HTMLElement): void {
   const state: FilterState = { q: "", categories: new Set(), stats: new Set(), slots: new Set() };
   let visibleArtIds: number[] = [];
   let artIndex = -1;
+
+  const isOverflowOpen = (): boolean => overflowEl.classList.contains("cards-overflow--open");
+  const closeOverflow = (): void => {
+    overflowEl.classList.remove("cards-overflow--open");
+    overflowEl.setAttribute("aria-hidden", "true");
+    overflowBtn?.setAttribute("aria-expanded", "false");
+  };
+  const openOverflow = (): void => {
+    overflowEl.classList.add("cards-overflow--open");
+    overflowEl.setAttribute("aria-hidden", "false");
+    overflowBtn?.setAttribute("aria-expanded", "true");
+  };
+  const toggleOverflow = (): void => {
+    if (isOverflowOpen()) closeOverflow();
+    else openOverflow();
+  };
+  overflowBtn?.addEventListener("click", toggleOverflow);
+  overflowEl?.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement | null;
+    if (!t) return;
+    if (t.closest("[data-cards-overflow-close=\"1\"]")) closeOverflow();
+  });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeOverflow();
+  });
 
   const chipButton = (id: string, label: string, pressed: boolean, kind: "cat" | "stat"): string => {
     const cls = pressed ? "cards-chip cards-chip--on" : "cards-chip";
@@ -1049,9 +1099,9 @@ function mount(root: HTMLElement): void {
     copyToastEl.textContent = "";
   };
 
-  const showCopyToast = (anchor: HTMLElement): void => {
+  const showCopyToast = (anchor: HTMLElement, message: string): void => {
     hideCopyToast();
-    copyToastEl.textContent = "Copied to clipboard";
+    copyToastEl.textContent = message;
     copyToastEl.setAttribute("aria-hidden", "false");
     copyToastEl.classList.remove("cards-copy-toast--visible");
     copyToastEl.classList.remove("cards-copy-toast--below");
@@ -1140,7 +1190,12 @@ function mount(root: HTMLElement): void {
     e.preventDefault();
     void (async () => {
       try {
-        await navigator.clipboard.writeText(mapId);
+        const cmd = formatNaviCommand(mapId);
+        if (!cmd) {
+          showCopyToast(btn, "No /navi coords for this map");
+          return;
+        }
+        await navigator.clipboard.writeText(cmd);
         hideMapTooltip();
         btn.classList.add("cards-drop-map--copied");
         const nameEl = btn.querySelector(".cards-drop-map__name");
@@ -1150,7 +1205,7 @@ function mount(root: HTMLElement): void {
           void (nameEl as HTMLElement).offsetWidth;
           (nameEl as HTMLElement).classList.add("cards-drop-map__name--wave");
         }
-        showCopyToast(btn);
+        showCopyToast(btn, "Copied /navi command");
         const prev = btn.dataset.copyTimerId;
         if (prev) window.clearTimeout(Number.parseInt(prev, 10));
         const tid = window.setTimeout(() => {
