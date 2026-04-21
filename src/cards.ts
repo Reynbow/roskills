@@ -650,8 +650,6 @@ function mount(root: HTMLElement): void {
 
       <div id="cards-inline-meta-home">
         <div class="cards-inline-meta" id="cards-inline-meta">
-          <p class="page-sub">Search by card name, effect, equip slot, monster, or map. Drops and IDs come from rAthena pre-re; under each dropper, map names are the top field/dungeon spawns from rAthena npc/pre-re/mobs scripts (spawn totals shown). Click a map row to copy a /navi command; hover for a minimap preview (Divine Pride when available). Effect text is filled from the iRO Wiki database (via RagnaAPI) when available.</p>
-
           <div class="cards-filters" aria-label="Filters">
             <div class="cards-filter-group">
               <div class="cards-filter-title">Categories</div>
@@ -789,7 +787,7 @@ function mount(root: HTMLElement): void {
     overflowEl.classList.add("cards-overflow--open");
     overflowEl.setAttribute("aria-hidden", "false");
     overflowBtn?.setAttribute("aria-expanded", "true");
-    // Move meta container (description + filters) into the drawer.
+    // Move meta container (filters) into the drawer.
     if (overflowBodyEl && inlineMetaEl && inlineMetaEl.parentElement !== overflowBodyEl) {
       overflowBodyEl.appendChild(inlineMetaEl);
     }
