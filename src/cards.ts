@@ -643,14 +643,22 @@ function mount(root: HTMLElement): void {
     </header>
 
     <section class="page">
-      <div class="page-head page-head--cards">
-        <h1 class="page-title">Card Library</h1>
-        <button type="button" class="cards-overflow-btn" id="cards-overflow-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cards-overflow">Menu</button>
+      <div class="cards-windowhead" role="banner" aria-label="Card Library header">
+        <div class="cards-windowhead__left">
+          <h1 class="cards-windowhead__title">Card Library</h1>
+        </div>
+        <div class="cards-windowhead__right">
+          <button type="button" class="cards-overflow-btn cards-overflow-btn--window" id="cards-overflow-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cards-overflow">Menu</button>
+        </div>
       </div>
 
       <div id="cards-inline-meta-home">
         <div class="cards-inline-meta" id="cards-inline-meta">
           <div class="cards-filters" aria-label="Filters">
+            <div class="cards-filters__head">
+              <div class="cards-filters__title">Filters</div>
+              <button type="button" class="cards-filter-clear" id="btn-clear">Clear</button>
+            </div>
             <div class="cards-filter-group">
               <div class="cards-filter-title">Categories</div>
               <div class="cards-filter-chips" id="chips-cat"></div>
@@ -663,7 +671,6 @@ function mount(root: HTMLElement): void {
               <div class="cards-filter-title">Slot</div>
               <div class="cards-filter-chips" id="chips-slot"></div>
             </div>
-            <button type="button" class="cards-filter-clear" id="btn-clear">Clear filters</button>
           </div>
         </div>
       </div>
