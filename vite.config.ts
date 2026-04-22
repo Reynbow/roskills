@@ -6,6 +6,7 @@ export default defineConfig({
       input: {
         index: "index.html",
         cards: "cards.html",
+        pets: "pets.html",
       },
     },
   },

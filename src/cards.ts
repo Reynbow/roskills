@@ -638,6 +638,7 @@ function mount(root: HTMLElement): void {
         <nav class="site-nav" aria-label="Site">
           <a class="site-nav__link" href="/index.html">Skill Planner</a>
           <a class="site-nav__link site-nav__link--active" href="/cards.html" aria-current="page">Card Library</a>
+          <a class="site-nav__link" href="/pets.html">Pets</a>
         </nav>
       </div>
     </header>

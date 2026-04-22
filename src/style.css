@@ -1248,6 +1248,167 @@ header.planner-header h1 {
   line-height: 1.35;
 }
 
+/* Pets page */
+.pets-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.pets-table th,
+.pets-table td {
+  overflow-wrap: anywhere;
+}
+
+.pets-col-name {
+  width: 13rem;
+}
+
+.pets-col-tame {
+  width: 12rem;
+}
+
+.pets-col-from {
+  width: auto;
+}
+
+.pets-col-acc {
+  width: 11rem;
+}
+
+.pets-col-food {
+  width: 11rem;
+}
+
+.pets-col-effects {
+  width: 20rem;
+}
+
+.pets-col-rates {
+  width: 12rem;
+}
+
+.pets-monster {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pets-monster__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.pets-monster__meta {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.pets-egg-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  object-fit: contain;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.pets-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pets-itemcell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.4rem;
+}
+
+.pets-itemcell__icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  object-fit: contain;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.pets-itemcell__name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pets-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.pets-source-groups {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+}
+
+.pets-source-group__title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(200, 220, 255, 0.62);
+  margin-bottom: 0.2rem;
+}
+
+.pets-source {
+  color: var(--text);
+  font-size: 0.86rem;
+  line-height: 1.25;
+}
+
+.pets-source__meta {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin-left: 0.35rem;
+}
+
+.pets-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: baseline;
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.pets-item__k {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(200, 220, 255, 0.72);
+}
+
+.pets-table td.pets-col-from {
+  color: var(--text-muted);
+}
+
+/* Keep sources readable in a constrained cell */
+.pets-table td.pets-col-from .pets-source {
+  color: var(--text-muted);
+}
+
 .cards-drop-maps {
   display: flex;
   flex-direction: column;

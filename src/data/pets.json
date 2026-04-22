@@ -1,0 +1,2655 @@
+[
+  {
+    "mobAegis": "ALICE",
+    "mobId": 1275,
+    "mobLevel": 62,
+    "name": "Alice",
+    "tameItem": {
+      "aegis": "Sway_Apron",
+      "id": 661,
+      "name": "Soft Apron",
+      "icon": "https://static.divine-pride.net/images/items/item/661.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Evil Snake Lord",
+        "level": 73,
+        "rate": 2000
+      },
+      {
+        "monster": "Aliza",
+        "level": 69,
+        "rate": 1
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Alice_Egg",
+      "id": 9027,
+      "name": "Alice Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9027.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "White_Potion",
+      "id": 504,
+      "name": "White Potion",
+      "icon": "https://static.divine-pride.net/images/items/item/504.png"
+    },
+    "captureRate": 800,
+    "fullness": 2,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "MDEF +1",
+      "Damage taken from demihuman -1%",
+      "Damage taken from player human -1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "DESERT_WOLF_B",
+    "mobId": 1107,
+    "mobLevel": 9,
+    "name": "Baby Desert Wolf",
+    "tameItem": {
+      "aegis": "Well_Dried_Bone",
+      "id": 628,
+      "name": "Well-Dried Bone",
+      "icon": "https://static.divine-pride.net/images/items/item/628.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Hell Poodle",
+        "level": 71,
+        "rate": 20
+      },
+      {
+        "monster": "Pirate Skeleton",
+        "level": 25,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Baby_Desert_Wolf_Egg",
+      "id": 9010,
+      "name": "Baby Desert Wolf Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9010.png"
+    },
+    "accessoryItem": {
+      "aegis": "Transparent_Headgear",
+      "id": 10003,
+      "name": "Transparent Head Protector",
+      "icon": "https://static.divine-pride.net/images/items/item/10003.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1000,
+    "fullness": 6,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 40,
+    "bonuses": [
+      "INT +1",
+      "Max SP +50"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "BAPHOMET_",
+    "mobId": 1101,
+    "mobLevel": 50,
+    "name": "Baphomet Jr.",
+    "tameItem": {
+      "aegis": "Book_Of_Devil",
+      "id": 642,
+      "name": "Book of the Devil",
+      "icon": "https://static.divine-pride.net/images/items/item/642.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Marduk",
+        "level": 40,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [
+      {
+        "npc": "Pet Groomer",
+        "requires": [
+          {
+            "item": "Horrendous Mouth",
+            "amount": 2
+          },
+          {
+            "item": "Old Magicbook",
+            "amount": 1
+          }
+        ]
+      }
+    ],
+    "eggItem": {
+      "aegis": "Bapho_Jr._Egg",
+      "id": 9024,
+      "name": "Bapho Jr. Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9024.png"
+    },
+    "accessoryItem": {
+      "aegis": "Skull_Helm",
+      "id": 10001,
+      "name": "Skull Helm",
+      "icon": "https://static.divine-pride.net/images/items/item/10001.png"
+    },
+    "foodItem": {
+      "aegis": "Honey",
+      "id": 518,
+      "name": "Honey",
+      "icon": "https://static.divine-pride.net/images/items/item/518.png"
+    },
+    "captureRate": 200,
+    "fullness": 2,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "DEF +1",
+      "MDEF +1",
+      "Resist stun -1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "BON_GUN",
+    "mobId": 1188,
+    "mobLevel": 32,
+    "name": "Bongun",
+    "tameItem": {
+      "aegis": "Heart_Of_Her",
+      "id": 659,
+      "name": "Her Heart",
+      "icon": "https://static.divine-pride.net/images/items/item/659.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Bongun_Egg",
+      "id": 9025,
+      "name": "Bongun Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9025.png"
+    },
+    "accessoryItem": {
+      "aegis": "Sword_Of_Grave_Keeper",
+      "id": 10020,
+      "name": "Grave Keeper's Sword",
+      "icon": "https://static.divine-pride.net/images/items/item/10020.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [
+      "VIT +1",
+      "Resist stun +1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "CHONCHON",
+    "mobId": 1011,
+    "mobLevel": 4,
+    "name": "Chonchon",
+    "tameItem": {
+      "aegis": "Rotten_Fish",
+      "id": 624,
+      "name": "Rotten Fish",
+      "icon": "https://static.divine-pride.net/images/items/item/624.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Wild Rose",
+        "level": 38,
+        "rate": 35
+      },
+      {
+        "monster": "Megalodon",
+        "level": 24,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Chonchon_Egg",
+      "id": 9006,
+      "name": "Chonchon Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9006.png"
+    },
+    "accessoryItem": {
+      "aegis": "Monster_Oxygen_Mask",
+      "id": 10002,
+      "name": "Monster Oxygen Mask",
+      "icon": "https://static.divine-pride.net/images/items/item/10002.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1500,
+    "fullness": 6,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [
+      "AGI +1",
+      "FLEE +2"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "GOBLINE_XMAS",
+    "mobId": 1245,
+    "mobLevel": 25,
+    "name": "Christmas Goblin",
+    "tameItem": {
+      "aegis": "Sweet_Candy_Striper",
+      "id": 12225,
+      "name": "Sweet Candy Cane",
+      "icon": "https://static.divine-pride.net/images/items/item/12225.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Santa_Goblin_Egg",
+      "id": 9029,
+      "name": "Christmas Goblin's Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9029.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Scell",
+      "id": 911,
+      "name": "Scell",
+      "icon": "https://static.divine-pride.net/images/items/item/911.png"
+    },
+    "captureRate": 2000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [
+      "Max HP +30",
+      "water damage taken -1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "DELETER_",
+    "mobId": 1385,
+    "mobLevel": 65,
+    "name": "Deleter",
+    "tameItem": {
+      "aegis": "Holy_Marble",
+      "id": 14572,
+      "name": "Holy Marble",
+      "icon": "https://static.divine-pride.net/images/items/item/14572.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Red_Deleter_Egg",
+      "id": 9035,
+      "name": "Red Deleter Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9035.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Whole_Barbecue",
+      "id": 7822,
+      "name": "Whole Barbecue",
+      "icon": "https://static.divine-pride.net/images/items/item/7822.png"
+    },
+    "captureRate": 800,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "DEVIRUCHI",
+    "mobId": 1109,
+    "mobLevel": 46,
+    "name": "Deviruchi",
+    "tameItem": {
+      "aegis": "Contracts_In_Shadow",
+      "id": 641,
+      "name": "Contract in Shadow",
+      "icon": "https://static.divine-pride.net/images/items/item/641.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Joker",
+        "level": 57,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Deviruchi_Egg",
+      "id": 9023,
+      "name": "Deviruchi Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9023.png"
+    },
+    "accessoryItem": {
+      "aegis": "Pacifier",
+      "id": 10004,
+      "name": "Pacifier",
+      "icon": "https://static.divine-pride.net/images/items/item/10004.png"
+    },
+    "foodItem": {
+      "aegis": "Shoot",
+      "id": 711,
+      "name": "Shoot",
+      "icon": "https://static.divine-pride.net/images/items/item/711.png"
+    },
+    "captureRate": 500,
+    "fullness": 2,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "MATK +1%",
+      "ATK +1%",
+      "Max HP -3%",
+      "Max SP -3%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "DIABOLIC",
+    "mobId": 1382,
+    "mobLevel": 67,
+    "name": "Diabolic",
+    "tameItem": {
+      "aegis": "Red_Burning_Stone",
+      "id": 14573,
+      "name": "Red Burning Stone",
+      "icon": "https://static.divine-pride.net/images/items/item/14573.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Diabolic_Egg",
+      "id": 9036,
+      "name": "Diabolic Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9036.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Meat_Veg_Skewer",
+      "id": 7823,
+      "name": "Meat Veg Skewer",
+      "icon": "https://static.divine-pride.net/images/items/item/7823.png"
+    },
+    "captureRate": 800,
+    "fullness": 2,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "DOKEBI",
+    "mobId": 1110,
+    "mobLevel": 33,
+    "name": "Dokebi",
+    "tameItem": {
+      "aegis": "Old_Broom",
+      "id": 637,
+      "name": "Old Broom",
+      "icon": "https://static.divine-pride.net/images/items/item/637.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Alice",
+        "level": 62,
+        "rate": 40
+      },
+      {
+        "monster": "Bathory",
+        "level": 44,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Dokkaebi_Egg",
+      "id": 9019,
+      "name": "Dokebi Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9019.png"
+    },
+    "accessoryItem": {
+      "aegis": "Wig",
+      "id": 10005,
+      "name": "Wig",
+      "icon": "https://static.divine-pride.net/images/items/item/10005.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "MATK +1%",
+      "ATK -1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "DROPS",
+    "mobId": 1113,
+    "mobLevel": 3,
+    "name": "Drops",
+    "tameItem": {
+      "aegis": "Orange_Juice",
+      "id": 620,
+      "name": "Orange Juice",
+      "icon": "https://static.divine-pride.net/images/items/item/620.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Drops",
+        "level": 3,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Drops_Egg",
+      "id": 9002,
+      "name": "Drops Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9002.png"
+    },
+    "accessoryItem": {
+      "aegis": "Backpack",
+      "id": 10013,
+      "name": "Backpack",
+      "icon": "https://static.divine-pride.net/images/items/item/10013.png"
+    },
+    "foodItem": {
+      "aegis": "Yellow_Herb",
+      "id": 508,
+      "name": "Yellow Herb",
+      "icon": "https://static.divine-pride.net/images/items/item/508.png"
+    },
+    "captureRate": 1500,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 40,
+    "bonuses": [
+      "HIT +3",
+      "ATK +3"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "DULLAHAN",
+    "mobId": 1504,
+    "mobLevel": 62,
+    "name": "Dullahan",
+    "tameItem": {
+      "aegis": "Luxury_Whisky_Bottle",
+      "id": 12367,
+      "name": "Luxury Whisky Bottle",
+      "icon": "https://static.divine-pride.net/images/items/item/12367.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Dullahan_Egg",
+      "id": 9049,
+      "name": "Dullahan Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9049.png"
+    },
+    "accessoryItem": {
+      "aegis": "Death_Coil",
+      "id": 10031,
+      "name": "Ring Of Death",
+      "icon": "https://static.divine-pride.net/images/items/item/10031.png"
+    },
+    "foodItem": {
+      "aegis": "Sunset_On_The_Rock",
+      "id": 6107,
+      "name": "Sunset On The Rock",
+      "icon": "https://static.divine-pride.net/images/items/item/6107.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Critical damage +5%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "ECLIPSE_P",
+    "mobId": 1879,
+    "mobLevel": 6,
+    "name": "Eclipse",
+    "tameItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Spring_Rabbit_Egg",
+      "id": 9031,
+      "name": "Spring Rabbit Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9031.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Bok_Choy",
+      "id": 7766,
+      "name": "Bok Choy",
+      "icon": "https://static.divine-pride.net/images/items/item/7766.png"
+    },
+    "captureRate": 2000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "WICKED_NYMPH",
+    "mobId": 1416,
+    "mobLevel": 63,
+    "name": "Evil Nymph",
+    "tameItem": {
+      "aegis": "Charming_Lotus",
+      "id": 12365,
+      "name": "Charming Lotus",
+      "icon": "https://static.divine-pride.net/images/items/item/12365.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Wicked_Nymph_Egg",
+      "id": 9047,
+      "name": "Wicked Nymph Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9047.png"
+    },
+    "accessoryItem": {
+      "aegis": "Jade_Trinket",
+      "id": 10029,
+      "name": "Jade Trinket",
+      "icon": "https://static.divine-pride.net/images/items/item/10029.png"
+    },
+    "foodItem": {
+      "aegis": "Morning_Dew",
+      "id": 6105,
+      "name": "Morning Dew",
+      "icon": "https://static.divine-pride.net/images/items/item/6105.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 15,
+    "bonuses": [
+      "Max SP +30",
+      "SP Recovery +5%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "IMP",
+    "mobId": 1837,
+    "mobLevel": 76,
+    "name": "Fire Imp",
+    "tameItem": {
+      "aegis": "Flaming_Ice",
+      "id": 12374,
+      "name": "Ice Fireworks",
+      "icon": "https://static.divine-pride.net/images/items/item/12374.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Fire Imp",
+        "level": 76,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Imp_Egg",
+      "id": 9056,
+      "name": "Imp Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9056.png"
+    },
+    "accessoryItem": {
+      "aegis": "Horn_Protector",
+      "id": 10038,
+      "name": "Horn Barrier",
+      "icon": "https://static.divine-pride.net/images/items/item/10038.png"
+    },
+    "foodItem": {
+      "aegis": "Flame_Gemstone",
+      "id": 6114,
+      "name": "Flame Gemstone",
+      "icon": "https://static.divine-pride.net/images/items/item/6114.png"
+    },
+    "captureRate": 300,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "fire damage taken -2%",
+      "fire damage +2%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "GOBLIN_1",
+    "mobId": 1122,
+    "mobLevel": 25,
+    "name": "Goblin",
+    "tameItem": {
+      "aegis": "Knife_Goblin_Ring",
+      "id": 14569,
+      "name": "Knife Goblin Ring",
+      "icon": "https://static.divine-pride.net/images/items/item/14569.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Knife_Goblin_Egg",
+      "id": 9032,
+      "name": "Knife Goblin Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9032.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Green_Apple",
+      "id": 7821,
+      "name": "Green Apple",
+      "icon": "https://static.divine-pride.net/images/items/item/7821.png"
+    },
+    "captureRate": 800,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "GOBLIN_2",
+    "mobId": 1123,
+    "mobLevel": 24,
+    "name": "Goblin",
+    "tameItem": {
+      "aegis": "Flail_Goblin_Ring",
+      "id": 14570,
+      "name": "Flail Goblin Ring",
+      "icon": "https://static.divine-pride.net/images/items/item/14570.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Flail_Goblin_Egg",
+      "id": 9033,
+      "name": "Flail Goblin Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9033.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Green_Apple",
+      "id": 7821,
+      "name": "Green Apple",
+      "icon": "https://static.divine-pride.net/images/items/item/7821.png"
+    },
+    "captureRate": 800,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "GOBLIN_4",
+    "mobId": 1125,
+    "mobLevel": 23,
+    "name": "Goblin",
+    "tameItem": {
+      "aegis": "Hammer_Goblin_Ring",
+      "id": 14571,
+      "name": "Hammer Goblin Ring",
+      "icon": "https://static.divine-pride.net/images/items/item/14571.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Hammer_Goblin_Egg",
+      "id": 9034,
+      "name": "Hammer Goblin Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9034.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Green_Apple",
+      "id": 7821,
+      "name": "Green Apple",
+      "icon": "https://static.divine-pride.net/images/items/item/7821.png"
+    },
+    "captureRate": 800,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "GOBLIN_LEADER",
+    "mobId": 1299,
+    "mobLevel": 64,
+    "name": "Goblin Leader",
+    "tameItem": {
+      "aegis": "Staff_Of_Leader",
+      "id": 12364,
+      "name": "Staff Of Leader",
+      "icon": "https://static.divine-pride.net/images/items/item/12364.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Goblin_Leader_Egg",
+      "id": 9046,
+      "name": "Goblin Leader Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9046.png"
+    },
+    "accessoryItem": {
+      "aegis": "Nice_Badge",
+      "id": 10028,
+      "name": "Beautiful Badges",
+      "icon": "https://static.divine-pride.net/images/items/item/10028.png"
+    },
+    "foodItem": {
+      "aegis": "Big_Cell",
+      "id": 6104,
+      "name": "Big Cell",
+      "icon": "https://static.divine-pride.net/images/items/item/6104.png"
+    },
+    "captureRate": 1000,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Damage vs demihuman +3%",
+      "Damage vs player human +3%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "GOLEM",
+    "mobId": 1040,
+    "mobLevel": 25,
+    "name": "Golem",
+    "tameItem": {
+      "aegis": "Magical_Lithography",
+      "id": 12371,
+      "name": "Magical Lithography",
+      "icon": "https://static.divine-pride.net/images/items/item/12371.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Golem_Egg",
+      "id": 9053,
+      "name": "Golem Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9053.png"
+    },
+    "accessoryItem": {
+      "aegis": "Windup_Spring",
+      "id": 10035,
+      "name": "Spring",
+      "icon": "https://static.divine-pride.net/images/items/item/10035.png"
+    },
+    "foodItem": {
+      "aegis": "Mystic_Stone",
+      "id": 6111,
+      "name": "Mystic Stone",
+      "icon": "https://static.divine-pride.net/images/items/item/6111.png"
+    },
+    "captureRate": 1000,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "Max HP +100",
+      "FLEE -5"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "CHUNG_E",
+    "mobId": 1519,
+    "mobLevel": 49,
+    "name": "Green Maiden",
+    "tameItem": {
+      "aegis": "Tantanmen",
+      "id": 12395,
+      "name": "Tantan Noodle",
+      "icon": "https://static.divine-pride.net/images/items/item/12395.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "White Lady",
+        "level": 85,
+        "rate": 50
+      },
+      {
+        "monster": "Green Maiden",
+        "level": 49,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Chung_E_Egg",
+      "id": 9030,
+      "name": "Green Maiden Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9030.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Bun_",
+      "id": 6115,
+      "name": "Bun",
+      "icon": "https://static.divine-pride.net/images/items/item/6115.png"
+    },
+    "captureRate": 2000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [
+      "DEF +1",
+      "Damage taken from demihuman -1%",
+      "Damage taken from player human -1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "HUNTER_FLY",
+    "mobId": 1035,
+    "mobLevel": 42,
+    "name": "Hunter Fly",
+    "tameItem": {
+      "aegis": "Monster_Juice",
+      "id": 626,
+      "name": "Monster Juice",
+      "icon": "https://static.divine-pride.net/images/items/item/626.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Vagabond Wolf",
+        "level": 24,
+        "rate": 50
+      }
+    ],
+    "tameItemNpcSources": [
+      {
+        "npc": "Pet Groomer",
+        "requires": [
+          {
+            "item": "Apple",
+            "amount": 2
+          },
+          {
+            "item": "Animal Gore",
+            "amount": 1
+          }
+        ]
+      }
+    ],
+    "eggItem": {
+      "aegis": "Hunter_Fly_Egg",
+      "id": 9008,
+      "name": "Hunter Fly Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9008.png"
+    },
+    "accessoryItem": {
+      "aegis": "Monster_Oxygen_Mask",
+      "id": 10002,
+      "name": "Monster Oxygen Mask",
+      "icon": "https://static.divine-pride.net/images/items/item/10002.png"
+    },
+    "foodItem": {
+      "aegis": "Red_Gemstone",
+      "id": 716,
+      "name": "Red Gemstone",
+      "icon": "https://static.divine-pride.net/images/items/item/716.png"
+    },
+    "captureRate": 500,
+    "fullness": 5,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "FLEE -5",
+      "Perfect Dodge +2"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "INCUBUS",
+    "mobId": 1374,
+    "mobLevel": 75,
+    "name": "Incubus",
+    "tameItem": {
+      "aegis": "Gril's_Naivety",
+      "id": 12370,
+      "name": "Girl's Naivety",
+      "icon": "https://static.divine-pride.net/images/items/item/12370.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Incubus_Egg",
+      "id": 9052,
+      "name": "Incubus Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9052.png"
+    },
+    "accessoryItem": {
+      "aegis": "Ball_Mask",
+      "id": 10034,
+      "name": "Masked Ball",
+      "icon": "https://static.divine-pride.net/images/items/item/10034.png"
+    },
+    "foodItem": {
+      "aegis": "Vital_Flower",
+      "id": 6110,
+      "name": "Vital Flower",
+      "icon": "https://static.divine-pride.net/images/items/item/6110.png"
+    },
+    "captureRate": 300,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Max SP +3%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "ISIS",
+    "mobId": 1029,
+    "mobLevel": 47,
+    "name": "Isis",
+    "tameItem": {
+      "aegis": "Armlet_Of_Obedience",
+      "id": 639,
+      "name": "Armlet of Obedience",
+      "icon": "https://static.divine-pride.net/images/items/item/639.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Maya",
+        "level": 81,
+        "rate": 500
+      },
+      {
+        "monster": "Verit",
+        "level": 38,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Isis_Egg",
+      "id": 9021,
+      "name": "Isis Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9021.png"
+    },
+    "accessoryItem": {
+      "aegis": "Queen's_Hair_Ornament",
+      "id": 10006,
+      "name": "Queen's Hair Ornament",
+      "icon": "https://static.divine-pride.net/images/items/item/10006.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "MATK -1%",
+      "ATK +1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "LEAF_CAT",
+    "mobId": 1586,
+    "mobLevel": 38,
+    "name": "Leaf Cat",
+    "tameItem": {
+      "aegis": "Very_Soft_Plant",
+      "id": 12359,
+      "name": "Very Soft Plant",
+      "icon": "https://static.divine-pride.net/images/items/item/12359.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Leaf_Cat_Egg",
+      "id": 9041,
+      "name": "Leaf Cat Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9041.png"
+    },
+    "accessoryItem": {
+      "aegis": "Green_Lucky_Bag",
+      "id": 10023,
+      "name": "Green Jewel Bag",
+      "icon": "https://static.divine-pride.net/images/items/item/10023.png"
+    },
+    "foodItem": {
+      "aegis": "Fish_With_Blue_Back",
+      "id": 6096,
+      "name": "Fish With Blue Back",
+      "icon": "https://static.divine-pride.net/images/items/item/6096.png"
+    },
+    "captureRate": 1000,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "Damage taken from brute -3%",
+      "Damage taken from player doram -3%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "LOLI_RURI",
+    "mobId": 1505,
+    "mobLevel": 71,
+    "name": "Loli Ruri",
+    "tameItem": {
+      "aegis": "Very_Red_Juice",
+      "id": 12360,
+      "name": "Very Red Juice",
+      "icon": "https://static.divine-pride.net/images/items/item/12360.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Loli_Ruri_Egg",
+      "id": 9042,
+      "name": "Loli Ruri Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9042.png"
+    },
+    "accessoryItem": {
+      "aegis": "Fashionable_Glasses",
+      "id": 10024,
+      "name": "Fashion Glasses",
+      "icon": "https://static.divine-pride.net/images/items/item/10024.png"
+    },
+    "foodItem": {
+      "aegis": "Pumpkin_Pie_",
+      "id": 6097,
+      "name": "Pumpkin Pie",
+      "icon": "https://static.divine-pride.net/images/items/item/6097.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 15,
+    "bonuses": [
+      "Autocast when hit: AL_HEAL Lv 1 (chance 10)"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "LUNATIC",
+    "mobId": 1063,
+    "mobLevel": 3,
+    "name": "Lunatic",
+    "tameItem": {
+      "aegis": "Rainbow_Carrot",
+      "id": 622,
+      "name": "Rainbow Carrot",
+      "icon": "https://static.divine-pride.net/images/items/item/622.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Eclipse",
+        "level": 6,
+        "rate": 50
+      },
+      {
+        "monster": "Lunatic",
+        "level": 3,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Lunatic_Egg",
+      "id": 9004,
+      "name": "Lunatic Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9004.png"
+    },
+    "accessoryItem": {
+      "aegis": "Silk_Ribbon",
+      "id": 10007,
+      "name": "Silk Ribbon",
+      "icon": "https://static.divine-pride.net/images/items/item/10007.png"
+    },
+    "foodItem": {
+      "aegis": "Carrot_Juice",
+      "id": 534,
+      "name": "Carrot Juice",
+      "icon": "https://static.divine-pride.net/images/items/item/534.png"
+    },
+    "captureRate": 1500,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 40,
+    "bonuses": [
+      "CRIT +2",
+      "ATK +2"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "CIVIL_SERVANT",
+    "mobId": 1513,
+    "mobLevel": 62,
+    "name": "Mao Guai",
+    "tameItem": {
+      "aegis": "Fan_Of_Wind",
+      "id": 12358,
+      "name": "Fan Of Wind",
+      "icon": "https://static.divine-pride.net/images/items/item/12358.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Civil_Servant_Egg",
+      "id": 9040,
+      "name": "Civil Servant Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9040.png"
+    },
+    "accessoryItem": {
+      "aegis": "Golden_Earing",
+      "id": 10022,
+      "name": "Gold Earring",
+      "icon": "https://static.divine-pride.net/images/items/item/10022.png"
+    },
+    "foodItem": {
+      "aegis": "Flavored_Alcohol",
+      "id": 6095,
+      "name": "Flavored Alcohol",
+      "icon": "https://static.divine-pride.net/images/items/item/6095.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Max SP +10"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "MARIONETTE",
+    "mobId": 1143,
+    "mobLevel": 41,
+    "name": "Marionette",
+    "tameItem": {
+      "aegis": "Delicious_Shaved_Ice",
+      "id": 12361,
+      "name": "Delicious Shaved Ice",
+      "icon": "https://static.divine-pride.net/images/items/item/12361.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Marionette_Egg",
+      "id": 9043,
+      "name": "Marionette Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9043.png"
+    },
+    "accessoryItem": {
+      "aegis": "Star_Hairband",
+      "id": 10025,
+      "name": "Hairband Of Stars",
+      "icon": "https://static.divine-pride.net/images/items/item/10025.png"
+    },
+    "foodItem": {
+      "aegis": "Small_Snow_Flower",
+      "id": 6098,
+      "name": "Small Snow Flower",
+      "icon": "https://static.divine-pride.net/images/items/item/6098.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "SP Recovery +3%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "MEDUSA",
+    "mobId": 1148,
+    "mobLevel": 79,
+    "name": "Medusa",
+    "tameItem": {
+      "aegis": "Splendid_Mirror",
+      "id": 12368,
+      "name": "Splendid Mirror",
+      "icon": "https://static.divine-pride.net/images/items/item/12368.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Medusa_Egg",
+      "id": 9050,
+      "name": "Medusa Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9050.png"
+    },
+    "accessoryItem": {
+      "aegis": "Queen's_Coronet",
+      "id": 10032,
+      "name": "Queen's Coronet",
+      "icon": "https://static.divine-pride.net/images/items/item/10032.png"
+    },
+    "foodItem": {
+      "aegis": "Apple_Pudding",
+      "id": 6108,
+      "name": "Apple Pudding",
+      "icon": "https://static.divine-pride.net/images/items/item/6108.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "VIT +1",
+      "Resist stone +5%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "MIYABI_NINGYO",
+    "mobId": 1404,
+    "mobLevel": 33,
+    "name": "Miyabi Doll",
+    "tameItem": {
+      "aegis": "Gril_Doll",
+      "id": 12366,
+      "name": "Girl's Doll",
+      "icon": "https://static.divine-pride.net/images/items/item/12366.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Miyabi_Ningyo_Egg",
+      "id": 9048,
+      "name": "Miyabi Ningyo Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9048.png"
+    },
+    "accessoryItem": {
+      "aegis": "Summer_Fan",
+      "id": 10030,
+      "name": "Summer Fan",
+      "icon": "https://static.divine-pride.net/images/items/item/10030.png"
+    },
+    "foodItem": {
+      "aegis": "Well_Ripened_Berry",
+      "id": 6106,
+      "name": "Well Ripened Berry",
+      "icon": "https://static.divine-pride.net/images/items/item/6106.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 15,
+    "bonuses": [
+      "INT +1",
+      "Cast time -3%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "MUNAK",
+    "mobId": 1026,
+    "mobLevel": 30,
+    "name": "Munak",
+    "tameItem": {
+      "aegis": "No_Recipient",
+      "id": 636,
+      "name": "No Recipient",
+      "icon": "https://static.divine-pride.net/images/items/item/636.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [
+      {
+        "npc": "Pet Groomer",
+        "requires": [
+          {
+            "item": "Old Portrait",
+            "amount": 1
+          }
+        ]
+      }
+    ],
+    "eggItem": {
+      "aegis": "Munak_Egg",
+      "id": 9018,
+      "name": "Munak Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9018.png"
+    },
+    "accessoryItem": {
+      "aegis": "Punisher",
+      "id": 10008,
+      "name": "Punisher",
+      "icon": "https://static.divine-pride.net/images/items/item/10008.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "INT +1",
+      "DEF +1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "P_CHUNG_E",
+    "mobId": 1963,
+    "mobLevel": 49,
+    "name": "New Year Doll",
+    "tameItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "New_Year_Doll_Egg",
+      "id": 9038,
+      "name": "New Year Doll Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9038.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Mojji",
+      "id": 554,
+      "name": "Mochi",
+      "icon": "https://static.divine-pride.net/images/items/item/554.png"
+    },
+    "captureRate": 800,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "NIGHTMARE_TERROR",
+    "mobId": 1379,
+    "mobLevel": 78,
+    "name": "Nightmare Terror",
+    "tameItem": {
+      "aegis": "Hell_Contract",
+      "id": 12372,
+      "name": "Hell Contract",
+      "icon": "https://static.divine-pride.net/images/items/item/12372.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Nightmare_Terror_Egg",
+      "id": 9054,
+      "name": "Nightmare Terror Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9054.png"
+    },
+    "accessoryItem": {
+      "aegis": "Hell_Horn",
+      "id": 10036,
+      "name": "Horn Of Hell",
+      "icon": "https://static.divine-pride.net/images/items/item/10036.png"
+    },
+    "foodItem": {
+      "aegis": "Fresh_Plant",
+      "id": 6112,
+      "name": "Fresh Plant",
+      "icon": "https://static.divine-pride.net/images/items/item/6112.png"
+    },
+    "captureRate": 300,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Resist sleep +100%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "ORK_WARRIOR",
+    "mobId": 1023,
+    "mobLevel": 24,
+    "name": "Orc Warrior",
+    "tameItem": {
+      "aegis": "Horror_Of_Tribe",
+      "id": 635,
+      "name": "Orc Trophy",
+      "icon": "https://static.divine-pride.net/images/items/item/635.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [
+      {
+        "npc": "Pet Groomer",
+        "requires": [
+          {
+            "item": "Scorpion Tail",
+            "amount": 1
+          },
+          {
+            "item": "Chivalry Emblem",
+            "amount": 1
+          }
+        ]
+      }
+    ],
+    "eggItem": {
+      "aegis": "Orc_Warrior_Egg",
+      "id": 9017,
+      "name": "Orc Warrior Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9017.png"
+    },
+    "accessoryItem": {
+      "aegis": "Wild_Flower",
+      "id": 10009,
+      "name": "Wild Flower",
+      "icon": "https://static.divine-pride.net/images/items/item/10009.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 5,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "ATK +10",
+      "DEF -3"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "PECOPECO",
+    "mobId": 1019,
+    "mobLevel": 19,
+    "name": "Peco Peco",
+    "tameItem": {
+      "aegis": "Fatty_Chubby_Earthworm",
+      "id": 632,
+      "name": "Fatty Chubby Earthworm",
+      "icon": "https://static.divine-pride.net/images/items/item/632.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Hode",
+        "level": 26,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "PecoPeco_Egg",
+      "id": 9014,
+      "name": "Peco Peco Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9014.png"
+    },
+    "accessoryItem": {
+      "aegis": "Battered_Pot",
+      "id": 10010,
+      "name": "Battered Pot",
+      "icon": "https://static.divine-pride.net/images/items/item/10010.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1000,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [
+      "Max HP +150",
+      "Max SP -10"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "PETIT",
+    "mobId": 1155,
+    "mobLevel": 44,
+    "name": "Petite",
+    "tameItem": {
+      "aegis": "Shining_Stone",
+      "id": 640,
+      "name": "Shining Stone",
+      "icon": "https://static.divine-pride.net/images/items/item/640.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Zenorc",
+        "level": 31,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Green_Petite_Egg",
+      "id": 9022,
+      "name": "Green Petite Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9022.png"
+    },
+    "accessoryItem": {
+      "aegis": "Stellar_Hairpin",
+      "id": 10011,
+      "name": "Stellar Hairpin",
+      "icon": "https://static.divine-pride.net/images/items/item/10011.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "DEF -2",
+      "MDEF -2",
+      "ASPD +1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "PICKY",
+    "mobId": 1049,
+    "mobLevel": 3,
+    "name": "Picky",
+    "tameItem": {
+      "aegis": "Earthworm_The_Dude",
+      "id": 623,
+      "name": "Earthworm the Dude",
+      "icon": "https://static.divine-pride.net/images/items/item/623.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Kukre",
+        "level": 11,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Picky_Egg",
+      "id": 9005,
+      "name": "Picky Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9005.png"
+    },
+    "accessoryItem": {
+      "aegis": "Tiny_Egg_Shell",
+      "id": 10012,
+      "name": "Tiny Egg Shell",
+      "icon": "https://static.divine-pride.net/images/items/item/10012.png"
+    },
+    "foodItem": {
+      "aegis": "Red_Herb",
+      "id": 507,
+      "name": "Red Herb",
+      "icon": "https://static.divine-pride.net/images/items/item/507.png"
+    },
+    "captureRate": 2000,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 40,
+    "bonuses": [
+      "STR +1",
+      "ATK +5"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "POISON_SPORE",
+    "mobId": 1077,
+    "mobLevel": 19,
+    "name": "Poison Spore",
+    "tameItem": {
+      "aegis": "Deadly_Noxious_Herb",
+      "id": 631,
+      "name": "Deadly Noxious Herb",
+      "icon": "https://static.divine-pride.net/images/items/item/631.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Marina",
+        "level": 21,
+        "rate": 40
+      },
+      {
+        "monster": "White Plant",
+        "level": 1,
+        "rate": 20
+      },
+      {
+        "monster": "Muscipular",
+        "level": 57,
+        "rate": 3
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Poison_Spore_Egg",
+      "id": 9013,
+      "name": "Poison Spore Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9013.png"
+    },
+    "accessoryItem": {
+      "aegis": "Bark_Shorts",
+      "id": 10017,
+      "name": "Bark Shorts",
+      "icon": "https://static.divine-pride.net/images/items/item/10017.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "STR +1",
+      "INT +1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "POPORING",
+    "mobId": 1031,
+    "mobLevel": 14,
+    "name": "Poporing",
+    "tameItem": {
+      "aegis": "Bitter_Herb",
+      "id": 621,
+      "name": "Bitter Herb",
+      "icon": "https://static.divine-pride.net/images/items/item/621.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Uzhas",
+        "level": 61,
+        "rate": 100
+      },
+      {
+        "monster": "Green Plant",
+        "level": 1,
+        "rate": 20
+      },
+      {
+        "monster": "Drosera",
+        "level": 46,
+        "rate": 3
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Poporing_Egg",
+      "id": 9003,
+      "name": "Poporing Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9003.png"
+    },
+    "accessoryItem": {
+      "aegis": "Backpack",
+      "id": 10013,
+      "name": "Backpack",
+      "icon": "https://static.divine-pride.net/images/items/item/10013.png"
+    },
+    "foodItem": {
+      "aegis": "Green_Herb",
+      "id": 511,
+      "name": "Green Herb",
+      "icon": "https://static.divine-pride.net/images/items/item/511.png"
+    },
+    "captureRate": 1000,
+    "fullness": 5,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [
+      "LUK +2",
+      "poison damage taken -10%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "PORING",
+    "mobId": 1002,
+    "mobLevel": 1,
+    "name": "Poring",
+    "tameItem": {
+      "aegis": "Unripe_Apple",
+      "id": 619,
+      "name": "Unripe Apple",
+      "icon": "https://static.divine-pride.net/images/items/item/619.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Mastering",
+        "level": 2,
+        "rate": 50
+      },
+      {
+        "monster": "Chepet",
+        "level": 42,
+        "rate": 40
+      },
+      {
+        "monster": "Mime Monkey",
+        "level": 40,
+        "rate": 20
+      },
+      {
+        "monster": "Poring",
+        "level": 1,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Poring_Egg",
+      "id": 9001,
+      "name": "Poring Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9001.png"
+    },
+    "accessoryItem": {
+      "aegis": "Backpack",
+      "id": 10013,
+      "name": "Backpack",
+      "icon": "https://static.divine-pride.net/images/items/item/10013.png"
+    },
+    "foodItem": {
+      "aegis": "Apple_Juice",
+      "id": 531,
+      "name": "Apple Juice",
+      "icon": "https://static.divine-pride.net/images/items/item/531.png"
+    },
+    "captureRate": 2000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [
+      "LUK +2",
+      "CRIT +1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "EVENT_RICECAKE",
+    "mobId": 1815,
+    "mobLevel": 12,
+    "name": "Rice Cake",
+    "tameItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Rice_Cake_Egg",
+      "id": 9028,
+      "name": "Hard Rice Cake",
+      "icon": "https://static.divine-pride.net/images/items/item/9028.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Green_Herb",
+      "id": 511,
+      "name": "Green Herb",
+      "icon": "https://static.divine-pride.net/images/items/item/511.png"
+    },
+    "captureRate": 2000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [
+      "Max HP -1%",
+      "neutral damage taken -1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "ROCKER",
+    "mobId": 1052,
+    "mobLevel": 9,
+    "name": "Rocker",
+    "tameItem": {
+      "aegis": "Singing_Flower",
+      "id": 629,
+      "name": "Singing Flower",
+      "icon": "https://static.divine-pride.net/images/items/item/629.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Mavka",
+        "level": 63,
+        "rate": 300
+      },
+      {
+        "monster": "Flora",
+        "level": 26,
+        "rate": 20
+      },
+      {
+        "monster": "Muscipular",
+        "level": 57,
+        "rate": 2
+      }
+    ],
+    "tameItemNpcSources": [
+      {
+        "npc": "Pet Groomer",
+        "requires": [
+          {
+            "item": "Singing Plant",
+            "amount": 1
+          }
+        ]
+      }
+    ],
+    "eggItem": {
+      "aegis": "Rocker_Egg",
+      "id": 9011,
+      "name": "Rocker Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9011.png"
+    },
+    "accessoryItem": {
+      "aegis": "Rocker_Glasses",
+      "id": 10014,
+      "name": "Rocker Glasses",
+      "icon": "https://static.divine-pride.net/images/items/item/10014.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1500,
+    "fullness": 1,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [
+      "HP Recovery +5%",
+      "Max HP +25"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "SAVAGE_BABE",
+    "mobId": 1167,
+    "mobLevel": 7,
+    "name": "Savage Babe",
+    "tameItem": {
+      "aegis": "Sweet_Milk",
+      "id": 627,
+      "name": "Sweet Milk",
+      "icon": "https://static.divine-pride.net/images/items/item/627.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Savage Babe",
+        "level": 7,
+        "rate": 40
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Savage_Bebe_Egg",
+      "id": 9009,
+      "name": "Savage Babe Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9009.png"
+    },
+    "accessoryItem": {
+      "aegis": "Green_Lace",
+      "id": 10015,
+      "name": "Green Lace",
+      "icon": "https://static.divine-pride.net/images/items/item/10015.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1500,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 40,
+    "bonuses": [
+      "VIT +1",
+      "Max HP +50"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "SHINOBI",
+    "mobId": 1401,
+    "mobLevel": 69,
+    "name": "Shinobi",
+    "tameItem": {
+      "aegis": "Kuloren",
+      "id": 12362,
+      "name": "Kuloren",
+      "icon": "https://static.divine-pride.net/images/items/item/12362.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Shinobi_Egg",
+      "id": 9044,
+      "name": "Shinobi Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9044.png"
+    },
+    "accessoryItem": {
+      "aegis": "Wine_On_Sleeve",
+      "id": 10026,
+      "name": "Tassel for Durumagi",
+      "icon": "https://static.divine-pride.net/images/items/item/10026.png"
+    },
+    "foodItem": {
+      "aegis": "Grilled_Rice_Cake",
+      "id": 6099,
+      "name": "Grilled Rice Cake",
+      "icon": "https://static.divine-pride.net/images/items/item/6099.png"
+    },
+    "captureRate": 1000,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "AGI +2"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "SMOKIE",
+    "mobId": 1056,
+    "mobLevel": 18,
+    "name": "Smokie",
+    "tameItem": {
+      "aegis": "Baked_Yam",
+      "id": 633,
+      "name": "Sweet Potato",
+      "icon": "https://static.divine-pride.net/images/items/item/633.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Horong",
+        "level": 34,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Smokie_Egg",
+      "id": 9015,
+      "name": "Smokie Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9015.png"
+    },
+    "accessoryItem": {
+      "aegis": "Red_Muffler",
+      "id": 10019,
+      "name": "Red Scarf",
+      "icon": "https://static.divine-pride.net/images/items/item/10019.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1000,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [
+      "AGI +1",
+      "Perfect Dodge +1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "SOHEE",
+    "mobId": 1170,
+    "mobLevel": 33,
+    "name": "Sohee",
+    "tameItem": {
+      "aegis": "Silver_Knife_Of_Chaste",
+      "id": 638,
+      "name": "Silver Knife of Chastity",
+      "icon": "https://static.divine-pride.net/images/items/item/638.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Moonlight Flower",
+        "level": 67,
+        "rate": 650
+      },
+      {
+        "monster": "Cat o' Nine Tails",
+        "level": 76,
+        "rate": 150
+      },
+      {
+        "monster": "Ogretooth",
+        "level": 71,
+        "rate": 50
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Sohee_Egg",
+      "id": 9020,
+      "name": "Sohee Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9020.png"
+    },
+    "accessoryItem": {
+      "aegis": "Golden_Bell",
+      "id": 10016,
+      "name": "Golden Bell",
+      "icon": "https://static.divine-pride.net/images/items/item/10016.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "STR +1",
+      "DEX +1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "SPORE",
+    "mobId": 1014,
+    "mobLevel": 16,
+    "name": "Spore",
+    "tameItem": {
+      "aegis": "Dew_Laden_Moss",
+      "id": 630,
+      "name": "Dew Laden Moss",
+      "icon": "https://static.divine-pride.net/images/items/item/630.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Black Mushroom",
+        "level": 1,
+        "rate": 20
+      },
+      {
+        "monster": "Plankton",
+        "level": 10,
+        "rate": 20
+      },
+      {
+        "monster": "Red Mushroom",
+        "level": 1,
+        "rate": 20
+      },
+      {
+        "monster": "Porcellio",
+        "level": 28,
+        "rate": 2
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Spore_Egg",
+      "id": 9012,
+      "name": "Spore Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9012.png"
+    },
+    "accessoryItem": {
+      "aegis": "Bark_Shorts",
+      "id": 10017,
+      "name": "Bark Shorts",
+      "icon": "https://static.divine-pride.net/images/items/item/10017.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1500,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 30,
+    "bonuses": [
+      "HIT +5",
+      "ATK -2"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "STEEL_CHONCHON",
+    "mobId": 1042,
+    "mobLevel": 17,
+    "name": "Steel Chonchon",
+    "tameItem": {
+      "aegis": "Lusty_Iron",
+      "id": 625,
+      "name": "Rusty Iron",
+      "icon": "https://static.divine-pride.net/images/items/item/625.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Dragon Fly",
+        "level": 8,
+        "rate": 50
+      },
+      {
+        "monster": "Old Stove",
+        "level": 68,
+        "rate": 50
+      },
+      {
+        "monster": "Scorpion",
+        "level": 24,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Steel_Chonchon_Egg",
+      "id": 9007,
+      "name": "Steel Chonchon Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9007.png"
+    },
+    "accessoryItem": {
+      "aegis": "Monster_Oxygen_Mask",
+      "id": 10002,
+      "name": "Monster Oxygen Mask",
+      "icon": "https://static.divine-pride.net/images/items/item/10002.png"
+    },
+    "foodItem": {
+      "aegis": "Iron_Ore",
+      "id": 1002,
+      "name": "Iron Ore",
+      "icon": "https://static.divine-pride.net/images/items/item/1002.png"
+    },
+    "captureRate": 1000,
+    "fullness": 5,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "FLEE +6",
+      "AGI -1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "STONE_SHOOTER",
+    "mobId": 1495,
+    "mobLevel": 42,
+    "name": "Stone Shooter",
+    "tameItem": {
+      "aegis": "Oilpalm_Coconut",
+      "id": 12369,
+      "name": "Oilpalm Coconut",
+      "icon": "https://static.divine-pride.net/images/items/item/12369.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Stone_Shooter_Egg",
+      "id": 9051,
+      "name": "Stone Shooter Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9051.png"
+    },
+    "accessoryItem": {
+      "aegis": "Apro_Hair",
+      "id": 10033,
+      "name": "Afro",
+      "icon": "https://static.divine-pride.net/images/items/item/10033.png"
+    },
+    "foodItem": {
+      "aegis": "Plant_Neutrient",
+      "id": 6109,
+      "name": "Plant Neutrient",
+      "icon": "https://static.divine-pride.net/images/items/item/6109.png"
+    },
+    "captureRate": 1000,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "fire damage taken -3%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "E_HYDRA",
+    "mobId": 2081,
+    "mobLevel": 14,
+    "name": "Strange Hydra",
+    "tameItem": {
+      "aegis": "Leaf_Cat_Ball",
+      "id": 12408,
+      "name": "Leaf Cat Ball",
+      "icon": "https://static.divine-pride.net/images/items/item/12408.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Mystic_Leaf_Cat_Ball",
+      "id": 6221,
+      "name": "Mystic Leaf Cat Ball",
+      "icon": "https://static.divine-pride.net/images/items/item/6221.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "captureRate": 5000,
+    "fullness": 0,
+    "hungryDelaySeconds": 0,
+    "intimacyFed": 0,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "SUCCUBUS",
+    "mobId": 1370,
+    "mobLevel": 85,
+    "name": "Succubus",
+    "tameItem": {
+      "aegis": "Boy's_Naivety",
+      "id": 12373,
+      "name": "Boy's Pure Heart",
+      "icon": "https://static.divine-pride.net/images/items/item/12373.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Succubus",
+        "level": 85,
+        "rate": 1
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Succubus_Egg",
+      "id": 9055,
+      "name": "Succubus Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9055.png"
+    },
+    "accessoryItem": {
+      "aegis": "Black_Butterfly_Mask",
+      "id": 10037,
+      "name": "Black Butterfly Mask",
+      "icon": "https://static.divine-pride.net/images/items/item/10037.png"
+    },
+    "foodItem": {
+      "aegis": "Vital_Flower_",
+      "id": 6113,
+      "name": "Vital Flower",
+      "icon": "https://static.divine-pride.net/images/items/item/6113.png"
+    },
+    "captureRate": 300,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Special effect: bHpDrainRate (50, 5)"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "WANDER_MAN",
+    "mobId": 1208,
+    "mobLevel": 74,
+    "name": "Wanderer",
+    "tameItem": {
+      "aegis": "Skull_Of_Vagabond",
+      "id": 14574,
+      "name": "Vagabond's Skull",
+      "icon": "https://static.divine-pride.net/images/items/item/14574.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Wanderer_Egg",
+      "id": 9037,
+      "name": "Wanderer Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9037.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Spirit_Liquor",
+      "id": 7824,
+      "name": "Spirit Liquor",
+      "icon": "https://static.divine-pride.net/images/items/item/7824.png"
+    },
+    "captureRate": 800,
+    "fullness": 2,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "AGI +3",
+      "DEX +1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "WHISPER",
+    "mobId": 1179,
+    "mobLevel": 34,
+    "name": "Whisper",
+    "tameItem": {
+      "aegis": "Fit_Pipe",
+      "id": 12363,
+      "name": "Fit Pipe",
+      "icon": "https://static.divine-pride.net/images/items/item/12363.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Whisper_Egg",
+      "id": 9045,
+      "name": "Whisper Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9045.png"
+    },
+    "accessoryItem": {
+      "aegis": "Spirit_Chain_",
+      "id": 10027,
+      "name": "Pet Soul Ring",
+      "icon": "https://static.divine-pride.net/images/items/item/10027.png"
+    },
+    "foodItem": {
+      "aegis": "Damp_Darkness",
+      "id": 6100,
+      "name": "Damp Darkness",
+      "icon": "https://static.divine-pride.net/images/items/item/6100.png"
+    },
+    "captureRate": 1000,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "FLEE +7",
+      "DEF -3"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "BACSOJIN_",
+    "mobId": 1630,
+    "mobLevel": 85,
+    "name": "White Lady",
+    "tameItem": {
+      "aegis": "Shiny_Wing_Gown",
+      "id": 12357,
+      "name": "Shiny Wing Gown",
+      "icon": "https://static.divine-pride.net/images/items/item/12357.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Bacsojin_Egg",
+      "id": 9039,
+      "name": "Bacsojin Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9039.png"
+    },
+    "accessoryItem": {
+      "aegis": "Round_Hair_Ornament",
+      "id": 10021,
+      "name": "Circular Headgear",
+      "icon": "https://static.divine-pride.net/images/items/item/10021.png"
+    },
+    "foodItem": {
+      "aegis": "Traditional_Cookie",
+      "id": 6094,
+      "name": "Traditional Sweets",
+      "icon": "https://static.divine-pride.net/images/items/item/6094.png"
+    },
+    "captureRate": 300,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "YOYO",
+    "mobId": 1057,
+    "mobLevel": 21,
+    "name": "Yoyo",
+    "tameItem": {
+      "aegis": "Tropical_Banana",
+      "id": 634,
+      "name": "Tropical Banana",
+      "icon": "https://static.divine-pride.net/images/items/item/634.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Lady Tanee",
+        "level": 89,
+        "rate": 4000
+      },
+      {
+        "monster": "Choco",
+        "level": 43,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Yoyo_Egg",
+      "id": 9016,
+      "name": "Yoyo Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9016.png"
+    },
+    "accessoryItem": {
+      "aegis": "Monkey_Circlet",
+      "id": 10018,
+      "name": "Monkey Circlet",
+      "icon": "https://static.divine-pride.net/images/items/item/10018.png"
+    },
+    "foodItem": {
+      "aegis": "Banana_Juice",
+      "id": 532,
+      "name": "Banana Juice",
+      "icon": "https://static.divine-pride.net/images/items/item/532.png"
+    },
+    "captureRate": 1000,
+    "fullness": 5,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "CRIT +3",
+      "LUK -1"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "ZHERLTHSH",
+    "mobId": 1200,
+    "mobLevel": 63,
+    "name": "Zealotus",
+    "tameItem": {
+      "aegis": "Prohibition_Red_Candle",
+      "id": 660,
+      "name": "Forbidden Red Candle",
+      "icon": "https://static.divine-pride.net/images/items/item/660.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Injustice",
+        "level": 51,
+        "rate": 2
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Zherlthsh_Egg",
+      "id": 9026,
+      "name": "Zealotus Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9026.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Immortal_Heart",
+      "id": 929,
+      "name": "Immortal Heart",
+      "icon": "https://static.divine-pride.net/images/items/item/929.png"
+    },
+    "captureRate": 300,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Damage vs demihuman +2%",
+      "Magic damage vs demihuman +2%",
+      "Damage vs player human +2%",
+      "Magic damage vs player human +2%"
+    ],
+    "supportBonuses": []
+  }
+]

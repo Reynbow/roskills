@@ -1224,6 +1224,7 @@ function renderApp(root: HTMLElement): void {
         <nav class="site-nav" aria-label="Site">
           <a class="site-nav__link site-nav__link--active" href="/index.html" aria-current="page">Skill Planner</a>
           <a class="site-nav__link" href="/cards.html">Card Library</a>
+          <a class="site-nav__link" href="/pets.html">Pets</a>
         </nav>
       </div>
     </header>
