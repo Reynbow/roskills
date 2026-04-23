@@ -1313,6 +1313,60 @@ header.planner-header h1 {
   min-width: 0;
 }
 
+.pets-monster__name {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: help;
+}
+
+.pets-monster__name:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.pets-sprite-tooltip {
+  max-width: min(18rem, calc(100vw - 20px));
+}
+
+.pets-sprite-tooltip__spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(120, 180, 255, 0.85);
+  animation: pets-spin 0.85s linear infinite;
+}
+
+.pets-sprite-tooltip:not(.pets-sprite-tooltip--loading) .pets-sprite-tooltip__spinner {
+  display: none;
+}
+
+@keyframes pets-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pets-sprite-tooltip .cards-map-tooltip__img {
+  max-width: min(480px, calc(100vw - 56px));
+  max-height: min(480px, 60vh);
+  background: transparent;
+  border-radius: 6px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.pets-sprite-tooltip__imgwrap {
+  display: inline-block;
+  max-width: min(480px, calc(100vw - 56px));
+  max-height: min(480px, 60vh);
+}
+
 .pets-monster__meta {
   color: var(--text-muted);
   font-size: 0.82rem;

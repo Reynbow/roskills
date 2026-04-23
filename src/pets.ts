@@ -84,6 +84,15 @@ function itemIconOnlyHtml(
   )}" />`;
 }
 
+function mobSpriteCandidates(mobId: number): string[] {
+  // Divine Pride is the best general source if available; keep multiple patterns as fallbacks.
+  // (Some hosts reject server-side fetch but allow browser image loads.)
+  return [
+    `https://static.divine-pride.net/images/mobs/png/${mobId}.png`,
+    `https://static.divine-pride.net/images/mobs/${mobId}.png`,
+  ];
+}
+
 function rowHtml(p: PetEntry): string {
   const effects = joinLines([...(p.bonuses ?? []), ...(p.supportBonuses ?? [])]);
   const tame = itemCellHtml(p.tameItem);
@@ -149,7 +158,9 @@ function rowHtml(p: PetEntry): string {
       <div class="pets-monster">
         <div class="pets-monster__top">
           ${eggIcon}
-          <div class="cards-name">${escapeHtml(p.name)}</div>
+          <button type="button" class="pets-monster__name" data-mob-id="${escapeHtml(String(p.mobId ?? ""))}" aria-label="Preview sprite: ${escapeHtml(p.name)}">
+            ${escapeHtml(p.name)}
+          </button>
         </div>
         <div class="pets-monster__meta">Lv ${escapeHtml(String(level))}</div>
       </div>
@@ -262,4 +273,126 @@ function mount(root: HTMLElement): void {
 }
 
 mount(document.querySelector("#app") as HTMLElement);
+
+// --- Sprite tooltip (Pets) ---------------------------------------------------
+
+function ensurePetsSpriteTooltip(): HTMLElement {
+  const existing = document.querySelector("#pets-sprite-tooltip") as HTMLElement | null;
+  if (existing) return existing;
+  const el = document.createElement("div");
+  el.id = "pets-sprite-tooltip";
+  el.className = "cards-map-tooltip pets-sprite-tooltip";
+  el.innerHTML = `
+    <div class="cards-map-tooltip__inner">
+      <div class="pets-sprite-tooltip__spinner" id="pets-sprite-tooltip-spinner" aria-hidden="true"></div>
+      <div class="pets-sprite-tooltip__imgwrap" aria-hidden="true">
+        <img class="cards-map-tooltip__img" id="pets-sprite-tooltip-img" alt="" loading="eager" decoding="async" referrerpolicy="no-referrer" />
+      </div>
+      <p class="cards-map-tooltip__missing" id="pets-sprite-tooltip-missing" hidden>Sprite not available.</p>
+    </div>
+  `;
+  document.body.appendChild(el);
+  return el;
+}
+
+function setupPetsSpriteTooltip(root: HTMLElement): void {
+  // Don’t attach hover-only UI on touch devices.
+  if (!window.matchMedia("(hover: hover)").matches) return;
+
+  const tip = ensurePetsSpriteTooltip();
+  const img = tip.querySelector("#pets-sprite-tooltip-img") as HTMLImageElement;
+  const missing = tip.querySelector("#pets-sprite-tooltip-missing") as HTMLParagraphElement;
+  const spinner = tip.querySelector("#pets-sprite-tooltip-spinner") as HTMLElement;
+  let currentKey = "";
+  let currentUrls: string[] = [];
+  let urlIdx = 0;
+
+  const hide = (): void => {
+    tip.classList.remove("cards-map-tooltip--visible");
+    tip.classList.remove("pets-sprite-tooltip--loading");
+    currentKey = "";
+  };
+
+  const setPos = (clientX: number, clientY: number): void => {
+    const pad = 14;
+    const x = Math.max(pad, Math.min(window.innerWidth - pad, clientX));
+    const y = Math.max(pad, Math.min(window.innerHeight - pad, clientY));
+    tip.style.left = `${x}px`;
+    tip.style.top = `${y}px`;
+    const below = y < 160;
+    tip.classList.toggle("cards-map-tooltip--below", below);
+  };
+
+  const loadNext = (): void => {
+    if (urlIdx >= currentUrls.length) {
+      img.hidden = true;
+      spinner.hidden = true;
+      missing.hidden = false;
+      tip.classList.remove("pets-sprite-tooltip--loading");
+      return;
+    }
+    img.hidden = false;
+    spinner.hidden = false;
+    missing.hidden = true;
+    tip.classList.add("pets-sprite-tooltip--loading");
+    // Clear previous sizing so we don't flash a stale box while the new image loads.
+    img.style.removeProperty("width");
+    img.style.removeProperty("height");
+    img.src = currentUrls[urlIdx++];
+  };
+
+  img.addEventListener("error", () => loadNext());
+  img.addEventListener("load", () => {
+    // True 2x sizing (avoid transform scale clipping).
+    if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+      img.style.width = `${img.naturalWidth * 2}px`;
+      img.style.height = `${img.naturalHeight * 2}px`;
+    }
+    tip.classList.remove("pets-sprite-tooltip--loading");
+    spinner.hidden = true;
+    img.hidden = false;
+    missing.hidden = true;
+  });
+
+  root.addEventListener("mouseleave", hide);
+  root.addEventListener("pointerdown", hide);
+  root.addEventListener("scroll", hide, { capture: true });
+
+  root.addEventListener("pointermove", (e) => {
+    if (!tip.classList.contains("cards-map-tooltip--visible")) return;
+    setPos(e.clientX, e.clientY);
+  });
+
+  root.addEventListener("pointerover", (e) => {
+    const t = (e.target as HTMLElement | null)?.closest?.(".pets-monster__name") as HTMLElement | null;
+    if (!t) return;
+    const mobId = Number(t.dataset.mobId);
+    if (!Number.isFinite(mobId) || mobId <= 0) return;
+    const key = `${mobId}`;
+    if (key !== currentKey) {
+      currentKey = key;
+      currentUrls = mobSpriteCandidates(mobId);
+      urlIdx = 0;
+      // Start from a clean state so we never show the previous mob while loading the next.
+      img.removeAttribute("src");
+      img.hidden = true;
+      missing.hidden = true;
+      spinner.hidden = false;
+      tip.classList.add("pets-sprite-tooltip--loading");
+      loadNext();
+    }
+    setPos((e as PointerEvent).clientX, (e as PointerEvent).clientY);
+    tip.classList.add("cards-map-tooltip--visible");
+  });
+
+  root.addEventListener("pointerout", (e) => {
+    const from = e.target as HTMLElement | null;
+    const to = (e as PointerEvent).relatedTarget as HTMLElement | null;
+    if (!from?.closest?.(".pets-monster__name")) return;
+    if (to && to.closest?.(".pets-monster__name")) return;
+    hide();
+  });
+}
+
+setupPetsSpriteTooltip(document.querySelector("#app") as HTMLElement);
 
