@@ -48,8 +48,8 @@ const CLASS_SKILL_CAPS: readonly number[] = [49, 50, 50];
 
 /** Single merged-column jobs that use a non-default tier-0 class point cap (rest use CLASS_SKILL_CAPS[0]). */
 const TIER0_CLASS_CAP_OVERRIDE: Partial<Record<string, number>> = {
-  /** Super Novice: large pool for novice + cross-class skills (approximate for pre-re; tune per server). */
-  JT_SUPERNOVICE: 200,
+  /** Super Novice: total class pool is 99 (server rule). */
+  JT_SUPERNOVICE: 99,
   /** Expanded classes: job level 70 → 70 class skill points (Basic Skill still exempt). */
   JT_TAEKWON: 70,
   JT_STAR: 70,
