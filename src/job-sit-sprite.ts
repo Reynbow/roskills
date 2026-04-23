@@ -1,7 +1,7 @@
 import { jobPreviewSpriteUrl } from "./job-previews";
 
 /**
- * Sitting sprite files live under `public/job-sit/{jobKey}.png` (zrenderer action 17 = sit).
+ * Sitting sprite files live under `public/job-sit/{jobKey}--{gender}.png` (zrenderer action 17 = sit).
  * Generate them locally — Divine Pride hotlinks are not usable (placeholder PNGs).
  *
  *   npm run setup:zrenderer
@@ -13,9 +13,11 @@ import { jobPreviewSpriteUrl } from "./job-previews";
  *
  * The UI loads the local sit PNG first, then falls back to the job-picker portrait if missing.
  */
-export function jobSitLocalPngUrl(jobKey: string): string {
+export type JobSitGender = "male" | "female";
+
+export function jobSitLocalPngUrl(jobKey: string, gender: JobSitGender): string {
   const base = import.meta.env.BASE_URL;
-  return `${base}job-sit/${jobKey}.png`;
+  return `${base}job-sit/${jobKey}--${gender}.png`;
 }
 
 export function jobSitPortraitFallbackUrl(jobKey: string): string | undefined {

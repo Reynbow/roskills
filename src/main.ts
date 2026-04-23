@@ -960,13 +960,17 @@ function renderColumns(root: HTMLElement): void {
     }
     stack.appendChild(renderSkillList(questSkills));
     aside.appendChild(stack);
-    if (sitDockPreserve) aside.appendChild(sitDockPreserve);
+    if (sitDockPreserve) {
+      sitDockPreserve.classList.remove("job-sit-dock--overlay");
+      aside.appendChild(sitDockPreserve);
+    }
     body.appendChild(aside);
   } else {
     const treeWrap = root.querySelector("#tree-wrap");
     if (sitDockPreserve && treeWrap) {
       treeWrap.appendChild(sitDockPreserve);
-      sitDockPreserve.classList.add("job-sit-dock--hidden");
+      sitDockPreserve.classList.remove("job-sit-dock--hidden");
+      sitDockPreserve.classList.add("job-sit-dock--overlay");
     }
   }
 
@@ -995,6 +999,11 @@ function setJobPickerSprite(spriteEl: HTMLElement, url: string | undefined, labe
   if (img.complete && img.naturalHeight > 0) onLoad();
 }
 
+const GENDER_STORAGE_KEY = "ro-sit-gender";
+type SitGender = "male" | "female";
+let sitGender: SitGender = (localStorage.getItem(GENDER_STORAGE_KEY) as SitGender) || "male";
+if (sitGender !== "male" && sitGender !== "female") sitGender = "male";
+
 function syncJobPickerUi(root: HTMLElement): void {
   const label = getJobData(currentJob)?.label ?? currentJob;
   const labEl = root.querySelector("#job-picker-current-label");
@@ -1014,18 +1023,37 @@ function syncJobPickerUi(root: HTMLElement): void {
   const sitDock = root.querySelector("#job-sit-dock") as HTMLElement | null;
   const sitImg = root.querySelector("#job-sit-sprite-img") as HTMLImageElement | null;
   if (sitDock && sitImg) {
-    const inQuestPanel = sitDock.closest(".skill-panel--quest");
-    if (!inQuestPanel) {
-      sitDock.classList.add("job-sit-dock--hidden");
-      delete sitImg.dataset.sitForJob;
-      return;
-    }
+    // Prefer anchoring in the Quest/Special panel when present; otherwise, show as a dock overlay.
+    sitDock.classList.toggle("job-sit-dock--overlay", !sitDock.closest(".skill-panel--quest"));
 
-    if (sitImg.dataset.sitForJob === currentJob) return;
-    sitImg.dataset.sitForJob = currentJob;
+    const sitKey = `${currentJob}::${sitGender}`;
+    if (sitImg.dataset.sitForJob === sitKey) return;
+    sitImg.dataset.sitForJob = sitKey;
 
-    const localSit = jobSitLocalPngUrl(currentJob);
+    const localSit = jobSitLocalPngUrl(currentJob, sitGender);
+    const legacyLocalSit = `${import.meta.env.BASE_URL}job-sit/${currentJob}.png`;
     const portrait = jobSitPortraitFallbackUrl(currentJob);
+    const missingDataUri = (): string => {
+      const esc = (s: string): string =>
+        s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      const text = esc(label);
+      const key = esc(currentJob);
+      const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#12141a"/>
+      <stop offset="1" stop-color="#0b0d12"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="240" height="240" rx="16" fill="url(#g)"/>
+  <rect x="14" y="14" width="212" height="212" rx="12" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/>
+  <text x="120" y="112" font-family="system-ui,Segoe UI,Arial" font-size="16" fill="rgba(255,255,255,0.86)" text-anchor="middle">${text}</text>
+  <text x="120" y="140" font-family="ui-monospace,Consolas,monospace" font-size="12" fill="rgba(255,255,255,0.55)" text-anchor="middle">${key}</text>
+  <text x="120" y="172" font-family="system-ui,Segoe UI,Arial" font-size="12" fill="rgba(255,255,255,0.45)" text-anchor="middle">sprite missing</text>
+</svg>`;
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+    };
     sitDock.classList.remove("job-sit-dock--hidden");
     sitImg.classList.add("job-sit-dock__img--loading");
     sitImg.classList.remove("job-sit-dock__img--fail");
@@ -1039,20 +1067,27 @@ function syncJobPickerUi(root: HTMLElement): void {
     const tryPortrait = (): void => {
       if (!portrait) {
         finishOk();
-        sitDock.classList.add("job-sit-dock--hidden");
-        sitImg.removeAttribute("src");
+        sitImg.classList.add("job-sit-dock__img--fail");
+        sitImg.src = missingDataUri();
         return;
       }
       sitImg.onload = finishOk;
       sitImg.onerror = (): void => {
         finishOk();
-        sitDock.classList.add("job-sit-dock--hidden");
+        sitImg.classList.add("job-sit-dock__img--fail");
+        sitImg.src = missingDataUri();
       };
       sitImg.src = portrait;
     };
 
+    let triedLegacy = false;
     sitImg.onload = finishOk;
     sitImg.onerror = (): void => {
+      if (!triedLegacy && legacyLocalSit !== localSit) {
+        triedLegacy = true;
+        sitImg.src = legacyLocalSit;
+        return;
+      }
       tryPortrait();
     };
     sitImg.src = localSit;
@@ -1270,9 +1305,25 @@ function renderApp(root: HTMLElement): void {
           <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb"></span></span>
         </span>
       </label>
-      <button type="button" id="btn-share">Share build</button>
-      <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
-      <button type="button" id="btn-reset" class="danger">Reset</button>
+      <button type="button" class="toolbar-iconbtn" id="btn-sit-gender" aria-label="Toggle gender">
+        <svg class="toolbar-gender-svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <g class="toolbar-gender-svg__male" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="14" r="5"></circle>
+            <path d="M14 10l7-7"></path>
+            <path d="M16 3h5v5"></path>
+          </g>
+          <g class="toolbar-gender-svg__female" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="10" r="5"></circle>
+            <path d="M10 15v6"></path>
+            <path d="M7 18h6"></path>
+          </g>
+        </svg>
+      </button>
+      <div class="toolbar-actions" role="group" aria-label="Build actions">
+        <button type="button" id="btn-share">Share build</button>
+        <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
+        <button type="button" id="btn-reset" class="danger">Reset</button>
+      </div>
     </div>
     <div class="tree-wrap" id="tree-wrap">
       <div class="tree-board" id="tree-board"></div>
@@ -1422,6 +1473,20 @@ function renderApp(root: HTMLElement): void {
     for (const s of skills) levels[s.id] = 0;
     saveState();
     refreshAll(root);
+  });
+
+  const genderBtn = root.querySelector("#btn-sit-gender") as HTMLButtonElement;
+  const syncGenderBtn = (): void => {
+    const isFemale = sitGender === "female";
+    genderBtn.dataset.gender = sitGender;
+    genderBtn.setAttribute("aria-label", `Gender: ${isFemale ? "female" : "male"}. Toggle gender`);
+  };
+  syncGenderBtn();
+  genderBtn.addEventListener("click", () => {
+    sitGender = sitGender === "female" ? "male" : "female";
+    localStorage.setItem(GENDER_STORAGE_KEY, sitGender);
+    syncGenderBtn();
+    syncJobPickerUi(root);
   });
 
   const dimToggle = root.querySelector("#toggle-disable-hover-dim") as HTMLInputElement;

@@ -34,11 +34,13 @@ const SKIP_EXISTING = process.argv.includes("--skip-existing");
 const FORCE = process.argv.includes("--force");
 
 /** Client JOBID (skillinfo/jobinheritlist.lua) */
+// Some clients split certain classes across multiple job ids (e.g. STAR vs STAR2). For these, try
+// multiple candidates and keep the first one zrenderer can render.
 const JOBS = [
   ["JT_NOVICE", 0],
   ["JT_SUPERNOVICE", 23],
   ["JT_TAEKWON", 4046],
-  ["JT_STAR", 4047],
+  ["JT_STAR", [4047, 4048]],
   ["JT_LINKER", 4049],
   ["JT_NINJA", 25],
   ["JT_GUNSLINGER", 24],
@@ -103,11 +105,7 @@ const HEAD_ID_MAX = Number(process.env.ZRENDERER_HEAD_MAX ?? 24);
 /** String mixed into the per-job head hash so you can reshuffle hairstyles without changing job keys. */
 const HEAD_SEED = process.env.ZRENDERER_HEAD_SEED ?? "ro-sit-sprites";
 
-/** RO uses female body sprites for dancer jobs; default CLI gender is male. */
-const GENDER_FOR_JOB_KEY = {
-  JT_DANCER: "female",
-  JT_DANCER_H: "female",
-};
+const GENDERS = ["male", "female"];
 
 function fnv1a32(str) {
   let h = 2166136261 >>> 0;
@@ -351,13 +349,15 @@ if (PRINT_ONLY) {
   console.log(
     "# Set RO_ZRENDERER_RESOURCES, then run each line (or run this script without --print-only).\n",
   );
-  for (const [key, jobId] of JOBS) {
-    const dest = path.join("public", "job-sit", `${key}.png`);
+  for (const [key, jobIdOrIds] of JOBS) {
+    const jobIds = Array.isArray(jobIdOrIds) ? jobIdOrIds : [jobIdOrIds];
     console.log(
-      `# ${key} (job ${jobId}) → ${dest}\n` +
+      `# ${key} (job ${jobIds.join(" | ")}) → public\\job-sit\\${key}--(male|female).png\n` +
         `# Multi export (head matches sit direction): --frame=-1 --headdir=all --singleframes=true, then keep <action>-<n>.png (see ZRENDERER_SIT_FRAME).\n` +
-        `zrenderer --resourcepath="$RO_ZRENDERER_RESOURCES" --job=${jobId} --action=${ACTION} --frame=-1 --headdir=all --singleframes=true --gender=${DEFAULT_GENDER} --head=<id> --outdir=./tmp-zrender-one --enableShadow=false\n` +
-        `# then copy the generated PNG to ${dest}\n`,
+        `# Run once for each gender (male + female):\n` +
+        `zrenderer --resourcepath="$RO_ZRENDERER_RESOURCES" --job=<one of: ${jobIds.join(", ")}> --action=${ACTION} --frame=-1 --headdir=all --singleframes=true --gender=male --head=<id> --outdir=./tmp-zrender-one --enableShadow=false\n` +
+        `zrenderer --resourcepath="$RO_ZRENDERER_RESOURCES" --job=<one of: ${jobIds.join(", ")}> --action=${ACTION} --frame=-1 --headdir=all --singleframes=true --gender=female --head=<id> --outdir=./tmp-zrender-one --enableShadow=false\n` +
+        `# then copy the generated PNG(s) to public\\job-sit\\${key}--male.png and public\\job-sit\\${key}--female.png\n`,
     );
   }
   process.exit(0);
@@ -425,42 +425,75 @@ let fail = 0;
 let skipped = 0;
 
 for (const [key, jobId] of JOBS) {
-  const dest = path.join(OUT_DIR, `${key}.png`);
-  if (SKIP_EXISTING && !FORCE && fs.existsSync(dest) && fs.statSync(dest).size > 800) {
-    console.log(`skip (exists): ${key}`);
-    skipped++;
-    continue;
+  const jobIds = Array.isArray(jobId) ? jobId : [jobId];
+  let anyOkForJob = false;
+
+  for (const gender of GENDERS) {
+    const dest = path.join(OUT_DIR, `${key}--${gender}.png`);
+    if (SKIP_EXISTING && !FORCE && fs.existsSync(dest) && fs.statSync(dest).size > 800) {
+      console.log(`skip (exists): ${key} (${gender})`);
+      skipped++;
+      anyOkForJob = true;
+      continue;
+    }
+
+    const tmpOut = path.join(TMP_ROOT, `${key}--${gender}`);
+    fs.rmSync(tmpOut, { recursive: true, force: true });
+    fs.mkdirSync(tmpOut, { recursive: true });
+
+    const headId = pickHeadId(key, gender);
+    let renderedJobId = null;
+    for (const tryId of jobIds) {
+      console.log(
+        `render ${key} (${gender}) (job ${tryId}${jobIds.length > 1 ? `/${jobIds.join("|")}` : ""}, head ${headId}${SIT_LEGACY ? `, headdir ${HEAD_DIR}` : ""})…`,
+      );
+      if (runZrenderer(zCmd, zrendererPath, tmpOut, tryId, gender, headId)) {
+        renderedJobId = tryId;
+        break;
+      }
+      console.error(`  ✗ zrenderer failed for ${key} (${gender}) (job ${tryId})`);
+    }
+    if (renderedJobId === null) {
+      fail++;
+      continue;
+    }
+
+    const pickFrame = resolveSitPickFrame(tmpOut, renderedJobId, ACTION, SIT_LEGACY);
+    if (!SIT_LEGACY && SIT_FRAME_AUTO) {
+      const idxs = listSitOutputIndices(tmpOut, renderedJobId, ACTION);
+      console.log(
+        `  → sit output ${ACTION}-${pickFrame}.png (${idxs.length} frames, auto / ${SIT_HEAD_DIR_GROUP})`,
+      );
+    }
+
+    const png = findRenderedPng(tmpOut, renderedJobId, ACTION, pickFrame, SIT_LEGACY);
+    if (!png) {
+      console.error(`  ✗ no PNG found in ${tmpOut}`);
+      fail++;
+      continue;
+    }
+
+    fs.copyFileSync(png, dest);
+    console.log(`  ✓ ${dest}  (${fs.statSync(dest).size} bytes)`);
+    ok++;
+    anyOkForJob = true;
   }
 
-  const tmpOut = path.join(TMP_ROOT, key);
-  fs.rmSync(tmpOut, { recursive: true, force: true });
-  fs.mkdirSync(tmpOut, { recursive: true });
-
-  const gender = GENDER_FOR_JOB_KEY[key] ?? DEFAULT_GENDER;
-  const headId = pickHeadId(key, gender);
-  console.log(`render ${key} (job ${jobId}, head ${headId}${SIT_LEGACY ? `, headdir ${HEAD_DIR}` : ""})…`);
-  if (!runZrenderer(zCmd, zrendererPath, tmpOut, jobId, gender, headId)) {
-    console.error(`  ✗ zrenderer failed for ${key}`);
-    fail++;
-    continue;
+  // If one gender fails but the other succeeded, keep the UI functional by copying.
+  // (This happens on some client dumps where only one gender has a full sprite set for a given job.)
+  if (anyOkForJob) {
+    const male = path.join(OUT_DIR, `${key}--male.png`);
+    const female = path.join(OUT_DIR, `${key}--female.png`);
+    const maleOk = fs.existsSync(male) && fs.statSync(male).size > 800;
+    const femaleOk = fs.existsSync(female) && fs.statSync(female).size > 800;
+    if (maleOk && !femaleOk) {
+      fs.copyFileSync(male, female);
+      console.log(`  ↺ copied ${key}: male → female (fallback)`);
+    } else if (femaleOk && !maleOk) {
+      fs.copyFileSync(female, male);
+      console.log(`  ↺ copied ${key}: female → male (fallback)`);
+    }
   }
-
-  const pickFrame = resolveSitPickFrame(tmpOut, jobId, ACTION, SIT_LEGACY);
-  if (!SIT_LEGACY && SIT_FRAME_AUTO) {
-    const idxs = listSitOutputIndices(tmpOut, jobId, ACTION);
-    console.log(`  → sit output ${ACTION}-${pickFrame}.png (${idxs.length} frames, auto / ${SIT_HEAD_DIR_GROUP})`);
-  }
-
-  const png = findRenderedPng(tmpOut, jobId, ACTION, pickFrame, SIT_LEGACY);
-  if (!png) {
-    console.error(`  ✗ no PNG found in ${tmpOut}`);
-    fail++;
-    continue;
-  }
-
-  fs.copyFileSync(png, dest);
-  console.log(`  ✓ ${dest}  (${fs.statSync(dest).size} bytes)`);
-  ok++;
 }
 
 if (fail === 0) {
