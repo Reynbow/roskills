@@ -624,6 +624,16 @@ async function main() {
     console.log(`import-cards: prepended ${fallbackPrepended} base effects before set-bonus-only descriptions`);
   }
 
+  // Targeted fix: some RagnaAPI descriptions omit rAthena script stats.
+  for (const row of out) {
+    if (row?.aegisName !== "Lady_Tanee_Card") continue;
+    const want = ["Maximum HP -40%", "Maximum SP +50%"];
+    const cur = typeof row.description === "string" ? row.description : "";
+    const missing = want.filter((x) => !cur.includes(x));
+    if (!missing.length) continue;
+    row.description = `${missing.join("\n")}\n${cur}`.trim();
+  }
+
   // Don't ship internal fields
   for (const row of out) {
     delete row.scriptStatsFallback;

@@ -6761,7 +6761,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4376.png",
-    "description": "Adds a 2% chance of the Banana item dropping when a monster is killed.\nDoubles the recovery rate of the Banana item.",
+    "description": "Maximum HP -40%\nMaximum SP +50%\nAdds a 2% chance of the Banana item dropping when a monster is killed.\nDoubles the recovery rate of the Banana item.",
     "prefix": "Manaful"
   },
   {
