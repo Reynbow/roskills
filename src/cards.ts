@@ -207,6 +207,10 @@ function normalizeDescriptionText(s: string): string {
       // Common stat concatenations like "Agi +5Dex +3" or "Dex +5Increases ..."
       .replace(/([0-9])(?=(?:Str|Agi|Vit|Int|Dex|Luk)\b)/gi, "$1\n")
       .replace(/([0-9])(?=(?:Perfect Hit|Max HP|Max SP|Increases|Reduces)\b)/gi, "$1\n")
+      // Cases like "3%Aspd" / "5%If" where the word is glued to a percent sign
+      .replace(/%(?=(?:Aspd|Atk|Matk|Def|Mdef|Hit|Flee|Cri|Critical|Perfect Hit|Max HP|Max SP|If|Increases|Reduces)\b)/gi, "%\n")
+      // Cases like "1Atk" (number directly followed by a keyword, no space)
+      .replace(/([0-9])(?=(?:Aspd|Atk|Matk|Def|Mdef|Hit|Flee|Cri|Critical)\b)/gi, "$1\n")
       .replace(/\n{3,}/g, "\n\n")
       .trim()
   );

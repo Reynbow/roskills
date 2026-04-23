@@ -366,7 +366,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4252.png",
-    "description": "Reduces damage received from ranged attacks by 5%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Cruiser Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
+    "description": "Reduces damage received from ranged attacks by 5%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Cruiser Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
     "prefix": "Four Leaf Clover"
   },
   {
@@ -696,7 +696,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4234.png",
-    "description": "Adds a 3% chance of using [Improve Concentration] Lv 1, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Dragon Tail Card, Merman Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
+    "description": "Adds a 3% chance of using [Improve Concentration] Lv 1, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Dragon Tail Card, Merman Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
     "prefix": "of Clarity"
   },
   {
@@ -864,7 +864,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4371.png",
-    "description": "Increases the variable cast time of skills by an additional 20%.\nSet bonus with Permeter Card, Freezer Card, Heater Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
+    "description": "Increases the variable cast time of skills by an additional 20%.\nSet bonus with Permeter Card, Freezer Card, Heater Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%. Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%. If used by a Crusader job type, changes the user to [Holy] element.",
     "prefix": "of Paladin"
   },
   {
@@ -974,7 +974,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4114.png",
-    "description": "Changes the user to [Poison] element.\nSet bonus with Medical Scrubs [1]\nIf upgrade level is +9 or higher,,Immune to Frozen.",
+    "description": "Changes the user to [Poison] element.\nSet bonus with Medical Scrubs [1]\nIf upgrade level is +9 or higher, Immune to Frozen.",
     "prefix": "Poisoning"
   },
   {
@@ -1038,7 +1038,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4347.png",
-    "description": "Adds a 0.5% chance of the Clam Soup item dropping when killing a [Fish] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Fish] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Fish] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Fish] race monsters by an additional 5%.",
+    "description": "Adds a 0.5% chance of the Clam Soup item dropping when killing a [Fish] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Fish] race monsters by 5%.\nIf Book of Soyga upgrade level is +6 or higher, Increases the experience given from [Fish] race monsters by an additional 5%.\nIf Book of Soyga upgrade level is +8 or higher, Increases the experience given from [Fish] race monsters by an additional 5%.",
     "prefix": "Stamina"
   },
   {
@@ -1090,7 +1090,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4246.png",
-    "description": "Gives a Crit +7 bonus when attacking [Demi-Human] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Solider Card, Permeter Card, Freezer Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.",
+    "description": "Gives a Crit +7 bonus when attacking [Demi-Human] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Solider Card, Permeter Card, Freezer Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.\nAdds a 5% chance of the Red Potion item dropping when killing a monster.\nIf used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.",
     "prefix": "Killing"
   },
   {
@@ -1208,7 +1208,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4233.png",
-    "description": "LUK +3\nSet bonus with Raggler Card, Myst Case Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Zipper Bear Card, Holden Card\nStr +4Max HP +7%Max SP +7%Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
+    "description": "LUK +3\nSet bonus with Raggler Card, Myst Case Card, Zipper Bear Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.\nRemoves the draining of SP when attacking.\nIf used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.\nAdds a 0.1% chance of the Stem item dropping when killing a monster.\nAdds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
     "prefix": "Lucky Fluke"
   },
   {
@@ -1238,7 +1238,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4438.png",
-    "description": "If used by an Mage job type\nMax HP -100Max SP +100Increases the damage inflicted with [Napalm Beat], [Soul Strike] and [Naplam Vulcan] by 20%.",
+    "description": "If used by an Mage job type\nMax HP -100\nMax SP +100\nIncreases the damage inflicted with [Napalm Beat], [Soul Strike] and [Naplam Vulcan] by 20%.",
     "prefix": "Mental"
   },
   {
@@ -1341,7 +1341,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4391.png",
-    "description": "Adds a 0.5% chance of the Fried Sweet Potato item dropping when killing an [Angel] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Angel] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Angel] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Angel] race monsters by an additional 5%.",
+    "description": "Adds a 0.5% chance of the Fried Sweet Potato item dropping when killing an [Angel] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Angel] race monsters by 5%.\nIf Book of Soyga upgrade level is +6 or higher, Increases the experience given from [Angel] race monsters by an additional 5%.\nIf Book of Soyga upgrade level is +8 or higher, Increases the experience given from [Angel] race monsters by an additional 5%.",
     "prefix": "Snack"
   },
   {
@@ -1489,7 +1489,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4074.png",
-    "description": "Reduces damage received from [Insect] race by 30%.\nSet bonus with Grizzly Card\nIncreases the chance of [Blind] being inflicted to 6%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Insect] race monsters by 5%.If Happy Shield upgrade level is +6 or higher,Increases the experience given from [Insect] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher,Increases the experience given from [Insect] race monsters by an additional 5%.",
+    "description": "Reduces damage received from [Insect] race by 30%.\nSet bonus with Grizzly Card\nIncreases the chance of [Blind] being inflicted to 6%.\nSet bonus with Happy Shield [1]\nIncreases the experience given from [Insect] race monsters by 5%.If Happy Shield upgrade level is +6 or higher, Increases the experience given from [Insect] race monsters by an additional 5%.If Happy Shield upgrade level is +8 or higher, Increases the experience given from [Insect] race monsters by an additional 5%.",
     "prefix": "of Gargantua"
   },
   {
@@ -1541,7 +1541,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4327.png",
-    "description": "Increases the cast time of skills by 30%.\nPrevents skill casting from being interrupted.\nIncreases the damage inflicted with [Fire Wall] by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Harpy Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
+    "description": "Increases the cast time of skills by 30%.\nPrevents skill casting from being interrupted.\nIncreases the damage inflicted with [Fire Wall] by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,M Atk +3\n%\nReduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Harpy Card, Yellow Novus Card\nInt +3\nIncreases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
     "prefix": "Spell Flow"
   },
   {
@@ -2239,7 +2239,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4293.png",
-    "description": "Increases the damage inflicted with [Holy Light] by 10%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Fur Seal Card, Waste Stove Card\nStr +3Atk +25Max SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
+    "description": "Increases the damage inflicted with [Holy Light] by 10%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Fur Seal Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%. Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
     "prefix": "of Chance"
   },
   {
@@ -2463,7 +2463,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4297.png",
-    "description": "Gives a Crit +7 bonus when attacking [Brute] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Alligator Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
+    "description": "Gives a Crit +7 bonus when attacking [Brute] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Alligator Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type, Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
     "prefix": "Poaching"
   },
   {
@@ -3191,7 +3191,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4178.png",
-    "description": "Increases the damage inflicted with [Double Strafe] and [Arrow Shower] by 5%.\nSet bonus with Merman Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Anolian Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
+    "description": "Increases the damage inflicted with [Double Strafe] and [Arrow Shower] by 5%.\nSet bonus with Merman Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type, Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Anolian Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
     "prefix": "Bow-Master's"
   },
   {
@@ -3745,7 +3745,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4217.png",
-    "description": "Adds a 2% chance of using [Heal] Lv 1, or Lv 10 if learned by the user, on the user when doing a physical attack.\nSet bonus with Rideword Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.",
+    "description": "Adds a 2% chance of using [Heal] Lv 1, or Lv 10 if learned by the user, on the user when doing a physical attack.\nSet bonus with Rideword Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.",
     "prefix": "Rejuvenating"
   },
   {
@@ -3865,7 +3865,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4258.png",
-    "description": "INT +1\nMax SP +50\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
+    "description": "INT +1\nMax SP +50\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%. If used by a Mage job type, MAtk +3%\nReduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3\nIncreases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%. If used by a Sage job type, Reduces the variable cast time of skills by 20%. Adds a 20% chance of reflecting received targetted magic damage at the caster. Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
     "prefix": "Prodigy"
   },
   {
@@ -4135,7 +4135,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4160.png",
-    "description": "If the footgear is upgraded to +9 or higher\nMax HP +10%Max SP +10%",
+    "description": "If the footgear is upgraded to +9 or higher\nMax HP +10%\nMax SP +10%",
     "prefix": "Superior"
   },
   {
@@ -4259,7 +4259,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4319.png",
-    "description": "If the footgear is upgraded to +9 or higher, increases the damage inflicted with [Bash] by 10%.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Heater Card, Archdam Card\nStr +1Int +1Def +2SP Recovery Rate +10%Reduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
+    "description": "If the footgear is upgraded to +9 or higher, increases the damage inflicted with [Bash] by 10%.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Heater Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%. Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.\nIf used by a Crusader job type, changes the user to [Holy] element.",
     "prefix": "Sword-Master's"
   },
   {
@@ -4551,7 +4551,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4280.png",
-    "description": "Adds a 5% chance of using [Blessing] Lv 2, or Lv 10 if learned by the user, on the user when physically attacked.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.",
+    "description": "Adds a 5% chance of using [Blessing] Lv 2, or Lv 10 if learned by the user, on the user when physically attacked.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.",
     "prefix": "Blessed"
   },
   {
@@ -5036,7 +5036,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4161.png",
-    "description": "Adds a 15% chance of using [Gloria] Lv 1 when physically attacked.\nSet bonus with Pecopeco Card\nVit +3Def +3",
+    "description": "Adds a 15% chance of using [Gloria] Lv 1 when physically attacked.\nSet bonus with Pecopeco Card\nVit +3\nDef +3",
     "prefix": "Anti-Magic"
   },
   {
@@ -5100,7 +5100,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4381.png",
-    "description": "VIT +1\nMax HP +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nDex +5Increases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
+    "description": "VIT +1\nMax HP +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
     "prefix": "of Wonderer"
   },
   {
@@ -5216,7 +5216,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4377.png",
-    "description": "Adds a 0.5% chance of the Fruit Mix item dropping when killing a [Formless] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Formless] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher,Increases the experience given from [Formless] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher,Increases the experience given from [Formless] race monsters by an additional 5%.",
+    "description": "Adds a 0.5% chance of the Fruit Mix item dropping when killing a [Formless] race monster.\nSet bonus with Book of Soyga [1]\nIncreases the experience given from [Formless] race monsters by 5%.If Book of Soyga upgrade level is +6 or higher, Increases the experience given from [Formless] race monsters by an additional 5%.If Book of Soyga upgrade level is +8 or higher, Increases the experience given from [Formless] race monsters by an additional 5%.",
     "prefix": "Sweety"
   },
   {
@@ -5246,7 +5246,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4163.png",
-    "description": "If used by a Swordman job type\nAdds a 1% chance of using [Bowling Bash] Lv 5 on the target when doing a physical attack.\nSet bonus with Flying Galapago\nAspd + 3%Aspd + 1Atk - 5%If compounded to an upgrade level of +10 or higher bow type weapon, additional Aspd + 1.",
+    "description": "If used by a Swordman job type\nAdds a 1% chance of using [Bowling Bash] Lv 5 on the target when doing a physical attack.\nSet bonus with Flying Galapago\nAspd + 3%\nAspd + 1\nAtk - 5%\nIf compounded to an upgrade level of +10 or higher bow type weapon, additional Aspd + 1.",
     "prefix": "Wild"
   },
   {
@@ -5306,7 +5306,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4325.png",
-    "description": "Reduces damage received from [Neutral] element attacks by 15%.\nIncreases the damage inflicted with [Napalm Beat] by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Parasite Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
+    "description": "Reduces damage received from [Neutral] element attacks by 15%.\nIncreases the damage inflicted with [Napalm Beat] by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Parasite Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type, MAtk +3%\nReduces the variable cast time of skills by 15%.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3\nIncreases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%. If used by a Sage job type, Reduces the variable cast time of skills by 20%. Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
     "prefix": "Vicious"
   },
   {
@@ -5374,7 +5374,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4331.png",
-    "description": "If the user is a Swordman job type, P. Dodge +3.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Freezer Card\nStr +10Max HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Freezer Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
+    "description": "If the user is a Swordman job type, P. Dodge +3.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Freezer Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Freezer Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
     "prefix": "Evasion"
   },
   {
@@ -5922,7 +5922,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4321.png",
-    "description": "Adds a 1% chance to transform a normal monster into another when attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Zipper Bear Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.",
+    "description": "Adds a 1% chance to transform a normal monster into another when attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Zipper Bear Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.",
     "prefix": "Polymorphic"
   },
   {
@@ -5964,7 +5964,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4430.png",
-    "description": "Adds a 2% chance of using [Earthquake] Lv 2 on the attacker when physically attacked.\nFor every 10 job levels\nAtk +1Hit +1Crit +1",
+    "description": "Adds a 2% chance of using [Earthquake] Lv 2 on the attacker when physically attacked.\nFor every 10 job levels\nAtk +1\nHit +1Crit +1",
     "prefix": "of Inferno"
   },
   {
@@ -6024,7 +6024,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4269.png",
-    "description": "INT -3\nSP Recovery -20%\nMax SP +150\nSet bonus with Succubus Card\nVit +4Int +4HP Recovery Rate +30%SP Recovery Rate +30%",
+    "description": "INT -3\nSP Recovery -20%\nMax SP +150\nSet bonus with Succubus Card\nVit +4\nInt +4\nHP Recovery Rate +30%\nSP Recovery Rate +30%",
     "prefix": "Fatasm"
   },
   {
@@ -6050,7 +6050,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4268.png",
-    "description": "Adds a 5% chance of using [Sonic Blow] Lv 1 on the target when doing a physical attack.\nSet bonus with Zealotus Card\nLuk +3Atk +20",
+    "description": "Adds a 5% chance of using [Sonic Blow] Lv 1 on the target when doing a physical attack.\nSet bonus with Zealotus Card\nLuk +3\nAtk +20",
     "prefix": "Extending"
   },
   {
@@ -6895,7 +6895,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4191.png",
-    "description": "Adds a 5% chance of using [Heal] Lv 3 on the user when physically attacked.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.",
+    "description": "Adds a 5% chance of using [Heal] Lv 3 on the user when physically attacked.\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%\nReduces the variable cast time of skills by 15%.",
     "prefix": "of the Stix"
   },
   {
@@ -6985,7 +6985,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4193.png",
-    "description": "If the user is a Novice job type, adds a 20% chance of using [Endure] Lv 1 when physically attacked.\nSet bonus with Quve Card\nMax HP +300Max SP +60",
+    "description": "If the user is a Novice job type, adds a 20% chance of using [Endure] Lv 1 when physically attacked.\nSet bonus with Quve Card\nMax HP +300\nMax SP +60",
     "prefix": "of Patience"
   },
   {
@@ -7645,7 +7645,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4197.png",
-    "description": "LUK +1\nSet bonus with Poring Card\nFlee +18\nSet bonus with Phoenix Muffler [1]\nMdef + 10Flee + 20Reduces damage taken from [Neutral] property attacks by 20%.",
+    "description": "LUK +1\nSet bonus with Poring Card\nFlee +18\nSet bonus with Phoenix Muffler [1]\nMdef + 10\nFlee + 20\nReduces damage taken from [Neutral] property attacks by 20%.",
     "prefix": "Lucky Streak"
   },
   {
@@ -7879,7 +7879,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4199.png",
-    "description": "HP Recovery +10%\nSP Recovery +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5Dex +3Perfect Hit +20Increases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.",
+    "description": "HP Recovery +10%\nSP Recovery +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.",
     "prefix": "Dashing"
   },
   {
@@ -8189,7 +8189,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4208.png",
-    "description": "Increases the damage inflicted with [Frost Diver] by 5%.\nSet bonus with Loli Ruri Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.\nSet bonus with Evil Nymph Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3\nIncreases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
+    "description": "Increases the damage inflicted with [Frost Diver] by 5%.\nSet bonus with Loli Ruri Card, Evil Nymph Card, Parasite Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%\nReduces the variable cast time of skills by 15%.\nSet bonus with Evil Nymph Card, Harpy Card, Bloody Butterfly Card, Yellow Novus Card\nInt +3\nIncreases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
     "prefix": "Energetic"
   },
   {
@@ -8429,7 +8429,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4206.png",
-    "description": "Adds a 0.3% chance of the Gift Box (Plain) item dropping when a monster is killed.\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.",
+    "description": "Adds a 0.3% chance of the Gift Box (Plain) item dropping when a monster is killed.\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.",
     "prefix": "Cubic"
   },
   {
@@ -8800,7 +8800,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4375.png",
-    "description": "Reduces damage taken from [Neutral] property attacks by 10%.\nIf upgrade level is +9 or higher\nAdditional Flee +5Reduces damage taken from [Neutral] property attacks by an additional 5%.",
+    "description": "Reduces damage taken from [Neutral] property attacks by 10%.\nIf upgrade level is +9 or higher\nAdditional Flee +5\nReduces damage taken from [Neutral] property attacks by an additional 5%.",
     "prefix": "Extra High Level"
   },
   {
@@ -9086,7 +9086,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4309.png",
-    "description": "Reduces damage received from [Neutral] element attacks by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Harpy Card, Bloody Butterfly Card\nDef +5MDef +5Max HP +500Increases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%Reduces the variable cast time of skills by 15%.",
+    "description": "Reduces damage received from [Neutral] element attacks by 5%.\nSet bonus with Loli Ruri Card, Miyabi Doll Card, Evil Nymph Card, Harpy Card, Bloody Butterfly Card\nDef +5\nMDef +5\nMax HP +500\nIncreases the damage inflicted with [Fire Bolt], [Cold Bolt] and [Lightning Bolt] by 10%.If used by a Mage job type,MAtk +3%\nReduces the variable cast time of skills by 15%.",
     "prefix": "Reinforced"
   },
   {
@@ -9810,7 +9810,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4294.png",
-    "description": "If the user is a Novice job type, adds a 10% chance of using [Increase AGI] Lv 1 on the user when physically attacked.\nSet bonus with Lude Card\nMax HP +300Max SP +60",
+    "description": "If the user is a Novice job type, adds a 10% chance of using [Increase AGI] Lv 1 on the user when physically attacked.\nSet bonus with Lude Card\nMax HP +300\nMax SP +60",
     "prefix": "Sneaky"
   },
   {
@@ -9900,7 +9900,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4186.png",
-    "description": "STR +1\nVIT +1\nSet bonus with Myst Case Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
+    "description": "STR +1\nVIT +1\nSet bonus with Myst Case Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
     "prefix": "Strenuous"
   },
   {
@@ -10134,7 +10134,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4185.png",
-    "description": "If used by an Acolyte job type\nInt +1MDef +1\nSet bonus with Enchanted Peach Tree Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Cookie Card, Fur Seal Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
+    "description": "If used by an Acolyte job type\nInt +1\nMDef +1\nSet bonus with Enchanted Peach Tree Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Cookie Card, Fur Seal Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
     "prefix": "of Wisdom"
   },
   {
@@ -10588,7 +10588,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4312.png",
-    "description": "If equipped by an Acolyte job type\nIncreases the user's critical attack rate on [Demon] and [Undead] race targets by 9%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Cookie Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10Reduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Cookie Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80Increases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
+    "description": "If equipped by an Acolyte job type\nIncreases the user's critical attack rate on [Demon] and [Undead] race targets by 9%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Cookie Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Cookie Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
     "prefix": "of the Soul"
   },
   {
@@ -10708,7 +10708,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4230.png",
-    "description": "Adds a 10% chance of using [Cloaking] of the highest level known (to a maximum of level 5) when physically attacked. If [Cloaking] is not learned, level 1 is used instead.\nSet bonus with The Paper Card, Wanderer Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
+    "description": "Adds a 10% chance of using [Cloaking] of the highest level known (to a maximum of level 5) when physically attacked. If [Cloaking] is not learned, level 1 is used instead.\nSet bonus with The Paper Card, Wanderer Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Wild Rose Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
     "prefix": "Coward's"
   },
   {
@@ -11221,7 +11221,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4220.png",
-    "description": "DEF +2\nMDEF +2\nSet bonus with Assaulter Card, Permeter Card, Freezer Card, Heater Card\nStr +10Max HP +20%HP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.",
+    "description": "DEF +2\nMDEF +2\nSet bonus with Assaulter Card, Permeter Card, Freezer Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.",
     "prefix": "Faithful"
   },
   {
@@ -11319,7 +11319,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4039.png",
-    "description": "Increases resistance to [Silence] status by 20%.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
+    "description": "Increases resistance to [Silence] status by 20%.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
     "prefix": "of Aristotle"
   },
   {
@@ -11697,7 +11697,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4218.png",
-    "description": "VIT -3\nHP Recovery -20%\nMax HP +1000\nSet bonus with Incubus Card\nVit +4Int +4HP Recovery Rate +30%SP Recovery Rate +30%",
+    "description": "VIT -3\nHP Recovery -20%\nMax HP +1000\nSet bonus with Incubus Card\nVit +4\nInt +4\nHP Recovery Rate +30%\nSP Recovery Rate +30%",
     "prefix": "Nightmarish"
   },
   {
@@ -11727,7 +11727,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4427.png",
-    "description": "If compounded into a One-Handed or Two-Handed Sword weapon\nHit +5Crit +5Increases the damage inflicted with [Bowling Bash] by 25%.",
+    "description": "If compounded into a One-Handed or Two-Handed Sword weapon\nHit +5Crit +5\nIncreases the damage inflicted with [Bowling Bash] by 25%.",
     "prefix": "of Force"
   },
   {
@@ -11947,7 +11947,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4172.png",
-    "description": "Increases critical attack damage by 20%.\nDrains 1 SP from the user when physically attacking.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5Agi +5Aspd +5%Increases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.",
+    "description": "Increases critical attack damage by 20%.\nDrains 1 SP from the user when physically attacking.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.",
     "prefix": "Slicing"
   },
   {
@@ -12049,7 +12049,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4306.png",
-    "description": "Perfect Dodge +1\nSet bonus with Roda Frog Card\nFlee +18\nSet bonus with Leviathan Muffler [1]\nMax HP +10%Additional Mdef + 10Reduces damage taken from [Neutral] property attacks by 20%.",
+    "description": "Perfect Dodge +1\nSet bonus with Roda Frog Card\nFlee +18\nSet bonus with Leviathan Muffler [1]\nMax HP +10%\nAdditional Mdef + 10\nReduces damage taken from [Neutral] property attacks by 20%.",
     "prefix": "King's"
   },
   {
@@ -12667,7 +12667,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4348.png",
-    "description": "Adds a 5% chance of using [Divest Armor] Lv 1 on the target when doing a physical attack.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +6Agi +4Increases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
+    "description": "Adds a 5% chance of using [Divest Armor] Lv 1 on the target when doing a physical attack.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
     "prefix": "Gangster"
   },
   {
@@ -13027,7 +13027,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4382.png",
-    "description": "Max HP +500\nHP Recovery +10%\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Harpy Card, Bloody Butterfly Card\nInt +3Increases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
+    "description": "Max HP +500\nHP Recovery +10%\nSet bonus with Miyabi Doll Card, Evil Nymph Card, Harpy Card, Bloody Butterfly Card\nInt +3\nIncreases the damage inflicted with [Thunder Storm] and [Heaven's Drive] by 10%.If used by a Sage job type,Reduces the variable cast time of skills by 20%.Adds a 20% chance of reflecting received targetted magic damage at the caster.Adds a 1% chance of the Red Gemstone or Yellow Gemstone item dropping when killing a monster.",
     "prefix": "of Scholar"
   },
   {
@@ -13187,7 +13187,7 @@
       }
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4281.png",
-    "description": "Drains 1 SP from the user when physically attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Hylozoist Card\nLuk +10Increases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
+    "description": "Drains 1 SP from the user when physically attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
     "prefix": "Diligent"
   },
   {
