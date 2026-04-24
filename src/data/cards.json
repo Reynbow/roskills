@@ -7,6 +7,7 @@
     "drops": [
       {
         "monster": "Abysmal Knight",
+        "mobId": 1219,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -45,6 +46,7 @@
     "drops": [
       {
         "monster": "Agav",
+        "mobId": 1769,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -185,6 +187,7 @@
     "drops": [
       {
         "monster": "Alarm",
+        "mobId": 1193,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -201,7 +204,18 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4244.png",
     "description": "Adds a 20% chance of using [Sight] Lv 1 when physically attacked.\nSet bonus with Tower Keeper Card, Clock Card, Punk Card\nDef +3\nMDef +3",
-    "prefix": "Seeker's"
+    "prefix": "Seeker's",
+    "setBonuses": [
+      {
+        "title": "Clocktower Card Set",
+        "members": [
+          "Tower Keeper Card",
+          "Punk Card",
+          "Alarm Card",
+          "Clock Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4253,
@@ -211,6 +225,7 @@
     "drops": [
       {
         "monster": "Alice",
+        "mobId": 1275,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -249,6 +264,7 @@
     "drops": [
       {
         "monster": "Alicel",
+        "mobId": 1735,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -279,6 +295,7 @@
     "drops": [
       {
         "monster": "Aliot",
+        "mobId": 1736,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -309,6 +326,7 @@
     "drops": [
       {
         "monster": "Aliza",
+        "mobId": 1737,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -339,6 +357,7 @@
     "drops": [
       {
         "monster": "Alligator",
+        "mobId": 1271,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -367,7 +386,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4252.png",
     "description": "Reduces damage received from ranged attacks by 5%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Cruiser Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
-    "prefix": "Four Leaf Clover"
+    "prefix": "Four Leaf Clover",
+    "setBonuses": [
+      {
+        "title": "Hunter Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Merman Card"
+        ]
+      },
+      {
+        "title": "Bard/Dancer Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Green Ferus Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4245,
@@ -377,6 +418,7 @@
     "drops": [
       {
         "monster": "Am Mut",
+        "mobId": 1301,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -403,6 +445,7 @@
     "drops": [
       {
         "monster": "Ambernite",
+        "mobId": 1094,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -433,6 +476,7 @@
     "drops": [
       {
         "monster": "Amon Ra",
+        "mobId": 1511,
         "rate": 1,
         "isMvp": true
       }
@@ -449,6 +493,7 @@
     "drops": [
       {
         "monster": "Anacondaq",
+        "mobId": 1030,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -479,6 +524,7 @@
     "drops": [
       {
         "monster": "Ancient Mimic",
+        "mobId": 1699,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -517,6 +563,7 @@
     "drops": [
       {
         "monster": "Ancient Mummy",
+        "mobId": 1297,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -543,6 +590,7 @@
     "drops": [
       {
         "monster": "Ancient Worm",
+        "mobId": 1305,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -603,6 +651,7 @@
     "drops": [
       {
         "monster": "Ant Egg",
+        "mobId": 1097,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -651,6 +700,7 @@
     "drops": [
       {
         "monster": "Angeling",
+        "mobId": 1096,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -681,6 +731,7 @@
     "drops": [
       {
         "monster": "Anolian",
+        "mobId": 1206,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -697,7 +748,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4234.png",
     "description": "Adds a 3% chance of using [Improve Concentration] Lv 1, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Dragon Tail Card, Merman Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
-    "prefix": "of Clarity"
+    "prefix": "of Clarity",
+    "setBonuses": [
+      {
+        "title": "Hunter Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Merman Card"
+        ]
+      },
+      {
+        "title": "Bard/Dancer Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Green Ferus Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4344,
@@ -707,6 +780,7 @@
     "drops": [
       {
         "monster": "Anopheles",
+        "mobId": 1627,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -745,6 +819,7 @@
     "drops": [
       {
         "monster": "Antonio",
+        "mobId": 1247,
         "rate": 1,
         "isMvp": false
       }
@@ -761,6 +836,7 @@
     "drops": [
       {
         "monster": "Anubis",
+        "mobId": 1098,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -787,6 +863,7 @@
     "drops": [
       {
         "monster": "Apocalypse",
+        "mobId": 1365,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -809,6 +886,7 @@
     "drops": [
       {
         "monster": "Aqua Elemental",
+        "mobId": 2016,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -831,6 +909,7 @@
     "drops": [
       {
         "monster": "Arc Angeling",
+        "mobId": 1388,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -853,6 +932,7 @@
     "drops": [
       {
         "monster": "Archdam",
+        "mobId": 1668,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -865,7 +945,18 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4371.png",
     "description": "Increases the variable cast time of skills by an additional 20%.\nSet bonus with Permeter Card, Freezer Card, Heater Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%. Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%. If used by a Crusader job type, changes the user to [Holy] element.",
-    "prefix": "of Paladin"
+    "prefix": "of Paladin",
+    "setBonuses": [
+      {
+        "title": "Crusader Card Set",
+        "members": [
+          "Archdam Card",
+          "Permeter Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4094,
@@ -875,6 +966,7 @@
     "drops": [
       {
         "monster": "Archer Skeleton",
+        "mobId": 1016,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -909,6 +1001,7 @@
     "drops": [
       {
         "monster": "Arclouze",
+        "mobId": 1194,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -947,6 +1040,7 @@
     "drops": [
       {
         "monster": "Argiope",
+        "mobId": 1099,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -985,6 +1079,7 @@
     "drops": [
       {
         "monster": "Argos",
+        "mobId": 1100,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1023,6 +1118,7 @@
     "drops": [
       {
         "monster": "Armeyer Dinze",
+        "mobId": 1654,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1049,6 +1145,7 @@
     "drops": [
       {
         "monster": "Assassin Cross Eremes",
+        "mobId": 1641,
         "rate": 1,
         "isMvp": true,
         "maps": [
@@ -1071,6 +1168,7 @@
     "drops": [
       {
         "monster": "Assaulter",
+        "mobId": 1315,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1091,7 +1189,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4246.png",
     "description": "Gives a Crit +7 bonus when attacking [Demi-Human] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Solider Card, Permeter Card, Freezer Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.\nAdds a 5% chance of the Red Potion item dropping when killing a monster.\nIf used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.",
-    "prefix": "Killing"
+    "prefix": "Killing",
+    "setBonuses": [
+      {
+        "title": "Swordman Card Set",
+        "members": [
+          "Assaulter Card",
+          "Permeter Card",
+          "Solider Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4247,
@@ -1101,6 +1211,7 @@
     "drops": [
       {
         "monster": "Aster",
+        "mobId": 1266,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1125,7 +1236,17 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4247.png",
     "description": "Increases physical damage against the Shellfish monster by 30%.\nSet bonus with Crab Card, Shell Fish Card\nIncreases physical damage against [Water] element targets by 30%.Adds a 30% chance of the Raw Fish item dropping when killing a [Fish] race monster.",
-    "prefix": "Starfish's"
+    "prefix": "Starfish's",
+    "setBonuses": [
+      {
+        "title": "Beach Card Set",
+        "members": [
+          "Shell Fish Card",
+          "Crab Card",
+          "Aster Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4766,
@@ -1151,6 +1272,7 @@
     "drops": [
       {
         "monster": "Atroce",
+        "mobId": 1785,
         "rate": 1,
         "isMvp": true
       }
@@ -1167,6 +1289,7 @@
     "drops": [
       {
         "monster": "Baby Desert Wolf",
+        "mobId": 1107,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1193,6 +1316,7 @@
     "drops": [
       {
         "monster": "Baby Leopard",
+        "mobId": 1415,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1209,7 +1333,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4233.png",
     "description": "LUK +3\nSet bonus with Raggler Card, Myst Case Card, Zipper Bear Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.\nRemoves the draining of SP when attacking.\nIf used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.\nAdds a 0.1% chance of the Stem item dropping when killing a monster.\nAdds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
-    "prefix": "Lucky Fluke"
+    "prefix": "Lucky Fluke",
+    "setBonuses": [
+      {
+        "title": "Merchant Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Myst Case Card",
+          "Heirozoist Card"
+        ]
+      },
+      {
+        "title": "Alchemist Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Muka Card",
+          "Holden Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4438,
@@ -1219,6 +1365,7 @@
     "drops": [
       {
         "monster": "Banshee",
+        "mobId": 1867,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1249,6 +1396,7 @@
     "drops": [
       {
         "monster": "Banshee Master",
+        "mobId": 1974,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1271,6 +1419,7 @@
     "drops": [
       {
         "monster": "Baphomet Jr.",
+        "mobId": 1101,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1293,11 +1442,13 @@
     "drops": [
       {
         "monster": "Baphomet",
+        "mobId": 1039,
         "rate": 1,
         "isMvp": true
       },
       {
         "monster": "Great Demon Baphomet",
+        "mobId": 1929,
         "rate": 1,
         "isMvp": false
       }
@@ -1314,6 +1465,7 @@
     "drops": [
       {
         "monster": "Baroness of Retribution",
+        "mobId": 1702,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1352,6 +1504,7 @@
     "drops": [
       {
         "monster": "Bathory",
+        "mobId": 1102,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1378,6 +1531,7 @@
     "drops": [
       {
         "monster": "Beetle King",
+        "mobId": 1494,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1416,6 +1570,7 @@
     "drops": [
       {
         "monster": "Beholder",
+        "mobId": 1633,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1446,6 +1601,7 @@
     "drops": [
       {
         "monster": "Beelzebub",
+        "mobId": 1873,
         "rate": 1,
         "isMvp": true
       }
@@ -1462,6 +1618,7 @@
     "drops": [
       {
         "monster": "Bigfoot",
+        "mobId": 1060,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1500,6 +1657,7 @@
     "drops": [
       {
         "monster": "Blazer",
+        "mobId": 1367,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1526,6 +1684,7 @@
     "drops": [
       {
         "monster": "Bloody Butterfly",
+        "mobId": 1408,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1552,6 +1711,7 @@
     "drops": [
       {
         "monster": "Bloody Knight",
+        "mobId": 1268,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1590,6 +1750,7 @@
     "drops": [
       {
         "monster": "Bloody Murderer",
+        "mobId": 1507,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1612,6 +1773,7 @@
     "drops": [
       {
         "monster": "Acidus",
+        "mobId": 1713,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1638,6 +1800,7 @@
     "drops": [
       {
         "monster": "Bongun",
+        "mobId": 1188,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1654,7 +1817,17 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4212.png",
     "description": "Adds a 2% chance of using [Bash] Lv 1 on the target when doing a physical attack.\nThe target gets knock backed by 5 cells when [Bash] is used.\nDoubles damage received from the Munak monster.\nSet bonus with Munak Card, Yao Jun Card\nAll stats +1",
-    "prefix": "of Knock-Back"
+    "prefix": "of Knock-Back",
+    "setBonuses": [
+      {
+        "title": "Tragic Trio Card Set",
+        "members": [
+          "Munak Card",
+          "Bongun Card",
+          "Yao Jun Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4428,
@@ -1664,6 +1837,7 @@
     "drops": [
       {
         "monster": "Bow Master",
+        "mobId": 1830,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1694,6 +1868,7 @@
     "drops": [
       {
         "monster": "Breeze",
+        "mobId": 1692,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1732,6 +1907,7 @@
     "drops": [
       {
         "monster": "Brilight",
+        "mobId": 1211,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1754,6 +1930,7 @@
     "drops": [
       {
         "monster": "Byorgue",
+        "mobId": 1839,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1780,6 +1957,7 @@
     "drops": [
       {
         "monster": "Caramel",
+        "mobId": 1103,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1818,6 +1996,7 @@
     "drops": [
       {
         "monster": "Carat",
+        "mobId": 1267,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1840,6 +2019,7 @@
     "drops": [
       {
         "monster": "Cat o' Nine Tails",
+        "mobId": 1307,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1866,6 +2046,7 @@
     "drops": [
       {
         "monster": "Caterpillar",
+        "mobId": 1300,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1888,6 +2069,7 @@
     "drops": [
       {
         "monster": "Cecil Damon",
+        "mobId": 1638,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1910,6 +2092,7 @@
     "drops": [
       {
         "monster": "Centipede",
+        "mobId": 1987,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1940,6 +2123,7 @@
     "drops": [
       {
         "monster": "Centipede Larva",
+        "mobId": 1999,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1962,6 +2146,7 @@
     "drops": [
       {
         "monster": "Chepet",
+        "mobId": 1250,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -1984,6 +2169,7 @@
     "drops": [
       {
         "monster": "Chimera",
+        "mobId": 1283,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2006,6 +2192,7 @@
     "drops": [
       {
         "monster": "Choco",
+        "mobId": 1214,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2044,6 +2231,7 @@
     "drops": [
       {
         "monster": "Chonchon",
+        "mobId": 1011,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2078,6 +2266,7 @@
     "drops": [
       {
         "monster": "Christmas Cookie",
+        "mobId": 1246,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2104,6 +2293,7 @@
     "drops": [
       {
         "monster": "Clock",
+        "mobId": 1269,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2120,7 +2310,18 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4299.png",
     "description": "Adds a 3% chance of using [Guard] Lv 3, or Lv 10 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Punk Card\nDef +3\nMDef +3",
-    "prefix": "Guardian's"
+    "prefix": "Guardian's",
+    "setBonuses": [
+      {
+        "title": "Clocktower Card Set",
+        "members": [
+          "Tower Keeper Card",
+          "Punk Card",
+          "Alarm Card",
+          "Clock Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4262,
@@ -2130,6 +2331,7 @@
     "drops": [
       {
         "monster": "Taoist Hermit",
+        "mobId": 1412,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2156,6 +2358,7 @@
     "drops": [
       {
         "monster": "Coco",
+        "mobId": 1104,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2194,6 +2397,7 @@
     "drops": [
       {
         "monster": "Condor",
+        "mobId": 1009,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2224,6 +2428,7 @@
     "drops": [
       {
         "monster": "Cookie",
+        "mobId": 1265,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2240,7 +2445,28 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4293.png",
     "description": "Increases the damage inflicted with [Holy Light] by 10%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Fur Seal Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%. Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
-    "prefix": "of Chance"
+    "prefix": "of Chance",
+    "setBonuses": [
+      {
+        "title": "Acolyte Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Geographer Card",
+          "Enchanted Peach Tree Card"
+        ]
+      },
+      {
+        "title": "Monk Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Waste Stove Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4448,
@@ -2250,6 +2476,7 @@
     "drops": [
       {
         "monster": "Cornus",
+        "mobId": 1992,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2276,6 +2503,7 @@
     "drops": [
       {
         "monster": "Cornutus",
+        "mobId": 1067,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2306,6 +2534,7 @@
     "drops": [
       {
         "monster": "Crab",
+        "mobId": 1073,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2326,7 +2555,17 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4153.png",
     "description": "Increases physical damage against the Aster monster by 30%.\nSet bonus with Aster Card, Shell Fish Card\nIncreases physical damage against [Water] element targets by 30%.Adds a 30% chance of the Raw Fish item dropping when killing a [Fish] race monster.",
-    "prefix": "of Cancer"
+    "prefix": "of Cancer",
+    "setBonuses": [
+      {
+        "title": "Beach Card Set",
+        "members": [
+          "Shell Fish Card",
+          "Crab Card",
+          "Aster Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4296,
@@ -2336,6 +2575,7 @@
     "drops": [
       {
         "monster": "Cramp",
+        "mobId": 1209,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2374,6 +2614,7 @@
     "drops": [
       {
         "monster": "Creamy",
+        "mobId": 1018,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2412,6 +2653,7 @@
     "drops": [
       {
         "monster": "Creamy Fear",
+        "mobId": 1293,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2452,6 +2694,7 @@
     "drops": [
       {
         "monster": "Cruiser",
+        "mobId": 1248,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2464,7 +2707,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4297.png",
     "description": "Gives a Crit +7 bonus when attacking [Brute] race targets.\nIncreases critical attack damage by 10%.\nSet bonus with Dragon Tail Card, Merman Card, Anolian Card, Alligator Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type, Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
-    "prefix": "Poaching"
+    "prefix": "Poaching",
+    "setBonuses": [
+      {
+        "title": "Hunter Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Merman Card"
+        ]
+      },
+      {
+        "title": "Bard/Dancer Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Green Ferus Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4392,
@@ -2474,6 +2739,7 @@
     "drops": [
       {
         "monster": "Dame of Sentinel",
+        "mobId": 1700,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2512,6 +2778,7 @@
     "drops": [
       {
         "monster": "Dark Frame",
+        "mobId": 1260,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2538,6 +2805,7 @@
     "drops": [
       {
         "monster": "Dark Illusion",
+        "mobId": 1302,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2564,6 +2832,7 @@
     "drops": [
       {
         "monster": "Dark Lord",
+        "mobId": 1272,
         "rate": 1,
         "isMvp": true
       }
@@ -2580,6 +2849,7 @@
     "drops": [
       {
         "monster": "Dark Priest",
+        "mobId": 1198,
         "rate": 1,
         "isMvp": false
       }
@@ -2596,6 +2866,7 @@
     "drops": [
       {
         "monster": "Dark Shadow",
+        "mobId": 2023,
         "rate": 1,
         "isMvp": false
       }
@@ -2612,6 +2883,7 @@
     "drops": [
       {
         "monster": "Death Word",
+        "mobId": 1698,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2650,6 +2922,7 @@
     "drops": [
       {
         "monster": "Demon Pungus",
+        "mobId": 1378,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2688,6 +2961,7 @@
     "drops": [
       {
         "monster": "Desert Wolf",
+        "mobId": 1106,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2714,6 +2988,7 @@
     "drops": [
       {
         "monster": "Despero of Thanatos",
+        "mobId": 1705,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2736,6 +3011,7 @@
     "drops": [
       {
         "monster": "Detardeurus",
+        "mobId": 1719,
         "rate": 1,
         "isMvp": true
       }
@@ -2752,6 +3028,7 @@
     "drops": [
       {
         "monster": "Deviace",
+        "mobId": 1108,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2774,6 +3051,7 @@
     "drops": [
       {
         "monster": "Deviling",
+        "mobId": 1582,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2800,6 +3078,7 @@
     "drops": [
       {
         "monster": "Deviruchi",
+        "mobId": 1109,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2936,6 +3215,7 @@
     "drops": [
       {
         "monster": "Diabolic",
+        "mobId": 1382,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2958,6 +3238,7 @@
     "drops": [
       {
         "monster": "Dimik",
+        "mobId": 1669,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -2984,6 +3265,7 @@
     "drops": [
       {
         "monster": "Disguise",
+        "mobId": 1506,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3006,6 +3288,7 @@
     "drops": [
       {
         "monster": "Dokebi",
+        "mobId": 1110,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3036,6 +3319,7 @@
     "drops": [
       {
         "monster": "Dolor of Thanatos",
+        "mobId": 1707,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3058,6 +3342,7 @@
     "drops": [
       {
         "monster": "Doppelganger",
+        "mobId": 1046,
         "rate": 1,
         "isMvp": true
       }
@@ -3074,6 +3359,7 @@
     "drops": [
       {
         "monster": "Draco",
+        "mobId": 2013,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3096,6 +3382,7 @@
     "drops": [
       {
         "monster": "Dracula",
+        "mobId": 1389,
         "rate": 1,
         "isMvp": true
       }
@@ -3112,6 +3399,7 @@
     "drops": [
       {
         "monster": "Dragon Egg",
+        "mobId": 1721,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3146,6 +3434,7 @@
     "drops": [
       {
         "monster": "Dragon Fly",
+        "mobId": 1091,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3168,6 +3457,7 @@
     "drops": [
       {
         "monster": "Dragon Tail",
+        "mobId": 1321,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3192,7 +3482,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4178.png",
     "description": "Increases the damage inflicted with [Double Strafe] and [Arrow Shower] by 5%.\nSet bonus with Merman Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type, Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.\nSet bonus with Anolian Card, Alligator Card, Cruiser Card, Green Ferus Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
-    "prefix": "Bow-Master's"
+    "prefix": "Bow-Master's",
+    "setBonuses": [
+      {
+        "title": "Hunter Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Merman Card"
+        ]
+      },
+      {
+        "title": "Bard/Dancer Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Green Ferus Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4069,
@@ -3202,6 +3514,7 @@
     "drops": [
       {
         "monster": "Drainliar",
+        "mobId": 1111,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3240,6 +3553,7 @@
     "drops": [
       {
         "monster": "Drake",
+        "mobId": 1112,
         "rate": 1,
         "isMvp": true
       }
@@ -3256,6 +3570,7 @@
     "drops": [
       {
         "monster": "Driller",
+        "mobId": 1380,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3286,6 +3601,7 @@
     "drops": [
       {
         "monster": "Drops",
+        "mobId": 1113,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3324,6 +3640,7 @@
     "drops": [
       {
         "monster": "Drosera",
+        "mobId": 1781,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3362,6 +3679,7 @@
     "drops": [
       {
         "monster": "Dryad",
+        "mobId": 1493,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3388,6 +3706,7 @@
     "drops": [
       {
         "monster": "Dullahan",
+        "mobId": 1504,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3418,6 +3737,7 @@
     "drops": [
       {
         "monster": "Dumpling Child",
+        "mobId": 1409,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3440,6 +3760,7 @@
     "drops": [
       {
         "monster": "Dustiness",
+        "mobId": 1114,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3478,6 +3799,7 @@
     "drops": [
       {
         "monster": "Deleter",
+        "mobId": 1384,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3508,6 +3830,7 @@
     "drops": [
       {
         "monster": "Petite",
+        "mobId": 1155,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3542,6 +3865,7 @@
     "drops": [
       {
         "monster": "Echio",
+        "mobId": 1770,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3568,6 +3892,7 @@
     "drops": [
       {
         "monster": "Eclipse",
+        "mobId": 1093,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3594,6 +3919,7 @@
     "drops": [
       {
         "monster": "Eddga",
+        "mobId": 1115,
         "rate": 1,
         "isMvp": true
       }
@@ -3610,6 +3936,7 @@
     "drops": [
       {
         "monster": "Eggyra",
+        "mobId": 1116,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3640,6 +3967,7 @@
     "drops": [
       {
         "monster": "Egnigem Cenia",
+        "mobId": 1652,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3666,6 +3994,7 @@
     "drops": [
       {
         "monster": "Elder",
+        "mobId": 1377,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3704,6 +4033,7 @@
     "drops": [
       {
         "monster": "Elder Willow",
+        "mobId": 1033,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3730,6 +4060,7 @@
     "drops": [
       {
         "monster": "Enchanted Peach Tree",
+        "mobId": 1410,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3746,7 +4077,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4217.png",
     "description": "Adds a 2% chance of using [Heal] Lv 1, or Lv 10 if learned by the user, on the user when doing a physical attack.\nSet bonus with Rideword Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.",
-    "prefix": "Rejuvenating"
+    "prefix": "Rejuvenating",
+    "setBonuses": [
+      {
+        "title": "Acolyte Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Geographer Card",
+          "Enchanted Peach Tree Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4451,
@@ -3756,6 +4099,7 @@
     "drops": [
       {
         "monster": "Entweihen Crothen",
+        "mobId": 1957,
         "rate": 1,
         "isMvp": false
       }
@@ -3772,6 +4116,7 @@
     "drops": [
       {
         "monster": "Eremes Guile",
+        "mobId": 1635,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3798,6 +4143,7 @@
     "drops": [
       {
         "monster": "Errende Ebecee",
+        "mobId": 1655,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3824,6 +4170,7 @@
     "drops": [
       {
         "monster": "Evil Druid",
+        "mobId": 1117,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3854,6 +4201,7 @@
     "drops": [
       {
         "monster": "Evil Nymph",
+        "mobId": 1416,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3876,6 +4224,7 @@
     "drops": [
       {
         "monster": "Evil Snake Lord",
+        "mobId": 1418,
         "rate": 1,
         "isMvp": true
       }
@@ -3892,6 +4241,7 @@
     "drops": [
       {
         "monster": "Executioner",
+        "mobId": 1205,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3930,6 +4280,7 @@
     "drops": [
       {
         "monster": "Explosion",
+        "mobId": 1383,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3952,6 +4303,7 @@
     "drops": [
       {
         "monster": "Fabre",
+        "mobId": 1007,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -3990,6 +4342,7 @@
     "drops": [
       {
         "monster": "Fallen Bishop Hibram",
+        "mobId": 1871,
         "rate": 1,
         "isMvp": true
       }
@@ -4006,6 +4359,7 @@
     "drops": [
       {
         "monster": "False Angel",
+        "mobId": 1371,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4040,6 +4394,7 @@
     "drops": [
       {
         "monster": "Familiar",
+        "mobId": 1005,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4078,6 +4433,7 @@
     "drops": [
       {
         "monster": "Thief Bug Female",
+        "mobId": 1053,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4116,6 +4472,7 @@
     "drops": [
       {
         "monster": "Firelock Soldier",
+        "mobId": 1403,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4146,6 +4503,7 @@
     "drops": [
       {
         "monster": "Flame Skull",
+        "mobId": 1869,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4198,6 +4556,7 @@
     "drops": [
       {
         "monster": "Flora",
+        "mobId": 1118,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4236,6 +4595,7 @@
     "drops": [
       {
         "monster": "Freezer",
+        "mobId": 1319,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4260,7 +4620,28 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4319.png",
     "description": "If the footgear is upgraded to +9 or higher, increases the damage inflicted with [Bash] by 10%.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Heater Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%. Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.\nIf used by a Crusader job type, changes the user to [Holy] element.",
-    "prefix": "Sword-Master's"
+    "prefix": "Sword-Master's",
+    "setBonuses": [
+      {
+        "title": "Swordman Card Set",
+        "members": [
+          "Assaulter Card",
+          "Permeter Card",
+          "Solider Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      },
+      {
+        "title": "Crusader Card Set",
+        "members": [
+          "Archdam Card",
+          "Permeter Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4088,
@@ -4270,6 +4651,7 @@
     "drops": [
       {
         "monster": "Frilldora",
+        "mobId": 1119,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4296,6 +4678,7 @@
     "drops": [
       {
         "monster": "Frus",
+        "mobId": 1753,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4322,6 +4705,7 @@
     "drops": [
       {
         "monster": "Gajomart",
+        "mobId": 1309,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4344,6 +4728,7 @@
     "drops": [
       {
         "monster": "Galapago",
+        "mobId": 1391,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4366,6 +4751,7 @@
     "drops": [
       {
         "monster": "Galion",
+        "mobId": 1783,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4404,6 +4790,7 @@
     "drops": [
       {
         "monster": "Gargoyle",
+        "mobId": 1253,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4442,6 +4829,7 @@
     "drops": [
       {
         "monster": "Gazeti",
+        "mobId": 1778,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4472,6 +4860,7 @@
     "drops": [
       {
         "monster": "Gemini-S58",
+        "mobId": 1681,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4498,6 +4887,7 @@
     "drops": [
       {
         "monster": "Egnigem Cenia",
+        "mobId": 1652,
         "rate": 1,
         "isMvp": true,
         "maps": [
@@ -4524,6 +4914,7 @@
     "drops": [
       {
         "monster": "Geographer",
+        "mobId": 1368,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4552,7 +4943,28 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4280.png",
     "description": "Adds a 5% chance of using [Blessing] Lv 2, or Lv 10 if learned by the user, on the user when physically attacked.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.",
-    "prefix": "Blessed"
+    "prefix": "Blessed",
+    "setBonuses": [
+      {
+        "title": "Acolyte Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Enchanted Peach Tree Card"
+        ]
+      },
+      {
+        "title": "Acolyte Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Geographer Card",
+          "Enchanted Peach Tree Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4047,
@@ -4562,6 +4974,7 @@
     "drops": [
       {
         "monster": "Ghostring",
+        "mobId": 1120,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4596,6 +5009,7 @@
     "drops": [
       {
         "monster": "Ghoul",
+        "mobId": 1036,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4634,6 +5048,7 @@
     "drops": [
       {
         "monster": "Giant Hornet",
+        "mobId": 1303,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4656,6 +5071,7 @@
     "drops": [
       {
         "monster": "Giant Spider",
+        "mobId": 1304,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4678,6 +5094,7 @@
     "drops": [
       {
         "monster": "Giant Whisper",
+        "mobId": 1186,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4704,6 +5121,7 @@
     "drops": [
       {
         "monster": "Gibbet",
+        "mobId": 1503,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4734,6 +5152,7 @@
     "drops": [
       {
         "monster": "Giearth",
+        "mobId": 1121,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4772,6 +5191,7 @@
     "drops": [
       {
         "monster": "Gig",
+        "mobId": 1387,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4794,6 +5214,7 @@
     "drops": [
       {
         "monster": "Gloom Under Night",
+        "mobId": 1768,
         "rate": 1,
         "isMvp": true
       }
@@ -4810,6 +5231,7 @@
     "drops": [
       {
         "monster": "Goat",
+        "mobId": 1372,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4840,6 +5262,7 @@
     "drops": [
       {
         "monster": "Goblin Archer",
+        "mobId": 1258,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4874,11 +5297,13 @@
     "drops": [
       {
         "monster": "Christmas Goblin",
+        "mobId": 1245,
         "rate": 1,
         "isMvp": false
       },
       {
         "monster": "Goblin",
+        "mobId": 1122,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4905,6 +5330,7 @@
     "drops": [
       {
         "monster": "Goblin Leader",
+        "mobId": 1299,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4927,6 +5353,7 @@
     "drops": [
       {
         "monster": "Goblin Steamrider",
+        "mobId": 1280,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4949,6 +5376,7 @@
     "drops": [
       {
         "monster": "Acidus",
+        "mobId": 1713,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -4975,6 +5403,7 @@
     "drops": [
       {
         "monster": "Golden Thief Bug",
+        "mobId": 1086,
         "rate": 1,
         "isMvp": true
       }
@@ -4991,6 +5420,7 @@
     "drops": [
       {
         "monster": "Golem",
+        "mobId": 1040,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5021,6 +5451,7 @@
     "drops": [
       {
         "monster": "Grand Peco",
+        "mobId": 1369,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5047,6 +5478,7 @@
     "drops": [
       {
         "monster": "Greatest General",
+        "mobId": 1277,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5085,6 +5517,7 @@
     "drops": [
       {
         "monster": "Ferus",
+        "mobId": 1714,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5101,7 +5534,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4381.png",
     "description": "VIT +1\nMax HP +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nDex +5\nIncreases the damage inflicted with [Melody Strike] and [Slinging Arrow] by 10%.Increases the damage inflicted with [Arrow Vulcan] by 5%.If used by a Bard or Dancer job type, adds a 5% chance of using [Tarot Card of Fate] Lv 2 on the target when physically attacked.",
-    "prefix": "of Wonderer"
+    "prefix": "of Wonderer",
+    "setBonuses": [
+      {
+        "title": "Bard/Dancer Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Green Ferus Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4373,
@@ -5111,6 +5556,7 @@
     "drops": [
       {
         "monster": "Green Maiden",
+        "mobId": 1519,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5133,6 +5579,7 @@
     "drops": [
       {
         "monster": "Gremlin",
+        "mobId": 1632,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5163,6 +5610,7 @@
     "drops": [
       {
         "monster": "Grizzly",
+        "mobId": 1381,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5189,6 +5637,7 @@
     "drops": [
       {
         "monster": "Grove",
+        "mobId": 1687,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5227,6 +5676,7 @@
     "drops": [
       {
         "monster": "Gryphon",
+        "mobId": 1259,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5257,6 +5707,7 @@
     "drops": [
       {
         "monster": "Gullinbursti",
+        "mobId": 1311,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5279,6 +5730,7 @@
     "drops": [
       {
         "monster": "Harpy",
+        "mobId": 1376,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5317,6 +5769,7 @@
     "drops": [
       {
         "monster": "Baby Hatii",
+        "mobId": 1515,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5343,6 +5796,7 @@
     "drops": [
       {
         "monster": "Hatii",
+        "mobId": 1252,
         "rate": 1,
         "isMvp": true
       }
@@ -5359,6 +5813,7 @@
     "drops": [
       {
         "monster": "Heater",
+        "mobId": 1318,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5375,7 +5830,28 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4331.png",
     "description": "If the user is a Swordman job type, P. Dodge +3.\nSet bonus with Solider Card, Assaulter Card, Permeter Card, Freezer Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Permeter Card, Freezer Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%.Increases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.If used by a Crusader job type, changes the user to [Holy] element.",
-    "prefix": "Evasion"
+    "prefix": "Evasion",
+    "setBonuses": [
+      {
+        "title": "Swordman Card Set",
+        "members": [
+          "Assaulter Card",
+          "Permeter Card",
+          "Solider Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      },
+      {
+        "title": "Crusader Card Set",
+        "members": [
+          "Archdam Card",
+          "Permeter Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4437,
@@ -5385,6 +5861,7 @@
     "drops": [
       {
         "monster": "Hell Poodle",
+        "mobId": 1866,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5411,6 +5888,7 @@
     "drops": [
       {
         "monster": "Hermit Plant",
+        "mobId": 1413,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5437,6 +5915,7 @@
     "drops": [
       {
         "monster": "High Orc",
+        "mobId": 1213,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5467,6 +5946,7 @@
     "drops": [
       {
         "monster": "High Priest Margaretha",
+        "mobId": 1643,
         "rate": 1,
         "isMvp": true,
         "maps": [
@@ -5489,6 +5969,7 @@
     "drops": [
       {
         "monster": "High Wizard Kathryne",
+        "mobId": 1645,
         "rate": 1,
         "isMvp": true,
         "maps": [
@@ -5511,6 +5992,7 @@
     "drops": [
       {
         "monster": "Hill Wind",
+        "mobId": 1629,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5545,6 +6027,7 @@
     "drops": [
       {
         "monster": "Hillslion",
+        "mobId": 1989,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5571,6 +6054,7 @@
     "drops": [
       {
         "monster": "Hode",
+        "mobId": 1127,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5605,6 +6089,7 @@
     "drops": [
       {
         "monster": "Hodremlin",
+        "mobId": 1773,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5643,6 +6128,7 @@
     "drops": [
       {
         "monster": "Holden",
+        "mobId": 1628,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5671,7 +6157,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4343.png",
     "description": "LUK +2\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Zipper Bear Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.\nRemoves the draining of SP when attacking.\nIf used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.\nAdds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
-    "prefix": "of Creator"
+    "prefix": "of Creator",
+    "setBonuses": [
+      {
+        "title": "Alchemist Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Muka Card",
+          "Holden Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4045,
@@ -5681,6 +6179,7 @@
     "drops": [
       {
         "monster": "Horn",
+        "mobId": 1128,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5719,6 +6218,7 @@
     "drops": [
       {
         "monster": "Hornet",
+        "mobId": 1004,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5753,6 +6253,7 @@
     "drops": [
       {
         "monster": "Horong",
+        "mobId": 1129,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5783,6 +6284,7 @@
     "drops": [
       {
         "monster": "Howard Alt-Eisen",
+        "mobId": 1636,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5805,6 +6307,7 @@
     "drops": [
       {
         "monster": "Hunter Fly",
+        "mobId": 1035,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5843,6 +6346,7 @@
     "drops": [
       {
         "monster": "Hydra",
+        "mobId": 1068,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5881,6 +6385,7 @@
     "drops": [
       {
         "monster": "Hydrolancer",
+        "mobId": 1720,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5903,6 +6408,7 @@
     "drops": [
       {
         "monster": "Heirozoist",
+        "mobId": 1510,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5923,7 +6429,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4321.png",
     "description": "Adds a 1% chance to transform a normal monster into another when attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Zipper Bear Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.",
-    "prefix": "Polymorphic"
+    "prefix": "Polymorphic",
+    "setBonuses": [
+      {
+        "title": "Merchant Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Myst Case Card",
+          "Heirozoist Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4417,
@@ -5933,6 +6451,7 @@
     "drops": [
       {
         "monster": "Ice Titan",
+        "mobId": 1777,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -5959,6 +6478,7 @@
     "drops": [
       {
         "monster": "Ifrit",
+        "mobId": 1832,
         "rate": 1,
         "isMvp": true
       }
@@ -5975,6 +6495,7 @@
     "drops": [
       {
         "monster": "Fire Imp",
+        "mobId": 1837,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6001,6 +6522,7 @@
     "drops": [
       {
         "monster": "Incubus",
+        "mobId": 1374,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6035,6 +6557,7 @@
     "drops": [
       {
         "monster": "Injustice",
+        "mobId": 1257,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6175,6 +6698,7 @@
     "drops": [
       {
         "monster": "Iron Fist",
+        "mobId": 1212,
         "rate": 1,
         "isMvp": false
       }
@@ -6191,6 +6715,7 @@
     "drops": [
       {
         "monster": "Isilla",
+        "mobId": 1772,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6221,6 +6746,7 @@
     "drops": [
       {
         "monster": "Isis",
+        "mobId": 1029,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6247,11 +6773,13 @@
     "drops": [
       {
         "monster": "Christmas Jakk",
+        "mobId": 1244,
         "rate": 1,
         "isMvp": false
       },
       {
         "monster": "Jakk",
+        "mobId": 1130,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6274,6 +6802,7 @@
     "drops": [
       {
         "monster": "Jing Guai",
+        "mobId": 1517,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6296,6 +6825,7 @@
     "drops": [
       {
         "monster": "Joker",
+        "mobId": 1131,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6318,6 +6848,7 @@
     "drops": [
       {
         "monster": "Kaho",
+        "mobId": 1072,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6344,6 +6875,7 @@
     "drops": [
       {
         "monster": "Kapha",
+        "mobId": 1406,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6366,6 +6898,7 @@
     "drops": [
       {
         "monster": "Karakasa",
+        "mobId": 1400,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6388,6 +6921,7 @@
     "drops": [
       {
         "monster": "Kasa",
+        "mobId": 1833,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6414,6 +6948,7 @@
     "drops": [
       {
         "monster": "Kathryne Keyron",
+        "mobId": 1639,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6436,6 +6971,7 @@
     "drops": [
       {
         "monster": "Kavach Icarus",
+        "mobId": 1656,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6462,6 +6998,7 @@
     "drops": [
       {
         "monster": "Khalitzburg",
+        "mobId": 1132,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6492,6 +7029,7 @@
     "drops": [
       {
         "monster": "Kiel D-01",
+        "mobId": 1734,
         "rate": 1,
         "isMvp": true
       }
@@ -6508,6 +7046,7 @@
     "drops": [
       {
         "monster": "Killer Mantis",
+        "mobId": 1294,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6534,6 +7073,7 @@
     "drops": [
       {
         "monster": "Knocker",
+        "mobId": 1838,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6556,6 +7096,7 @@
     "drops": [
       {
         "monster": "Kobold Archer",
+        "mobId": 1282,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6590,6 +7131,7 @@
     "drops": [
       {
         "monster": "Kobold",
+        "mobId": 1133,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6620,6 +7162,7 @@
     "drops": [
       {
         "monster": "Kobold Leader",
+        "mobId": 1296,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6642,6 +7185,7 @@
     "drops": [
       {
         "monster": "Kraben",
+        "mobId": 1587,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6668,6 +7212,7 @@
     "drops": [
       {
         "monster": "Ktullanux",
+        "mobId": 1779,
         "rate": 1,
         "isMvp": true
       }
@@ -6684,6 +7229,7 @@
     "drops": [
       {
         "monster": "Kukre",
+        "mobId": 1070,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6718,6 +7264,7 @@
     "drops": [
       {
         "monster": "Lady Solace",
+        "mobId": 1703,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6756,6 +7303,7 @@
     "drops": [
       {
         "monster": "Lady Tanee",
+        "mobId": 1688,
         "rate": 1,
         "isMvp": true
       }
@@ -6772,6 +7320,7 @@
     "drops": [
       {
         "monster": "Laurell Weinder",
+        "mobId": 1657,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6798,6 +7347,7 @@
     "drops": [
       {
         "monster": "Lava Golem",
+        "mobId": 1366,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6824,6 +7374,7 @@
     "drops": [
       {
         "monster": "Leaf Cat",
+        "mobId": 1586,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6854,6 +7405,7 @@
     "drops": [
       {
         "monster": "Leib Olmai",
+        "mobId": 1306,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6884,6 +7436,7 @@
     "drops": [
       {
         "monster": "Loli Ruri",
+        "mobId": 1505,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6906,6 +7459,7 @@
     "drops": [
       {
         "monster": "Lord Knight Seyren",
+        "mobId": 1640,
         "rate": 1,
         "isMvp": true,
         "maps": [
@@ -6928,6 +7482,7 @@
     "drops": [
       {
         "monster": "Lord of the Dead",
+        "mobId": 1373,
         "rate": 1,
         "isMvp": true
       }
@@ -6944,6 +7499,7 @@
     "drops": [
       {
         "monster": "Luciola Vespa",
+        "mobId": 1994,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -6970,6 +7526,7 @@
     "drops": [
       {
         "monster": "Lude",
+        "mobId": 1509,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7110,6 +7667,7 @@
     "drops": [
       {
         "monster": "Lunatic",
+        "mobId": 1063,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7148,6 +7706,7 @@
     "drops": [
       {
         "monster": "Maero of Thanatos",
+        "mobId": 1706,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7170,6 +7729,7 @@
     "drops": [
       {
         "monster": "Magmaring",
+        "mobId": 1836,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7200,6 +7760,7 @@
     "drops": [
       {
         "monster": "Magnolia",
+        "mobId": 1138,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7230,6 +7791,7 @@
     "drops": [
       {
         "monster": "Majoruros",
+        "mobId": 1310,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7252,6 +7814,7 @@
     "drops": [
       {
         "monster": "Thief Bug Male",
+        "mobId": 1054,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7282,6 +7845,7 @@
     "drops": [
       {
         "monster": "Mandragora",
+        "mobId": 1020,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7316,6 +7880,7 @@
     "drops": [
       {
         "monster": "Mantis",
+        "mobId": 1139,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7354,6 +7919,7 @@
     "drops": [
       {
         "monster": "Mao Guai",
+        "mobId": 1513,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7376,6 +7942,7 @@
     "drops": [
       {
         "monster": "Marc",
+        "mobId": 1045,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7398,6 +7965,7 @@
     "drops": [
       {
         "monster": "Marduk",
+        "mobId": 1140,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7420,6 +7988,7 @@
     "drops": [
       {
         "monster": "Margaretha Sorin",
+        "mobId": 1637,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7442,6 +8011,7 @@
     "drops": [
       {
         "monster": "Marin",
+        "mobId": 1242,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7476,6 +8046,7 @@
     "drops": [
       {
         "monster": "Marina",
+        "mobId": 1141,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7510,6 +8081,7 @@
     "drops": [
       {
         "monster": "Marine Sphere",
+        "mobId": 1142,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7536,6 +8108,7 @@
     "drops": [
       {
         "monster": "Marionette",
+        "mobId": 1143,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7566,6 +8139,7 @@
     "drops": [
       {
         "monster": "Marse",
+        "mobId": 1144,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7588,6 +8162,7 @@
     "drops": [
       {
         "monster": "Martin",
+        "mobId": 1145,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7622,6 +8197,7 @@
     "drops": [
       {
         "monster": "Mastering",
+        "mobId": 1090,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7656,6 +8232,7 @@
     "drops": [
       {
         "monster": "Whitesmith Howard",
+        "mobId": 1642,
         "rate": 1,
         "isMvp": true,
         "maps": [
@@ -7694,6 +8271,7 @@
     "drops": [
       {
         "monster": "Matyr",
+        "mobId": 1146,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7732,6 +8310,7 @@
     "drops": [
       {
         "monster": "Maya",
+        "mobId": 1147,
         "rate": 1,
         "isMvp": true
       }
@@ -7748,6 +8327,7 @@
     "drops": [
       {
         "monster": "Maya Purple",
+        "mobId": 1289,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7774,6 +8354,7 @@
     "drops": [
       {
         "monster": "Medusa",
+        "mobId": 1148,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7796,6 +8377,7 @@
     "drops": [
       {
         "monster": "Megalith",
+        "mobId": 1274,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7818,6 +8400,7 @@
     "drops": [
       {
         "monster": "Megalodon",
+        "mobId": 1064,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7840,6 +8423,7 @@
     "drops": [
       {
         "monster": "Memory of Thanatos",
+        "mobId": 1708,
         "rate": 1,
         "isMvp": true
       }
@@ -7856,6 +8440,7 @@
     "drops": [
       {
         "monster": "Merman",
+        "mobId": 1264,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7880,7 +8465,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4199.png",
     "description": "HP Recovery +10%\nSP Recovery +10%\nSet bonus with Dragon Tail Card, Anolian Card, Alligator Card, Cruiser Card\nIncreases the experience given from [Brute] race monsters by 5%.Agi +5\nDex +3\nPerfect Hit +20\nIncreases damage with ranged attacks by 20%.If used by an Archer job type,Adds a 1% chance of inflicting [Coma] on [Brute] race targets when doing a physical attack.",
-    "prefix": "Dashing"
+    "prefix": "Dashing",
+    "setBonuses": [
+      {
+        "title": "Hunter Card Set",
+        "members": [
+          "Cruiser Card",
+          "Anolian Card",
+          "Alligator Card",
+          "Dragon Tail Card",
+          "Merman Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4341,
@@ -7890,6 +8487,7 @@
     "drops": [
       {
         "monster": "Metaling",
+        "mobId": 1613,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7928,6 +8526,7 @@
     "drops": [
       {
         "monster": "Metaller",
+        "mobId": 1058,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7954,6 +8553,7 @@
     "drops": [
       {
         "monster": "Mi Gao",
+        "mobId": 1516,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -7980,6 +8580,7 @@
     "drops": [
       {
         "monster": "Mimic",
+        "mobId": 1191,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8018,6 +8619,7 @@
     "drops": [
       {
         "monster": "Mineral",
+        "mobId": 1614,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8048,6 +8650,7 @@
     "drops": [
       {
         "monster": "Mini Demon",
+        "mobId": 1292,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8086,6 +8689,7 @@
     "drops": [
       {
         "monster": "Minorous",
+        "mobId": 1149,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8112,6 +8716,7 @@
     "drops": [
       {
         "monster": "Mistress",
+        "mobId": 1059,
         "rate": 1,
         "isMvp": true
       }
@@ -8128,6 +8733,7 @@
     "drops": [
       {
         "monster": "Mistress of Shelter",
+        "mobId": 1701,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8166,6 +8772,7 @@
     "drops": [
       {
         "monster": "Miyabi Doll",
+        "mobId": 1404,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8200,6 +8807,7 @@
     "drops": [
       {
         "monster": "Mobster",
+        "mobId": 1313,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8222,6 +8830,7 @@
     "drops": [
       {
         "monster": "Moonlight Flower",
+        "mobId": 1150,
         "rate": 1,
         "isMvp": true
       }
@@ -8238,6 +8847,7 @@
     "drops": [
       {
         "monster": "Muka",
+        "mobId": 1055,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8258,7 +8868,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4036.png",
     "description": "HP Recovery +10%\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.\nRemoves the draining of SP when attacking.\nIf used by an Alchemist job type, Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.\nAdds a 0.1% chance of the Stem item dropping when killing a monster.\nAdds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
-    "prefix": "Robust"
+    "prefix": "Robust",
+    "setBonuses": [
+      {
+        "title": "Alchemist Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Muka Card",
+          "Holden Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4106,
@@ -8268,6 +8890,7 @@
     "drops": [
       {
         "monster": "Mummy",
+        "mobId": 1041,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8302,6 +8925,7 @@
     "drops": [
       {
         "monster": "Munak",
+        "mobId": 1026,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8322,7 +8946,17 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4090.png",
     "description": "Increases resistance to [Stone Curse] status by 15%.\nReduces damage received from [Earth] element attacks by 5%.\nSet bonus with Bongun Card, Yao Jun Card\nAll stats +1",
-    "prefix": "Amulet"
+    "prefix": "Amulet",
+    "setBonuses": [
+      {
+        "title": "Tragic Trio Card Set",
+        "members": [
+          "Munak Card",
+          "Bongun Card",
+          "Yao Jun Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4420,
@@ -8332,6 +8966,7 @@
     "drops": [
       {
         "monster": "Muscipular",
+        "mobId": 1780,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8366,6 +9001,7 @@
     "drops": [
       {
         "monster": "Mutant Dragonoid",
+        "mobId": 1262,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8392,6 +9028,7 @@
     "drops": [
       {
         "monster": "Myst",
+        "mobId": 1151,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8414,6 +9051,7 @@
     "drops": [
       {
         "monster": "Myst Case",
+        "mobId": 1249,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8430,7 +9068,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4206.png",
     "description": "Adds a 0.3% chance of the Gift Box (Plain) item dropping when a monster is killed.\nSet bonus with Raggler Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.",
-    "prefix": "Cubic"
+    "prefix": "Cubic",
+    "setBonuses": [
+      {
+        "title": "Merchant Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Myst Case Card",
+          "Heirozoist Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4207,
@@ -8440,6 +9090,7 @@
     "drops": [
       {
         "monster": "Mysteltainn",
+        "mobId": 1203,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8478,6 +9129,7 @@
     "drops": [
       {
         "monster": "Necromancer",
+        "mobId": 1870,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8508,6 +9160,7 @@
     "drops": [
       {
         "monster": "Nereid",
+        "mobId": 1255,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8538,6 +9191,7 @@
     "drops": [
       {
         "monster": "Nightmare",
+        "mobId": 1061,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8564,6 +9218,7 @@
     "drops": [
       {
         "monster": "Nightmare Terror",
+        "mobId": 1379,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8586,6 +9241,7 @@
     "drops": [
       {
         "monster": "Nine Tail",
+        "mobId": 1180,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8624,6 +9280,7 @@
     "drops": [
       {
         "monster": "Noxious",
+        "mobId": 1620,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8646,6 +9303,7 @@
     "drops": [
       {
         "monster": "Obeaune",
+        "mobId": 1044,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8657,6 +9315,7 @@
       },
       {
         "monster": "Obeune",
+        "mobId": 1970,
         "rate": 1,
         "isMvp": false
       }
@@ -8673,6 +9332,7 @@
     "drops": [
       {
         "monster": "Obsidian",
+        "mobId": 1615,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8699,6 +9359,7 @@
     "drops": [
       {
         "monster": "Odium of Thanatos",
+        "mobId": 1704,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8721,6 +9382,7 @@
     "drops": [
       {
         "monster": "Ogretooth",
+        "mobId": 1204,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8759,6 +9421,7 @@
     "drops": [
       {
         "monster": "Orc Archer",
+        "mobId": 1189,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8789,6 +9452,7 @@
     "drops": [
       {
         "monster": "Orc Baby",
+        "mobId": 1686,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8811,6 +9475,7 @@
     "drops": [
       {
         "monster": "Orc Hero",
+        "mobId": 1087,
         "rate": 1,
         "isMvp": true
       }
@@ -8827,6 +9492,7 @@
     "drops": [
       {
         "monster": "Orc Lady",
+        "mobId": 1273,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8853,6 +9519,7 @@
     "drops": [
       {
         "monster": "Orc Lord",
+        "mobId": 1190,
         "rate": 1,
         "isMvp": true
       }
@@ -8869,6 +9536,7 @@
     "drops": [
       {
         "monster": "Orc Skeleton",
+        "mobId": 1152,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8895,11 +9563,13 @@
     "drops": [
       {
         "monster": "Christmas Orc",
+        "mobId": 1588,
         "rate": 1,
         "isMvp": false
       },
       {
         "monster": "Orc Warrior",
+        "mobId": 1023,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8923,6 +9593,7 @@
       },
       {
         "monster": "Smoking Orc",
+        "mobId": 1235,
         "rate": 1,
         "isMvp": false
       }
@@ -8939,6 +9610,7 @@
     "drops": [
       {
         "monster": "Orc Zombie",
+        "mobId": 1153,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -8961,6 +9633,7 @@
     "drops": [
       {
         "monster": "Osiris",
+        "mobId": 1038,
         "rate": 1,
         "isMvp": true
       }
@@ -8977,6 +9650,7 @@
     "drops": [
       {
         "monster": "Owl Baron",
+        "mobId": 1295,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9015,6 +9689,7 @@
     "drops": [
       {
         "monster": "Owl Duke",
+        "mobId": 1320,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9053,6 +9728,7 @@
     "drops": [
       {
         "monster": "Panzer Goblin",
+        "mobId": 1308,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9075,6 +9751,7 @@
     "drops": [
       {
         "monster": "Parasite",
+        "mobId": 1500,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9097,6 +9774,7 @@
     "drops": [
       {
         "monster": "Pasana",
+        "mobId": 1154,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9127,6 +9805,7 @@
     "drops": [
       {
         "monster": "Peco Peco",
+        "mobId": 1019,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9149,6 +9828,7 @@
     "drops": [
       {
         "monster": "Peco Peco Egg",
+        "mobId": 1047,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9187,6 +9867,7 @@
     "drops": [
       {
         "monster": "Penomena",
+        "mobId": 1216,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9217,6 +9898,7 @@
     "drops": [
       {
         "monster": "Permeter",
+        "mobId": 1314,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9245,7 +9927,28 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4311.png",
     "description": "Reduces damage received from [Shadow] and [Undead] element attacks by 15%.\nSet bonus with Solider Card, Assaulter Card, Freezer Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%\nAdds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.\nAdds a 5% chance of the Red Potion item dropping when killing a monster.\nIf used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.\nSet bonus with Freezer Card, Heater Card, Archdam Card\nStr +1\nInt +1\nDef +2\nSP Recovery Rate +10%\nReduces the variable cast time of skills by 10%.\nIncreases the damage inflicted with [Martyr's Reckoning] and [Rapid Smiting] by 10%.\nIf used by a Crusader job type, changes the user to [Holy] element.",
-    "prefix": "Anti-Evil"
+    "prefix": "Anti-Evil",
+    "setBonuses": [
+      {
+        "title": "Swordman Card Set",
+        "members": [
+          "Assaulter Card",
+          "Permeter Card",
+          "Solider Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      },
+      {
+        "title": "Crusader Card Set",
+        "members": [
+          "Archdam Card",
+          "Permeter Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4315,
@@ -9255,6 +9958,7 @@
     "drops": [
       {
         "monster": "Pest",
+        "mobId": 1256,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9293,6 +9997,7 @@
     "drops": [
       {
         "monster": "Pharaoh",
+        "mobId": 1157,
         "rate": 1,
         "isMvp": true
       }
@@ -9309,6 +10014,7 @@
     "drops": [
       {
         "monster": "Phen",
+        "mobId": 1158,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9331,6 +10037,7 @@
     "drops": [
       {
         "monster": "Phendark",
+        "mobId": 1202,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9353,6 +10060,7 @@
     "drops": [
       {
         "monster": "Phreeoni",
+        "mobId": 1159,
         "rate": 1,
         "isMvp": true
       }
@@ -9369,6 +10077,7 @@
     "drops": [
       {
         "monster": "Picky",
+        "mobId": 1049,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9399,6 +10108,7 @@
     "drops": [
       {
         "monster": "Picky",
+        "mobId": 1049,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9429,6 +10139,7 @@
     "drops": [
       {
         "monster": "Pirate Skeleton",
+        "mobId": 1071,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9455,6 +10166,7 @@
     "drops": [
       {
         "monster": "Pitman",
+        "mobId": 1616,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9477,6 +10189,7 @@
     "drops": [
       {
         "monster": "Plankton",
+        "mobId": 1161,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9515,6 +10228,7 @@
     "drops": [
       {
         "monster": "Plasma",
+        "mobId": 1693,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9553,6 +10267,7 @@
     "drops": [
       {
         "monster": "Poison Spore",
+        "mobId": 1077,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9591,6 +10306,7 @@
     "drops": [
       {
         "monster": "Poison Toad",
+        "mobId": 1402,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9617,6 +10333,7 @@
     "drops": [
       {
         "monster": "Poporing",
+        "mobId": 1031,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9655,6 +10372,7 @@
     "drops": [
       {
         "monster": "Porcellio",
+        "mobId": 1619,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9689,6 +10407,7 @@
     "drops": [
       {
         "monster": "Poring",
+        "mobId": 1002,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9727,6 +10446,7 @@
     "drops": [
       {
         "monster": "Punk",
+        "mobId": 1199,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9747,7 +10467,18 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4313.png",
     "description": "Adds a 5% chance of using [Quagmire] Lv 1, or Lv 5 if learned by the user, when physically attacked.\nSet bonus with Tower Keeper Card, Alarm Card, Clock Card\nDef +3\nMDef +3",
-    "prefix": "Bogie"
+    "prefix": "Bogie",
+    "setBonuses": [
+      {
+        "title": "Clocktower Card Set",
+        "members": [
+          "Tower Keeper Card",
+          "Punk Card",
+          "Alarm Card",
+          "Clock Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4003,
@@ -9757,6 +10488,7 @@
     "drops": [
       {
         "monster": "Pupa",
+        "mobId": 1008,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9795,6 +10527,7 @@
     "drops": [
       {
         "monster": "Quve",
+        "mobId": 1508,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9821,6 +10554,7 @@
     "drops": [
       {
         "monster": "Rafflesia",
+        "mobId": 1162,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9847,6 +10581,7 @@
     "drops": [
       {
         "monster": "Ragged Zombie",
+        "mobId": 1865,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9877,6 +10612,7 @@
     "drops": [
       {
         "monster": "Raggler",
+        "mobId": 1254,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9901,7 +10637,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4186.png",
     "description": "STR +1\nVIT +1\nSet bonus with Myst Case Card, Baby Leopard Card, Zipper Bear Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Baby Leopard Card, Zipper Bear Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
-    "prefix": "Strenuous"
+    "prefix": "Strenuous",
+    "setBonuses": [
+      {
+        "title": "Merchant Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Myst Case Card",
+          "Heirozoist Card"
+        ]
+      },
+      {
+        "title": "Alchemist Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Muka Card",
+          "Holden Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4407,
@@ -9911,6 +10669,7 @@
     "drops": [
       {
         "monster": "Valkyrie Randgris",
+        "mobId": 1751,
         "rate": 1,
         "isMvp": true
       }
@@ -9927,6 +10686,7 @@
     "drops": [
       {
         "monster": "Raydric Archer",
+        "mobId": 1276,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9961,6 +10721,7 @@
     "drops": [
       {
         "monster": "Raydric",
+        "mobId": 1163,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -9991,6 +10752,7 @@
     "drops": [
       {
         "monster": "Ferus",
+        "mobId": 1714,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10017,6 +10779,7 @@
     "drops": [
       {
         "monster": "Novus",
+        "mobId": 1715,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10055,6 +10818,7 @@
     "drops": [
       {
         "monster": "Remover",
+        "mobId": 1682,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10081,6 +10845,7 @@
     "drops": [
       {
         "monster": "Requiem",
+        "mobId": 1164,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10107,6 +10872,7 @@
     "drops": [
       {
         "monster": "Rideword",
+        "mobId": 1195,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10135,7 +10901,28 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4185.png",
     "description": "If used by an Acolyte job type\nInt +1\nMDef +1\nSet bonus with Enchanted Peach Tree Card, Geographer Card, Cookie Card, Fur Seal Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Cookie Card, Fur Seal Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
-    "prefix": "of Wisdom"
+    "prefix": "of Wisdom",
+    "setBonuses": [
+      {
+        "title": "Acolyte Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Geographer Card",
+          "Enchanted Peach Tree Card"
+        ]
+      },
+      {
+        "title": "Monk Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Waste Stove Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4021,
@@ -10145,6 +10932,7 @@
     "drops": [
       {
         "monster": "Rocker",
+        "mobId": 1052,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10175,6 +10963,7 @@
     "drops": [
       {
         "monster": "Roda Frog",
+        "mobId": 1012,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10201,6 +10990,7 @@
     "drops": [
       {
         "monster": "Rotar Zairo",
+        "mobId": 1392,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10223,6 +11013,7 @@
     "drops": [
       {
         "monster": "Roween",
+        "mobId": 1782,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10261,6 +11052,7 @@
     "drops": [
       {
         "monster": "RSX-0806",
+        "mobId": 1623,
         "rate": 1,
         "isMvp": true
       }
@@ -10277,6 +11069,7 @@
     "drops": [
       {
         "monster": "Rybio",
+        "mobId": 1201,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10303,6 +11096,7 @@
     "drops": [
       {
         "monster": "Sage Worm",
+        "mobId": 1281,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10329,6 +11123,7 @@
     "drops": [
       {
         "monster": "Salamander",
+        "mobId": 1831,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10359,6 +11154,7 @@
     "drops": [
       {
         "monster": "Samurai Specter",
+        "mobId": 1492,
         "rate": 1,
         "isMvp": true
       }
@@ -10375,6 +11171,7 @@
     "drops": [
       {
         "monster": "Sandman",
+        "mobId": 1165,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10409,11 +11206,13 @@
     "drops": [
       {
         "monster": "Bring it on!",
+        "mobId": 1502,
         "rate": 100,
         "isMvp": true
       },
       {
         "monster": "Santa Poring",
+        "mobId": 1062,
         "rate": 1,
         "isMvp": false
       }
@@ -10430,6 +11229,7 @@
     "drops": [
       {
         "monster": "Sasquatch",
+        "mobId": 1243,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10456,6 +11256,7 @@
     "drops": [
       {
         "monster": "Savage Babe",
+        "mobId": 1167,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10482,6 +11283,7 @@
     "drops": [
       {
         "monster": "Savage",
+        "mobId": 1166,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10520,6 +11322,7 @@
     "drops": [
       {
         "monster": "Scorpion",
+        "mobId": 1001,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10555,6 +11358,7 @@
     "drops": [
       {
         "monster": "Sea Otter",
+        "mobId": 1323,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10577,6 +11381,7 @@
     "drops": [
       {
         "monster": "Seal",
+        "mobId": 1317,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10589,7 +11394,28 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4312.png",
     "description": "If equipped by an Acolyte job type\nIncreases the user's critical attack rate on [Demon] and [Undead] race targets by 9%.\nSet bonus with Rideword Card, Enchanted Peach Tree Card, Geographer Card, Cookie Card\nIncreases the experience given from [Demon] and [Undead] race monsters by 5%.Vit +10\nReduces the variable cast time of skills by 10%.Reduces the SP cost of skills by 10%.If used by an Acolyte job type,Reduces damage received from [Demon] and [Undead] races by 30%.\nSet bonus with Rideword Card, Cookie Card, Waste Stove Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%.Adds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.If used by a Monk job type,Reduces the SP cost of skills by 10%.Prevents skill casting from being interrupted.",
-    "prefix": "of the Soul"
+    "prefix": "of the Soul",
+    "setBonuses": [
+      {
+        "title": "Acolyte Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Geographer Card",
+          "Enchanted Peach Tree Card"
+        ]
+      },
+      {
+        "title": "Monk Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Waste Stove Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4414,
@@ -10599,6 +11425,7 @@
     "drops": [
       {
         "monster": "Seeker",
+        "mobId": 1774,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10633,6 +11460,7 @@
     "drops": [
       {
         "monster": "Seyren Windsor",
+        "mobId": 1634,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10655,6 +11483,7 @@
     "drops": [
       {
         "monster": "Shellfish",
+        "mobId": 1074,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10679,7 +11508,17 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4273.png",
     "description": "Increases physical damage against the Crab monster by 30%.\nSet bonus with Crab Card, Aster Card\nIncreases physical damage against [Water] element targets by 30%.Adds a 30% chance of the Raw Fish item dropping when killing a [Fish] race monster.",
-    "prefix": "Shell"
+    "prefix": "Shell",
+    "setBonuses": [
+      {
+        "title": "Beach Card Set",
+        "members": [
+          "Shell Fish Card",
+          "Crab Card",
+          "Aster Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4230,
@@ -10689,6 +11528,7 @@
     "drops": [
       {
         "monster": "Shinobi",
+        "mobId": 1401,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10709,7 +11549,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4230.png",
     "description": "Adds a 10% chance of using [Cloaking] of the highest level known (to a maximum of level 5) when physically attacked. If [Cloaking] is not learned, level 1 is used instead.\nSet bonus with The Paper Card, Wanderer Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Wild Rose Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
-    "prefix": "Coward's"
+    "prefix": "Coward's",
+    "setBonuses": [
+      {
+        "title": "Thief Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Zhu Po Long Card",
+          "The Paper Card"
+        ]
+      },
+      {
+        "title": "Rogue Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Stainer Card",
+          "Wickebine Tres Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4117,
@@ -10719,6 +11581,7 @@
     "drops": [
       {
         "monster": "Side Winder",
+        "mobId": 1037,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10757,6 +11620,7 @@
     "drops": [
       {
         "monster": "Siroma",
+        "mobId": 1776,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10783,6 +11647,7 @@
     "drops": [
       {
         "monster": "Skeggiold",
+        "mobId": 1754,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10809,6 +11674,7 @@
     "drops": [
       {
         "monster": "Skeleton",
+        "mobId": 1076,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10831,6 +11697,7 @@
     "drops": [
       {
         "monster": "Skeleton General",
+        "mobId": 1290,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10857,6 +11724,7 @@
     "drops": [
       {
         "monster": "Skeleton Prisoner",
+        "mobId": 1196,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10879,6 +11747,7 @@
     "drops": [
       {
         "monster": "Skeleton Worker",
+        "mobId": 1169,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10905,6 +11774,7 @@
     "drops": [
       {
         "monster": "Skogul",
+        "mobId": 1752,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10931,6 +11801,7 @@
     "drops": [
       {
         "monster": "Deleter",
+        "mobId": 1384,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10961,6 +11832,7 @@
     "drops": [
       {
         "monster": "Petite",
+        "mobId": 1155,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -10995,6 +11867,7 @@
     "drops": [
       {
         "monster": "Sleeper",
+        "mobId": 1386,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11033,6 +11906,7 @@
     "drops": [
       {
         "monster": "Smokie",
+        "mobId": 1056,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11071,6 +11945,7 @@
     "drops": [
       {
         "monster": "Boa",
+        "mobId": 1025,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11101,6 +11976,7 @@
     "drops": [
       {
         "monster": "Sniper Cecil",
+        "mobId": 1644,
         "rate": 1,
         "isMvp": true,
         "maps": [
@@ -11123,6 +11999,7 @@
     "drops": [
       {
         "monster": "Snowier",
+        "mobId": 1775,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11149,6 +12026,7 @@
     "drops": [
       {
         "monster": "Sohee",
+        "mobId": 1170,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11180,6 +12058,7 @@
     "drops": [
       {
         "monster": "Soldier Skeleton",
+        "mobId": 1028,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11210,6 +12089,7 @@
     "drops": [
       {
         "monster": "Solider",
+        "mobId": 1316,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11222,7 +12102,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4220.png",
     "description": "DEF +2\nMDEF +2\nSet bonus with Assaulter Card, Permeter Card, Freezer Card, Heater Card\nStr +10\nMax HP +20%\nHP Recovery Rate +50%Adds a 0.3% chance of using [Weapon Perfection] Lv 1 when doing a physical attack.Adds a 5% chance of the Red Potion item dropping when killing a monster.If used by a Swordman job type, increases the recovery rate of Red Potion, Yellow Potion and White Potion by 50%.",
-    "prefix": "Faithful"
+    "prefix": "Faithful",
+    "setBonuses": [
+      {
+        "title": "Swordman Card Set",
+        "members": [
+          "Assaulter Card",
+          "Permeter Card",
+          "Solider Card",
+          "Freezer Card",
+          "Heater Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4022,
@@ -11232,6 +12124,7 @@
     "drops": [
       {
         "monster": "Spore",
+        "mobId": 1014,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11270,6 +12163,7 @@
     "drops": [
       {
         "monster": "Spring Rabbit",
+        "mobId": 1322,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11292,6 +12186,7 @@
     "drops": [
       {
         "monster": "Stainer",
+        "mobId": 1174,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11320,7 +12215,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4039.png",
     "description": "Increases resistance to [Silence] status by 20%.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
-    "prefix": "of Aristotle"
+    "prefix": "of Aristotle",
+    "setBonuses": [
+      {
+        "title": "Rogue Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Stainer Card",
+          "Wickebine Tres Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4223,
@@ -11330,6 +12237,7 @@
     "drops": [
       {
         "monster": "Stalactic Golem",
+        "mobId": 1278,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11356,6 +12264,7 @@
     "drops": [
       {
         "monster": "Stapo",
+        "mobId": 1784,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11394,6 +12303,7 @@
     "drops": [
       {
         "monster": "Steel Chonchon",
+        "mobId": 1042,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11432,6 +12342,7 @@
     "drops": [
       {
         "monster": "Stem Worm",
+        "mobId": 1215,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11470,6 +12381,7 @@
     "drops": [
       {
         "monster": "Sting",
+        "mobId": 1207,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11496,6 +12408,7 @@
     "drops": [
       {
         "monster": "Stone Shooter",
+        "mobId": 1495,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11522,6 +12435,7 @@
     "drops": [
       {
         "monster": "Stormy Knight",
+        "mobId": 1251,
         "rate": 1,
         "isMvp": true
       }
@@ -11652,6 +12566,7 @@
     "drops": [
       {
         "monster": "Strouf",
+        "mobId": 1065,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11674,6 +12589,7 @@
     "drops": [
       {
         "monster": "Succubus",
+        "mobId": 1370,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11708,6 +12624,7 @@
     "drops": [
       {
         "monster": "Sword Master",
+        "mobId": 1829,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11738,6 +12655,7 @@
     "drops": [
       {
         "monster": "Swordfish",
+        "mobId": 1069,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11764,6 +12682,7 @@
     "drops": [
       {
         "monster": "Tamruan",
+        "mobId": 1584,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11786,6 +12705,7 @@
     "drops": [
       {
         "monster": "Tao Gunka",
+        "mobId": 1583,
         "rate": 1,
         "isMvp": true
       }
@@ -11802,6 +12722,7 @@
     "drops": [
       {
         "monster": "Tarou",
+        "mobId": 1175,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11836,6 +12757,7 @@
     "drops": [
       {
         "monster": "Tatacho",
+        "mobId": 1986,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11862,6 +12784,7 @@
     "drops": [
       {
         "monster": "Teddy Bear",
+        "mobId": 1622,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11884,6 +12807,7 @@
     "drops": [
       {
         "monster": "Tengu",
+        "mobId": 1405,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11906,6 +12830,7 @@
     "drops": [
       {
         "monster": "Thara Frog",
+        "mobId": 1034,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11932,6 +12857,7 @@
     "drops": [
       {
         "monster": "The Paper",
+        "mobId": 1375,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11948,7 +12874,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4172.png",
     "description": "Increases critical attack damage by 20%.\nDrains 1 SP from the user when physically attacking.\nSet bonus with Wanderer Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.Removes the chance of using [Snatch].Removes the draining of SP when attacking.If used by a Thief job type, removes one gemstone from the requirement of skills.",
-    "prefix": "Slicing"
+    "prefix": "Slicing",
+    "setBonuses": [
+      {
+        "title": "Thief Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Zhu Po Long Card",
+          "The Paper Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4016,
@@ -11958,6 +12896,7 @@
     "drops": [
       {
         "monster": "Thief Bug",
+        "mobId": 1051,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -11996,6 +12935,7 @@
     "drops": [
       {
         "monster": "Thief Bug Egg",
+        "mobId": 1048,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12034,6 +12974,7 @@
     "drops": [
       {
         "monster": "Toad",
+        "mobId": 1089,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12060,6 +13001,7 @@
     "drops": [
       {
         "monster": "Clock Tower Manager",
+        "mobId": 1270,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12084,7 +13026,18 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4229.png",
     "description": "Reduces the variable cast time of skills by an additional 5%.\nSet bonus with Alarm Card, Clock Card, Punk Card\nDef +3\nMDef +3\nSet bonus with Mechanical Plant Hat [1]\nReduces the variable casting time of skills by 10%.",
-    "prefix": "of Torment"
+    "prefix": "of Torment",
+    "setBonuses": [
+      {
+        "title": "Clocktower Card Set",
+        "members": [
+          "Tower Keeper Card",
+          "Punk Card",
+          "Alarm Card",
+          "Clock Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4308,
@@ -12094,6 +13047,7 @@
     "drops": [
       {
         "monster": "Tri Joint",
+        "mobId": 1279,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12116,6 +13070,7 @@
     "drops": [
       {
         "monster": "Turtle General",
+        "mobId": 1312,
         "rate": 1,
         "isMvp": true
       }
@@ -12132,6 +13087,7 @@
     "drops": [
       {
         "monster": "Ungoliant",
+        "mobId": 1618,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12162,6 +13118,7 @@
     "drops": [
       {
         "monster": "Vadon",
+        "mobId": 1066,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12188,6 +13145,7 @@
     "drops": [
       {
         "monster": "Vagabond Wolf",
+        "mobId": 1092,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12222,6 +13180,7 @@
     "drops": [
       {
         "monster": "Vanberk",
+        "mobId": 1771,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12248,6 +13207,7 @@
     "drops": [
       {
         "monster": "Venatu",
+        "mobId": 1675,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12278,6 +13238,7 @@
     "drops": [
       {
         "monster": "Venomous",
+        "mobId": 1621,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12300,6 +13261,7 @@
     "drops": [
       {
         "monster": "Verit",
+        "mobId": 1032,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12330,6 +13292,7 @@
     "drops": [
       {
         "monster": "Vesper",
+        "mobId": 1685,
         "rate": 1,
         "isMvp": true
       }
@@ -12346,6 +13309,7 @@
     "drops": [
       {
         "monster": "Violy",
+        "mobId": 1390,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12494,6 +13458,7 @@
     "drops": [
       {
         "monster": "Vitata",
+        "mobId": 1176,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12520,6 +13485,7 @@
     "drops": [
       {
         "monster": "Vocal",
+        "mobId": 1088,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12550,6 +13516,7 @@
     "drops": [
       {
         "monster": "Wanderer",
+        "mobId": 1208,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12574,7 +13541,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4210.png",
     "description": "Adds a 2% chance of using [Snatch] Lv 1 on the target when doing a physical attack.\nIf the user is a Thief job type,  Flee +20.\nSet bonus with The Paper Card, Shinobi Card, Wild Rose Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.\nRemoves the chance of using [Snatch].\nRemoves the draining of SP when attacking.\nIf used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Shinobi Card, Wild Rose Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.\nIf the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.\nIf used by a Rogue job type, reduces the SP cost of skills by 20%.\nRemoves the chance of using [Snatch].",
-    "prefix": "Pressure"
+    "prefix": "Pressure",
+    "setBonuses": [
+      {
+        "title": "Thief Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Zhu Po Long Card",
+          "The Paper Card"
+        ]
+      },
+      {
+        "title": "Rogue Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Stainer Card",
+          "Wickebine Tres Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4332,
@@ -12584,6 +13573,7 @@
     "drops": [
       {
         "monster": "Old Stove",
+        "mobId": 1617,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12600,7 +13590,18 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4332.png",
     "description": "ATK +5\nINT +1\nSet bonus with Rideword Card, Cookie Card, Fur Seal Card\nStr +3\nAtk +25\nMax SP +80\nIncreases the damage inflicted with [Guillotine Fist] by 10%.\nAdds a 1% chance of using [Signum Crusis] Lv 5 when doing a physical attack.\nIf used by a Monk job type, reduces the SP cost of skills by 10%.\nPrevents skill casting from being interrupted.",
-    "prefix": "of Talent"
+    "prefix": "of Talent",
+    "setBonuses": [
+      {
+        "title": "Monk Card Set",
+        "members": [
+          "Rideword Card",
+          "Cookie Card",
+          "Fur Seal Card",
+          "Waste Stove Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4102,
@@ -12610,6 +13611,7 @@
     "drops": [
       {
         "monster": "Whisper",
+        "mobId": 1179,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12636,6 +13638,7 @@
     "drops": [
       {
         "monster": "White Lady",
+        "mobId": 1518,
         "rate": 1,
         "isMvp": true
       }
@@ -12652,6 +13655,7 @@
     "drops": [
       {
         "monster": "Wickebine Tres",
+        "mobId": 1653,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12668,7 +13672,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4348.png",
     "description": "Adds a 5% chance of using [Divest Armor] Lv 1 on the target when doing a physical attack.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.If the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.If used by a Rogue job type,Reduces the SP cost of skills by 20%.Removes the chance of using [Snatch].",
-    "prefix": "Gangster"
+    "prefix": "Gangster",
+    "setBonuses": [
+      {
+        "title": "Rogue Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Stainer Card",
+          "Wickebine Tres Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4257,
@@ -12678,6 +13694,7 @@
     "drops": [
       {
         "monster": "Wild Rose",
+        "mobId": 1261,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12706,7 +13723,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4257.png",
     "description": "If the user is a Thief job type, P. Dodge +5.\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Zhu Po Long Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.\nRemoves the chance of using [Snatch].\nRemoves the draining of SP when attacking.\nIf used by a Thief job type, removes one gemstone from the requirement of skills.\nSet bonus with Stainer Card, Wanderer Card, Shinobi Card, Wickebine Tres Card\nStr +6\nAgi +4\nIncreases the damage inflicted with [Back Stab] by 10%.\nIf the user has learned [Divest Armor] Lv 5, adds a 5% chance of using it on the target when doing a physical attack.\nIf used by a Rogue job type, reduces the SP cost of skills by 20%.\nRemoves the chance of using [Snatch].",
-    "prefix": "Wing"
+    "prefix": "Wing",
+    "setBonuses": [
+      {
+        "title": "Thief Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Zhu Po Long Card",
+          "The Paper Card"
+        ]
+      },
+      {
+        "title": "Rogue Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Stainer Card",
+          "Wickebine Tres Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4010,
@@ -12716,6 +13755,7 @@
     "drops": [
       {
         "monster": "Willow",
+        "mobId": 1010,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12754,6 +13794,7 @@
     "drops": [
       {
         "monster": "Wind Ghost",
+        "mobId": 1263,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12780,6 +13821,7 @@
     "drops": [
       {
         "monster": "Wolf",
+        "mobId": 1013,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12810,6 +13852,7 @@
     "drops": [
       {
         "monster": "Wooden Golem",
+        "mobId": 1497,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12832,6 +13875,7 @@
     "drops": [
       {
         "monster": "Wootan Fighter",
+        "mobId": 1499,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12866,6 +13910,7 @@
     "drops": [
       {
         "monster": "Wootan Shooter",
+        "mobId": 1498,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12896,6 +13941,7 @@
     "drops": [
       {
         "monster": "Wormtail",
+        "mobId": 1024,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12918,6 +13964,7 @@
     "drops": [
       {
         "monster": "Wraith",
+        "mobId": 1192,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12948,6 +13995,7 @@
     "drops": [
       {
         "monster": "Wraith Dead",
+        "mobId": 1291,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12974,6 +14022,7 @@
     "drops": [
       {
         "monster": "Yao Jun",
+        "mobId": 1512,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -12990,7 +14039,17 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4328.png",
     "description": "FLEE +15\nCRIT +1\nSet bonus with Munak Card, Bongun Card\nAll stats +1",
-    "prefix": "Hyper"
+    "prefix": "Hyper",
+    "setBonuses": [
+      {
+        "title": "Tragic Trio Card Set",
+        "members": [
+          "Munak Card",
+          "Bongun Card",
+          "Yao Jun Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4382,
@@ -13000,6 +14059,7 @@
     "drops": [
       {
         "monster": "Novus",
+        "mobId": 1715,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13038,6 +14098,7 @@
     "drops": [
       {
         "monster": "Yoyo",
+        "mobId": 1057,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13076,6 +14137,7 @@
     "drops": [
       {
         "monster": "Zealotus",
+        "mobId": 1200,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13098,6 +14160,7 @@
     "drops": [
       {
         "monster": "Zenorc",
+        "mobId": 1177,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13120,6 +14183,7 @@
     "drops": [
       {
         "monster": "Zerom",
+        "mobId": 1178,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13146,6 +14210,7 @@
     "drops": [
       {
         "monster": "Zhu Po Long",
+        "mobId": 1514,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13162,7 +14227,19 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4272.png",
     "description": "AGI +1\nCRIT +3\nSet bonus with The Paper Card, Wanderer Card, Shinobi Card, Wild Rose Card\nStr +5\nAgi +5\nAspd +5%\nIncreases the user's movement speed.\nRemoves the chance of using [Snatch].\nRemoves the draining of SP when attacking.\nIf used by a Thief job type, removes one gemstone from the requirement of skills.",
-    "prefix": "Swift"
+    "prefix": "Swift",
+    "setBonuses": [
+      {
+        "title": "Thief Card Set",
+        "members": [
+          "Wanderer Card",
+          "Wild Rose Card",
+          "Shinobi Card",
+          "Zhu Po Long Card",
+          "The Paper Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4281,
@@ -13172,6 +14249,7 @@
     "drops": [
       {
         "monster": "Zipper Bear",
+        "mobId": 1417,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13188,7 +14266,29 @@
     ],
     "cardArt": "https://static.divine-pride.net/images/items/cards/4281.png",
     "description": "Drains 1 SP from the user when physically attacking.\nSet bonus with Raggler Card, Myst Case Card, Baby Leopard Card, Hylozoist Card\nLuk +10\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.Restores 1 SP to the user when physically attacking.If used by a Merchant job type,Adds a 0.05% chance of the Old Purple Box item dropping when killing a monster.Adds a 20% chance of reflecting received targetted magic damage at the caster.\nSet bonus with Muka Card, Raggler Card, Baby Leopard Card, Holden Card\nStr +4\nMax HP +7%\nMax SP +7%\nIncreases the damage inflicted with [Mammonite] by 20%.Removes the draining of SP when attacking.If used by an Alchemist job type,Adds a 1% chance of using [Adrenaline Rush] Lv 1 when doing a physical attack.Adds a 0.1% chance of the Stem item dropping when killing a monster.Adds a 0.03% chance of the Glistening Coat item dropping when killing a monster.",
-    "prefix": "Diligent"
+    "prefix": "Diligent",
+    "setBonuses": [
+      {
+        "title": "Merchant Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Myst Case Card",
+          "Heirozoist Card"
+        ]
+      },
+      {
+        "title": "Alchemist Card Set",
+        "members": [
+          "Zipper Bear Card",
+          "Baby Leopard Card",
+          "Raggler Card",
+          "Muka Card",
+          "Holden Card"
+        ]
+      }
+    ]
   },
   {
     "id": 4038,
@@ -13198,6 +14298,7 @@
     "drops": [
       {
         "monster": "Zombie",
+        "mobId": 1015,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13228,6 +14329,7 @@
     "drops": [
       {
         "monster": "Zombie Master",
+        "mobId": 1298,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13250,6 +14352,7 @@
     "drops": [
       {
         "monster": "Zombie Prisoner",
+        "mobId": 1197,
         "rate": 1,
         "isMvp": false,
         "maps": [
@@ -13272,6 +14375,7 @@
     "drops": [
       {
         "monster": "Zombie Slaughter",
+        "mobId": 1864,
         "rate": 1,
         "isMvp": false,
         "maps": [

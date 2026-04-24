@@ -966,6 +966,43 @@ header.planner-header h1 {
   grid-template-areas: "art name desc . drops";
   align-items: start;
   gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cards-rowcard__mob {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%) scale(2);
+  transform-origin: right center;
+  opacity: 0.22;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+  user-select: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  z-index: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cards-rowcard:hover .cards-rowcard__mob {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-rowcard__mob {
+    transition-duration: 0.01ms;
+  }
+}
+
+.cards-rowcard__art,
+.cards-rowcard__name,
+.cards-rowcard__desc,
+.cards-rowcard__drops {
+  position: relative;
+  z-index: 1;
 }
 
 .cards-rowcard__art.cards-art-btn {

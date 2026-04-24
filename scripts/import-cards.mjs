@@ -285,12 +285,13 @@ function collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster) {
 }
 
 /**
- * @param {Map<string, Array<{ monster: string; rate: number; isMvp: boolean }>>} byAegis
+ * @param {Map<string, Array<{ monster: string; mobId?: number; rate: number; isMvp: boolean }>>} byAegis
  * @param {string} monsterName
+ * @param {number | undefined} mobId
  * @param {unknown} drops
  * @param {boolean} isMvp
  */
-function collectDrops(byAegis, monsterName, drops, isMvp) {
+function collectDrops(byAegis, monsterName, mobId, drops, isMvp) {
   if (!Array.isArray(drops)) return;
   for (const d of drops) {
     if (!d || typeof d !== "object") continue;
@@ -299,7 +300,7 @@ function collectDrops(byAegis, monsterName, drops, isMvp) {
     if (typeof item !== "string" || typeof rate !== "number") continue;
     const list = byAegis.get(item);
     if (!list) continue;
-    list.push({ monster: monsterName, rate, isMvp: Boolean(isMvp) });
+    list.push({ monster: monsterName, mobId: typeof mobId === "number" ? mobId : undefined, rate, isMvp: Boolean(isMvp) });
   }
 }
 
@@ -406,7 +407,7 @@ async function main() {
   const items = bodyArray(itemDoc.Body);
   const cards = items.filter((it) => it && it.Type === "Card");
 
-  /** @type {Map<string, Array<{ monster: string; rate: number; isMvp: boolean }>>} */
+/** @type {Map<string, Array<{ monster: string; mobId?: number; rate: number; isMvp: boolean }>>} */
   const byAegis = new Map();
   for (const c of cards) {
     const a = c.AegisName;
@@ -414,16 +415,22 @@ async function main() {
   }
 
   const mobs = bodyArray(mobDoc.Body);
+  /** @type {Record<string, number>} */
+  const mobIdByName = {};
   for (const mob of mobs) {
     if (!mob || typeof mob !== "object") continue;
+    const id = mob.Id;
     const name = mob.Name;
     if (typeof name !== "string") continue;
+    if (typeof id === "number" && Number.isFinite(id) && !mobIdByName[name]) {
+      mobIdByName[name] = id;
+    }
     const isMvp =
       (Array.isArray(mob.MvpDrops) && mob.MvpDrops.length > 0) ||
       (typeof mob.MvpExp === "number" && mob.MvpExp > 0) ||
       (typeof mob.Mvp1id === "number" && mob.Mvp1id > 0);
-    collectDrops(byAegis, name, mob.Drops, isMvp);
-    collectDrops(byAegis, name, mob.MvpDrops, isMvp);
+    collectDrops(byAegis, name, mobIdByName[name], mob.Drops, isMvp);
+    collectDrops(byAegis, name, mobIdByName[name], mob.MvpDrops, isMvp);
   }
 
   const out = [];

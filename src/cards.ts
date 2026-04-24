@@ -12,6 +12,7 @@ type CardDropMapSpawn = {
 
 type CardDrop = {
   monster: string;
+  mobId?: number;
   /** rAthena drop rate in 1/10000 units (e.g. 1 → 0.01%). */
   rate: number;
   isMvp?: boolean;
@@ -522,6 +523,8 @@ function cardArtUrl(c: CardEntry): string {
 
 function cardRowCardHtml(c: CardEntry): string {
   const slot = escapeHtml(normalizeSlotLabel(c.slot));
+  const mobId = typeof c.drops?.[0]?.mobId === "number" && Number.isFinite(c.drops[0].mobId) ? c.drops[0].mobId : null;
+  const mobSpriteUrl = mobId ? `https://static.divine-pride.net/images/mobs/png/${mobId}.png` : "";
   const descRaw = derivedById.get(c.id)?.descText ?? "";
   const blocks = descriptionToBlocks(descRaw);
   const descHtml =
@@ -550,6 +553,7 @@ function cardRowCardHtml(c: CardEntry): string {
   const imgUrl = escapeHtml(cardArtUrl(c));
 
   return `<article class="cards-rowcard">
+    ${mobSpriteUrl ? `<img class="cards-rowcard__mob" src="${escapeHtml(mobSpriteUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" />` : ""}
     <button type="button" class="cards-art-btn cards-rowcard__art" data-art-for="${c.id}" aria-label="Open card artwork">
       <img class="cards-art" src="${imgUrl}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-id="${c.id}" />
     </button>
