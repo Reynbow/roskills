@@ -638,11 +638,11 @@ function mount(root: HTMLElement): void {
   root.innerHTML = `
     <header class="site-header">
       <div class="site-header__left">
-        <a class="site-brand" href="/index.html">RO Pre-Renewal</a>
+        <a class="site-brand" href="/">RO Pre-Renewal</a>
         <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link" href="/index.html">Skill Planner</a>
-          <a class="site-nav__link site-nav__link--active" href="/cards.html" aria-current="page">Card Library</a>
-          <a class="site-nav__link" href="/pets.html">Pets</a>
+          <a class="site-nav__link" href="/skills">Skill Planner</a>
+          <a class="site-nav__link site-nav__link--active" href="/cards" aria-current="page">Card Library</a>
+          <a class="site-nav__link" href="/pets">Pets</a>
         </nav>
       </div>
     </header>

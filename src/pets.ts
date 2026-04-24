@@ -316,11 +316,11 @@ function mount(root: HTMLElement): void {
   root.innerHTML = `
     <header class="site-header">
       <div class="site-header__left">
-        <a class="site-brand" href="/index.html">RO Pre-Renewal</a>
+        <a class="site-brand" href="/">RO Pre-Renewal</a>
         <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link" href="/index.html">Skill Planner</a>
-          <a class="site-nav__link" href="/cards.html">Card Library</a>
-          <a class="site-nav__link site-nav__link--active" href="/pets.html" aria-current="page">Pets</a>
+          <a class="site-nav__link" href="/skills">Skill Planner</a>
+          <a class="site-nav__link" href="/cards">Card Library</a>
+          <a class="site-nav__link site-nav__link--active" href="/pets" aria-current="page">Pets</a>
         </nav>
       </div>
     </header>

@@ -1257,9 +1257,9 @@ function renderApp(root: HTMLElement): void {
       <div class="planner-header__left">
         <h1>Pre-Renewal Skill Planner</h1>
         <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link site-nav__link--active" href="/index.html" aria-current="page">Skill Planner</a>
-          <a class="site-nav__link" href="/cards.html">Card Library</a>
-          <a class="site-nav__link" href="/pets.html">Pets</a>
+          <a class="site-nav__link site-nav__link--active" href="/skills" aria-current="page">Skill Planner</a>
+          <a class="site-nav__link" href="/cards">Card Library</a>
+          <a class="site-nav__link" href="/pets">Pets</a>
         </nav>
       </div>
     </header>
