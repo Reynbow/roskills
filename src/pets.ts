@@ -129,10 +129,10 @@ function rowHtml(p: PetEntry): string {
             const z = typeof s.zeny === "number" && s.zeny > 0 ? ` · ${s.zeny.toLocaleString()}z` : "";
             const req =
               Array.isArray(s.requires) && s.requires.length
-                ? ` — ${s.requires
+                ? `<br/>${s.requires
                     .slice(0, 4)
-                    .map((r) => `${escapeHtml(r.item)}×${escapeHtml(String(r.amount ?? 1))}`)
-                    .join(", ")}`
+                    .map((r) => `${escapeHtml(r.item)} × ${escapeHtml(String(r.amount ?? 1))}`)
+                    .join("<br/>")}`
                 : "";
             return `<div class="pets-source">NPC: ${escapeHtml(s.npc)}${where ? ` <span class="pets-source__meta">${where}${z}</span>` : ""}${req}</div>`;
           })
@@ -167,8 +167,8 @@ function rowHtml(p: PetEntry): string {
     </td>
     <td class="pets-col-tame" data-label="Tame">${tame}</td>
     <td class="pets-col-from" data-label="Sources">${sources}</td>
-    <td class="pets-col-acc" data-label="Accessory">${acc}</td>
     <td class="pets-col-food" data-label="Food">${food}</td>
+    <td class="pets-col-acc" data-label="Accessory">${acc}</td>
     <td class="pets-col-effects" data-label="Bonuses">${effects}</td>
     <td class="pets-col-rates" data-label="Rates">
       <div class="pets-items">
@@ -180,12 +180,139 @@ function rowHtml(p: PetEntry): string {
   </tr>`;
 }
 
+function cardHtml(p: PetEntry): string {
+  const effects = joinLines([...(p.bonuses ?? []), ...(p.supportBonuses ?? [])]);
+  const tame = itemCellHtml(p.tameItem);
+  const eggIcon = itemIconOnlyHtml(p.eggItem);
+  const acc = itemCellHtml(p.accessoryItem);
+  const food = itemCellHtml(p.foodItem);
+  const level = Number.isFinite(p.mobLevel) ? p.mobLevel : 1;
+  const capture = typeof p.captureRate === "number" ? `${(p.captureRate / 100).toFixed(2)}%` : "-";
+  const hungryDelay = typeof p.hungryDelaySeconds === "number" && p.hungryDelaySeconds > 0 ? p.hungryDelaySeconds : 60;
+  const fullness = typeof p.fullness === "number" ? p.fullness : null;
+  const hungerPerMin =
+    fullness == null ? "-" : (fullness * (60 / hungryDelay)).toFixed(2).replace(/\\.00$/, "");
+  const intimacy = typeof p.intimacyFed === "number" ? `${p.intimacyFed}` : "-";
+
+  const mobId = typeof p.mobId === "number" && Number.isFinite(p.mobId) ? p.mobId : null;
+  const bgSpriteUrl = mobId ? mobSpriteCandidates(mobId)[0] : "";
+  const bgSprite = bgSpriteUrl
+    ? `<img class="pets-card__bg" src="${escapeHtml(bgSpriteUrl)}" alt="" loading="lazy" decoding="async" />`
+    : "";
+
+  const dropSources =
+    Array.isArray(p.tameItemSources) && p.tameItemSources.length
+      ? `<div class="pets-sources">${p.tameItemSources
+          .slice(0, 6)
+          .map(
+            (s) =>
+              `<div class="pets-source">${escapeHtml(s.monster)} <span class="pets-source__meta">Lv ${escapeHtml(
+                String(s.level),
+              )} · ${(s.rate / 100).toFixed(2)}%</span></div>`,
+          )
+          .join("")}</div>`
+      : `<span class="pets-itemcell__name">-</span>`;
+
+  const npcSources =
+    Array.isArray(p.tameItemNpcSources) && p.tameItemNpcSources.length
+      ? `<div class="pets-sources">${p.tameItemNpcSources
+          .slice(0, 3)
+          .map((s) => {
+            const where = s.map
+              ? `${escapeHtml(s.map)}${Number.isFinite(s.x) && Number.isFinite(s.y) ? ` ${s.x}/${s.y}` : ""}`
+              : "";
+            const z = typeof s.zeny === "number" && s.zeny > 0 ? ` · ${s.zeny.toLocaleString()}z` : "";
+            const req =
+              Array.isArray(s.requires) && s.requires.length
+                ? `<br/>${s.requires
+                    .slice(0, 4)
+                    .map((r) => `${escapeHtml(r.item)} × ${escapeHtml(String(r.amount ?? 1))}`)
+                    .join("<br/>")}`
+                : "";
+            return `<div class="pets-source">NPC: ${escapeHtml(s.npc)}${where ? ` <span class="pets-source__meta">${where}${z}</span>` : ""}${req}</div>`;
+          })
+          .join("")}</div>`
+      : `<span class="pets-itemcell__name">-</span>`;
+
+  return `<article class="pets-card">
+    ${bgSprite}
+    <header class="pets-card__head">
+      <div class="pets-monster pets-card__monster">
+        <div class="pets-monster__top">
+          ${eggIcon}
+          <button type="button" class="pets-monster__name" data-mob-id="${escapeHtml(String(p.mobId ?? ""))}" aria-label="Preview sprite: ${escapeHtml(p.name)}">
+            ${escapeHtml(p.name)}
+          </button>
+        </div>
+        <div class="pets-monster__meta">Lv ${escapeHtml(String(level))}</div>
+      </div>
+      <div class="pets-card__rates">
+        <div class="pets-item"><span class="pets-item__k">Hunger</span> ${escapeHtml(String(hungerPerMin))}/min</div>
+        <div class="pets-item"><span class="pets-item__k">Intimacy</span> +${escapeHtml(String(intimacy))}/feed</div>
+        <div class="pets-item"><span class="pets-item__k">Capture</span> ${escapeHtml(String(capture))}</div>
+      </div>
+    </header>
+
+    <div class="pets-card__grid">
+      <div class="pets-card__cell">
+        <div class="pets-card__k">Tame item</div>
+        ${tame}
+      </div>
+      <div class="pets-card__cell">
+        <div class="pets-card__k">Food</div>
+        ${food}
+      </div>
+      <div class="pets-card__cell pets-card__cell--wide">
+        <div class="pets-card__k">Accessory</div>
+        ${acc}
+      </div>
+      <div class="pets-card__cell pets-card__cell--sources">
+        <div class="pets-card__k">Sources</div>
+        <div class="pets-source-groups">
+          <div class="pets-source-group">
+            <div class="pets-source-group__title">Drops</div>
+            ${dropSources}
+          </div>
+          <div class="pets-source-group">
+            <div class="pets-source-group__title">NPC</div>
+            ${npcSources}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pets-card__bonuses">
+      <div class="pets-card__k">Bonuses</div>
+      ${effects}
+    </div>
+  </article>`;
+}
+
 function renderRows(rows: PetEntry[]): string {
   if (!rows.length) return `<tr><td class="cards-empty" colspan="3">No matches.</td></tr>`;
   return rows.map(rowHtml).join("");
 }
 
+function renderCards(rows: PetEntry[]): string {
+  if (!rows.length) return `<div class="cards-empty">No matches.</div>`;
+  return rows.map(cardHtml).join("");
+}
+
+function syncPetCardSpriteAnchors(root: HTMLElement): void {
+  const cards = Array.from(root.querySelectorAll<HTMLElement>(".pets-card"));
+  for (const card of cards) {
+    const bonuses = card.querySelector<HTMLElement>(".pets-card__bonuses");
+    if (!bonuses) continue;
+    card.style.setProperty("--pets-card-bonuses-h", `${bonuses.offsetHeight}px`);
+  }
+}
+
 function mount(root: HTMLElement): void {
+  const VIEW_KEY = "ro-pets-view";
+  type PetsView = "table" | "cards";
+  const stored = (localStorage.getItem(VIEW_KEY) as PetsView) || "cards";
+  let view: PetsView = stored === "cards" ? "cards" : "table";
+
   root.innerHTML = `
     <header class="site-header">
       <div class="site-header__left">
@@ -210,17 +337,18 @@ function mount(root: HTMLElement): void {
           <span class="cards-search__label">Search</span>
           <input id="q" class="cards-search__input" type="search" placeholder="search..." autocomplete="off" />
         </label>
+        <button type="button" class="pets-viewbtn" id="pets-viewbtn" aria-label="Toggle layout"></button>
         <div class="cards-count" id="count" role="status" aria-live="polite"></div>
       </div>
 
-      <div class="cards-table-wrap">
+      <div class="cards-table-wrap" id="pets-table-wrap">
         <table class="cards-table pets-table">
           <colgroup>
             <col class="pets-col-name" />
             <col class="pets-col-tame" />
             <col class="pets-col-from" />
-            <col class="pets-col-acc" />
             <col class="pets-col-food" />
+            <col class="pets-col-acc" />
             <col class="pets-col-effects" />
             <col class="pets-col-rates" />
           </colgroup>
@@ -229,8 +357,8 @@ function mount(root: HTMLElement): void {
               <th class="pets-col-name" scope="col">Monster</th>
               <th class="pets-col-tame" scope="col">Tame item</th>
               <th class="pets-col-from" scope="col">Sources</th>
-              <th class="pets-col-acc" scope="col">Accessory</th>
               <th class="pets-col-food" scope="col">Food</th>
+              <th class="pets-col-acc" scope="col">Accessory</th>
               <th class="pets-col-effects" scope="col">Bonuses</th>
               <th class="pets-col-rates" scope="col">Rates</th>
             </tr>
@@ -238,12 +366,35 @@ function mount(root: HTMLElement): void {
           <tbody id="rows"></tbody>
         </table>
       </div>
+
+      <div class="pets-cards-wrap" id="pets-cards-wrap" hidden>
+        <div class="pets-cards" id="pets-cards"></div>
+      </div>
     </section>
   `;
 
   const q = root.querySelector("#q") as HTMLInputElement;
   const rowsEl = root.querySelector("#rows") as HTMLElement;
+  const cardsEl = root.querySelector("#pets-cards") as HTMLElement;
   const countEl = root.querySelector("#count") as HTMLElement;
+  const viewBtn = root.querySelector("#pets-viewbtn") as HTMLButtonElement;
+  const tableWrap = root.querySelector("#pets-table-wrap") as HTMLElement;
+  const cardsWrap = root.querySelector("#pets-cards-wrap") as HTMLElement;
+
+  const syncView = (): void => {
+    const isCards = view === "cards";
+    tableWrap.hidden = isCards;
+    cardsWrap.hidden = !isCards;
+    viewBtn.textContent = isCards ? "Table view" : "Card view";
+    viewBtn.setAttribute("aria-pressed", String(isCards));
+  };
+  viewBtn.addEventListener("click", () => {
+    view = view === "cards" ? "table" : "cards";
+    localStorage.setItem(VIEW_KEY, view);
+    syncView();
+    apply();
+  });
+  syncView();
 
   const apply = (): void => {
     const query = normalize(q.value);
@@ -265,6 +416,8 @@ function mount(root: HTMLElement): void {
       return true;
     });
     rowsEl.innerHTML = renderRows(filtered);
+    cardsEl.innerHTML = renderCards(filtered);
+    syncPetCardSpriteAnchors(root);
     countEl.textContent = `${filtered.length.toLocaleString()} / ${petsAll.length.toLocaleString()} pets`;
   };
 
