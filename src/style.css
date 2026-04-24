@@ -1446,6 +1446,7 @@ header.planner-header h1 {
   transform: scale(2);
   transform-origin: right center;
   opacity: 0.3;
+  transition: opacity 0.18s ease;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -1454,6 +1455,18 @@ header.planner-header h1 {
   pointer-events: none;
   user-select: none;
   z-index: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pets-card:hover .pets-card__bg {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pets-card__bg {
+    transition-duration: 0.01ms;
+  }
 }
 
 .pets-card__head,
