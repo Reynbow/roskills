@@ -275,6 +275,149 @@ function itemFromAegis(aegis, byAegis) {
   };
 }
 
+const ICON_SIZE_PLACEHOLDER_BYTES = 330; // DP "apple" placeholder is ~315 bytes
+/** @type {Map<string, boolean>} */
+const iconOkCache = new Map();
+
+async function iconLooksReal(url) {
+  if (!url) return false;
+  const cached = iconOkCache.get(url);
+  if (cached !== undefined) return cached;
+  try {
+    const res = await fetch(url, { method: "HEAD" });
+    const len = Number(res.headers.get("content-length") || "0");
+    const ok = res.ok && len > ICON_SIZE_PLACEHOLDER_BYTES;
+    iconOkCache.set(url, ok);
+    return ok;
+  } catch {
+    // best-effort: don't strip if HEAD isn't possible
+    iconOkCache.set(url, true);
+    return true;
+  }
+}
+
+async function stripPlaceholderIcons(pets) {
+  const jobs = [];
+  const fields = ["tameItem", "eggItem", "accessoryItem", "foodItem"];
+  for (const p of pets) {
+    for (const f of fields) {
+      const it = p?.[f];
+      const url = typeof it?.icon === "string" ? it.icon : "";
+      if (!url) continue;
+      jobs.push(
+        (async () => {
+          const ok = await iconLooksReal(url);
+          if (!ok) it.icon = "";
+        })(),
+      );
+    }
+  }
+  await Promise.all(jobs);
+}
+
+function normalizeKey(s) {
+  return String(s || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
+
+function splitBonusesCell(s) {
+  const raw = String(s || "").trim();
+  if (!raw || /^none$/i.test(raw)) return [];
+  return raw
+    .split(",")
+    .map((x) => x.trim())
+    .filter(Boolean)
+    .map((x) => x.replace(/\s*\+\s*/g, " +").replace(/\s*-\s*/g, " -"));
+}
+
+/**
+ * iRO Classic list overrides (from https://irowiki.org/classic/Pet_System).
+ * Keys are monster display names.
+ */
+const IRO_CLASSIC_PETS = [
+  { monster: "Alice", tame: "Soft Apron", food: "White Potion", accessory: "None", bonuses: "MDEF+1, Demi Human Resistance +1%" },
+  { monster: "Baby Desert Wolf", tame: "Well-Dried Bone", food: "Pet Food", accessory: "Transparent Head Protector", bonuses: "INT +1, SP +20" },
+  { monster: "Baphomet Jr.", tame: "Book of the Devil", food: "Honey", accessory: "Skull Helm", bonuses: "DEF/MDEF+1, Stun Resistance -1%" },
+  { monster: "Bongun", tame: "Her Heart", food: "Pet Food", accessory: "Grave Keeper's Sword", bonuses: "VIT+1, Stun Resistance +1%" },
+  { monster: "Chonchon", tame: "Rotten Fish", food: "Pet Food", accessory: "Monster Oxygen Mask", bonuses: "AGI+1, FLEE +2" },
+  { monster: "Deviruchi", tame: "Contract in Shadow", food: "Shoot", accessory: "Pacifier", bonuses: "ATK/MATK +1%, HP/SP -3%" },
+  { monster: "Dokebi", tame: "Old Broom", food: "Pet Food", accessory: "Wig", bonuses: "MATK +1%, ATK -1%" },
+  { monster: "Drops", tame: "Orange Juice", food: "Yellow Herb", accessory: "Backpack", bonuses: "HIT +3, ATK +3" },
+  { monster: "Earth Petite (Green)", tame: "Shining Stone", food: "Pet Food", accessory: "Stellar Hairpin", bonuses: "DEF/MDEF -2, ASPD +1%" },
+  { monster: "Green Maiden", tame: "Tantan Noodles", food: "Bun", accessory: "None", bonuses: "DEF +1, Demi Human Resistance +1%" },
+  { monster: "Hot Rice Cake", tame: "Chewy Rice Powder", food: "Green Herb", accessory: "None", bonuses: "Neutral Element Resistance +1%, HP -1%" },
+  { monster: "Hunter Fly", tame: "Monster Juice", food: "Red Gemstone", accessory: "Monster Oxygen Mask", bonuses: "FLEE -5, Perfect Dodge +2" },
+  { monster: "Imp", tame: "Ice Fireworks", food: "Flame Gemstone", accessory: "Horn Barrier", bonuses: "Fire Element Resistance + 2%, Damage to Fire Element monster + 1 %" },
+  { monster: "Isis", tame: "Armlet of Obedience", food: "Pet Food", accessory: "Queen's Hair Ornament", bonuses: "MATK -1%, ATK +1%" },
+  { monster: "Lunatic", tame: "Rainbow Carrot", food: "Carrot Juice", accessory: "Silk Ribbon", bonuses: "CRIT +2, ATK +2" },
+  { monster: "Munak", tame: "No Recipient", food: "Pet Food", accessory: "Punisher", bonuses: "INT +1, DEF +1" },
+  { monster: "New Year Doll", tame: "Event Quest", food: "Mojji", accessory: "None", bonuses: "None" },
+  { monster: "Orc Warrior", tame: "Orc Trophy", food: "Pet Food", accessory: "Wild Flower", bonuses: "ATK +10, DEF -3" },
+  { monster: "Peco Peco", tame: "Fat Chubby Earthworm", food: "Pet Food", accessory: "Battered Pot", bonuses: "HP +150, SP -10" },
+  { monster: "Picky", tame: "Earthworm the Dude", food: "Red Herb", accessory: "Tiny Egg Shell", bonuses: "STR+1, ATK +5" },
+  { monster: "Poison Spore", tame: "Deadly Noxious Herb", food: "Pet Food", accessory: "Bark Shorts", bonuses: "STR +1, INT +1" },
+  { monster: "Poporing", tame: "Bitter Herb", food: "Green Herb", accessory: "Backpack", bonuses: "LUK +2, Poison Element Resistance +10%" },
+  { monster: "Poring", tame: "Unripe Apple", food: "Apple Juice", accessory: "Backpack", bonuses: "LUK +2, CRIT +1" },
+  { monster: "Rocker", tame: "Singing Flower", food: "Pet Food", accessory: "Rocker Glasses", bonuses: "HP Recovery +5%, HP +25" },
+  { monster: "Santa Goblin", tame: "Sweet Candy Cane", food: "Scell", accessory: "None", bonuses: "HP +30, Water Element Resistance +1%" },
+  { monster: "Savage Bebe", tame: "Sweet Milk", food: "Pet Food", accessory: "Green Lace", bonuses: "VIT +1, HP +50" },
+  { monster: "Smokie", tame: "Sweet Potato", food: "Pet Food", accessory: "Red Scarf", bonuses: "AGI +1, Perfect Dodge +1" },
+  { monster: "Sohee", tame: "Silver Knife of Chastity", food: "Pet Food", accessory: "Golden Bell", bonuses: "STR +1, DEX +1" },
+  { monster: "Spore", tame: "Dew Laden Moss", food: "Pet Food", accessory: "Bark Shorts", bonuses: "HIT +5, ATK -2" },
+  { monster: "Steel Chonchon", tame: "Rusty Iron", food: "Iron Ore", accessory: "Monster Oxygen Mask", bonuses: "FLEE +6, AGI -1" },
+  { monster: "Succubus", tame: "Boy's Pure Heart", food: "Vital Flower", accessory: "Black Butterfly Mask", bonuses: "2% chance to drain HP equivalent to attack" },
+  { monster: "Wanderer", tame: "Vagabond's Skull", food: "Spirit Liquor", accessory: "None", bonuses: "None" },
+  { monster: "Yoyo", tame: "Tropical Banana", food: "Banana Juice", accessory: "Monkey Circlet", bonuses: "CRIT +3, LUK -1" },
+  { monster: "Zealotus", tame: "Forbidden Red Candle", food: "Immortal Heart", accessory: "None", bonuses: "ATK +2%,MATK damage to Demi Human +2%" },
+];
+
+function buildItemByName(items) {
+  /** @type {Record<string, { id: number; aegis: string; name: string }>} */
+  const out = {};
+  for (const it of items) {
+    const id = it?.Id;
+    const a = it?.AegisName;
+    const n = it?.Name;
+    if (typeof id !== "number" || typeof a !== "string" || typeof n !== "string") continue;
+    out[normalizeKey(n)] = { id, aegis: a, name: n.trim() };
+  }
+  return out;
+}
+
+function itemFromName(name, itemByName) {
+  const n = String(name || "").trim();
+  if (!n || /^none$/i.test(n)) return { aegis: "", id: null, name: "", icon: "" };
+  const hit = itemByName[normalizeKey(n)];
+  if (!hit) return { aegis: "", id: null, name: n, icon: "" };
+  return {
+    aegis: hit.aegis,
+    id: hit.id,
+    name: hit.name,
+    icon: `https://static.divine-pride.net/images/items/item/${hit.id}.png`,
+  };
+}
+
+function applyIroClassicOverrides(pets, items) {
+  const itemByName = buildItemByName(items);
+  const allow = new Set(IRO_CLASSIC_PETS.map((r) => normalizeKey(r.monster)));
+  const byMonster = new Map(IRO_CLASSIC_PETS.map((r) => [normalizeKey(r.monster), r]));
+
+  const filtered = pets.filter((p) => allow.has(normalizeKey(p.name)));
+  for (const p of filtered) {
+    const row = byMonster.get(normalizeKey(p.name));
+    if (!row) continue;
+    p.tameItem = itemFromName(row.tame, itemByName);
+    p.foodItem = itemFromName(row.food, itemByName);
+    p.accessoryItem = itemFromName(row.accessory, itemByName);
+    p.bonuses = splitBonusesCell(row.bonuses);
+    p.supportBonuses = [];
+  }
+  filtered.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+  return filtered;
+}
+
 async function main() {
   let petText;
   let mobText;
@@ -411,11 +554,16 @@ async function main() {
     });
   }
 
-  out.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+  let final = out;
+  // Constrain to iRO Classic list + override conflicting fields.
+  final = applyIroClassicOverrides(final, items);
+
+  // Strip Divine Pride "apple placeholder" icons so we don't show incorrect images.
+  await stripPlaceholderIcons(final);
 
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, `${JSON.stringify(out, null, 2)}\n`, "utf8");
-  console.log(`Wrote ${OUT} (${out.length} pets)`); // eslint-disable-line no-console
+  fs.writeFileSync(OUT, `${JSON.stringify(final, null, 2)}\n`, "utf8");
+  console.log(`Wrote ${OUT} (${final.length} pets)`); // eslint-disable-line no-console
 }
 
 main().catch((e) => {
