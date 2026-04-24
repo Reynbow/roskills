@@ -1325,6 +1325,7 @@ header.planner-header h1 {
   background: transparent;
   color: inherit;
   font: inherit;
+  font-weight: 800;
   text-align: left;
   cursor: help;
 }
@@ -1478,7 +1479,7 @@ header.planner-header h1 {
   text-align: right;
   color: var(--text-muted);
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .pets-card__grid {
@@ -1606,6 +1607,12 @@ header.planner-header h1 {
   text-transform: uppercase;
   color: rgba(200, 220, 255, 0.72);
   white-space: nowrap;
+}
+
+/* Rates labels should be less heavy than section headers */
+.pets-col-rates .pets-item__k,
+.pets-card__rates .pets-item__k {
+  font-weight: 500;
 }
 
 /* Rates labels (Hunger/Intimacy/Capture) should stay on one line */
