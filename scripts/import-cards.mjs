@@ -261,8 +261,9 @@ const ANT_WORKER_MOBS = new Set(["Andre", "Deniro", "Piere"]);
  * map list uses Andre spawns only.
  * @param {Array<Record<string, unknown>>} drops
  * @param {Record<string, unknown>} spawnMapsByMonster
+ * @param {Record<string, number>} mobIdByName
  */
-function collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster) {
+function collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster, mobIdByName) {
   if (!Array.isArray(drops) || drops.length === 0) return drops;
 
   const antOnly = drops.filter((d) => d && ANT_WORKER_MOBS.has(String(d.monster)));
@@ -274,9 +275,11 @@ function collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster) {
   if (!antOnly.every((d) => d.rate === rate && Boolean(d.isMvp) === isMvp)) return drops;
 
   const maps = normalizeSpawnMapsList(spawnMapsByMonster["Andre"]);
+  const mobId = typeof mobIdByName?.Andre === "number" ? mobIdByName.Andre : undefined;
   /** @type {Record<string, unknown>} */
   const row = {
     monster: "Andre/Piere/Deniro",
+    ...(typeof mobId === "number" ? { mobId } : {}),
     rate,
     isMvp,
   };
@@ -451,7 +454,7 @@ async function main() {
     drops = dedupeDropsByMonsterName(drops);
     drops = attachSpawnMaps(drops, spawnMapsByMonster);
     if (aegisName === "Andre_Card") {
-      drops = collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster);
+      drops = collapseSharedAntAndreCardDrops(drops, spawnMapsByMonster, mobIdByName);
     }
     const row = {
       id,

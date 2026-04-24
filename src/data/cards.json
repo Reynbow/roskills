@@ -613,6 +613,7 @@
     "drops": [
       {
         "monster": "Andre/Piere/Deniro",
+        "mobId": 1095,
         "rate": 1,
         "isMvp": false,
         "maps": [
