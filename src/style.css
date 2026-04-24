@@ -927,16 +927,104 @@ header.planner-header h1 {
 }
 
 .cards-table-wrap {
-  background: linear-gradient(165deg, #323a4a 0%, var(--bg-panel) 40%, var(--bg-panel-deep) 100%);
+  /* Transparent so the page background shows between “row cards”. */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0.35rem 0;
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+/* --- Card Library: Pets-style cards, one per row ---------------------------- */
+.cards-rowcards-wrap {
+  margin: 0 0 1rem;
+}
+
+.cards-rowcards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cards-rowcard {
+  background: var(--bg-panel);
   border: 1px solid var(--border-panel);
   border-radius: 10px;
-  box-shadow: inset 0 1px 0 var(--inset-highlight), 0 4px 20px var(--shadow);
-  overflow: auto;
+  box-shadow: 0 8px 26px var(--shadow), inset 0 1px 0 var(--inset-highlight);
+  padding: 0.8rem 0.85rem;
+  min-width: 0;
+  display: grid;
+  /* Fix slot column width so long slot text doesn't steal space from Description. */
+  grid-template-columns:
+    auto
+    minmax(14rem, 1.15fr)
+    minmax(22rem, 2.35fr)
+    0.75rem
+    minmax(12rem, 1.4fr);
+  grid-template-areas: "art name desc . drops";
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.cards-rowcard__art.cards-art-btn {
+  flex: 0 0 auto;
+  grid-area: art;
+}
+
+.cards-rowcard__name {
+  min-width: 0;
+  grid-area: name;
+}
+
+.cards-rowcard__slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(205, 225, 250, 0.82);
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(140, 170, 210, 0.26);
+  background: rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+  margin-top: 0.35rem;
+}
+
+.cards-rowcard__desc {
+  min-width: 0;
+  grid-area: desc;
+}
+
+.cards-rowcard__drops {
+  min-width: 0;
+  grid-area: drops;
+}
+
+@media (max-width: 820px) {
+  .cards-rowcard {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "art name"
+      "desc desc"
+      "drops drops";
+  }
+
+  .cards-rowcard__slot {
+    justify-self: start;
+  }
 }
 
 .cards-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 0.65rem;
   min-width: 52rem;
   table-layout: fixed;
 }
@@ -951,6 +1039,68 @@ header.planner-header h1 {
   padding: 0.65rem 0.75rem;
   border-bottom: 1px solid rgba(130, 190, 255, 0.14);
   vertical-align: top;
+}
+
+/* Card-like rows (desktop): each row is its own “panel” */
+.cards-table tbody tr {
+  /* no row-level effects; per-cell styling below builds the “card” */
+}
+
+.cards-table tbody td {
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-panel);
+  border-bottom: 1px solid var(--border-panel);
+  border-left: none;
+  border-right: none;
+  box-shadow: inset 0 1px 0 var(--inset-highlight);
+}
+
+.cards-table tbody td:first-child {
+  border-left: 1px solid var(--border-panel);
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  box-shadow:
+    inset 0 1px 0 var(--inset-highlight),
+    0 8px 26px var(--shadow);
+}
+
+.cards-table tbody td:last-child {
+  border-right: 1px solid var(--border-panel);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow:
+    inset 0 1px 0 var(--inset-highlight),
+    0 8px 26px var(--shadow);
+}
+
+.cards-table tbody tr:hover {
+  filter: brightness(1.03);
+}
+
+.cards-table tbody tr:hover .cards-art-btn {
+  border-color: rgba(170, 210, 250, 0.62);
+}
+
+/* row-level border handled by per-cell borders above */
+
+/* Header row should also read as a “card” */
+.cards-table thead th {
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-panel);
+  border-bottom: 1px solid rgba(130, 190, 255, 0.22);
+  box-shadow: inset 0 1px 0 var(--inset-highlight);
+}
+
+.cards-table thead th:first-child {
+  border-left: 1px solid var(--border-panel);
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.cards-table thead th:last-child {
+  border-right: 1px solid var(--border-panel);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 .cards-table thead th {

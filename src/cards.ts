@@ -1,7 +1,6 @@
 import "./style.css";
 import { inject } from "@vercel/analytics";
 import cardsRaw from "./data/cards.json";
-import naviDefaultsRaw from "./data/navi-defaults.json";
 
 inject();
 
@@ -55,20 +54,10 @@ const cardsAll: CardEntry[] = (cardsRaw as CardEntry[])
   .slice()
   .sort((a, b) => a.name.localeCompare(b.name));
 
-type NaviDefaults = Record<string, { x: number; y: number }>;
-const NAVI_DEFAULTS: NaviDefaults = naviDefaultsRaw as NaviDefaults;
 
 function formatDropRate(rate: number): string {
   if (typeof rate !== "number" || !Number.isFinite(rate)) return "-";
   return `${(rate / 100).toFixed(2)}%`;
-}
-
-function formatNaviCommand(mapId: string): string | null {
-  const id = mapId.trim();
-  if (!id) return null;
-  const hit = NAVI_DEFAULTS[id];
-  if (!hit || !Number.isFinite(hit.x) || !Number.isFinite(hit.y)) return null;
-  return `/navi ${id} ${hit.x}/${hit.y}`;
 }
 
 /** Divine Pride large minimap PNG; unknown ids return a tiny placeholder image. */
@@ -531,59 +520,61 @@ function cardArtUrl(c: CardEntry): string {
   return `https://static.divine-pride.net/images/items/cards/${c.id}.png`;
 }
 
+function cardRowCardHtml(c: CardEntry): string {
+  const slot = escapeHtml(normalizeSlotLabel(c.slot));
+  const descRaw = derivedById.get(c.id)?.descText ?? "";
+  const blocks = descriptionToBlocks(descRaw);
+  const descHtml =
+    blocks.length > 0
+      ? `<div class="desc-blocks">${blocks
+          .map((b) =>
+            b.isSet
+              ? (() => {
+                  let { title, members } = parseSetBonusTitleAndMembers(b.rawText);
+                  if (!title && Array.isArray(c.setBonuses) && c.setBonuses.length && members.length) {
+                    const hit = c.setBonuses.find(
+                      (s) => Array.isArray(s.members) && divineSetMatchesParsedMembers(s.members, members, c.name),
+                    );
+                    if (hit && typeof hit.title === "string") title = hit.title.trim();
+                  }
+                  const membersAttr = escapeHtml(encodeURIComponent(JSON.stringify(members)));
+                  const titleAttr = escapeHtml(encodeURIComponent(title));
+                  const rawAttr = escapeHtml(encodeURIComponent(b.rawText));
+                  const titleChip = title ? `<div class="desc-set-title">${escapeHtml(title)}</div>` : "";
+                  return `<button type="button" class="${b.cls} desc-block--click" data-set-for="${c.id}" data-set-members="${membersAttr}" data-set-title="${titleAttr}" data-set-raw="${rawAttr}" aria-label="Open set bonus details">${titleChip}${b.html}</button>`;
+                })()
+              : `<div class="${b.cls}">${b.html}</div>`,
+          )
+          .join("")}</div>`
+      : `<div class="desc-blocks"><div class="desc-block desc-block--plain">-</div></div>`;
+  const imgUrl = escapeHtml(cardArtUrl(c));
+
+  return `<article class="cards-rowcard">
+    <button type="button" class="cards-art-btn cards-rowcard__art" data-art-for="${c.id}" aria-label="Open card artwork">
+      <img class="cards-art" src="${imgUrl}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-id="${c.id}" />
+    </button>
+
+    <div class="cards-rowcard__name">
+      <div class="cards-name-block">
+        <div class="cards-name">${escapeHtml(c.name)}</div>
+        ${cardAffixLineHtml(c)}
+        <div class="cards-rowcard__slot">${slot}</div>
+      </div>
+    </div>
+
+    <div class="cards-rowcard__desc">
+      ${descHtml}
+    </div>
+
+    <div class="cards-rowcard__drops">
+      ${dropsDisplayHtml(c)}
+    </div>
+  </article>`;
+}
+
 function renderRows(rows: CardEntry[]): string {
-  if (rows.length === 0) {
-    return `<tr><td class="cards-empty" colspan="5">No matches.</td></tr>`;
-  }
-  return rows
-    .map((c) => {
-      const slot = escapeHtml(normalizeSlotLabel(c.slot));
-      const descRaw = derivedById.get(c.id)?.descText ?? "";
-      const blocks = descriptionToBlocks(descRaw);
-      const descHtml =
-        blocks.length > 0
-          ? `<div class="desc-blocks">${blocks
-              .map((b) =>
-                b.isSet
-                  ? (() => {
-                      let { title, members } = parseSetBonusTitleAndMembers(b.rawText);
-                      if (!title && Array.isArray(c.setBonuses) && c.setBonuses.length && members.length) {
-                        const hit = c.setBonuses.find(
-                          (s) =>
-                            Array.isArray(s.members) &&
-                            divineSetMatchesParsedMembers(s.members, members, c.name),
-                        );
-                        if (hit && typeof hit.title === "string") title = hit.title.trim();
-                      }
-                      const membersAttr = escapeHtml(encodeURIComponent(JSON.stringify(members)));
-                      const titleAttr = escapeHtml(encodeURIComponent(title));
-                      const rawAttr = escapeHtml(encodeURIComponent(b.rawText));
-                      const titleChip = title ? `<div class="desc-set-title">${escapeHtml(title)}</div>` : "";
-                      return `<button type="button" class="${b.cls} desc-block--click" data-set-for="${c.id}" data-set-members="${membersAttr}" data-set-title="${titleAttr}" data-set-raw="${rawAttr}" aria-label="Open set bonus details">${titleChip}${b.html}</button>`;
-                    })()
-                  : `<div class="${b.cls}">${b.html}</div>`,
-              )
-              .join("")}</div>`
-          : "-";
-      const imgUrl = escapeHtml(cardArtUrl(c));
-      return `<tr>
-        <td class="cards-col-art" data-label="Art">
-          <button type="button" class="cards-art-btn" data-art-for="${c.id}" aria-label="Open card artwork">
-            <img class="cards-art" src="${imgUrl}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-id="${c.id}" />
-          </button>
-        </td>
-        <td class="cards-col-name" data-label="Card">
-          <div class="cards-name-block">
-            <div class="cards-name">${escapeHtml(c.name)}</div>
-            ${cardAffixLineHtml(c)}
-          </div>
-        </td>
-        <td class="cards-col-slot" data-label="Slot">${slot}</td>
-        <td class="cards-col-desc" data-label="Description">${descHtml}</td>
-        <td class="cards-col-drop" data-label="Dropped by">${dropsDisplayHtml(c)}</td>
-      </tr>`;
-    })
-    .join("");
+  if (rows.length === 0) return `<div class="cards-empty">No matches.</div>`;
+  return rows.map(cardRowCardHtml).join("");
 }
 
 type FilterState = {
@@ -682,8 +673,7 @@ function mount(root: HTMLElement): void {
 
       <div class="cards-toolbar" role="search">
         <label class="cards-search">
-          <span class="cards-search__label">Search</span>
-          <input id="q" class="cards-search__input" type="search" placeholder="search..." autocomplete="off" />
+          <input id="q" class="cards-search__input" type="search" placeholder="search..." autocomplete="off" aria-label="Search cards" />
         </label>
         <div class="cards-count" id="count" role="status" aria-live="polite"></div>
       </div>
@@ -703,26 +693,8 @@ function mount(root: HTMLElement): void {
       <div id="cards-map-tooltip" class="cards-map-tooltip" role="tooltip" aria-hidden="true"></div>
       <div id="cards-copy-toast" class="cards-copy-toast" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true"></div>
 
-      <div class="cards-table-wrap">
-        <table class="cards-table">
-          <colgroup>
-            <col class="cards-col-art" />
-            <col class="cards-col-name" />
-            <col class="cards-col-slot" />
-            <col class="cards-col-desc" />
-            <col class="cards-col-drop" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th class="cards-col-art" scope="col">Art</th>
-              <th class="cards-col-name" scope="col">Card</th>
-              <th class="cards-col-slot" scope="col">Slot</th>
-              <th class="cards-col-desc" scope="col">Description</th>
-              <th class="cards-col-drop" scope="col">Dropped by</th>
-            </tr>
-          </thead>
-          <tbody id="rows"></tbody>
-        </table>
+      <div class="cards-rowcards-wrap" id="cards-rowcards-wrap">
+        <div class="cards-rowcards" id="cards-rowcards"></div>
       </div>
     </section>
 
@@ -752,7 +724,7 @@ function mount(root: HTMLElement): void {
   `;
 
   const q = root.querySelector("#q") as HTMLInputElement;
-  const rowsEl = root.querySelector("#rows") as HTMLElement;
+  const cardsEl = root.querySelector("#cards-rowcards") as HTMLElement;
   const countEl = root.querySelector("#count") as HTMLElement;
   const catWrap = root.querySelector("#chips-cat") as HTMLElement;
   const statWrap = root.querySelector("#chips-stat") as HTMLElement;
@@ -761,7 +733,7 @@ function mount(root: HTMLElement): void {
   const filterTooltip = root.querySelector("#cards-filter-tooltip") as HTMLElement;
   const mapTooltip = root.querySelector("#cards-map-tooltip") as HTMLElement;
   const copyToastEl = root.querySelector("#cards-copy-toast") as HTMLElement;
-  const tableWrapEl = root.querySelector(".cards-table-wrap") as HTMLElement;
+  const listWrapEl = root.querySelector("#cards-rowcards-wrap") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
   const overflowBtn = root.querySelector("#cards-overflow-btn") as HTMLButtonElement;
   const overflowEl = root.querySelector("#cards-overflow") as HTMLElement;
@@ -886,13 +858,13 @@ function mount(root: HTMLElement): void {
 
       return true;
     });
-    rowsEl.innerHTML = renderRows(filtered);
+    cardsEl.innerHTML = renderRows(filtered);
     countEl.textContent = `${filtered.length.toLocaleString()} / ${cardsAll.length.toLocaleString()} cards`;
     visibleArtIds = filtered.map((c) => c.id);
   };
 
   // If a card art image is missing, fall back to Divine Pride's collection icon.
-  rowsEl.addEventListener(
+  cardsEl.addEventListener(
     "error",
     (e) => {
       const img = e.target as HTMLImageElement | null;
@@ -1203,7 +1175,7 @@ function mount(root: HTMLElement): void {
   };
   window.addEventListener("scroll", hideFloatingTooltipsOnScroll, true);
   window.addEventListener("resize", hideFloatingTooltipsOnScroll);
-  tableWrapEl.addEventListener("scroll", hideFloatingTooltipsOnScroll, { passive: true });
+  listWrapEl.addEventListener("scroll", hideFloatingTooltipsOnScroll, { passive: true });
 
   root.addEventListener("pointerover", (e) => {
     const btn = (e.target as HTMLElement).closest("button.cards-drop-map") as HTMLButtonElement | null;
@@ -1248,12 +1220,7 @@ function mount(root: HTMLElement): void {
     e.preventDefault();
     void (async () => {
       try {
-        const cmd = formatNaviCommand(mapId);
-        if (!cmd) {
-          showCopyToast(btn, "No /navi coords for this map");
-          return;
-        }
-        await navigator.clipboard.writeText(cmd);
+        await navigator.clipboard.writeText(mapId);
         hideMapTooltip();
         btn.classList.add("cards-drop-map--copied");
         const nameEl = btn.querySelector(".cards-drop-map__name");
@@ -1263,7 +1230,7 @@ function mount(root: HTMLElement): void {
           void (nameEl as HTMLElement).offsetWidth;
           (nameEl as HTMLElement).classList.add("cards-drop-map__name--wave");
         }
-        showCopyToast(btn, "Copied /navi command");
+        showCopyToast(btn, "Copied map name");
         const prev = btn.dataset.copyTimerId;
         if (prev) window.clearTimeout(Number.parseInt(prev, 10));
         const tid = window.setTimeout(() => {
@@ -1331,7 +1298,7 @@ function mount(root: HTMLElement): void {
     }
   });
 
-  rowsEl.addEventListener("click", (e) => {
+  cardsEl.addEventListener("click", (e) => {
     const btn = (e.target as HTMLElement | null)?.closest("button.cards-art-btn") as HTMLButtonElement | null;
     if (!btn) return;
     const idAttr = btn.getAttribute("data-art-for");
@@ -1404,7 +1371,7 @@ function mount(root: HTMLElement): void {
   });
 
   // Delegate clicks on set-bonus blocks inside the table.
-  rowsEl.addEventListener("click", (e) => {
+  cardsEl.addEventListener("click", (e) => {
     const el = (e.target as HTMLElement | null)?.closest("button.desc-block--click") as HTMLElement | null;
     if (!el) return;
     const idAttr = el.getAttribute("data-set-for");
