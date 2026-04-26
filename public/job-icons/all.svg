@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+  <!-- Styled to match the novice icon palette (white fill + blue outline) -->
+  <defs>
+    <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7feff"/>
+      <stop offset="1" stop-color="#d9f2ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Square frame (like other job icons) -->
+  <rect
+    x="4"
+    y="4"
+    width="36"
+    height="36"
+    rx="6"
+    fill="url(#fill)"
+    stroke="#1f6fb0"
+    stroke-width="2.6"
+    stroke-linejoin="round"
+  />
+
+  <!-- Inner "all jobs" glyph (globe-ish + cross) -->
+  <path
+    d="M22 10.5c6.3 0 11.5 5.2 11.5 11.5S28.3 33.5 22 33.5 10.5 28.3 10.5 22 15.7 10.5 22 10.5Z"
+    fill="url(#fill)"
+    stroke="#1f6fb0"
+    stroke-width="2.2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M12.2 22h19.6M22 12.2v19.6"
+    stroke="#2e86c8"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    opacity="0.95"
+  />
+  <path
+    d="M15.1 15.7c4.7 4.1 9.1 4.1 13.8 0M15.1 28.3c4.7-4.1 9.1-4.1 13.8 0"
+    fill="none"
+    stroke="#66b7e8"
+    stroke-width="2"
+    stroke-linecap="round"
+    opacity="0.9"
+  />
+  <path
+    d="M22 10.5c6.3 0 11.5 5.2 11.5 11.5"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    opacity="0.8"
+  />
+</svg>
