@@ -40,6 +40,7 @@ type MonsterEntry = {
 
 type FilterState = {
   q: string;
+  mobId: number | null;
   races: Set<string>;
   elements: Set<string>;
   sizes: Set<string>;
@@ -376,7 +377,7 @@ function mount(root: HTMLElement): void {
       </div>
 
       ${renderFilters(
-        { q: "", races: new Set(), elements: new Set(), sizes: new Set(), mvp: new Set() },
+        { q: "", mobId: null, races: new Set(), elements: new Set(), sizes: new Set(), mvp: new Set() },
         races,
         elements,
         sizes,
@@ -402,7 +403,7 @@ function mount(root: HTMLElement): void {
   const filtersEl = root.querySelector(".equip-filters") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
 
-  const state: FilterState = { q: "", races: new Set(), elements: new Set(), sizes: new Set(), mvp: new Set() };
+  const state: FilterState = { q: "", mobId: null, races: new Set(), elements: new Set(), sizes: new Set(), mvp: new Set() };
   let tipActive: HTMLElement | null = null;
 
   const hideTip = (): void => {
@@ -458,6 +459,7 @@ function mount(root: HTMLElement): void {
     const query = normalize(q.value);
     state.q = query;
     const filtered = monstersAll.filter((m) => {
+      if (state.mobId !== null) return m.id === state.mobId;
       const hay = normalize([m.name, m.aegisName, m.race ?? "", m.element ?? "", m.size ?? ""].join(" "));
       if (query && !hay.includes(query)) return false;
       if (state.races.size && (!m.race || !state.races.has(m.race))) return false;
@@ -474,6 +476,16 @@ function mount(root: HTMLElement): void {
   };
 
   q.addEventListener("input", apply);
+
+  // Deep link: /monsters?mob=<id>
+  {
+    const sp = new URLSearchParams(window.location.search);
+    const mob = sp.get("mob");
+    if (mob) {
+      const n = parseInt(mob, 10);
+      if (Number.isFinite(n)) state.mobId = n;
+    }
+  }
   apply();
 
   const syncClear = (): void => {
@@ -513,10 +525,12 @@ function mount(root: HTMLElement): void {
   });
 
   clearBtn?.addEventListener("click", () => {
+    state.mobId = null;
     state.races.clear();
     state.elements.clear();
     state.sizes.clear();
     state.mvp.clear();
+    q.value = "";
     filtersEl?.querySelectorAll("button.cards-chip").forEach((b) => {
       b.classList.remove("cards-chip--on");
       b.setAttribute("aria-pressed", "false");

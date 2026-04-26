@@ -1,6 +1,7 @@
 import "./style.css";
 import { inject } from "@vercel/analytics";
 import armourRaw from "./data/armour.json";
+import monstersRaw from "./data/monsters.json";
 
 inject();
 
@@ -28,6 +29,11 @@ type EquipEntry = {
 };
 
 const armourAll: EquipEntry[] = (armourRaw as EquipEntry[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+
+type MonsterIndexEntry = { id: number; name: string };
+const monsterIdByName = new Map<string, number>(
+  (monstersRaw as MonsterIndexEntry[]).map((m) => [normalize(String(m.name || "")), m.id]),
+);
 
 type FilterState = {
   q: string;
@@ -442,7 +448,17 @@ function obtainHtml(it: EquipEntry): string {
   if (!lines.length) return `<div class="cards-empty">Unknown</div>`;
   return `<div class="desc-blocks"><div class="desc-block desc-block--plain">${lines
     .slice(0, 8)
-    .map((x) => `<div class="equip-obtain">${escapeHtml(x)}</div>`)
+    .map((x) => {
+      const s = String(x || "").trim();
+      const m = /^Drop:\s*([^(]+?)\s*\(/i.exec(s);
+      if (!m) return `<div class="equip-obtain">${escapeHtml(s)}</div>`;
+      const name = m[1] ? m[1].trim() : "";
+      const id = name ? monsterIdByName.get(normalize(name)) : undefined;
+      if (!id) return `<div class="equip-obtain">${escapeHtml(s)}</div>`;
+      return `<div class="equip-obtain"><a class="monster-drop-link" href="/monsters?mob=${escapeHtml(
+        String(id),
+      )}"><span class="monster-drop-name">${escapeHtml(s)}</span></a></div>`;
+    })
     .join("")}</div></div>`;
 }
 
