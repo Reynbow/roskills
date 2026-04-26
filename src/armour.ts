@@ -33,7 +33,30 @@ type FilterState = {
   q: string;
   loc: Set<string>;
   slots: number | null;
+  /** Class / job keys from `JOB_ORDER`, plus `__jobsAll__` for items usable by all jobs. */
+  jobs: Set<string>;
 };
+
+const JOB_FILTER_ALL = "__jobsAll__";
+
+function jobDisplayName(jobKey: string): string {
+  if (jobKey === JOB_FILTER_ALL) return "All jobs";
+  return jobKey.replace(/([a-z])([A-Z])/g, "$1 $2");
+}
+
+function itemMatchesJobFilters(it: EquipEntry, wanted: Set<string>): boolean {
+  if (!wanted.size) return true;
+  for (const key of wanted) {
+    if (key === JOB_FILTER_ALL) {
+      if (it.jobsAll) return true;
+    } else {
+      if (it.jobsAll) return true;
+      const jobs = Array.isArray(it.jobs) ? it.jobs : [];
+      if (jobs.includes(key)) return true;
+    }
+  }
+  return false;
+}
 
 function expandLocations(raw: unknown): string[] {
   const locs = Array.isArray(raw)
@@ -182,43 +205,6 @@ function chipButton(id: string, label: string, pressed: boolean, kind: string, d
   )}" aria-pressed="${pressed ? "true" : "false"}"${tip}>${escapeHtml(label)}</button>`;
 }
 
-function renderFilters(state: FilterState, locs: string[]): string {
-  const locComboIds = new Set(["MiddleLower", "MiddleUpper", "UpperLower", "UpperMiddleLower"]);
-  const locMain: string[] = [];
-  const locCombos: string[] = [];
-  for (const l of locs) {
-    if (locComboIds.has(l)) locCombos.push(l);
-    else locMain.push(l);
-  }
-
-  const locChipsMain = locMain.map((l) => chipButton(l, locChipLabel(l), state.loc.has(l), "loc")).join("");
-  const locChipsCombo = locCombos.map((l) => chipButton(l, locChipLabel(l), state.loc.has(l), "loc")).join("");
-  const locChips = locChipsCombo
-    ? `${locChipsMain}<div class="equip-loc-combos" aria-label="Head combo locations">${locChipsCombo}</div>`
-    : locChipsMain;
-  const slotChips = [0, 1, 2, 3, 4].map((n) =>
-    chipButton(String(n), `${n}`, state.slots === n, "slots", "Slots"),
-  );
-  const anyOn = state.loc.size || state.slots !== null ? true : false;
-
-  return `
-    <div class="cards-filters equip-filters" aria-label="Armour filters">
-      <div class="cards-filters__head">
-        <div class="cards-filters__title">Filters</div>
-        <button type="button" class="cards-filter-clear" id="btn-clear" ${anyOn ? "" : "disabled"}>Clear</button>
-      </div>
-      <div class="cards-filter-group">
-        <div class="cards-filter-title">Location</div>
-        <div class="cards-filter-chips" id="chips-loc">${locChips}</div>
-      </div>
-      <div class="cards-filter-group">
-        <div class="cards-filter-title">Slots</div>
-        <div class="cards-filter-chips" id="chips-slots">${slotChips.join("")}</div>
-      </div>
-    </div>
-  `;
-}
-
 const JOB_ICON_ID: Record<string, number> = {
   Novice: 0,
   Swordsman: 1,
@@ -275,6 +261,34 @@ const JOB_REBIRTH = new Set([
   "Stalker",
 ]);
 
+/** Rebirth classes use the same party-frame sprite as their 2nd class (Icon_jobs_*.png set has no separate rebirth IDs). */
+const JOB_REBIRTH_ICON_PARENT: Record<string, string> = {
+  LordKnight: "Knight",
+  Paladin: "Crusader",
+  HighWizard: "Wizard",
+  Professor: "Sage",
+  Sniper: "Hunter",
+  Clown: "Bard",
+  Gypsy: "Dancer",
+  HighPriest: "Priest",
+  Champion: "Monk",
+  Whitesmith: "Blacksmith",
+  Creator: "Alchemist",
+  AssassinCross: "Assassin",
+  Stalker: "Rogue",
+};
+
+function jobPartyIconId(jobKey: string): number | null {
+  const direct = JOB_ICON_ID[jobKey];
+  if (typeof direct === "number") return direct;
+  const parent = JOB_REBIRTH_ICON_PARENT[jobKey];
+  if (parent) {
+    const id = JOB_ICON_ID[parent];
+    if (typeof id === "number") return id;
+  }
+  return null;
+}
+
 const JOB_ORDER: string[] = [
   // Novice / Super Novice first
   "Novice",
@@ -318,6 +332,84 @@ const JOB_ORDER: string[] = [
 
 const JOB_ORDER_RANK: Record<string, number> = Object.fromEntries(JOB_ORDER.map((k, i) => [k, i]));
 
+function jobFilterChipButton(jobKey: string, pressed: boolean): string {
+  const idEsc = escapeHtml(jobKey);
+  const label = jobDisplayName(jobKey);
+  const tip = ` data-tooltip="${escapeHtml(label)}" data-tipbody="${escapeHtml("Filter by equippable jobs")}"`;
+  if (jobKey === JOB_FILTER_ALL) {
+    const cls = pressed ? "cards-chip cards-chip--on cards-chip--slot" : "cards-chip cards-chip--slot";
+    return `<button type="button" class="${cls} equip-filter-job--all" data-kind="job" data-id="${idEsc}" aria-pressed="${
+      pressed ? "true" : "false"
+    }" aria-label="Filter: ${escapeHtml(label)}"${tip}><img class="cards-chip-slot-icon equip-filter-jobicon" src="/job-icons/all.svg" alt="" width="24" height="24" decoding="async" loading="lazy" referrerpolicy="no-referrer" /></button>`;
+  }
+  const iconId = jobPartyIconId(jobKey);
+  if (typeof iconId === "number") {
+    const tier = JOB_REBIRTH.has(jobKey)
+      ? " equip-filter-job--rebirth"
+      : JOB_SECONDARY.has(jobKey)
+        ? " equip-filter-job--secondary"
+        : "";
+    const cls = pressed ? "cards-chip cards-chip--on cards-chip--slot" : "cards-chip cards-chip--slot";
+    const src = `/job-icons/Icon_jobs_${iconId}.png`;
+    return `<button type="button" class="${cls}${tier}" data-kind="job" data-id="${idEsc}" aria-pressed="${
+      pressed ? "true" : "false"
+    }" aria-label="Filter: ${escapeHtml(label)}"${tip}><img class="cards-chip-slot-icon equip-filter-jobicon" src="${escapeHtml(
+      src,
+    )}" alt="" width="24" height="24" decoding="async" loading="lazy" referrerpolicy="no-referrer" /></button>`;
+  }
+  return chipButton(jobKey, label, pressed, "job", "Job filter");
+}
+
+function renderJobFilterChips(state: FilterState): string {
+  const allChip = jobFilterChipButton(JOB_FILTER_ALL, state.jobs.has(JOB_FILTER_ALL));
+  const rest = JOB_ORDER.filter((j) => !JOB_REBIRTH.has(j))
+    .map((j) => jobFilterChipButton(j, state.jobs.has(j)))
+    .join("");
+  return `${allChip}${rest}`;
+}
+
+function renderFilters(state: FilterState, locs: string[]): string {
+  const locComboIds = new Set(["MiddleLower", "MiddleUpper", "UpperLower", "UpperMiddleLower"]);
+  const locMain: string[] = [];
+  const locCombos: string[] = [];
+  for (const l of locs) {
+    if (locComboIds.has(l)) locCombos.push(l);
+    else locMain.push(l);
+  }
+
+  const locChipsMain = locMain.map((l) => chipButton(l, locChipLabel(l), state.loc.has(l), "loc")).join("");
+  const locChipsCombo = locCombos.map((l) => chipButton(l, locChipLabel(l), state.loc.has(l), "loc")).join("");
+  const locChips = locChipsCombo
+    ? `${locChipsMain}<div class="equip-loc-combos" aria-label="Head combo locations">${locChipsCombo}</div>`
+    : locChipsMain;
+  const slotChips = [0, 1, 2, 3, 4].map((n) =>
+    chipButton(String(n), `${n}`, state.slots === n, "slots", "Slots"),
+  );
+  const jobChips = renderJobFilterChips(state);
+  const anyOn = state.loc.size || state.slots !== null || state.jobs.size ? true : false;
+
+  return `
+    <div class="cards-filters equip-filters" aria-label="Armour filters">
+      <div class="cards-filters__head">
+        <div class="cards-filters__title">Filters</div>
+        <button type="button" class="cards-filter-clear" id="btn-clear" ${anyOn ? "" : "disabled"}>Clear</button>
+      </div>
+      <div class="cards-filter-group">
+        <div class="cards-filter-title">Location</div>
+        <div class="cards-filter-chips" id="chips-loc">${locChips}</div>
+      </div>
+      <div class="cards-filter-group">
+        <div class="cards-filter-title">Class</div>
+        <div class="cards-filter-chips" id="chips-job">${jobChips}</div>
+      </div>
+      <div class="cards-filter-group">
+        <div class="cards-filter-title">Slots</div>
+        <div class="cards-filter-chips" id="chips-slots">${slotChips.join("")}</div>
+      </div>
+    </div>
+  `;
+}
+
 function jobIconsHtml(it: EquipEntry): string {
   const jobs = (Array.isArray(it.jobs) ? it.jobs : []).slice().sort((a, b) => {
     const ra = JOB_ORDER_RANK[a] ?? 9999;
@@ -330,7 +422,7 @@ function jobIconsHtml(it: EquipEntry): string {
   }
   const icons = jobs
     .map((j) => {
-      const id = JOB_ICON_ID[j];
+      const id = jobPartyIconId(j);
       if (typeof id !== "number") return "";
       const src = `/job-icons/Icon_jobs_${id}.png`;
       const tier =
@@ -432,7 +524,7 @@ function mount(root: HTMLElement): void {
         <div class="cards-count" id="count" role="status" aria-live="polite"></div>
       </div>
 
-      ${renderFilters({ q: "", loc: new Set(), slots: null }, locs)}
+      ${renderFilters({ q: "", loc: new Set(), slots: null, jobs: new Set() }, locs)}
 
       <div id="equip-tooltip" class="cards-filter-tooltip equip-tooltip" role="tooltip" aria-hidden="true"></div>
 
@@ -449,7 +541,7 @@ function mount(root: HTMLElement): void {
   const tipEl = root.querySelector("#equip-tooltip") as HTMLElement;
   const filtersEl = root.querySelector(".equip-filters") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
-  const state: FilterState = { q: "", loc: new Set(), slots: null };
+  const state: FilterState = { q: "", loc: new Set(), slots: null, jobs: new Set() };
   let tipActive: HTMLElement | null = null;
 
   const hideTip = (): void => {
@@ -516,6 +608,7 @@ function mount(root: HTMLElement): void {
         if (!loc.some((l) => state.loc.has(l))) return false;
       }
       if (state.slots !== null && state.slots !== Math.max(0, Math.min(4, Number(it.slots) || 0))) return false;
+      if (!itemMatchesJobFilters(it, state.jobs)) return false;
       return true;
     });
     rowsEl.innerHTML = renderRows(filtered);
@@ -526,7 +619,7 @@ function mount(root: HTMLElement): void {
   apply();
 
   const syncClear = (): void => {
-    const anyOn = state.loc.size || state.slots !== null ? true : false;
+    const anyOn = state.loc.size || state.slots !== null || state.jobs.size ? true : false;
     if (clearBtn) clearBtn.disabled = !anyOn;
     clearBtn?.classList.toggle("cards-btn--disabled", !anyOn);
   };
@@ -541,6 +634,9 @@ function mount(root: HTMLElement): void {
     if (kind === "loc") {
       if (state.loc.has(id)) state.loc.delete(id);
       else state.loc.add(id);
+    } else if (kind === "job") {
+      if (state.jobs.has(id)) state.jobs.delete(id);
+      else state.jobs.add(id);
     } else if (kind === "slots") {
       const n = parseInt(id, 10);
       if (Number.isFinite(n)) {
@@ -568,6 +664,7 @@ function mount(root: HTMLElement): void {
   clearBtn?.addEventListener("click", () => {
     state.loc.clear();
     state.slots = null;
+    state.jobs.clear();
     filtersEl?.querySelectorAll("button.cards-chip").forEach((b) => {
       b.classList.remove("cards-chip--on");
       b.setAttribute("aria-pressed", "false");

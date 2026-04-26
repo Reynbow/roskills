@@ -404,6 +404,53 @@
     "supportBonuses": []
   },
   {
+    "mobAegis": "PETIT",
+    "mobId": 1155,
+    "mobLevel": 44,
+    "name": "Earth Petite (Green)",
+    "tameItem": {
+      "aegis": "Shining_Stone",
+      "id": 640,
+      "name": "Shining Stone",
+      "icon": "https://static.divine-pride.net/images/items/item/640.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Zenorc",
+        "level": 31,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Green_Petite_Egg",
+      "id": 9022,
+      "name": "Green Petite Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9022.png"
+    },
+    "accessoryItem": {
+      "aegis": "Stellar_Hairpin",
+      "id": 10011,
+      "name": "Stellar Hairpin",
+      "icon": "https://static.divine-pride.net/images/items/item/10011.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 500,
+    "fullness": 4,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 20,
+    "bonuses": [
+      "DEF/MDEF -2",
+      "ASPD +1%"
+    ],
+    "supportBonuses": []
+  },
+  {
     "mobAegis": "CHUNG_E",
     "mobId": 1519,
     "mobLevel": 49,
@@ -452,6 +499,47 @@
     "bonuses": [
       "DEF +1",
       "Demi Human Resistance +1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "EVENT_RICECAKE",
+    "mobId": 1815,
+    "mobLevel": 12,
+    "name": "Hot Rice Cake",
+    "tameItem": {
+      "aegis": "Mysterious_Rice_Powder",
+      "id": 12340,
+      "name": "Chewy Rice Powder",
+      "icon": "https://static.divine-pride.net/images/items/item/12340.png"
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Rice_Cake_Egg",
+      "id": 9028,
+      "name": "Hard Rice Cake",
+      "icon": "https://static.divine-pride.net/images/items/item/9028.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Green_Herb",
+      "id": 511,
+      "name": "Green Herb",
+      "icon": "https://static.divine-pride.net/images/items/item/511.png"
+    },
+    "captureRate": 2000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [
+      "Neutral Element Resistance +1%",
+      "HP -1%"
     ],
     "supportBonuses": []
   },
@@ -513,6 +601,53 @@
     "bonuses": [
       "FLEE -5",
       "Perfect Dodge +2"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "IMP",
+    "mobId": 1837,
+    "mobLevel": 76,
+    "name": "Imp",
+    "tameItem": {
+      "aegis": "Flaming_Ice",
+      "id": 12374,
+      "name": "Ice Fireworks",
+      "icon": "https://static.divine-pride.net/images/items/item/12374.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Fire Imp",
+        "level": 76,
+        "rate": 20
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Imp_Egg",
+      "id": 9056,
+      "name": "Imp Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9056.png"
+    },
+    "accessoryItem": {
+      "aegis": "Horn_Protector",
+      "id": 10038,
+      "name": "Horn Barrier",
+      "icon": "https://static.divine-pride.net/images/items/item/10038.png"
+    },
+    "foodItem": {
+      "aegis": "Flame_Gemstone",
+      "id": 6114,
+      "name": "Flame Gemstone",
+      "icon": ""
+    },
+    "captureRate": 300,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 10,
+    "bonuses": [
+      "Fire Element Resistance +2%",
+      "Damage to Fire Element monster +1 %"
     ],
     "supportBonuses": []
   },
@@ -1098,6 +1233,94 @@
     "bonuses": [
       "HP Recovery +5%",
       "HP +25"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "GOBLINE_XMAS",
+    "mobId": 1245,
+    "mobLevel": 25,
+    "name": "Santa Goblin",
+    "tameItem": {
+      "aegis": "Sweet_Candy_Striper",
+      "id": 12225,
+      "name": "Sweet Candy Cane",
+      "icon": ""
+    },
+    "tameItemSources": [],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Santa_Goblin_Egg",
+      "id": 9029,
+      "name": "Christmas Goblin's Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9029.png"
+    },
+    "accessoryItem": {
+      "aegis": "",
+      "id": null,
+      "name": "",
+      "icon": ""
+    },
+    "foodItem": {
+      "aegis": "Scell",
+      "id": 911,
+      "name": "Scell",
+      "icon": ""
+    },
+    "captureRate": 2000,
+    "fullness": 3,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 50,
+    "bonuses": [
+      "HP +30",
+      "Water Element Resistance +1%"
+    ],
+    "supportBonuses": []
+  },
+  {
+    "mobAegis": "SAVAGE_BABE",
+    "mobId": 1167,
+    "mobLevel": 7,
+    "name": "Savage Bebe",
+    "tameItem": {
+      "aegis": "Sweet_Milk",
+      "id": 627,
+      "name": "Sweet Milk",
+      "icon": "https://static.divine-pride.net/images/items/item/627.png"
+    },
+    "tameItemSources": [
+      {
+        "monster": "Savage Babe",
+        "level": 7,
+        "rate": 40
+      }
+    ],
+    "tameItemNpcSources": [],
+    "eggItem": {
+      "aegis": "Savage_Bebe_Egg",
+      "id": 9009,
+      "name": "Savage Babe Egg",
+      "icon": "https://static.divine-pride.net/images/items/item/9009.png"
+    },
+    "accessoryItem": {
+      "aegis": "Green_Lace",
+      "id": 10015,
+      "name": "Green Lace",
+      "icon": "https://static.divine-pride.net/images/items/item/10015.png"
+    },
+    "foodItem": {
+      "aegis": "Pet_Food",
+      "id": 537,
+      "name": "Pet Food",
+      "icon": "https://static.divine-pride.net/images/items/item/537.png"
+    },
+    "captureRate": 1500,
+    "fullness": 7,
+    "hungryDelaySeconds": 60,
+    "intimacyFed": 40,
+    "bonuses": [
+      "VIT +1",
+      "HP +50"
     ],
     "supportBonuses": []
   },

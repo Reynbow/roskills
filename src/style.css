@@ -1207,6 +1207,20 @@ header.planner-header h1 {
   z-index: 2500;
 }
 
+/* Class filter chips (armour / weapons) — match row job icon glows */
+.equip-filter-jobicon {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.equip-filter-job--secondary .equip-filter-jobicon {
+  filter: drop-shadow(0 0 6px rgba(125, 185, 255, 0.22));
+}
+
+.equip-filter-job--rebirth .equip-filter-jobicon {
+  filter: drop-shadow(0 0 6px rgba(255, 210, 120, 0.22));
+}
+
 .equip-slot {
   width: 28px;
   height: 28px;

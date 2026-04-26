@@ -345,11 +345,14 @@ const IRO_CLASSIC_PETS = [
   { monster: "Deviruchi", tame: "Contract in Shadow", food: "Shoot", accessory: "Pacifier", bonuses: "ATK/MATK +1%, HP/SP -3%" },
   { monster: "Dokebi", tame: "Old Broom", food: "Pet Food", accessory: "Wig", bonuses: "MATK +1%, ATK -1%" },
   { monster: "Drops", tame: "Orange Juice", food: "Yellow Herb", accessory: "Backpack", bonuses: "HIT +3, ATK +3" },
-  { monster: "Earth Petite (Green)", tame: "Shining Stone", food: "Pet Food", accessory: "Stellar Hairpin", bonuses: "DEF/MDEF -2, ASPD +1%" },
+  /** rAthena mob name is "Petite"; match by Aegis so this pet is not dropped from the iRO Classic list. */
+  { monster: "Earth Petite (Green)", mobAegis: "PETIT", tame: "Shining Stone", food: "Pet Food", accessory: "Stellar Hairpin", bonuses: "DEF/MDEF -2, ASPD +1%" },
   { monster: "Green Maiden", tame: "Tantan Noodles", food: "Bun", accessory: "None", bonuses: "DEF +1, Demi Human Resistance +1%" },
-  { monster: "Hot Rice Cake", tame: "Chewy Rice Powder", food: "Green Herb", accessory: "None", bonuses: "Neutral Element Resistance +1%, HP -1%" },
+  /** Mob display name in db is "Rice Cake". */
+  { monster: "Hot Rice Cake", mobAegis: "EVENT_RICECAKE", tame: "Chewy Rice Powder", food: "Green Herb", accessory: "None", bonuses: "Neutral Element Resistance +1%, HP -1%" },
   { monster: "Hunter Fly", tame: "Monster Juice", food: "Red Gemstone", accessory: "Monster Oxygen Mask", bonuses: "FLEE -5, Perfect Dodge +2" },
-  { monster: "Imp", tame: "Ice Fireworks", food: "Flame Gemstone", accessory: "Horn Barrier", bonuses: "Fire Element Resistance + 2%, Damage to Fire Element monster + 1 %" },
+  /** Mob display name in db is "Fire Imp". */
+  { monster: "Imp", mobAegis: "IMP", tame: "Ice Fireworks", food: "Flame Gemstone", accessory: "Horn Barrier", bonuses: "Fire Element Resistance + 2%, Damage to Fire Element monster + 1 %" },
   { monster: "Isis", tame: "Armlet of Obedience", food: "Pet Food", accessory: "Queen's Hair Ornament", bonuses: "MATK -1%, ATK +1%" },
   { monster: "Lunatic", tame: "Rainbow Carrot", food: "Carrot Juice", accessory: "Silk Ribbon", bonuses: "CRIT +2, ATK +2" },
   { monster: "Munak", tame: "No Recipient", food: "Pet Food", accessory: "Punisher", bonuses: "INT +1, DEF +1" },
@@ -361,8 +364,10 @@ const IRO_CLASSIC_PETS = [
   { monster: "Poporing", tame: "Bitter Herb", food: "Green Herb", accessory: "Backpack", bonuses: "LUK +2, Poison Element Resistance +10%" },
   { monster: "Poring", tame: "Unripe Apple", food: "Apple Juice", accessory: "Backpack", bonuses: "LUK +2, CRIT +1" },
   { monster: "Rocker", tame: "Singing Flower", food: "Pet Food", accessory: "Rocker Glasses", bonuses: "HP Recovery +5%, HP +25" },
-  { monster: "Santa Goblin", tame: "Sweet Candy Cane", food: "Scell", accessory: "None", bonuses: "HP +30, Water Element Resistance +1%" },
-  { monster: "Savage Bebe", tame: "Sweet Milk", food: "Pet Food", accessory: "Green Lace", bonuses: "VIT +1, HP +50" },
+  /** Mob display name in db is "Christmas Goblin". */
+  { monster: "Santa Goblin", mobAegis: "GOBLINE_XMAS", tame: "Sweet Candy Cane", food: "Scell", accessory: "None", bonuses: "HP +30, Water Element Resistance +1%" },
+  /** Mob display name in db is "Savage Babe". */
+  { monster: "Savage Bebe", mobAegis: "SAVAGE_BABE", tame: "Sweet Milk", food: "Pet Food", accessory: "Green Lace", bonuses: "VIT +1, HP +50" },
   { monster: "Smokie", tame: "Sweet Potato", food: "Pet Food", accessory: "Red Scarf", bonuses: "AGI +1, Perfect Dodge +1" },
   { monster: "Sohee", tame: "Silver Knife of Chastity", food: "Pet Food", accessory: "Golden Bell", bonuses: "STR +1, DEX +1" },
   { monster: "Spore", tame: "Dew Laden Moss", food: "Pet Food", accessory: "Bark Shorts", bonuses: "HIT +5, ATK -2" },
@@ -401,13 +406,25 @@ function itemFromName(name, itemByName) {
 
 function applyIroClassicOverrides(pets, items) {
   const itemByName = buildItemByName(items);
-  const allow = new Set(IRO_CLASSIC_PETS.map((r) => normalizeKey(r.monster)));
+  const allowByMonsterName = new Set(IRO_CLASSIC_PETS.map((r) => normalizeKey(r.monster)));
   const byMonster = new Map(IRO_CLASSIC_PETS.map((r) => [normalizeKey(r.monster), r]));
+  /** @type {Map<string, object>} */
+  const byMobAegis = new Map();
+  for (const r of IRO_CLASSIC_PETS) {
+    const a = typeof r.mobAegis === "string" ? r.mobAegis.trim().toUpperCase() : "";
+    if (a) byMobAegis.set(a, r);
+  }
 
-  const filtered = pets.filter((p) => allow.has(normalizeKey(p.name)));
+  const filtered = pets.filter((p) => {
+    if (allowByMonsterName.has(normalizeKey(p.name))) return true;
+    const aegis = typeof p.mobAegis === "string" ? p.mobAegis.trim().toUpperCase() : "";
+    return aegis ? byMobAegis.has(aegis) : false;
+  });
   for (const p of filtered) {
-    const row = byMonster.get(normalizeKey(p.name));
+    const aegis = typeof p.mobAegis === "string" ? p.mobAegis.trim().toUpperCase() : "";
+    const row = byMonster.get(normalizeKey(p.name)) ?? (aegis ? byMobAegis.get(aegis) : undefined);
     if (!row) continue;
+    p.name = row.monster;
     p.tameItem = itemFromName(row.tame, itemByName);
     p.foodItem = itemFromName(row.food, itemByName);
     p.accessoryItem = itemFromName(row.accessory, itemByName);
