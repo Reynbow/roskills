@@ -22,6 +22,9 @@ dist-ssr
 secrets/
 .env.local
 
+# Import script caches (Divine Pride responses, etc.)
+scripts/.cache/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

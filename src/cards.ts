@@ -638,6 +638,8 @@ function mount(root: HTMLElement): void {
           <a class="site-nav__link" href="/skills">Skill Planner</a>
           <a class="site-nav__link site-nav__link--active" href="/cards" aria-current="page">Card Library</a>
           <a class="site-nav__link" href="/pets">Pets</a>
+          <a class="site-nav__link" href="/armour">Armour</a>
+          <a class="site-nav__link" href="/weapons">Weapons</a>
         </nav>
       </div>
     </header>
