@@ -336,6 +336,11 @@ header.planner-header h1 {
   margin: 0 0 1rem;
 }
 
+/* Monsters page: keep filter groups in one row (Race/Element/Size/Type). */
+.equip-page--monsters .cards-filters {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .cards-filters__head {
   grid-column: 1 / -1;
   display: flex;
