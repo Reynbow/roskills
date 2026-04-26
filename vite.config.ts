@@ -9,6 +9,7 @@ export default defineConfig({
         pets: "pets.html",
         armour: "armour.html",
         weapons: "weapons.html",
+        monsters: "monsters.html",
       },
     },
   },

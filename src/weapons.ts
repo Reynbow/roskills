@@ -32,6 +32,7 @@ const weaponsAll: EquipEntry[] = (weaponsRaw as EquipEntry[]).slice().sort((a, b
 
 type FilterState = {
   q: string;
+  itemId: number | null;
   subTypes: Set<string>;
   wlv: Set<number>;
   slots: number | null;
@@ -421,7 +422,7 @@ function rowCardHtml(it: EquipEntry): string {
     ${itemIconHtml(it)}
     <div class="cards-rowcard__name">
       <div class="cards-name-block">
-        <div class="cards-name">${escapeHtml(it.name)}</div>
+        <div class="cards-name">${escapeHtml(it.name)}<span class="entity-id">#${escapeHtml(String(it.id))}</span></div>
         ${weaponClass ? `<div class="cards-rowcard__slot">${escapeHtml(weaponClass)}</div>` : ""}
         ${slotIconsHtml(it.slots)}
       </div>
@@ -470,6 +471,7 @@ function mount(root: HTMLElement): void {
           <a class="site-nav__link" href="/skills">Skill Planner</a>
           <a class="site-nav__link" href="/cards">Card Library</a>
           <a class="site-nav__link" href="/pets">Pets</a>
+          <a class="site-nav__link" href="/monsters">Monsters</a>
           <a class="site-nav__link" href="/armour">Armour</a>
           <a class="site-nav__link site-nav__link--active" href="/weapons" aria-current="page">Weapons</a>
         </nav>
@@ -490,7 +492,11 @@ function mount(root: HTMLElement): void {
         <div class="cards-count" id="count" role="status" aria-live="polite"></div>
       </div>
 
-      ${renderFilters({ q: "", subTypes: new Set(), wlv: new Set(), slots: null, jobs: new Set() }, subTypes, wlvs)}
+      ${renderFilters(
+        { q: "", itemId: null, subTypes: new Set(), wlv: new Set(), slots: null, jobs: new Set() },
+        subTypes,
+        wlvs,
+      )}
 
       <div id="equip-tooltip" class="cards-filter-tooltip equip-tooltip" role="tooltip" aria-hidden="true"></div>
 
@@ -510,6 +516,7 @@ function mount(root: HTMLElement): void {
 
   const state: FilterState = {
     q: "",
+    itemId: null,
     subTypes: new Set(),
     wlv: new Set(),
     slots: null,
@@ -570,6 +577,7 @@ function mount(root: HTMLElement): void {
     const query = normalize(q.value);
     state.q = query;
     const filtered = weaponsAll.filter((it) => {
+      if (state.itemId !== null) return it.id === state.itemId;
       if (!query) return true;
       const hay = normalize(
         [it.name, it.aegisName, it.type, it.locations?.join(" ") ?? "", statLine(it), it.description || ""].join(
@@ -594,6 +602,16 @@ function mount(root: HTMLElement): void {
   };
 
   q.addEventListener("input", apply);
+
+  // Deep link: /weapons?item=<id>
+  {
+    const sp = new URLSearchParams(window.location.search);
+    const item = sp.get("item");
+    if (item) {
+      const n = parseInt(item, 10);
+      if (Number.isFinite(n)) state.itemId = n;
+    }
+  }
   apply();
 
   const syncClear = (): void => {
@@ -647,10 +665,12 @@ function mount(root: HTMLElement): void {
   });
 
   clearBtn?.addEventListener("click", () => {
+    state.itemId = null;
     state.subTypes.clear();
     state.wlv.clear();
     state.slots = null;
     state.jobs.clear();
+    q.value = "";
     // reset chip buttons
     filtersEl?.querySelectorAll("button.cards-chip").forEach((b) => {
       b.classList.remove("cards-chip--on");

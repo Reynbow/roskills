@@ -12,6 +12,8 @@
     { "source": "/armour", "destination": "/armour.html" },
     { "source": "/armour/", "destination": "/armour.html" },
     { "source": "/weapons", "destination": "/weapons.html" },
-    { "source": "/weapons/", "destination": "/weapons.html" }
+    { "source": "/weapons/", "destination": "/weapons.html" },
+    { "source": "/monsters", "destination": "/monsters.html" },
+    { "source": "/monsters/", "destination": "/monsters.html" }
   ]
 }

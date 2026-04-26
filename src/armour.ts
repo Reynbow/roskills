@@ -31,6 +31,7 @@ const armourAll: EquipEntry[] = (armourRaw as EquipEntry[]).slice().sort((a, b) 
 
 type FilterState = {
   q: string;
+  itemId: number | null;
   loc: Set<string>;
   slots: number | null;
   /** Class / job keys from `JOB_ORDER`, plus `__jobsAll__` for items usable by all jobs. */
@@ -454,7 +455,7 @@ function rowCardHtml(it: EquipEntry): string {
     ${itemIconHtml(it)}
     <div class="cards-rowcard__name">
       <div class="cards-name-block">
-        <div class="cards-name">${escapeHtml(it.name)}</div>
+        <div class="cards-name">${escapeHtml(it.name)}<span class="entity-id">#${escapeHtml(String(it.id))}</span></div>
         ${loc !== "-" ? `<div class="cards-rowcard__slot">${escapeHtml(loc)}</div>` : ""}
         ${slotIconsHtml(it.slots)}
       </div>
@@ -504,6 +505,7 @@ function mount(root: HTMLElement): void {
           <a class="site-nav__link" href="/skills">Skill Planner</a>
           <a class="site-nav__link" href="/cards">Card Library</a>
           <a class="site-nav__link" href="/pets">Pets</a>
+          <a class="site-nav__link" href="/monsters">Monsters</a>
           <a class="site-nav__link site-nav__link--active" href="/armour" aria-current="page">Armour</a>
           <a class="site-nav__link" href="/weapons">Weapons</a>
         </nav>
@@ -524,7 +526,7 @@ function mount(root: HTMLElement): void {
         <div class="cards-count" id="count" role="status" aria-live="polite"></div>
       </div>
 
-      ${renderFilters({ q: "", loc: new Set(), slots: null, jobs: new Set() }, locs)}
+      ${renderFilters({ q: "", itemId: null, loc: new Set(), slots: null, jobs: new Set() }, locs)}
 
       <div id="equip-tooltip" class="cards-filter-tooltip equip-tooltip" role="tooltip" aria-hidden="true"></div>
 
@@ -541,7 +543,7 @@ function mount(root: HTMLElement): void {
   const tipEl = root.querySelector("#equip-tooltip") as HTMLElement;
   const filtersEl = root.querySelector(".equip-filters") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
-  const state: FilterState = { q: "", loc: new Set(), slots: null, jobs: new Set() };
+  const state: FilterState = { q: "", itemId: null, loc: new Set(), slots: null, jobs: new Set() };
   let tipActive: HTMLElement | null = null;
 
   const hideTip = (): void => {
@@ -597,6 +599,7 @@ function mount(root: HTMLElement): void {
     const query = normalize(q.value);
     state.q = query;
     const filtered = armourAll.filter((it) => {
+      if (state.itemId !== null) return it.id === state.itemId;
       const hay = normalize(
         [it.name, it.aegisName, it.type, it.locations?.join(" ") ?? "", statLine(it), it.description || ""].join(
           " ",
@@ -616,6 +619,16 @@ function mount(root: HTMLElement): void {
   };
 
   q.addEventListener("input", apply);
+
+  // Deep link: /armour?item=<id>
+  {
+    const sp = new URLSearchParams(window.location.search);
+    const item = sp.get("item");
+    if (item) {
+      const n = parseInt(item, 10);
+      if (Number.isFinite(n)) state.itemId = n;
+    }
+  }
   apply();
 
   const syncClear = (): void => {
@@ -662,9 +675,11 @@ function mount(root: HTMLElement): void {
   });
 
   clearBtn?.addEventListener("click", () => {
+    state.itemId = null;
     state.loc.clear();
     state.slots = null;
     state.jobs.clear();
+    q.value = "";
     filtersEl?.querySelectorAll("button.cards-chip").forEach((b) => {
       b.classList.remove("cards-chip--on");
       b.setAttribute("aria-pressed", "false");

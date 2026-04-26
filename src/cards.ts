@@ -560,7 +560,7 @@ function cardRowCardHtml(c: CardEntry): string {
 
     <div class="cards-rowcard__name">
       <div class="cards-name-block">
-        <div class="cards-name">${escapeHtml(c.name)}</div>
+        <div class="cards-name">${escapeHtml(c.name)}<span class="entity-id">#${escapeHtml(String(c.id))}</span></div>
         ${cardAffixLineHtml(c)}
         <div class="cards-rowcard__slot">${slot}</div>
       </div>
@@ -583,6 +583,7 @@ function renderRows(rows: CardEntry[]): string {
 
 type FilterState = {
   q: string;
+  cardId: number | null;
   categories: Set<CategoryKey>;
   stats: Set<StatKey>;
   /** Normalized slot labels (same as `normalizeSlotLabel` / Slot column). */
@@ -638,6 +639,7 @@ function mount(root: HTMLElement): void {
           <a class="site-nav__link" href="/skills">Skill Planner</a>
           <a class="site-nav__link site-nav__link--active" href="/cards" aria-current="page">Card Library</a>
           <a class="site-nav__link" href="/pets">Pets</a>
+          <a class="site-nav__link" href="/monsters">Monsters</a>
           <a class="site-nav__link" href="/armour">Armour</a>
           <a class="site-nav__link" href="/weapons">Weapons</a>
         </nav>
@@ -759,7 +761,7 @@ function mount(root: HTMLElement): void {
   const artModalPanel = root.querySelector("#art-modal .cards-art-modal__panel") as HTMLElement;
   const imgFallbackFor = (id: number): string => `https://static.divine-pride.net/images/items/collection/${id}.png`;
 
-  const state: FilterState = { q: "", categories: new Set(), stats: new Set(), slots: new Set() };
+  const state: FilterState = { q: "", cardId: null, categories: new Set(), stats: new Set(), slots: new Set() };
   let visibleArtIds: number[] = [];
   let artIndex = -1;
 
@@ -828,6 +830,7 @@ function mount(root: HTMLElement): void {
   const apply = (): void => {
     const query = normalize(state.q);
     const filtered = cardsAll.filter((c) => {
+      if (state.cardId !== null) return c.id === state.cardId;
       const dv = derivedById.get(c.id);
       const hay = [
         c.name,
@@ -1322,6 +1325,17 @@ function mount(root: HTMLElement): void {
     apply();
   });
 
+  // Deep link: /cards?card=<id>
+  {
+    const sp = new URLSearchParams(window.location.search);
+    const card = sp.get("card");
+    if (card) {
+      const n = parseInt(card, 10);
+      if (Number.isFinite(n)) state.cardId = n;
+    }
+  }
+  apply();
+
   const onChipClick = (e: Event): void => {
     const btn = (e.target as HTMLElement | null)?.closest("button.cards-chip") as HTMLButtonElement | null;
     if (!btn) return;
@@ -1348,6 +1362,7 @@ function mount(root: HTMLElement): void {
   slotWrap.addEventListener("click", onChipClick);
 
   clearBtn.addEventListener("click", () => {
+    state.cardId = null;
     state.q = "";
     q.value = "";
     state.categories.clear();

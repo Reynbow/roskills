@@ -1048,6 +1048,40 @@ header.planner-header h1 {
   z-index: 0;
 }
 
+/* Monsters page: keep the faded sprite on the right. */
+.equip-page--monsters .cards-rowcard__mob {
+  left: auto;
+  right: 0.65rem;
+  transform-origin: right center;
+}
+
+.monsters-meta {
+  margin-top: 0.15rem;
+  color: rgba(232, 238, 248, 0.86);
+  font-size: 0.95rem;
+  line-height: 1.1;
+}
+
+.entity-id {
+  margin-left: 0.45rem;
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(190, 210, 235, 0.52);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Monsters page: no left icon column (background sprite only). */
+.equip-page--monsters .cards-rowcard {
+  grid-template-columns:
+    minmax(11.5rem, 0.9fr)
+    minmax(24rem, 2.6fr)
+    0.75rem
+    minmax(4.25rem, 0.45fr);
+  grid-template-areas: "name desc . drops";
+  padding-right: 12.25rem; /* reserve blank space for the right-side sprite */
+}
+
 /* --- Equip library icons (armour/weapons) --- */
 .equip-icon {
   grid-area: art;
@@ -1273,6 +1307,137 @@ header.planner-header h1 {
   line-height: 1.35;
   color: rgba(235, 245, 255, 0.9);
   font-size: 0.80rem;
+}
+
+.equip-obtain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.22rem 0.8rem;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 62rem) {
+  .equip-obtain-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 42rem) {
+  .equip-obtain-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Monsters: element chart */
+.monster-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: start;
+}
+
+.equip-obtain--drop {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.monster-drop-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.monster-drop-link:hover .monster-drop-name,
+.monster-drop-link:focus-visible .monster-drop-name {
+  text-decoration: underline dotted rgba(200, 220, 255, 0.65);
+  text-underline-offset: 0.12em;
+  color: #e8f0ff;
+}
+
+.monster-drop-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(130, 190, 255, 0.30);
+  border-radius: 6px;
+}
+
+.monster-drop-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55));
+}
+
+@media (max-width: 62rem) {
+  .monster-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Monsters: make stat/element blocks taller (more rows). */
+.equip-page--monsters .equip-cols {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.elem-chart {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+@media (max-width: 1250px) {
+  .elem-chart {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.equip-page--monsters .elem-chart {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.elem-chip {
+  padding: 0.32rem 0.4rem;
+  border-radius: 7px;
+  border: 1px solid rgba(140, 170, 210, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  min-width: 0;
+}
+
+.elem-chip__k {
+  color: rgba(255, 220, 185, 0.92);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0.95;
+}
+
+.elem-chip__v {
+  margin-top: 0.12rem;
+  color: rgba(235, 245, 255, 0.92);
+  font-size: 0.80rem;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.elem-chip--weak {
+  border-color: rgba(120, 255, 170, 0.62);
+  background: rgba(70, 210, 120, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(30, 70, 45, 0.6) inset,
+    0 6px 18px rgba(40, 170, 95, 0.12);
+}
+
+.elem-chip--resist {
+  border-color: rgba(255, 130, 130, 0.62);
+  background: rgba(235, 80, 80, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(85, 30, 30, 0.6) inset,
+    0 6px 18px rgba(220, 70, 70, 0.10);
 }
 
 @media (hover: hover) and (pointer: fine) {
