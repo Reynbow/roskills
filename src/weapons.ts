@@ -365,9 +365,15 @@ function renderFilters(state: FilterState, subTypes: string[], wlvs: number[]): 
         <div class="cards-filters__title">Filters</div>
         <button type="button" class="cards-filter-clear" id="btn-clear" ${anyOn ? "" : "disabled"}>Clear</button>
       </div>
-      <div class="cards-filter-group">
-        <div class="cards-filter-title">Weapon class</div>
-        <div class="cards-filter-chips" id="chips-subtype">${subTypeChips}</div>
+      <div class="cards-filter-col">
+        <div class="cards-filter-group">
+          <div class="cards-filter-title">Weapon class</div>
+          <div class="cards-filter-chips" id="chips-subtype">${subTypeChips}</div>
+        </div>
+        <div class="cards-filter-group">
+          <div class="cards-filter-title">Slots</div>
+          <div class="cards-filter-chips" id="chips-slots">${slotChips.join("")}</div>
+        </div>
       </div>
       <div class="cards-filter-group">
         <div class="cards-filter-title">Weapon Lv</div>
@@ -376,10 +382,6 @@ function renderFilters(state: FilterState, subTypes: string[], wlvs: number[]): 
       <div class="cards-filter-group">
         <div class="cards-filter-title">Class</div>
         <div class="cards-filter-chips" id="chips-job">${jobChips}</div>
-      </div>
-      <div class="cards-filter-group">
-        <div class="cards-filter-title">Slots</div>
-        <div class="cards-filter-chips" id="chips-slots">${slotChips.join("")}</div>
       </div>
     </div>
   `;

@@ -76,23 +76,22 @@ const DEF_Q75 = quantile(DEF_VALUES, 0.75);
 const MDEF_Q25 = quantile(MDEF_VALUES, 0.25);
 const MDEF_Q75 = quantile(MDEF_VALUES, 0.75);
 
-function defChevronHtml(kind: "def" | "mdef", v: number | null): string {
-  if (typeof v !== "number" || !Number.isFinite(v)) return "";
+function defBand(kind: "def" | "mdef", v: number | null): "high" | "low" | null {
+  if (typeof v !== "number" || !Number.isFinite(v)) return null;
   const q25 = kind === "def" ? DEF_Q25 : MDEF_Q25;
   const q75 = kind === "def" ? DEF_Q75 : MDEF_Q75;
-  if (v >= q75) {
-    const label = kind === "def" ? "High DEF" : "High MDEF";
-    const body = "Top 25% relative to all monsters.";
-    return `<span class="equip-col__chev equip-col__chev--up" data-tooltip="${escapeHtml(
-      label,
-    )}" data-tipbody="${escapeHtml(body)}" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.2 7.6 6 3.8l3.8 3.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+  if (v >= q75) return "high";
+  if (v <= q25) return "low";
+  return null;
+}
+
+function defChevronHtml(kind: "def" | "mdef", v: number | null): string {
+  const band = defBand(kind, v);
+  if (band === "high") {
+    return `<span class="equip-col__chev equip-col__chev--up" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.2 7.6 6 3.8l3.8 3.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
   }
-  if (v <= q25) {
-    const label = kind === "def" ? "Low DEF" : "Low MDEF";
-    const body = "Bottom 25% relative to all monsters.";
-    return `<span class="equip-col__chev equip-col__chev--down" data-tooltip="${escapeHtml(
-      label,
-    )}" data-tipbody="${escapeHtml(body)}" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.2 4.4 6 8.2l3.8-3.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+  if (band === "low") {
+    return `<span class="equip-col__chev equip-col__chev--down" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.2 4.4 6 8.2l3.8-3.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
   }
   return "";
 }
@@ -200,9 +199,11 @@ function elementChartHtml(m: MonsterEntry): string {
     .map((r) => {
       const pct = clamp(Math.round(r.pct), 0, 300);
       const cls = pct > 100 ? "elem-chip elem-chip--weak" : pct < 100 ? "elem-chip elem-chip--resist" : "elem-chip";
-      return `<div class="${cls}" title="${escapeHtml(r.elem)} ${pct}%"><div class="elem-chip__k">${escapeHtml(
+      const vLabel = pct === 0 ? "IMMUNE" : `${pct}%`;
+      const title = pct === 0 ? `${r.elem} immune` : `${r.elem} ${pct}%`;
+      return `<div class="${cls}" title="${escapeHtml(title)}"><div class="elem-chip__k">${escapeHtml(
         r.elem,
-      )}</div><div class="elem-chip__v">${pct}%</div></div>`;
+      )}</div><div class="elem-chip__v">${escapeHtml(vLabel)}</div></div>`;
     })
     .join("")}</div>`;
 }
@@ -278,9 +279,34 @@ function statColsHtml(m: MonsterEntry): string {
           : k === "MDEF"
             ? defChevronHtml("mdef", m.magicDefense)
             : "";
-      return `<div class="equip-col" role="listitem"><div class="equip-col__k">${escapeHtml(
+      const defTip =
+        k === "DEF"
+          ? defBand("def", m.defense)
+          : k === "MDEF"
+            ? defBand("mdef", m.magicDefense)
+            : null;
+      const defTipAttr =
+        defTip === "high"
+          ? ` data-tooltip="${escapeHtml(k === "DEF" ? "High DEF" : "High MDEF")}" data-tipbody="${escapeHtml(
+              "Top 25% relative to all monsters.",
+            )}"`
+          : defTip === "low"
+            ? ` data-tooltip="${escapeHtml(k === "DEF" ? "Low DEF" : "Low MDEF")}" data-tipbody="${escapeHtml(
+                "Bottom 25% relative to all monsters.",
+              )}"`
+            : "";
+      const sizeTip =
+        k === "Size"
+          ? ` data-tooltip="${escapeHtml("Monster size")}" data-tipbody="${escapeHtml(
+              "Physical weapon damage is multiplied by a size modifier (Small/Medium/Large):\nDagger 100/75/50\n1H Sword 75/100/75\n2H Sword 75/75/100\nSpear 75/75/100\nAxe 50/75/100\nMace 75/100/100\nBow 100/100/75\nKatar 75/100/75\nBook 100/100/50\n(Guns/Rods/Staff are often 100/100/100.)",
+            )}"`
+          : "";
+      return `<div class="equip-col" role="listitem"${sizeTip}><div class="equip-col__k">${escapeHtml(
         k,
-      )}</div><div class="equip-col__v">${escapeHtml(r.v)}</div>${chev}</div>`;
+      )}</div><div class="equip-col__v">${escapeHtml(r.v)}</div>${chev}</div>`.replace(
+        'role="listitem"',
+        `role="listitem"${defTipAttr}${sizeTip}`,
+      );
     })
     .join("")}</div>`;
 }
@@ -610,16 +636,16 @@ function mount(root: HTMLElement): void {
     hideTip();
   });
 
-  // Tooltips for DEF/MDEF chevrons (reuse the same custom tooltip styling).
+  // Tooltips for monster stat tiles (e.g. Size, DEF/MDEF bands).
   root.addEventListener("pointerover", (e) => {
-    const el = (e.target as HTMLElement | null)?.closest(".equip-col__chev") as HTMLElement | null;
+    const el = (e.target as HTMLElement | null)?.closest(".equip-col[data-tooltip]") as HTMLElement | null;
     if (!el || !root.contains(el)) return;
     showTip(el);
   });
   root.addEventListener("pointerout", (e) => {
     const related = e.relatedTarget as Node | null;
     if (related && root.contains(related)) {
-      const toEl = (related as HTMLElement).closest(".equip-col__chev") as HTMLElement | null;
+      const toEl = (related as HTMLElement).closest(".equip-col[data-tooltip]") as HTMLElement | null;
       if (toEl) {
         showTip(toEl);
         return;

@@ -367,6 +367,13 @@ header.planner-header h1 {
   min-width: 0;
 }
 
+.cards-filter-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
 @media (max-width: 62rem) {
   .cards-filters {
     grid-template-columns: 1fr;
@@ -595,6 +602,7 @@ header.planner-header h1 {
   font-weight: 500;
   color: var(--text-muted);
   line-height: 1.5;
+  white-space: pre-line;
 }
 
 .cards-filter-tooltip.cards-filter-tooltip--below {
