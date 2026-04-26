@@ -51,6 +51,52 @@ const monstersAll: MonsterEntry[] = (monstersRaw as MonsterEntry[])
   .slice()
   .sort((a, b) => a.name.localeCompare(b.name) || a.id - b.id);
 
+function quantile(sorted: number[], q: number): number {
+  if (!sorted.length) return 0;
+  const qq = Math.max(0, Math.min(1, q));
+  const pos = (sorted.length - 1) * qq;
+  const base = Math.floor(pos);
+  const rest = pos - base;
+  const a = sorted[base] ?? sorted[0]!;
+  const b = sorted[Math.min(base + 1, sorted.length - 1)] ?? a;
+  return a + (b - a) * rest;
+}
+
+const DEF_VALUES = monstersAll
+  .map((m) => m.defense)
+  .filter((x): x is number => typeof x === "number" && Number.isFinite(x))
+  .sort((a, b) => a - b);
+const MDEF_VALUES = monstersAll
+  .map((m) => m.magicDefense)
+  .filter((x): x is number => typeof x === "number" && Number.isFinite(x))
+  .sort((a, b) => a - b);
+
+const DEF_Q25 = quantile(DEF_VALUES, 0.25);
+const DEF_Q75 = quantile(DEF_VALUES, 0.75);
+const MDEF_Q25 = quantile(MDEF_VALUES, 0.25);
+const MDEF_Q75 = quantile(MDEF_VALUES, 0.75);
+
+function defChevronHtml(kind: "def" | "mdef", v: number | null): string {
+  if (typeof v !== "number" || !Number.isFinite(v)) return "";
+  const q25 = kind === "def" ? DEF_Q25 : MDEF_Q25;
+  const q75 = kind === "def" ? DEF_Q75 : MDEF_Q75;
+  if (v >= q75) {
+    const label = kind === "def" ? "High DEF" : "High MDEF";
+    const body = "Top 25% relative to all monsters.";
+    return `<span class="equip-col__chev equip-col__chev--up" data-tooltip="${escapeHtml(
+      label,
+    )}" data-tipbody="${escapeHtml(body)}" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.2 7.6 6 3.8l3.8 3.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+  }
+  if (v <= q25) {
+    const label = kind === "def" ? "Low DEF" : "Low MDEF";
+    const body = "Bottom 25% relative to all monsters.";
+    return `<span class="equip-col__chev equip-col__chev--down" data-tooltip="${escapeHtml(
+      label,
+    )}" data-tipbody="${escapeHtml(body)}" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.2 4.4 6 8.2l3.8-3.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+  }
+  return "";
+}
+
 type EquipIndexEntry = { id: number };
 const armourIdSet = new Set<number>((armourRaw as EquipIndexEntry[]).map((x) => x.id).filter((x) => typeof x === "number"));
 const weaponsIdSet = new Set<number>((weaponsRaw as EquipIndexEntry[]).map((x) => x.id).filter((x) => typeof x === "number"));
@@ -224,12 +270,18 @@ function statColsHtml(m: MonsterEntry): string {
   ];
 
   return `<div class="equip-cols" role="list">${rows
-    .map(
-      (r) =>
-        `<div class="equip-col" role="listitem"><div class="equip-col__k">${escapeHtml(
-          r.k,
-        )}</div><div class="equip-col__v">${escapeHtml(r.v)}</div></div>`,
-    )
+    .map((r) => {
+      const k = r.k;
+      const chev =
+        k === "DEF"
+          ? defChevronHtml("def", m.defense)
+          : k === "MDEF"
+            ? defChevronHtml("mdef", m.magicDefense)
+            : "";
+      return `<div class="equip-col" role="listitem"><div class="equip-col__k">${escapeHtml(
+        k,
+      )}</div><div class="equip-col__v">${escapeHtml(r.v)}</div>${chev}</div>`;
+    })
     .join("")}</div>`;
 }
 
@@ -237,7 +289,6 @@ function mapsHtml(m: MonsterEntry): string {
   const maps = Array.isArray(m.maps) ? m.maps : [];
   if (!maps.length) return `<div class="cards-empty">Unknown</div>`;
   return `<div class="cards-drop-maps">${maps
-    .slice(0, 6)
     .map((x) => {
       const count = typeof x.count === "number" && Number.isFinite(x.count) ? x.count : 0;
       const countHtml =
@@ -555,6 +606,24 @@ function mount(root: HTMLElement): void {
       }
       hideTip();
       return;
+    }
+    hideTip();
+  });
+
+  // Tooltips for DEF/MDEF chevrons (reuse the same custom tooltip styling).
+  root.addEventListener("pointerover", (e) => {
+    const el = (e.target as HTMLElement | null)?.closest(".equip-col__chev") as HTMLElement | null;
+    if (!el || !root.contains(el)) return;
+    showTip(el);
+  });
+  root.addEventListener("pointerout", (e) => {
+    const related = e.relatedTarget as Node | null;
+    if (related && root.contains(related)) {
+      const toEl = (related as HTMLElement).closest(".equip-col__chev") as HTMLElement | null;
+      if (toEl) {
+        showTip(toEl);
+        return;
+      }
     }
     hideTip();
   });

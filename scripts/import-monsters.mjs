@@ -147,8 +147,7 @@ function mergeMaps(rows) {
   }
   return [...byMap.entries()]
     .map(([map, count]) => ({ map, count }))
-    .sort((a, b) => b.count - a.count || a.map.localeCompare(b.map))
-    .slice(0, 5);
+    .sort((a, b) => b.count - a.count || a.map.localeCompare(b.map));
 }
 
 async function main() {
@@ -179,7 +178,7 @@ async function main() {
     const name = toStr(m.Name);
     if (!id || !aegisName || !name) continue;
 
-    const maps = Array.isArray(spawnByMonsterName[name]) ? spawnByMonsterName[name].slice(0, 5) : [];
+    const maps = Array.isArray(spawnByMonsterName[name]) ? spawnByMonsterName[name] : [];
     const drops = [
       ...parseDrops(m.Drops, false, items),
       ...parseDrops(m.MvpDrops, true, items),
