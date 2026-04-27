@@ -41,6 +41,7 @@ type MonsterEntry = {
 type FilterState = {
   q: string;
   mobId: number | null;
+  dropItemId: number | null;
   races: Set<string>;
   elements: Set<string>;
   sizes: Set<string>;
@@ -50,6 +51,43 @@ type FilterState = {
 const monstersAll: MonsterEntry[] = (monstersRaw as MonsterEntry[])
   .slice()
   .sort((a, b) => a.name.localeCompare(b.name) || a.id - b.id);
+
+type MonsterDerived = {
+  m: MonsterEntry;
+  hay: string;
+  dropIds: number[];
+};
+
+const monstersDerived: MonsterDerived[] = monstersAll.map((m) => {
+  const drops = Array.isArray(m.drops) ? m.drops : [];
+  const dropHay = drops
+    .flatMap((d) => [d?.name ?? "", d?.aegis ?? ""])
+    .map((x) => String(x || "").trim())
+    .filter(Boolean)
+    .join(" ");
+  const hay = normalize([m.name, m.aegisName, m.race ?? "", m.element ?? "", m.size ?? "", dropHay].join(" "));
+  const dropIds = drops
+    .map((d) => (d && typeof d.id === "number" && Number.isFinite(d.id) ? d.id : null))
+    .filter((x): x is number => typeof x === "number");
+  return { m, hay, dropIds };
+});
+
+type DropItemOption = { id: number; name: string };
+const dropItems: DropItemOption[] = (() => {
+  const byId = new Map<number, string>();
+  for (const m of monstersAll) {
+    const drops = Array.isArray(m.drops) ? m.drops : [];
+    for (const d of drops) {
+      const id = typeof d?.id === "number" && Number.isFinite(d.id) ? d.id : null;
+      const name = String(d?.name || "").trim();
+      if (!id || !name) continue;
+      if (!byId.has(id)) byId.set(id, name);
+    }
+  }
+  return [...byId.entries()]
+    .map(([id, name]) => ({ id, name }))
+    .sort((a, b) => a.name.localeCompare(b.name) || a.id - b.id);
+})();
 
 function quantile(sorted: number[], q: number): number {
   if (!sorted.length) return 0;
@@ -225,7 +263,16 @@ function renderFilters(state: FilterState, races: string[], elements: string[], 
     chipButton("normal", "Normal", state.mvp.has("normal"), "mvp", "Non‑MVP monsters"),
   ].join("");
 
-  const anyOn = state.races.size || state.elements.size || state.sizes.size || state.mvp.size ? true : false;
+  const anyOn =
+    state.mobId !== null ||
+    state.dropItemId !== null ||
+    Boolean(state.q.trim()) ||
+    state.races.size ||
+    state.elements.size ||
+    state.sizes.size ||
+    state.mvp.size
+      ? true
+      : false;
 
   return `
     <div class="cards-filters equip-filters" aria-label="Monster filters">
@@ -450,11 +497,25 @@ function mount(root: HTMLElement): void {
         <label class="cards-search">
           <input id="q" class="cards-search__input" type="search" placeholder="search..." autocomplete="off" aria-label="Search monsters" />
         </label>
+        <label class="cards-search">
+          <input
+            id="drop-item"
+            class="cards-search__input"
+            type="search"
+            placeholder="drop item..."
+            autocomplete="off"
+            aria-label="Filter by dropped item"
+            list="drop-items"
+          />
+        </label>
+        <datalist id="drop-items">
+          ${dropItems.map((it) => `<option value="${escapeHtml(it.name)} (#${it.id})"></option>`).join("")}
+        </datalist>
         <div class="cards-count" id="count" role="status" aria-live="polite"></div>
       </div>
 
       ${renderFilters(
-        { q: "", mobId: null, races: new Set(), elements: new Set(), sizes: new Set(), mvp: new Set() },
+        { q: "", mobId: null, dropItemId: null, races: new Set(), elements: new Set(), sizes: new Set(), mvp: new Set() },
         races,
         elements,
         sizes,
@@ -471,6 +532,7 @@ function mount(root: HTMLElement): void {
   `;
 
   const q = root.querySelector("#q") as HTMLInputElement;
+  const dropItem = root.querySelector("#drop-item") as HTMLInputElement;
   const rowsEl = root.querySelector("#rows") as HTMLElement;
   const countEl = root.querySelector("#count") as HTMLElement;
   const tipEl = root.querySelector("#equip-tooltip") as HTMLElement;
@@ -480,8 +542,17 @@ function mount(root: HTMLElement): void {
   const filtersEl = root.querySelector(".equip-filters") as HTMLElement;
   const clearBtn = root.querySelector("#btn-clear") as HTMLButtonElement;
 
-  const state: FilterState = { q: "", mobId: null, races: new Set(), elements: new Set(), sizes: new Set(), mvp: new Set() };
+  const state: FilterState = {
+    q: "",
+    mobId: null,
+    dropItemId: null,
+    races: new Set(),
+    elements: new Set(),
+    sizes: new Set(),
+    mvp: new Set(),
+  };
   let tipActive: HTMLElement | null = null;
+  let applyTimer: number | undefined;
 
   const hideTip = (): void => {
     tipEl.classList.remove("cards-filter-tooltip--visible");
@@ -535,24 +606,56 @@ function mount(root: HTMLElement): void {
   const apply = (): void => {
     const query = normalize(q.value);
     state.q = query;
-    const filtered = monstersAll.filter((m) => {
-      if (state.mobId !== null) return m.id === state.mobId;
-      const hay = normalize([m.name, m.aegisName, m.race ?? "", m.element ?? "", m.size ?? ""].join(" "));
-      if (query && !hay.includes(query)) return false;
-      if (state.races.size && (!m.race || !state.races.has(m.race))) return false;
-      if (state.elements.size && (!m.element || !state.elements.has(m.element))) return false;
-      if (state.sizes.size && (!m.size || !state.sizes.has(m.size))) return false;
+    const out: MonsterEntry[] = [];
+    for (const d of monstersDerived) {
+      const m = d.m;
+      if (state.mobId !== null) {
+        if (m.id === state.mobId) out.push(m);
+        continue;
+      }
+      if (state.dropItemId !== null) {
+        // Drops are short (<= ~12), linear scan is fine but avoid rebuilding arrays/strings.
+        if (!d.dropIds.includes(state.dropItemId)) continue;
+      }
+      if (query && !d.hay.includes(query)) continue;
+      if (state.races.size && (!m.race || !state.races.has(m.race))) continue;
+      if (state.elements.size && (!m.element || !state.elements.has(m.element))) continue;
+      if (state.sizes.size && (!m.size || !state.sizes.has(m.size))) continue;
       if (state.mvp.size) {
         const key: "mvp" | "normal" = m.isMvp ? "mvp" : "normal";
-        if (!state.mvp.has(key)) return false;
+        if (!state.mvp.has(key)) continue;
       }
-      return true;
-    });
-    rowsEl.innerHTML = renderRows(filtered);
-    countEl.textContent = `${filtered.length.toLocaleString()} / ${monstersAll.length.toLocaleString()} monsters`;
+      out.push(m);
+    }
+    rowsEl.innerHTML = renderRows(out);
+    countEl.textContent = `${out.length.toLocaleString()} / ${monstersAll.length.toLocaleString()} monsters`;
   };
 
-  q.addEventListener("input", apply);
+  const scheduleApply = (): void => {
+    if (applyTimer !== undefined) window.clearTimeout(applyTimer);
+    // Debounce keystrokes to avoid doing full list filtering on every single input event.
+    applyTimer = window.setTimeout(() => {
+      applyTimer = undefined;
+      apply();
+    }, 70);
+  };
+
+  q.addEventListener("input", () => {
+    syncClear();
+    scheduleApply();
+  });
+  dropItem.addEventListener("input", () => {
+    const raw = String(dropItem.value || "").trim();
+    const m = /#(\d+)\s*\)?\s*$/.exec(raw);
+    if (m) {
+      const n = parseInt(m[1]!, 10);
+      state.dropItemId = Number.isFinite(n) ? n : null;
+    } else {
+      state.dropItemId = null;
+    }
+    syncClear();
+    scheduleApply();
+  });
 
   // Deep link: /monsters?mob=<id>
   {
@@ -563,13 +666,24 @@ function mount(root: HTMLElement): void {
       if (Number.isFinite(n)) state.mobId = n;
     }
   }
+  syncClear();
   apply();
 
-  const syncClear = (): void => {
-    const anyOn = state.races.size || state.elements.size || state.sizes.size || state.mvp.size ? true : false;
+  function syncClear(): void {
+    const anyOn =
+      state.mobId !== null ||
+      state.dropItemId !== null ||
+      Boolean(q.value.trim()) ||
+      Boolean(dropItem.value.trim()) ||
+      state.races.size ||
+      state.elements.size ||
+      state.sizes.size ||
+      state.mvp.size
+        ? true
+        : false;
     if (clearBtn) clearBtn.disabled = !anyOn;
     clearBtn?.classList.toggle("cards-btn--disabled", !anyOn);
-  };
+  }
 
   filtersEl?.addEventListener("click", (e) => {
     const btn = (e.target as HTMLElement | null)?.closest("button.cards-chip") as HTMLButtonElement | null;
@@ -603,11 +717,13 @@ function mount(root: HTMLElement): void {
 
   clearBtn?.addEventListener("click", () => {
     state.mobId = null;
+    state.dropItemId = null;
     state.races.clear();
     state.elements.clear();
     state.sizes.clear();
     state.mvp.clear();
     q.value = "";
+    dropItem.value = "";
     filtersEl?.querySelectorAll("button.cards-chip").forEach((b) => {
       b.classList.remove("cards-chip--on");
       b.setAttribute("aria-pressed", "false");
