@@ -10,13 +10,17 @@ import {
   GRID_COLS,
   isQuestColumnTitle,
   shouldMergeTranscendentIntoSecondPanel,
+  setPlannerGameMode,
+  getPlannerGameMode,
+  isThirdClassKey,
+  type GameMode,
   type JobData,
   type JobPickerSection,
   type JobPickerTabDef,
   type SkillDef,
   type PrereqEdge,
 } from "./planner-data";
-import { jobPreviewSpriteUrl } from "./job-previews";
+import { jobPickerStandSpriteUrl } from "./job-previews";
 import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl } from "./job-sit-sprite";
 
 // Initialize Vercel Web Analytics (never block app shell if script fails)
@@ -27,12 +31,53 @@ try {
 }
 
 const STORAGE_KEY = "ro-planner-state-v2";
+const GAME_MODE_STORAGE_KEY = "ro-planner-game-mode";
+const THIRD_CLASS_PATH_STORAGE_KEY = "ro-planner-third-class-path";
+type ThirdClassPathKey = "trans" | "base";
+
+function getDefaultThirdPathForJobPicker(jobKey: string): ThirdClassPathKey {
+  if (isThirdClassKey(jobKey)) {
+    return jobKey.endsWith("_H") ? "trans" : "base";
+  }
+  const s = localStorage.getItem(THIRD_CLASS_PATH_STORAGE_KEY);
+  if (s === "base" || s === "trans") return s;
+  return "trans";
+}
+
+function applyThirdClassPathPanel(root: HTMLElement, path: ThirdClassPathKey): void {
+  const panel = root.querySelector("#job-picker-panel-third");
+  if (!panel) return;
+  panel.querySelectorAll<HTMLElement>(".job-picker-thirdclass-path[data-third-path]").forEach((el) => {
+    const k = el.dataset.thirdPath as ThirdClassPathKey;
+    if (k === path) el.removeAttribute("hidden");
+    else el.setAttribute("hidden", "");
+  });
+  panel.querySelectorAll<HTMLButtonElement>(".job-picker-thirdclass-toggle button[data-third-path]").forEach(
+    (btn) => {
+      const k = btn.dataset.thirdPath as ThirdClassPathKey;
+      const on = k === path;
+      btn.classList.toggle("game-mode-toggle__btn--active", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    },
+  );
+}
+
+function alignThirdClassPathToCurrentJobIfApplicable(root: HTMLElement, jobKey: string): void {
+  if (isThirdClassKey(jobKey)) {
+    applyThirdClassPathPanel(root, jobKey.endsWith("_H") ? "trans" : "base");
+  }
+}
 const DEFAULT_JOB = "JT_PRIEST";
+const DEFAULT_JOB_RENEWAL = "JT_RUNE_KNIGHT";
+
+function defaultJobForMode(): string {
+  return getPlannerGameMode() === "renewal" ? DEFAULT_JOB_RENEWAL : DEFAULT_JOB;
+}
 
 /** If stored or default job key is missing from bundled data, fall back so the tree can render. */
 function ensureCurrentJobInData(): void {
   if (getJobData(currentJob)) return;
-  currentJob = DEFAULT_JOB;
+  currentJob = defaultJobForMode();
   if (getJobData(currentJob)) return;
   const first = listJobs()[0]?.key;
   if (first) currentJob = first;
@@ -45,6 +90,13 @@ function skillIconUrl(skidId: number): string {
 
 /** Skill points per tree column when tiers are separate: merged novice+1st, 2nd, third (quest/special excluded). */
 const CLASS_SKILL_CAPS: readonly number[] = [49, 50, 50];
+
+/** Renewal: extra class columns (4th job, etc.) reuse 50 SP per column after the first block. */
+const CLASS_SKILL_CAPS_RENEWAL: readonly number[] = [49, 50, 50, 50, 50, 50, 50, 50, 50];
+
+function classSkillCaps(): readonly number[] {
+  return getPlannerGameMode() === "renewal" ? CLASS_SKILL_CAPS_RENEWAL : CLASS_SKILL_CAPS;
+}
 
 /** Single merged-column jobs that use a non-default tier-0 class point cap (rest use CLASS_SKILL_CAPS[0]). */
 const TIER0_CLASS_CAP_OVERRIDE: Partial<Record<string, number>> = {
@@ -68,12 +120,42 @@ function exemptFromClassSkillCap(skillId: string): boolean {
   return skillId === BASIC_SKILL_ID;
 }
 
-type Stored = {
+type PlannerSlot = {
   lastJob?: string;
   jobs: Record<string, { levels: Record<string, number>; budget?: number }>;
+};
+
+type Stored = {
+  lastJob?: string;
+  jobs?: Record<string, { levels: Record<string, number>; budget?: number }>;
+  /** Per game version: class builds and last-opened job. */
+  plannerSlots?: Record<GameMode, PlannerSlot>;
   /** When true, prereq ring on hover stays but unrelated skills are not dimmed. */
   disableHoverSkillDimming?: boolean;
 };
+
+function normalizePlannerSlots(raw: Stored): Record<GameMode, PlannerSlot> {
+  if (!raw.plannerSlots) {
+    raw.plannerSlots = {
+      pre: {
+        lastJob: raw.lastJob ?? DEFAULT_JOB,
+        jobs: raw.jobs ?? {},
+      },
+      renewal: {
+        lastJob: DEFAULT_JOB_RENEWAL,
+        jobs: {},
+      },
+    };
+  }
+  for (const mode of ["pre", "renewal"] as const) {
+    if (!raw.plannerSlots[mode].jobs) raw.plannerSlots[mode].jobs = {};
+  }
+  return raw.plannerSlots;
+}
+
+function currentPlannerSlot(raw: Stored): PlannerSlot {
+  return normalizePlannerSlots(raw)[getPlannerGameMode()];
+}
 
 let currentJob = DEFAULT_JOB;
 let levels: Record<string, number> = {};
@@ -94,7 +176,8 @@ function loadState(): void {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const data = JSON.parse(raw) as Stored;
-    if (data.lastJob && getJobData(data.lastJob)) currentJob = data.lastJob;
+    const slot = currentPlannerSlot(data);
+    if (slot.lastJob && getJobData(slot.lastJob)) currentJob = slot.lastJob;
     if (data.disableHoverSkillDimming === true) disableHoverSkillDimming = true;
   } catch {
     /* ignore */
@@ -102,28 +185,28 @@ function loadState(): void {
 }
 
 function persistDisableHoverSkillDimming(): void {
-  let raw: Stored = { jobs: {} };
+  let raw: Stored = {};
   try {
     raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") as Stored;
   } catch {
-    raw = { jobs: {} };
+    raw = {};
   }
-  if (!raw.jobs) raw.jobs = {};
+  normalizePlannerSlots(raw);
   if (disableHoverSkillDimming) raw.disableHoverSkillDimming = true;
   else delete raw.disableHoverSkillDimming;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(raw));
 }
 
 function saveState(): void {
-  let raw: Stored = { jobs: {} };
+  let raw: Stored = {};
   try {
     raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") as Stored;
   } catch {
-    raw = { jobs: {} };
+    raw = {};
   }
-  if (!raw.jobs) raw.jobs = {};
-  raw.lastJob = currentJob;
-  raw.jobs[currentJob] = { levels };
+  const slot = currentPlannerSlot(raw);
+  slot.lastJob = currentJob;
+  slot.jobs[currentJob] = { levels };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(raw));
 }
 
@@ -156,7 +239,7 @@ function applyJob(jobKey: string, presetLevels?: Record<string, number> | null):
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const data = JSON.parse(raw) as Stored;
-      const slot = data.jobs?.[jobKey];
+      const slot = currentPlannerSlot(data).jobs[jobKey];
       if (slot?.levels) {
         levels = {};
         for (const s of skills) {
@@ -177,14 +260,20 @@ function applyJob(jobKey: string, presetLevels?: Record<string, number> | null):
 }
 
 const SHARE_QUERY = "share";
-const SHARE_JSON_VERSION = 1;
+const SHARE_JSON_VERSION = 2;
 
 function encodeSharePayload(): string {
   const l: Record<string, number> = {};
   for (const [id, n] of Object.entries(levels)) {
     if (n > 0) l[id] = n;
   }
-  const payload = { v: SHARE_JSON_VERSION, j: currentJob, l };
+  const payload: {
+    v: number;
+    j: string;
+    l: Record<string, number>;
+    game?: GameMode;
+  } = { v: SHARE_JSON_VERSION, j: currentJob, l };
+  if (getPlannerGameMode() === "renewal") payload.game = "renewal";
   const json = JSON.stringify(payload);
   const bytes = new TextEncoder().encode(json);
   let bin = "";
@@ -193,7 +282,7 @@ function encodeSharePayload(): string {
   return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-function decodeSharePayload(token: string): { j: string; l: Record<string, number> } | null {
+function decodeSharePayload(token: string): { j: string; l: Record<string, number>; game?: GameMode } | null {
   try {
     let b64 = token.replace(/-/g, "+").replace(/_/g, "/");
     while (b64.length % 4) b64 += "=";
@@ -205,21 +294,24 @@ function decodeSharePayload(token: string): { j: string; l: Record<string, numbe
       v?: number;
       j?: string;
       l?: Record<string, unknown>;
+      game?: string;
     };
-    if (!o || typeof o.j !== "string" || !getJobData(o.j)) return null;
+    if (!o || typeof o.j !== "string") return null;
     if (!o.l || typeof o.l !== "object") return null;
     const l: Record<string, number> = {};
     for (const [k, v] of Object.entries(o.l)) {
       const n = typeof v === "number" ? v : Number.parseInt(String(v), 10);
       if (Number.isFinite(n) && n > 0) l[k] = Math.floor(n);
     }
-    return { j: o.j, l };
+    const game: GameMode | undefined =
+      o.game === "renewal" ? "renewal" : o.game === "pre" ? "pre" : undefined;
+    return { j: o.j, l, game };
   } catch {
     return null;
   }
 }
 
-function readShareFromUrl(): { j: string; l: Record<string, number> } | null {
+function readShareFromUrl(): { j: string; l: Record<string, number>; game?: GameMode } | null {
   try {
     const token = new URL(window.location.href).searchParams.get(SHARE_QUERY);
     if (!token || !token.trim()) return null;
@@ -252,17 +344,18 @@ function getContentColumnIndices(job: JobData): number[] {
 }
 
 function capForClassTier(tierIndex: number): number {
+  const caps = classSkillCaps();
   const job = getJobData(currentJob);
   if (job && shouldMergeTranscendentIntoSecondPanel(job)) {
     if (tierIndex === 0) {
-      return TIER0_CLASS_CAP_OVERRIDE[job.key] ?? CLASS_SKILL_CAPS[0]!;
+      return TIER0_CLASS_CAP_OVERRIDE[job.key] ?? caps[0]!;
     }
     return TRANSCENDENT_COMBINED_SECOND_CAP;
   }
   if (tierIndex === 0 && job && TIER0_CLASS_CAP_OVERRIDE[job.key] != null) {
     return TIER0_CLASS_CAP_OVERRIDE[job.key]!;
   }
-  return CLASS_SKILL_CAPS[Math.min(tierIndex, CLASS_SKILL_CAPS.length - 1)]!;
+  return caps[Math.min(tierIndex, caps.length - 1)]!;
 }
 
 function pointsUsedPerClassTier(lv: Record<string, number>): number[] {
@@ -979,11 +1072,9 @@ function renderColumns(root: HTMLElement): void {
   scheduleFitSkillText(root);
 }
 
-function setJobPickerSprite(spriteEl: HTMLElement, url: string | undefined, label: string): void {
-  const fb = spriteEl.querySelector(".job-picker-sprite-fallback") as HTMLSpanElement;
-  fb.textContent = label.slice(0, 1).toUpperCase();
-  spriteEl.querySelectorAll(".job-picker-sprite-img").forEach((n) => n.remove());
-  if (!url) return;
+function loadJobPickerStandHalf(cell: HTMLElement, url: string): void {
+  cell.querySelectorAll(".job-picker-sprite-img").forEach((n) => n.remove());
+  const fb = cell.querySelector(".job-picker-sprite-fallback") as HTMLSpanElement | null;
   const img = document.createElement("img");
   img.className = "job-picker-sprite-img";
   img.alt = "";
@@ -995,8 +1086,79 @@ function setJobPickerSprite(spriteEl: HTMLElement, url: string | undefined, labe
   };
   img.addEventListener("load", onLoad, { once: true });
   img.addEventListener("error", () => img.remove(), { once: true });
-  spriteEl.insertBefore(img, fb);
+  if (fb) cell.insertBefore(img, fb);
+  else cell.appendChild(img);
   if (img.complete && img.naturalHeight > 0) onLoad();
+  else if (img.complete && img.naturalHeight === 0) img.remove();
+}
+
+/** Bard/Dancer line jobs: gender-locked in RO — one stand in the class picker, not a male+female pair. */
+const JOB_PICKER_STAND_MALE_ONLY = new Set<string>([
+  "JT_BARD",
+  "JT_BARD_H",
+  "JT_MINSTREL",
+  "JT_MINSTREL_H",
+  "JT_TROUBADOUR",
+]);
+const JOB_PICKER_STAND_FEMALE_ONLY = new Set<string>([
+  "JT_DANCER",
+  "JT_DANCER_H",
+  "JT_WANDERER",
+  "JT_WANDERER_H",
+  "JT_TROUVERE",
+]);
+
+type JobPickerStandSpriteMode = "dual" | "male" | "female";
+
+function jobPickerStandSpriteMode(jobKey: string): JobPickerStandSpriteMode {
+  if (JOB_PICKER_STAND_MALE_ONLY.has(jobKey)) return "male";
+  if (JOB_PICKER_STAND_FEMALE_ONLY.has(jobKey)) return "female";
+  return "dual";
+}
+
+function jobPickerDualStandPairInnerHtml(): string {
+  return `<span class="job-picker-stand-pair">
+            <span class="job-picker-stand-pair__cell" data-stand-gender="male" title="Male">
+              <span class="job-picker-sprite-fallback" aria-hidden="true">♂</span>
+            </span>
+            <span class="job-picker-stand-pair__cell" data-stand-gender="female" title="Female">
+              <span class="job-picker-sprite-fallback" aria-hidden="true">♀</span>
+            </span>
+          </span>`;
+}
+
+function jobPickerSoloStandPairInnerHtml(g: "male" | "female"): string {
+  const title = g === "male" ? "Male" : "Female";
+  const sym = g === "male" ? "♂" : "♀";
+  return `<span class="job-picker-stand-pair job-picker-stand-pair--solo" data-stand-top="${g}">
+            <span class="job-picker-stand-pair__cell" data-stand-gender="${g}" title="${title}">
+              <span class="job-picker-sprite-fallback" aria-hidden="true">${sym}</span>
+            </span>
+          </span>`;
+}
+
+function jobPickerCardSpriteHtml(jobKey: string): string {
+  const m = jobPickerStandSpriteMode(jobKey);
+  const dual = m === "dual";
+  const cls = `job-picker-sprite job-picker-sprite--card${dual ? " job-picker-sprite--dual" : ""}`;
+  const inner = dual ? jobPickerDualStandPairInnerHtml() : jobPickerSoloStandPairInnerHtml(m);
+  return `<span class="${cls}" aria-hidden="true">${inner}</span>`;
+}
+
+/** Class picker cards / modal: load bundled stand art (dual male+female, or a single cell for gender-locked jobs). */
+function setJobPickerStandArt(spriteEl: HTMLElement, jobKey: string): void {
+  const male = spriteEl.querySelector('[data-stand-gender="male"]') as HTMLElement | null;
+  const female = spriteEl.querySelector('[data-stand-gender="female"]') as HTMLElement | null;
+  if (male) loadJobPickerStandHalf(male, jobPickerStandSpriteUrl(jobKey, "male"));
+  if (female) loadJobPickerStandHalf(female, jobPickerStandSpriteUrl(jobKey, "female"));
+}
+
+/** Which gender layer is in front — matches sit-dock gender toggle (`data-stand-top` on `.job-picker-stand-pair`). */
+function updateJobPickerStandStacking(root: HTMLElement): void {
+  const top = sitGender;
+  root.querySelectorAll(".job-picker-stand-pair").forEach((el) => {
+    (el as HTMLElement).setAttribute("data-stand-top", top);
+  });
 }
 
 const GENDER_STORAGE_KEY = "ro-sit-gender";
@@ -1008,17 +1170,19 @@ function syncJobPickerUi(root: HTMLElement): void {
   const label = getJobData(currentJob)?.label ?? currentJob;
   const labEl = root.querySelector("#job-picker-current-label");
   if (labEl) labEl.textContent = label;
-  const trigSprite = root.querySelector("#job-picker-trigger .job-picker-sprite") as HTMLElement | null;
-  if (trigSprite) setJobPickerSprite(trigSprite, jobPreviewSpriteUrl(currentJob), label);
   const trig = root.querySelector("#job-picker-trigger") as HTMLButtonElement | null;
   if (trig) trig.setAttribute("aria-label", `Class: ${label}. Open class picker`);
   root.querySelectorAll(".job-picker-card").forEach((btn) => {
     const key = (btn as HTMLButtonElement).dataset.jobKey;
+    if (!key) return;
+    const sp = btn.querySelector(".job-picker-sprite") as HTMLElement | null;
+    if (sp) setJobPickerStandArt(sp, key);
     const on = key === currentJob;
     btn.classList.toggle("job-picker-card--current", on);
     if (on) btn.setAttribute("aria-current", "true");
     else btn.removeAttribute("aria-current");
   });
+  updateJobPickerStandStacking(root);
 
   const sitDock = root.querySelector("#job-sit-dock") as HTMLElement | null;
   const sitImg = root.querySelector("#job-sit-sprite-img") as HTMLImageElement | null;
@@ -1110,7 +1274,7 @@ function jobPickerCardHtml(
         ? " job-picker-card--joined job-picker-card--joined-end"
         : "";
   return `<button type="button" class="job-picker-card${joinCls}" data-job-key="${escKey}" aria-label="${lab}">
-        <span class="job-picker-sprite job-picker-sprite--card"><span class="job-picker-sprite-fallback"></span></span>
+        ${jobPickerCardSpriteHtml(key)}
         <span class="job-picker-card-label">${lab}</span>
       </button>`;
 }
@@ -1143,6 +1307,55 @@ function jobPickerRowHtml(row: JobPickerPick[]): string {
     parts.push(jobPickerCardHtml(j.key, j.label));
   }
   return parts.join("");
+}
+
+function jobPickerJobRowsStackFromSection(g: JobPickerSection, stackAriaLabel: string): string {
+  const labelEsc = escapeHtml(g.heading);
+  if (!g.jobRows?.length) return "";
+  const grids = g.jobRows
+    .map((row, ri) => {
+      if (row.length === 0) return "";
+      const cards = jobPickerRowHtml(row);
+      return `<div class="job-picker-grid" role="group" aria-label="${labelEsc}, row ${ri + 1}">${cards}</div>`;
+    })
+    .join("");
+  return `<div class="job-picker-row-stack" role="group" aria-label="${escapeHtml(stackAriaLabel)}">${grids}</div>`;
+}
+
+function jobPickerThirdClassTabHtml(
+  split: NonNullable<JobPickerTabDef["thirdPathSplit"]>,
+  idPrefix: string,
+  initialPath: ThirdClassPathKey,
+): string {
+  const transStack = jobPickerJobRowsStackFromSection(
+    split.trans,
+    "Third class, transcendent second path (e.g. Lord Knight, Clown, Arch Bishop (Trans.))",
+  );
+  const baseStack = jobPickerJobRowsStackFromSection(
+    split.base,
+    "Third class, base second job only (no transcendent 2nd column in tree)",
+  );
+  const transHidden = initialPath === "trans" ? "" : " hidden";
+  const baseHidden = initialPath === "base" ? "" : " hidden";
+  const transAct = initialPath === "trans" ? " game-mode-toggle__btn--active" : "";
+  const baseAct = initialPath === "base" ? " game-mode-toggle__btn--active" : "";
+  const transPressed = initialPath === "trans" ? "true" : "false";
+  const basePressed = initialPath === "base" ? "true" : "false";
+  const tail = split.after?.length
+    ? jobPickerSectionsHtml(split.after, `${idPrefix}-after`)
+    : "";
+  return `<div class="job-picker-thirdclass">
+    <h3 class="job-picker-section-title" id="${idPrefix}-third-title">Third class</h3>
+    <div class="job-picker-thirdclass-pathbar" role="group" aria-labelledby="${idPrefix}-path-lbl">
+      <span class="job-picker-thirdclass-pathbar-label" id="${idPrefix}-path-lbl">2nd job before 3rd</span>
+      <div class="game-mode-toggle job-picker-thirdclass-toggle" role="group" aria-label="Second job type for the third class list">
+        <button type="button" class="game-mode-toggle__btn${transAct}" data-third-path="trans" aria-pressed="${transPressed}">Transcendent</button>
+        <button type="button" class="game-mode-toggle__btn${baseAct}" data-third-path="base" aria-pressed="${basePressed}">Base 2nd</button>
+      </div>
+    </div>
+    <div class="job-picker-thirdclass-path"${transHidden} data-third-path="trans" role="group" aria-label="Transcendent second, third class">${transStack}</div>
+    <div class="job-picker-thirdclass-path"${baseHidden} data-third-path="base" role="group" aria-label="Base second only, third class">${baseStack}</div>
+  </div>${tail}`;
 }
 
 function jobPickerSectionHtml(g: JobPickerSection, sid: string): string {
@@ -1211,37 +1424,76 @@ function applyJobPickerTab(root: HTMLElement, activeId: string): void {
       else panel.setAttribute("hidden", "");
     }
   });
+  if (activeId === "third") {
+    alignThirdClassPathToCurrentJobIfApplicable(root, currentJob);
+  }
 }
 
-function renderApp(root: HTMLElement): void {
-  plannerAppRoot = root;
-  ensureTooltipUnlockClickListener();
+function closeJobPickerDialog(root: HTMLElement): void {
+  (root.querySelector("#job-picker-dialog") as HTMLDialogElement | null)?.close();
+}
 
-  const pickerTabs = listJobPickerTabs();
-  const initialTabId = jobPickerTabIdForJob(pickerTabs, currentJob);
+function pickJobFromDialog(root: HTMLElement, jobKey: string): void {
+  if (!getJobData(jobKey)) return;
+  applyJob(jobKey);
+  saveState();
+  renderColumns(root);
+  refreshAll(root);
+  syncJobPickerUi(root);
+  alignThirdClassPathToCurrentJobIfApplicable(root, currentJob);
+  closeJobPickerDialog(root);
+}
 
-  const tablistHtml =
-    pickerTabs.length > 1
-      ? `<div class="job-picker-tablist" role="tablist" aria-label="Class category">${pickerTabs
-          .map((t) => {
-            const active = t.id === initialTabId;
-            const baseAria =
-              t.id === "base"
-                ? ` aria-label="Novice, first class, and second class"`
-                : "";
-            return `<button type="button" class="job-picker-tab${active ? " job-picker-tab--active" : ""}" role="tab"
+function syncGameModeToggleUi(root: HTMLElement): void {
+  const mode = getPlannerGameMode();
+  const headerT = root.querySelector(".game-mode-toggle--header");
+  if (headerT) {
+    headerT.setAttribute("data-active", mode === "renewal" ? "renewal" : "pre");
+  }
+  root.querySelectorAll("[data-set-game-mode]").forEach((el) => {
+    const btn = el as HTMLButtonElement;
+    const m = btn.dataset.setGameMode as GameMode | undefined;
+    const on = m === mode;
+    btn.classList.toggle("game-mode-toggle__btn--active", on);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  const title = root.querySelector("#planner-page-title");
+  if (title) {
+    title.textContent =
+      mode === "renewal" ? "RO Renewal Skill Planner" : "RO Pre-Renewal Skill Planner";
+  }
+}
+
+function buildJobPickerTablistHtml(pickerTabs: JobPickerTabDef[], initialTabId: string): string {
+  if (pickerTabs.length <= 1) return "";
+  return `<div class="job-picker-tablist" role="tablist" aria-label="Class category">${pickerTabs
+    .map((t) => {
+      const active = t.id === initialTabId;
+      const baseAria =
+        t.id === "base"
+          ? ` aria-label="Novice, first class, and second class"`
+          : t.id === "third"
+            ? ` aria-label="Third job classes"`
+            : t.id === "fourth"
+              ? ` aria-label="Fourth job classes"`
+              : "";
+      return `<button type="button" class="job-picker-tab${active ? " job-picker-tab--active" : ""}" role="tab"
             id="job-picker-tab-${t.id}" data-job-picker-tab="${escapeHtml(t.id)}"
             aria-selected="${active ? "true" : "false"}"
             aria-controls="job-picker-panel-${escapeHtml(t.id)}"
             tabindex="${active ? "0" : "-1"}"${baseAria}>${escapeHtml(t.label)}</button>`;
-          })
-          .join("")}</div>`
-      : "";
+    })
+    .join("")}</div>`;
+}
 
-  const panelsHtml = pickerTabs
+function buildJobPickerPanelsHtml(pickerTabs: JobPickerTabDef[], initialTabId: string): string {
+  return pickerTabs
     .map((t) => {
       const active = t.id === initialTabId;
-      const inner = jobPickerSectionsHtml(t.sections, `job-picker-${t.id}`);
+      const pfx = `job-picker-${t.id}`;
+      const inner = t.thirdPathSplit
+        ? jobPickerThirdClassTabHtml(t.thirdPathSplit, pfx, getDefaultThirdPathForJobPicker(currentJob))
+        : jobPickerSectionsHtml(t.sections, pfx);
       const labelled =
         pickerTabs.length > 1
           ? `aria-labelledby="job-picker-tab-${escapeHtml(t.id)}"`
@@ -1251,95 +1503,12 @@ function renderApp(root: HTMLElement): void {
       )}" ${labelled}${active ? "" : " hidden"}>${inner}</div>`;
     })
     .join("");
+}
 
-  root.innerHTML = `
-    <header class="planner-header">
-      <div class="planner-header__left">
-        <h1>Pre-Renewal Skill Planner</h1>
-        <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link site-nav__link--active" href="/skills" aria-current="page">Skill Planner</a>
-          <a class="site-nav__link" href="/cards">Card Library</a>
-          <a class="site-nav__link" href="/pets">Pets</a>
-          <a class="site-nav__link" href="/monsters">Monsters</a>
-          <a class="site-nav__link" href="/armour">Armour</a>
-          <a class="site-nav__link" href="/weapons">Weapons</a>
-        </nav>
-      </div>
-    </header>
-    <div class="toolbar">
-      <div class="job-picker-field">
-        <span class="job-picker-field-label" id="job-picker-field-label">Class</span>
-        <button type="button" class="job-picker-trigger" id="job-picker-trigger"
-          aria-haspopup="dialog" aria-expanded="false" aria-controls="job-picker-dialog"
-          aria-describedby="job-picker-field-label">
-          <span class="job-picker-sprite job-picker-sprite--trigger"><span class="job-picker-sprite-fallback"></span></span>
-          <span class="job-picker-current-name" id="job-picker-current-label"></span>
-        </button>
-      </div>
-      <div class="toolbar-class-stats" role="group" aria-label="Skill points by class">
-        <span class="stat" id="stat-tier0"
-          ><span class="stat-over-badge" id="badge-tier0" aria-hidden="true">!</span
-          ><span id="label-tier0">1st class</span>:
-          <strong id="used-tier0">0</strong> / <strong id="cap-tier0">49</strong>
-          · <span id="remain-word-tier0">left</span> <strong id="remain-tier0">49</strong></span
-        >
-        <span class="stat" id="stat-tier1"
-          ><span class="stat-over-badge" id="badge-tier1" aria-hidden="true">!</span
-          ><span id="label-tier1">2nd class</span>:
-          <strong id="used-tier1">0</strong> / <strong id="cap-tier1">50</strong>
-          · <span id="remain-word-tier1">left</span> <strong id="remain-tier1">50</strong></span
-        >
-        <span class="stat stat--hidden" id="stat-tier2"
-          ><span class="stat-over-badge" id="badge-tier2" aria-hidden="true">!</span
-          ><span id="label-tier2">Transcendent</span>:
-          <strong id="used-tier2">0</strong> / <strong id="cap-tier2">50</strong>
-          · <span id="remain-word-tier2">left</span> <strong id="remain-tier2">50</strong></span
-        >
-        <span class="stat" id="stat-quest"
-          >Quest / special: <strong id="used-quest">0</strong>
-          <span class="stat-note">(no class cap)</span></span
-        >
-        <span class="stat stat--total">Total: <strong id="used-total">0</strong></span>
-      </div>
-      <label class="toolbar-toggle">
-        <span class="toolbar-toggle-text">Disable hover dimming</span>
-        <span class="toggle-switch">
-          <input type="checkbox" id="toggle-disable-hover-dim" class="toggle-switch-input" />
-          <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb"></span></span>
-        </span>
-      </label>
-      <button type="button" class="toolbar-iconbtn" id="btn-sit-gender" aria-label="Toggle gender">
-        <svg class="toolbar-gender-svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-          <g class="toolbar-gender-svg__male" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="10" cy="14" r="5"></circle>
-            <path d="M14 10l7-7"></path>
-            <path d="M16 3h5v5"></path>
-          </g>
-          <g class="toolbar-gender-svg__female" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="10" cy="10" r="5"></circle>
-            <path d="M10 15v6"></path>
-            <path d="M7 18h6"></path>
-          </g>
-        </svg>
-      </button>
-      <div class="toolbar-actions" role="group" aria-label="Build actions">
-        <button type="button" id="btn-share">Share build</button>
-        <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
-        <button type="button" id="btn-reset" class="danger">Reset</button>
-      </div>
-    </div>
-    <div class="tree-wrap" id="tree-wrap">
-      <div class="tree-board" id="tree-board"></div>
-      <div class="job-sit-dock" id="job-sit-dock" aria-hidden="true">
-        <img class="job-sit-dock__img" id="job-sit-sprite-img" alt="" width="120" height="120" />
-      </div>
-    </div>
-    <dialog class="job-picker-dialog" id="job-picker-dialog" aria-labelledby="job-picker-dialog-title">
-      ${
-        pickerTabs.length > 1
-          ? `<aside class="job-picker-tabrail">${tablistHtml}</aside>`
-          : ""
-      }
+function buildJobPickerDialogInnerMarkup(pickerTabs: JobPickerTabDef[], initialTabId: string): string {
+  const tablistHtml = buildJobPickerTablistHtml(pickerTabs, initialTabId);
+  const panelsHtml = buildJobPickerPanelsHtml(pickerTabs, initialTabId);
+  return `${pickerTabs.length > 1 ? `<aside class="job-picker-tabrail">${tablistHtml}</aside>` : ""}
       <div class="job-picker-dialog-panel">
         <div class="job-picker-dialog-head">
           <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">Choose class</h2>
@@ -1350,44 +1519,41 @@ function renderApp(root: HTMLElement): void {
             ${panelsHtml}
           </div>
         </div>
-      </div>
-    </dialog>
-  `;
+      </div>`;
+}
 
+function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: boolean } = {}): void {
   const dialog = root.querySelector("#job-picker-dialog") as HTMLDialogElement;
   const trigger = root.querySelector("#job-picker-trigger") as HTMLButtonElement;
 
   for (const btn of root.querySelectorAll(".job-picker-card")) {
     const key = (btn as HTMLButtonElement).dataset.jobKey;
     if (!key) continue;
-    const lab = getJobData(key)?.label ?? key;
     const sp = btn.querySelector(".job-picker-sprite") as HTMLElement;
-    setJobPickerSprite(sp, jobPreviewSpriteUrl(key), lab);
+    setJobPickerStandArt(sp, key);
   }
+  updateJobPickerStandStacking(root);
 
-  function closeJobPicker(): void {
-    dialog.close();
-  }
-
-  function pickJob(jobKey: string): void {
-    if (!getJobData(jobKey)) return;
-    applyJob(jobKey);
-    saveState();
-    renderColumns(root);
-    refreshAll(root);
-    syncJobPickerUi(root);
-    closeJobPicker();
-  }
-
-  trigger.addEventListener("click", () => {
-    applyJobPickerTab(root, jobPickerTabIdForJob(listJobPickerTabs(), currentJob));
-    dialog.showModal();
-    trigger.setAttribute("aria-expanded", "true");
-    requestAnimationFrame(() => {
-      const cur = root.querySelector(".job-picker-card--current") as HTMLElement | null;
-      (cur ?? root.querySelector(".job-picker-close"))?.focus();
+  if (!opts.skipDialogShell) {
+    trigger.addEventListener("click", () => {
+      applyJobPickerTab(root, jobPickerTabIdForJob(listJobPickerTabs(), currentJob));
+      dialog.showModal();
+      trigger.setAttribute("aria-expanded", "true");
+      requestAnimationFrame(() => {
+        const cur = root.querySelector(".job-picker-card--current") as HTMLElement | null;
+        (cur ?? root.querySelector(".job-picker-close"))?.focus();
+      });
     });
-  });
+
+    dialog.addEventListener("close", () => {
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.focus();
+    });
+
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) closeJobPickerDialog(root);
+    });
+  }
 
   const tablist = root.querySelector(".job-picker-tablist");
   tablist?.addEventListener("click", (e) => {
@@ -1427,22 +1593,135 @@ function renderApp(root: HTMLElement): void {
     }
   });
 
-  dialog.addEventListener("close", () => {
-    trigger.setAttribute("aria-expanded", "false");
-    trigger.focus();
-  });
+  root.querySelector(".job-picker-close")?.addEventListener("click", () => closeJobPickerDialog(root));
 
-  dialog.addEventListener("click", (e) => {
-    if (e.target === dialog) closeJobPicker();
-  });
-
-  root.querySelector(".job-picker-close")!.addEventListener("click", () => closeJobPicker());
-
-  root.querySelector("#job-picker-body")!.addEventListener("click", (e) => {
+  root.querySelector("#job-picker-body")?.addEventListener("click", (e) => {
+    const pathBtn = (e.target as HTMLElement).closest("button[data-third-path]") as
+      | HTMLButtonElement
+      | null;
+    if (pathBtn?.closest("#job-picker-panel-third") && !pathBtn.closest(".job-picker-card")) {
+      const p = pathBtn.dataset.thirdPath;
+      if (p === "trans" || p === "base") {
+        localStorage.setItem(THIRD_CLASS_PATH_STORAGE_KEY, p);
+        applyThirdClassPathPanel(root, p);
+      }
+      return;
+    }
     const t = (e.target as HTMLElement).closest(".job-picker-card") as HTMLButtonElement | null;
     if (!t?.dataset.jobKey) return;
-    pickJob(t.dataset.jobKey);
+    pickJobFromDialog(root, t.dataset.jobKey);
   });
+}
+
+function applyGameModeFromUi(root: HTMLElement, mode: GameMode): void {
+  localStorage.setItem(GAME_MODE_STORAGE_KEY, mode);
+  setPlannerGameMode(mode);
+  loadState();
+  ensureCurrentJobInData();
+  applyJob(currentJob);
+  saveState();
+  syncGameModeToggleUi(root);
+  const dialog = root.querySelector("#job-picker-dialog") as HTMLDialogElement | null;
+  const pickerTabs = listJobPickerTabs();
+  const initialTabId = jobPickerTabIdForJob(pickerTabs, currentJob);
+  if (dialog) {
+    dialog.innerHTML = buildJobPickerDialogInnerMarkup(pickerTabs, initialTabId);
+  }
+  wireJobPickerInteractions(root, { skipDialogShell: true });
+  renderColumns(root);
+  refreshAll(root);
+  syncJobPickerUi(root);
+}
+
+function renderApp(root: HTMLElement): void {
+  plannerAppRoot = root;
+  ensureTooltipUnlockClickListener();
+
+  const pickerTabs = listJobPickerTabs();
+  const initialTabId = jobPickerTabIdForJob(pickerTabs, currentJob);
+  const jobPickerDialogInner = buildJobPickerDialogInnerMarkup(pickerTabs, initialTabId);
+
+  const initialGameMode = getPlannerGameMode();
+  const initialDataActive = initialGameMode === "renewal" ? "renewal" : "pre";
+
+  root.innerHTML = `
+    <header class="planner-header">
+      <div class="planner-header__left">
+        <h1 class="planner-header__title" id="planner-page-title">RO Pre-Renewal Skill Planner</h1>
+        <div class="planner-header__center">
+          <div class="game-mode-toggle game-mode-toggle--header" data-active="${initialDataActive}" role="group" aria-label="Game client version">
+            <span class="game-mode-toggle__slider" aria-hidden="true"></span>
+            <button type="button" class="game-mode-toggle__btn" data-set-game-mode="pre">
+              <span class="game-mode-toggle__text">Pre-Renewal</span>
+            </button>
+            <button type="button" class="game-mode-toggle__btn" data-set-game-mode="renewal">
+              <span class="game-mode-toggle__text">Renewal</span>
+            </button>
+          </div>
+        </div>
+        <nav class="site-nav" aria-label="Site">
+          <a class="site-nav__link site-nav__link--active" href="/skills" aria-current="page">Skill Planner</a>
+          <a class="site-nav__link" href="/cards">Card Library</a>
+          <a class="site-nav__link" href="/pets">Pets</a>
+          <a class="site-nav__link" href="/monsters">Monsters</a>
+          <a class="site-nav__link" href="/armour">Armour</a>
+          <a class="site-nav__link" href="/weapons">Weapons</a>
+        </nav>
+      </div>
+    </header>
+    <div class="toolbar">
+      <div class="job-picker-field">
+        <span class="job-picker-field-label" id="job-picker-field-label">Class</span>
+        <button type="button" class="job-picker-trigger" id="job-picker-trigger"
+          aria-haspopup="dialog" aria-expanded="false" aria-controls="job-picker-dialog"
+          aria-describedby="job-picker-field-label">
+          <span class="job-picker-current-name" id="job-picker-current-label"></span>
+        </button>
+      </div>
+      <div class="toolbar-class-stats" role="group" aria-label="Skill points by class">
+        <div id="toolbar-tier-stats" class="toolbar-tier-stats"></div>
+        <span class="stat" id="stat-quest">Quest / special: <strong id="used-quest">0</strong></span>
+        <span class="stat stat--total">Total: <strong id="used-total">0</strong></span>
+      </div>
+      <label class="toolbar-toggle">
+        <span class="toolbar-toggle-text">Disable hover dimming</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="toggle-disable-hover-dim" class="toggle-switch-input" />
+          <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb"></span></span>
+        </span>
+      </label>
+      <button type="button" class="toolbar-iconbtn" id="btn-sit-gender" aria-label="Toggle gender">
+        <svg class="toolbar-gender-svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <g class="toolbar-gender-svg__male" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="14" r="5"></circle>
+            <path d="M14 10l7-7"></path>
+            <path d="M16 3h5v5"></path>
+          </g>
+          <g class="toolbar-gender-svg__female" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="10" r="5"></circle>
+            <path d="M10 15v6"></path>
+            <path d="M7 18h6"></path>
+          </g>
+        </svg>
+      </button>
+      <div class="toolbar-actions" role="group" aria-label="Build actions">
+        <button type="button" id="btn-share">Share build</button>
+        <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
+        <button type="button" id="btn-reset" class="danger">Reset</button>
+      </div>
+    </div>
+    <div class="tree-wrap" id="tree-wrap">
+      <div class="tree-board" id="tree-board"></div>
+      <div class="job-sit-dock" id="job-sit-dock" aria-hidden="true">
+        <img class="job-sit-dock__img" id="job-sit-sprite-img" alt="" width="120" height="120" />
+      </div>
+    </div>
+    <dialog class="job-picker-dialog" id="job-picker-dialog" aria-labelledby="job-picker-dialog-title">
+      ${jobPickerDialogInner}
+    </dialog>
+  `;
+
+  wireJobPickerInteractions(root, {});
 
   let shareStatusTimer: ReturnType<typeof setTimeout> | undefined;
   root.querySelector("#btn-share")!.addEventListener("click", () => {
@@ -1501,9 +1780,17 @@ function renderApp(root: HTMLElement): void {
     else clearPrereqHighlights(root);
   });
 
+  root.querySelector(".game-mode-toggle--header")?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("[data-set-game-mode]") as HTMLButtonElement | null;
+    const m = btn?.dataset.setGameMode as GameMode | undefined;
+    if (!m || m === getPlannerGameMode()) return;
+    applyGameModeFromUi(root, m);
+  });
+
   renderColumns(root);
   refreshAll(root);
   syncJobPickerUi(root);
+  syncGameModeToggleUi(root);
 }
 
 function skillNodeEl(skill: SkillDef): HTMLElement {
@@ -1672,25 +1959,21 @@ function setToolbarTierStat(
   wrap: Element | null,
   usedEl: Element | null,
   capEl: Element | null,
-  wordEl: Element | null,
-  remEl: Element | null,
   used: number,
   cap: number,
   ariaTierName: string,
 ): void {
-  if (!usedEl || !capEl || !wordEl || !remEl) return;
+  if (!usedEl || !capEl) return;
   usedEl.textContent = String(used);
   capEl.textContent = String(cap);
   const over = used > cap;
-  wordEl.textContent = over ? "over" : "left";
-  remEl.textContent = over ? String(used - cap) : String(cap - used);
   wrap?.classList.toggle("stat--over-cap", over);
   if (wrap instanceof HTMLElement) {
     wrap.setAttribute("aria-invalid", over ? "true" : "false");
     const base = `${ariaTierName}: ${used} of ${cap} class skill points`;
     wrap.setAttribute(
       "aria-label",
-      over ? `${base}, over budget by ${used - cap}` : `${base}, ${cap - used} left`,
+      over ? `${base}, over budget by ${used - cap}` : `${base}, ${cap - used} remaining`,
     );
     if (over) wrap.setAttribute("title", "Over class skill point budget");
     else wrap.removeAttribute("title");
@@ -1700,75 +1983,51 @@ function setToolbarTierStat(
 function updateToolbarClassStats(root: HTMLElement): void {
   const job = getJobData(currentJob);
   const perTier = pointsUsedPerClassTier(levels);
-  const contentLen = job ? getContentColumnIndices(job).length : 0;
   const unifiedTrans = job !== undefined && shouldMergeTranscendentIntoSecondPanel(job);
-
-  const wrap0 = root.querySelector("#stat-tier0");
-  const t0Used = root.querySelector("#used-tier0");
-  const t0Cap = root.querySelector("#cap-tier0");
-  const t0Rem = root.querySelector("#remain-tier0");
-  const word0 = root.querySelector("#remain-word-tier0");
-  const label0 = root.querySelector("#label-tier0");
-  const label1 = root.querySelector("#label-tier1");
-  const label2 = root.querySelector("#label-tier2");
   const contentCols = job ? getContentColumnIndices(job) : [];
 
-  if (job && contentLen >= 1 && t0Used && t0Cap && t0Rem && word0) {
-    const cap0 = capForClassTier(0);
-    const u0 = perTier[0] ?? 0;
-    const c0 = contentCols[0];
-    if (label0 && c0 !== undefined) label0.textContent = job.columns[c0]?.title ?? "Class";
-    const aria0 =
-      c0 !== undefined ? (job.columns[c0]?.title ?? "Class") : "First class column";
-    setToolbarTierStat(wrap0, t0Used, t0Cap, word0, t0Rem, u0, cap0, aria0);
-    wrap0?.classList.remove("stat--hidden");
-  } else {
-    wrap0?.classList.add("stat--hidden");
-    wrap0?.classList.remove("stat--over-cap");
-  }
+  const tierHost = root.querySelector("#toolbar-tier-stats") as HTMLElement | null;
+  if (tierHost) {
+    tierHost.innerHTML = "";
+    for (let t = 0; t < perTier.length; t++) {
+      const wrap = document.createElement("span");
+      wrap.className = "stat";
+      wrap.id = `stat-tier-${t}`;
+      const badge = document.createElement("span");
+      badge.className = "stat-over-badge";
+      badge.id = `badge-tier-${t}`;
+      badge.setAttribute("aria-hidden", "true");
+      badge.textContent = "!";
+      const label = document.createElement("span");
+      label.id = `label-tier-${t}`;
+      const used = document.createElement("strong");
+      used.id = `used-tier-${t}`;
+      const cap = document.createElement("strong");
+      cap.id = `cap-tier-${t}`;
+      wrap.appendChild(badge);
+      wrap.appendChild(label);
+      wrap.appendChild(document.createTextNode(": "));
+      wrap.appendChild(used);
+      wrap.appendChild(document.createTextNode(" / "));
+      wrap.appendChild(cap);
+      tierHost.appendChild(wrap);
 
-  const wrap1 = root.querySelector("#stat-tier1");
-  const t1Used = root.querySelector("#used-tier1");
-  const t1Cap = root.querySelector("#cap-tier1");
-  const t1Rem = root.querySelector("#remain-tier1");
-  const word1 = root.querySelector("#remain-word-tier1");
-  if (job && contentLen >= 2 && t1Used && t1Cap && t1Rem && word1) {
-    const cap1 = capForClassTier(1);
-    const u1 = perTier[1] ?? 0;
-    let aria1 = "Second class column";
-    if (label1) {
-      if (unifiedTrans) {
-        label1.textContent = job.label;
-        aria1 = `${job.label} (combined second + transcendent pool)`;
-      } else {
-        const c1 = contentCols[1];
-        label1.textContent = c1 !== undefined ? (job.columns[c1]?.title ?? "Class") : "Class";
-        aria1 = c1 !== undefined ? (job.columns[c1]?.title ?? "Class") : aria1;
+      const capN = capForClassTier(t);
+      const uN = perTier[t] ?? 0;
+      let colTitle = `Column ${t + 1}`;
+      if (job && unifiedTrans && t === 1) {
+        colTitle = job.label;
+      } else if (job) {
+        const c = contentCols[t];
+        if (c !== undefined) colTitle = job.columns[c]?.title ?? colTitle;
       }
+      label.textContent = colTitle;
+      const aria =
+        unifiedTrans && t === 1
+          ? `${job!.label} (combined second + transcendent pool)`
+          : colTitle;
+      setToolbarTierStat(wrap, used, cap, uN, capN, aria);
     }
-    setToolbarTierStat(wrap1, t1Used, t1Cap, word1, t1Rem, u1, cap1, aria1);
-    wrap1?.classList.remove("stat--hidden");
-  } else {
-    wrap1?.classList.add("stat--hidden");
-    wrap1?.classList.remove("stat--over-cap");
-  }
-
-  const wrap2 = root.querySelector("#stat-tier2");
-  const t2Used = root.querySelector("#used-tier2");
-  const t2Cap = root.querySelector("#cap-tier2");
-  const t2Rem = root.querySelector("#remain-tier2");
-  const word2 = root.querySelector("#remain-word-tier2");
-  if (job && contentLen >= 3 && !unifiedTrans && t2Used && t2Cap && t2Rem && word2) {
-    const cap2 = capForClassTier(2);
-    const u2 = perTier[2] ?? 0;
-    const c2 = contentCols[2];
-    if (label2 && c2 !== undefined) label2.textContent = job.columns[c2]?.title ?? "Transcendent";
-    const aria2 = c2 !== undefined ? (job.columns[c2]?.title ?? "Transcendent") : "Transcendent column";
-    setToolbarTierStat(wrap2, t2Used, t2Cap, word2, t2Rem, u2, cap2, aria2);
-    wrap2?.classList.remove("stat--hidden");
-  } else {
-    wrap2?.classList.add("stat--hidden");
-    wrap2?.classList.remove("stat--over-cap");
   }
 
   const wrapQ = root.querySelector("#stat-quest");
@@ -1850,7 +2109,7 @@ function updatePanelClassPoints(root: HTMLElement): void {
   if (pq && getQuestColumnIndex(job) >= 0) {
     const q = questPointsUsed(levels);
     pq.textContent = String(q);
-    pq.setAttribute("aria-label", `${q} points in quest and special skills, no class cap`);
+    pq.setAttribute("aria-label", `${q} points in quest and special skills`);
   }
 }
 
@@ -2018,10 +2277,27 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
   });
 }
 
+function initPlannerGameModeFromUrlOrStorage(): void {
+  try {
+    const u = new URL(window.location.href);
+    const m = u.searchParams.get("mode");
+    if (m === "renewal" || m === "pre") {
+      setPlannerGameMode(m);
+      return;
+    }
+  } catch {
+    /* ignore */
+  }
+  const s = localStorage.getItem(GAME_MODE_STORAGE_KEY);
+  if (s === "renewal" || s === "pre") setPlannerGameMode(s);
+}
+
+initPlannerGameModeFromUrlOrStorage();
+const fromShare = readShareFromUrl();
+if (fromShare?.game) setPlannerGameMode(fromShare.game);
 loadState();
 ensureCurrentJobInData();
-const fromShare = readShareFromUrl();
-if (fromShare) {
+if (fromShare && getJobData(fromShare.j)) {
   applyJob(fromShare.j, fromShare.l);
   saveState();
 } else {

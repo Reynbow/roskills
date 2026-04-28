@@ -18,11 +18,18 @@
  *   RO_ZRENDERER_RESOURCES="C:\path\to\extracted\data"  node scripts/render-job-sit-sprites.mjs
  *   node scripts/render-job-sit-sprites.mjs --print-only
  *   node scripts/render-job-sit-sprites.mjs --skip-existing
+ *
+ * Renewal-only (3rd/4th/etc. — needs a renewal client *data* tree with sprites):
+ *   RO_ZRENDERER_RESOURCES="C:\path\to\renewal\data" node scripts/render-job-sit-sprites.mjs --renewal-only
+ *
+ * Base + renewal in one run (same RO_ZRENDERER_RESOURCES must contain every job):
+ *   RO_ZRENDERER_RESOURCES="..." node scripts/render-job-sit-sprites.mjs --with-renewal
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { buildPlannerJobsList } from "./planner-zrenderer-jobs.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -32,51 +39,13 @@ const TMP_ROOT = path.join(ROOT, ".tmp-zrender-sit");
 const PRINT_ONLY = process.argv.includes("--print-only");
 const SKIP_EXISTING = process.argv.includes("--skip-existing");
 const FORCE = process.argv.includes("--force");
+const RENEWAL_ONLY = process.argv.includes("--renewal-only");
+const WITH_RENEWAL = process.argv.includes("--with-renewal");
 
-/** Client JOBID (skillinfo/jobinheritlist.lua) */
-// Some clients split certain classes across multiple job ids (e.g. STAR vs STAR2). For these, try
-// multiple candidates and keep the first one zrenderer can render.
-const JOBS = [
-  ["JT_NOVICE", 0],
-  ["JT_SUPERNOVICE", 23],
-  ["JT_TAEKWON", 4046],
-  ["JT_STAR", [4047, 4048]],
-  ["JT_LINKER", 4049],
-  ["JT_NINJA", 25],
-  ["JT_GUNSLINGER", 24],
-  ["JT_SWORDMAN", 1],
-  ["JT_MAGICIAN", 2],
-  ["JT_ARCHER", 3],
-  ["JT_ACOLYTE", 4],
-  ["JT_MERCHANT", 5],
-  ["JT_THIEF", 6],
-  ["JT_KNIGHT", 7],
-  ["JT_PRIEST", 8],
-  ["JT_WIZARD", 9],
-  ["JT_BLACKSMITH", 10],
-  ["JT_HUNTER", 11],
-  ["JT_ASSASSIN", 12],
-  ["JT_CRUSADER", 14],
-  ["JT_MONK", 15],
-  ["JT_SAGE", 16],
-  ["JT_ROGUE", 17],
-  ["JT_ALCHEMIST", 18],
-  ["JT_BARD", 19],
-  ["JT_DANCER", 20],
-  ["JT_KNIGHT_H", 4008],
-  ["JT_PRIEST_H", 4009],
-  ["JT_WIZARD_H", 4010],
-  ["JT_BLACKSMITH_H", 4011],
-  ["JT_HUNTER_H", 4012],
-  ["JT_ASSASSIN_H", 4013],
-  ["JT_CRUSADER_H", 4015],
-  ["JT_MONK_H", 4016],
-  ["JT_SAGE_H", 4017],
-  ["JT_ROGUE_H", 4018],
-  ["JT_ALCHEMIST_H", 4019],
-  ["JT_BARD_H", 4020],
-  ["JT_DANCER_H", 4021],
-];
+const JOBS = buildPlannerJobsList({
+  renewalOnly: RENEWAL_ONLY,
+  withRenewal: WITH_RENEWAL,
+});
 
 const ACTION = Number(process.env.ZRENDERER_SIT_ACTION ?? 17);
 const SIT_FRAME_RAW = process.env.ZRENDERER_SIT_FRAME?.trim() ?? "";
@@ -332,7 +301,8 @@ function runZrenderer(cmd, resourcePath, tmpOut, jobId, gender, headId) {
     `--loglevel=warning`,
   ];
   if (SIT_LEGACY) {
-    args.push(`--frame=${SIT_PICK_FRAME}`, `--headdir=${HEAD_DIR}`);
+    const lf = Number.isFinite(SIT_PICK_FRAME_MANUAL) ? SIT_PICK_FRAME_MANUAL : 2;
+    args.push(`--frame=${lf}`, `--headdir=${HEAD_DIR}`);
   } else {
     args.push(`--frame=-1`, `--headdir=all`, `--singleframes=true`);
   }
@@ -496,11 +466,23 @@ for (const [key, jobId] of JOBS) {
   }
 }
 
-if (fail === 0) {
+const missingJobs = [];
+for (const [key] of JOBS) {
+  const male = path.join(OUT_DIR, `${key}--male.png`);
+  const female = path.join(OUT_DIR, `${key}--female.png`);
+  const mOk = fs.existsSync(male) && fs.statSync(male).size > 800;
+  const fOk = fs.existsSync(female) && fs.statSync(female).size > 800;
+  if (!mOk && !fOk) missingJobs.push(key);
+}
+
+if (fail === 0 && missingJobs.length === 0) {
   fs.rmSync(TMP_ROOT, { recursive: true, force: true });
 } else {
   console.error(`\nLeft ${TMP_ROOT} on disk for debugging failed renders.`);
 }
 
-console.log(`\nDone: ${ok} rendered, ${skipped} skipped, ${fail} failed.`);
-process.exit(fail > 0 ? 1 : 0);
+console.log(`\nDone: ${ok} rendered, ${skipped} skipped, ${fail} gender-pass failures (some recovered via male↔female copy).`);
+if (missingJobs.length) {
+  console.error(`\nNo valid sit PNG for these job keys (both genders missing or <800 bytes): ${missingJobs.join(", ")}`);
+}
+process.exit(missingJobs.length > 0 ? 1 : 0);

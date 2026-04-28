@@ -1,6 +1,7 @@
 {
-  "generated": "2026-04-26T23:37:46.865Z",
-  "source": "skillinfo/*.lua + skilldescript.lub (English descriptions) + rAthena skill_db.yml (names / fallback)",
+  "generated": "2026-04-28T00:08:37.611Z",
+  "gameMode": "pre",
+  "source": "skillinfo/*.lua + skilldescript.lub (English descriptions) + rAthena skill_db.yml (names / fallback) [pre-re db/pre-re/skill_db.yml]",
   "jobs": {
     "JT_NOVICE": {
       "key": "JT_NOVICE",
@@ -16835,7 +16836,7 @@
           "skidId": 5068,
           "name": "CG SPECIALSINGER",
           "maxLevel": 1,
-          "description": "No English description: add skillinfo/skilldescript.lub or skillinfo/skill_db.yml.",
+          "description": "No English description: add skillinfo/skilldescript.lub (and skilldescript_renewal.lub for renewal), or skillinfo/skill_db.yml.",
           "gridIndex": 38
         },
         "cg_tarotcard": {
@@ -17365,7 +17366,7 @@
           "skidId": 5068,
           "name": "CG SPECIALSINGER",
           "maxLevel": 1,
-          "description": "No English description: add skillinfo/skilldescript.lub or skillinfo/skill_db.yml.",
+          "description": "No English description: add skillinfo/skilldescript.lub (and skilldescript_renewal.lub for renewal), or skillinfo/skill_db.yml.",
           "gridIndex": 38
         },
         "cg_tarotcard": {
