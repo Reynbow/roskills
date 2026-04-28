@@ -88,11 +88,21 @@ function skillIconUrl(skidId: number): string {
   return `https://static.divine-pride.net/images/skill/${skidId}.png`;
 }
 
-/** Skill points per tree column when tiers are separate: merged novice+1st, 2nd, third (quest/special excluded). */
-const CLASS_SKILL_CAPS: readonly number[] = [49, 50, 50];
+/**
+ * Skill point caps per class tier (per-column).
+ *
+ * RO skill points are earned per job level-up: job level N implies N-1 points earned in that tier.
+ * (Novice Basic Skill is exempt from the per-class cap in this planner.)
+ *
+ * Pre-renewal tiers here map to: 1st (49), 2nd (49), transcendent/3rd-style tiers (69).
+ */
+const CLASS_SKILL_CAPS: readonly number[] = [49, 49, 69];
 
-/** Renewal: extra class columns (4th job, etc.) reuse 50 SP per column after the first block. */
-const CLASS_SKILL_CAPS_RENEWAL: readonly number[] = [49, 50, 50, 50, 50, 50, 50, 50, 50];
+/**
+ * Renewal: tiers include 3rd job (max job level 70 → 69 points) and 4th job (max job level 50 → 49 points).
+ * Extra content columns beyond these reuse the last cap.
+ */
+const CLASS_SKILL_CAPS_RENEWAL: readonly number[] = [49, 49, 69, 49, 49, 49, 49, 49, 49];
 
 function classSkillCaps(): readonly number[] {
   return getPlannerGameMode() === "renewal" ? CLASS_SKILL_CAPS_RENEWAL : CLASS_SKILL_CAPS;
@@ -102,16 +112,16 @@ function classSkillCaps(): readonly number[] {
 const TIER0_CLASS_CAP_OVERRIDE: Partial<Record<string, number>> = {
   /** Super Novice: total class pool is 99 (server rule). */
   JT_SUPERNOVICE: 99,
-  /** Expanded classes: job level 70 → 70 class skill points (Basic Skill still exempt). */
-  JT_TAEKWON: 70,
-  JT_STAR: 70,
-  JT_LINKER: 70,
-  JT_NINJA: 70,
-  JT_GUNSLINGER: 70,
+  /** Expanded classes: max job level 70 → 69 class skill points (Basic Skill still exempt). */
+  JT_TAEKWON: 69,
+  JT_STAR: 69,
+  JT_LINKER: 69,
+  JT_NINJA: 69,
+  JT_GUNSLINGER: 69,
 };
 
-/** Transcendent jobs: second + transcendent columns share one pool (replaces separate 50+50). */
-const TRANSCENDENT_COMBINED_SECOND_CAP = 70;
+/** Transcendent jobs: second + transcendent columns share one pool (high 2nd max job level 70 → 69 points). */
+const TRANSCENDENT_COMBINED_SECOND_CAP = 69;
 
 /** Basic Skill does not consume the per-class skill point budget (matches common planner / in-game treatment). */
 const BASIC_SKILL_ID = "nv_basic";
