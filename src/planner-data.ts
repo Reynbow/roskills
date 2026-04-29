@@ -107,6 +107,7 @@ const EXPANDED_CLASS_KEYS = new Set([
 /** Shown in the Expanded tab when game mode is renewal (extra branches). */
 const RENEWAL_EXPANDED_BRANCH_KEYS = new Set([
   "JT_SUPERNOVICE2",
+  "JT_HYPER_NOVICE",
   "JT_KAGEROU",
   "JT_OBORO",
   "JT_REBELLION",
@@ -172,7 +173,6 @@ const FOURTH_CLASS_KEYS = new Set([
 const RENEWAL_OTHER_KEYS = new Set([
   "JT_DO_SUMMONER",
   "JT_SPIRIT_HANDLER",
-  "JT_HYPER_NOVICE",
 ]);
 
 function expandedClassKeys(): Set<string> {
@@ -209,34 +209,6 @@ export function jobPickerGroup(
   if (n === 2) return "secondClass";
   return "firstClass";
 }
-
-/** First class: one row of 6 in a 7-col grid (last column empty). */
-const EXPANDED_CLASS_PICKER_ORDER = [
-  "JT_SUPERNOVICE",
-  "JT_TAEKWON",
-  "JT_STAR",
-  "JT_LINKER",
-  "JT_NINJA",
-  "JT_GUNSLINGER",
-] as const;
-
-/** Taekwon Master + Soul Linker: second row under Taekwon Kid in the expanded picker. */
-const EXPANDED_TAEKWON_ADVANCED_KEYS = new Set(["JT_STAR", "JT_LINKER"]);
-
-/** Extra row in Expanded tab (renewal mode only). */
-const EXPANDED_RENEWAL_EXTRA_ORDER = [
-  "JT_SUPERNOVICE2",
-  "JT_KAGEROU",
-  "JT_OBORO",
-  "JT_REBELLION",
-  "JT_STAR_EMPEROR",
-  "JT_SOUL_REAPER",
-  "JT_SKY_EMPEROR",
-  "JT_SOUL_ASCETIC",
-  "JT_NIGHT_WATCH",
-  "JT_SHIRANUI",
-  "JT_SHINKIRO",
-] as const;
 
 const THIRD_CLASS_PICKER_ORDER = [
   "JT_RUNE_KNIGHT",
@@ -366,10 +338,8 @@ export type JobPickerSection = {
   jobs?: { key: string; label: string }[];
   /** Stacked grids (second class / transcendent rows). */
   jobRows?: { key: string; label: string }[][];
-  /**
-   * Expanded tab: align row 2 (Taekwon Master + Soul Linker) under Taekwon Kid via a 7-column grid.
-   */
-  jobRowsLayout?: "expandedTaekwon";
+  /** When set, interpret `jobRows` as left→right progression stages (rendered horizontally). */
+  jobRowsLayout?: "progressionLine";
 };
 
 function sectionHasJobs(g: JobPickerSection): boolean {
@@ -414,33 +384,11 @@ export type JobPickerTabDef = {
  */
 export function listJobPickerTabs(): JobPickerTabDef[] {
   const all = listJobs();
+  const byKey = new Map(all.map((j) => [j.key, j] as const));
+  const row = (keys: readonly string[]): { key: string; label: string }[] =>
+    keys.map((k) => byKey.get(k)).filter((j): j is (typeof all)[number] => j != null);
+  const jobs = (keys: readonly string[]): { key: string; label: string }[] => row(keys);
   const novice = all.filter((j) => jobPickerGroup(j.key) === "novice");
-  const expandedClass = sortJobsByKeyOrder(
-    all.filter(
-      (j) =>
-        jobPickerGroup(j.key) === "expandedClass" &&
-        !RENEWAL_EXPANDED_BRANCH_KEYS.has(j.key),
-    ),
-    EXPANDED_CLASS_PICKER_ORDER,
-  );
-  const expandedTkAdvancedRow = expandedClass.filter((j) =>
-    EXPANDED_TAEKWON_ADVANCED_KEYS.has(j.key),
-  );
-  const expandedTopRow = expandedClass.filter(
-    (j) => !EXPANDED_TAEKWON_ADVANCED_KEYS.has(j.key),
-  );
-  const expandedPickerRows: { key: string; label: string }[][] = [
-    expandedTopRow,
-  ];
-  if (expandedTkAdvancedRow.length > 0)
-    expandedPickerRows.push(expandedTkAdvancedRow);
-  if (getPlannerGameMode() === "renewal") {
-    const expandedRenewalRow = sortJobsByKeyOrder(
-      all.filter((j) => RENEWAL_EXPANDED_BRANCH_KEYS.has(j.key)),
-      EXPANDED_RENEWAL_EXTRA_ORDER,
-    );
-    if (expandedRenewalRow.length > 0) expandedPickerRows.push(expandedRenewalRow);
-  }
   const firstClass = sortJobsByKeyOrder(
     all.filter((j) => jobPickerGroup(j.key) === "firstClass"),
     FIRST_CLASS_PICKER_ORDER,
@@ -468,15 +416,62 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
     { heading: "Transcendent", jobRows: transRows },
   ].filter(sectionHasJobs);
 
-  const expandedSections: JobPickerSection[] = [
-    {
-      heading: "Expanded class",
-      jobRows: expandedPickerRows,
-      ...(expandedTkAdvancedRow.length > 0
-        ? { jobRowsLayout: "expandedTaekwon" as const }
-        : {}),
-    },
-  ].filter(sectionHasJobs);
+  const expandedSections: JobPickerSection[] = (
+    getPlannerGameMode() === "renewal"
+      ? ([
+          {
+            heading: "Novice branches",
+            jobRows: [row(["JT_SUPERNOVICE", "JT_SUPERNOVICE2", "JT_HYPER_NOVICE"])].filter(
+              (r) => r.length > 0,
+            ),
+            jobRowsLayout: "progressionLine",
+          },
+          {
+            heading: "Taekwon line",
+            jobRows: [
+              row(["JT_TAEKWON"]),
+              row(["JT_STAR", "JT_LINKER"]),
+              row(["JT_STAR_EMPEROR", "JT_SKY_EMPEROR", "JT_SOUL_REAPER", "JT_SOUL_ASCETIC"]),
+            ].filter((r) => r.length > 0),
+            jobRowsLayout: "progressionLine",
+          },
+          {
+            heading: "Ninja line",
+            jobRows: [
+              row(["JT_NINJA"]),
+              row(["JT_KAGEROU", "JT_OBORO"]),
+              row(["JT_SHIRANUI", "JT_SHINKIRO"]),
+            ].filter((r) => r.length > 0),
+            jobRowsLayout: "progressionLine",
+          },
+          {
+            heading: "Gunslinger line",
+            jobRows: [row(["JT_GUNSLINGER"]), row(["JT_REBELLION"]), row(["JT_NIGHT_WATCH"])].filter(
+              (r) => r.length > 0,
+            ),
+            jobRowsLayout: "progressionLine",
+          },
+        ] satisfies JobPickerSection[])
+      : ([
+          {
+            heading: "Super Novice",
+            jobs: jobs(["JT_SUPERNOVICE"]),
+          },
+          {
+            heading: "Taekwon line",
+            jobRows: [row(["JT_TAEKWON"]), row(["JT_STAR", "JT_LINKER"])].filter((r) => r.length > 0),
+            jobRowsLayout: "progressionLine",
+          },
+          {
+            heading: "Ninja",
+            jobs: jobs(["JT_NINJA"]),
+          },
+          {
+            heading: "Gunslinger",
+            jobs: jobs(["JT_GUNSLINGER"]),
+          },
+        ] satisfies JobPickerSection[])
+  ).filter(sectionHasJobs);
 
   const tabs: JobPickerTabDef[] = [
     {

@@ -3277,7 +3277,8 @@ header.planner-header .site-nav {
   /* Seven class columns + gaps + padding (~7.5rem per cell target at default scale) */
   flex: 1 1 auto;
   min-width: 0;
-  width: min(56rem, calc(100vw - 1rem));
+  /* Wider so Expanded progression lines don't wrap/squish unnecessarily. */
+  width: min(74rem, calc(100vw - 1rem));
   max-height: calc(100vh - 1rem);
   height: max-content;
   display: flex;
@@ -3379,7 +3380,7 @@ header.planner-header .site-nav {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    width: min(56rem, calc(100vw - 1rem));
+    width: min(74rem, calc(100vw - 1rem));
   }
 
   .job-picker-tabrail {
@@ -3527,87 +3528,49 @@ header.planner-header .site-nav {
   min-width: 0;
 }
 
-/*
- * Expanded class: row 1 uses columns 2–5 (Taekwon Kid = column 3). Row 2 pair sits in columns1–5
- * only (grid lines 1–6): span center = column 3, under Kid — not full row (that would center on col 4 / Ninja).
- */
-.job-picker-row-stack--expanded-tk {
-  --jp-gap-x: 0.55rem;
-  --jp-gap-y: 0.65rem;
-  --jp-cell: calc((100% - 6 * var(--jp-gap-x)) / 7);
-  /* Master / Linker: at least sprite box (5.5rem) + padding; wider than a single grid cell when cells are narrow */
-  --jp-cell-tk-adv: max(8rem, var(--jp-cell));
-}
-
-.job-picker-row-stack--expanded-tk .job-picker-grid--expanded-tk-row1 {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  column-gap: var(--jp-gap-x);
-  row-gap: var(--jp-gap-y);
-  width: 100%;
-  padding: 0.1rem 0;
-  justify-items: stretch;
-}
-
-.job-picker-row-stack--expanded-tk .job-picker-grid--expanded-tk-row1 > .job-picker-card {
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-  flex: unset;
-}
-
-.job-picker-row-stack--expanded-tk
-  .job-picker-grid--expanded-tk-row1
-  > .job-picker-card:nth-child(1) {
-  grid-column: 2;
-}
-
-.job-picker-row-stack--expanded-tk
-  .job-picker-grid--expanded-tk-row1
-  > .job-picker-card:nth-child(2) {
-  grid-column: 3;
-}
-
-.job-picker-row-stack--expanded-tk
-  .job-picker-grid--expanded-tk-row1
-  > .job-picker-card:nth-child(3) {
-  grid-column: 4;
-}
-
-.job-picker-row-stack--expanded-tk
-  .job-picker-grid--expanded-tk-row1
-  > .job-picker-card:nth-child(4) {
-  grid-column: 5;
-}
-
-.job-picker-row-stack--expanded-tk .job-picker-grid--expanded-tk-row2 {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  column-gap: var(--jp-gap-x);
-  width: 100%;
-  padding: 0.1rem 0;
-  overflow: visible;
-}
-
-/* Columns 1–5: geometric center is column 3 (Taekwon Kid). Full row 1 / -1 centers on column 4. */
-.job-picker-row-stack--expanded-tk .job-picker-tk-adv-pair-shell {
-  grid-column: 1 / 6;
+/* Expanded tab: horizontal class-line progression with arrows between stages. */
+.job-picker-stage-line {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: stretch;
-  gap: var(--jp-gap-x);
-  box-sizing: border-box;
+  justify-content: center;
+  gap: 0.55rem 0.75rem;
+  padding: 0.1rem 0;
   min-width: 0;
-  overflow: visible;
 }
 
-.job-picker-row-stack--expanded-tk .job-picker-tk-adv-pair-shell .job-picker-card {
-  flex: 1 1 var(--jp-cell-tk-adv);
-  max-width: var(--jp-cell-tk-adv);
-  /* ~5.5rem sprite + horizontal padding; share row when shell is tight */
-  min-width: min(7.25rem, calc((100% - var(--jp-gap-x)) / 2));
-  box-sizing: border-box;
+.job-picker-stage {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.job-picker-grid.job-picker-grid--stage {
+  /* Stage grids should not inherit the tiny 1/7th-width cell sizing. */
+  --jp-cell: clamp(8.25rem, 10vw, 9.5rem);
+  width: auto;
+  justify-content: center;
+}
+
+.job-picker-stage-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: 100%;
+  padding: 0 0.15rem;
+  color: rgba(220, 235, 255, 0.55);
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Prevent letter-by-letter wrapping in progression layouts (cards are narrow by design). */
+.job-picker-stage-line .job-picker-card-label {
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
 }
 
 .job-picker-grid {
@@ -5129,16 +5092,14 @@ header.planner-header .site-nav {
   }
 
   .job-picker-row-stack,
-  .job-picker-row-stack--expanded-tk,
-  .job-picker-tk-adv-pair-shell,
+  .job-picker-stage-line,
   .job-picker-card-joined {
     display: block;
     width: 100%;
   }
 
   .job-picker-grid,
-  .job-picker-row-stack--expanded-tk .job-picker-grid--expanded-tk-row1,
-  .job-picker-row-stack--expanded-tk .job-picker-grid--expanded-tk-row2 {
+  .job-picker-stage-line {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -5150,7 +5111,6 @@ header.planner-header .site-nav {
   }
 
   .job-picker-card,
-  .job-picker-row-stack--expanded-tk .job-picker-tk-adv-pair-shell .job-picker-card,
   .job-picker-card-joined .job-picker-card {
     flex: none;
     max-width: none;

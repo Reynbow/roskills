@@ -1371,19 +1371,21 @@ function jobPickerThirdClassTabHtml(
 function jobPickerSectionHtml(g: JobPickerSection, sid: string): string {
   const labelEsc = escapeHtml(g.heading);
   if (g.jobRows?.length) {
-    if (
-      g.jobRowsLayout === "expandedTaekwon" &&
-      g.jobRows.length >= 2 &&
-      (g.jobRows[1]?.length ?? 0) > 0
-    ) {
-      const row1 = g.jobRows[0] ?? [];
-      const row2 = g.jobRows[1] ?? [];
-      const row1Cards = jobPickerRowHtml(row1);
-      const row2Cards = jobPickerRowHtml(row2);
-      const grids = `<div class="job-picker-grid job-picker-grid--expanded-tk-row1" role="group" aria-label="${labelEsc}, row 1">${row1Cards}</div><div class="job-picker-grid job-picker-grid--expanded-tk-row2" role="group" aria-label="${labelEsc}, Taekwon Master and Soul Linker under Taekwon Kid"><div class="job-picker-tk-adv-pair-shell">${row2Cards}</div></div>`;
+    if (g.jobRowsLayout === "progressionLine") {
+      const stages = g.jobRows
+        .map((row, ri) => {
+          if (row.length === 0) return "";
+          const cards = jobPickerRowHtml(row);
+          const arrow =
+            ri === 0 ? "" : `<div class="job-picker-stage-arrow" aria-hidden="true">→</div>`;
+          return `${arrow}<div class="job-picker-stage" role="group" aria-label="${labelEsc}, stage ${ri + 1}">
+            <div class="job-picker-grid job-picker-grid--stage">${cards}</div>
+          </div>`;
+        })
+        .join("");
       return `<section class="job-picker-section" aria-labelledby="${sid}">
         <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
-        <div class="job-picker-row-stack job-picker-row-stack--expanded-tk">${grids}</div>
+        <div class="job-picker-stage-line" role="group" aria-label="${labelEsc} progression">${stages}</div>
       </section>`;
     }
     const grids = g.jobRows
