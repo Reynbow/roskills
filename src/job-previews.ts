@@ -54,6 +54,11 @@ export function jobArtKey(jobKey: string): string {
   return JOB_ART_KEY_ALIAS[jobKey] ?? jobKey;
 }
 
+export function doramMaleSpriteArtKey(jobKey: string, gender: "male" | "female"): string {
+  const key = jobArtKey(jobKey);
+  return key === "JT_DO_SUMMONER" && gender === "male" ? "JT_SPIRIT_HANDLER" : key;
+}
+
 /** rAthena / client job ids → Divine Pride portraits (`/images/job/{id}.png`). */
 const JOB_PREVIEW_DIVINE_PRIDE_ID: Record<string, number> = {
   JT_RUNE_KNIGHT: 4054,
@@ -130,5 +135,5 @@ export function jobPreviewSpriteUrl(jobKey: string): string | undefined {
  */
 export function jobPickerStandSpriteUrl(jobKey: string, gender: "male" | "female"): string {
   const base = import.meta.env.BASE_URL;
-  return `${base}job-stand-pick/${jobArtKey(jobKey)}--${gender}.png`;
+  return `${base}job-stand-pick/${doramMaleSpriteArtKey(jobKey, gender)}--${gender}.png`;
 }
