@@ -7,6 +7,7 @@ export default defineConfig({
         index: "index.html",
         cards: "cards.html",
         pets: "pets.html",
+        mounts: "mounts.html",
         armour: "armour.html",
         weapons: "weapons.html",
         monsters: "monsters.html",

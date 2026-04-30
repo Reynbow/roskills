@@ -29,3 +29,16 @@ Class picker — standing (idle) sprites, male + female, forward-facing default:
   → writes public/job-stand-pick/JT_*--male.png and JT_*--female.png
   See scripts/render-job-stand-picker-sprites.mjs for ZRENDERER_STAND_ACTION (default 0),
   ZRENDERER_STAND_HEAD_DIR (default straight), ZRENDERER_STAND_FRAME, etc.
+
+Mount list — riding costume body (--outfit, client costume_N), same prerequisites:
+  RO_ZRENDERER_RESOURCES=...  npm run render:mount-class
+  npm run render:mount-class:print
+  Writes five stand angles per planner class:
+    public/mount-on-class/<JOB_KEY>/forward.png
+    public/mount-on-class/<JOB_KEY>/angled-front.png
+    public/mount-on-class/<JOB_KEY>/left.png
+    public/mount-on-class/<JOB_KEY>/back.png
+    public/mount-on-class/<JOB_KEY>/angled-back.png
+  Riding costume + outfit come from boarding-mount-by-job-renewal.json + mounts.json when the class has a mountId; when boarding says "advance to …" (mountId null), the script borrows the same costume slot as that line’s canonical 4th/3rd planner key (edit LINE_MOUNT_PREVIEW_LEADER in render-mount-class-previews.mjs).
+  Uses riding stems from resolver_data/job_names.txt where applicable (dragon_knight_riding, 레인져늑대, …). ZRENDERER_MOUNT_NO_RIDING_STEMS=1 skips stems (planner ids only).
+  ZRENDERER_MOUNT_CLASS_GENDER=male|female — one gender per PNG. Env: RENDER_MOUNT_JOBS=sample|comma,list (--no-clean skips deleting mount-on-class at start).

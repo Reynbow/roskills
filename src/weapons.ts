@@ -489,6 +489,7 @@ function mount(root: HTMLElement): void {
           <a class="site-nav__link" href="/skills">Skill Planner</a>
           <a class="site-nav__link" href="/cards">Card Library</a>
           <a class="site-nav__link" href="/pets">Pets</a>
+          <a class="site-nav__link" href="/mounts">Mounts</a>
           <a class="site-nav__link" href="/monsters">Monsters</a>
           <a class="site-nav__link" href="/armour">Armour</a>
           <a class="site-nav__link site-nav__link--active" href="/weapons" aria-current="page">Weapons</a>

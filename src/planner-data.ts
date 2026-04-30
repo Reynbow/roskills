@@ -68,6 +68,31 @@ function plannerRoot(): PlannerRoot {
   return (activeGameMode === "renewal" ? plannerRenewalJson : plannerJson) as PlannerRoot;
 }
 
+const ADVANCED_SUMMONER_KEY = "JT_ADVANCED_SUMMONER";
+const ADVANCED_SUMMONER_LABEL = "Advanced Summoner";
+
+function advancedSummonerJobData(): JobData | undefined {
+  if (activeGameMode !== "renewal") return undefined;
+  const summoner = plannerRoot().jobs.JT_DO_SUMMONER;
+  if (!summoner) return undefined;
+  return {
+    ...summoner,
+    key: ADVANCED_SUMMONER_KEY,
+    label: ADVANCED_SUMMONER_LABEL,
+    columns: summoner.columns.map((c) => ({
+      ...c,
+      title: ADVANCED_SUMMONER_LABEL,
+      skillIds: [...c.skillIds],
+    })),
+    edges: [...summoner.edges],
+  };
+}
+
+function resolveJobData(jobKey: string): JobData | undefined {
+  if (jobKey === ADVANCED_SUMMONER_KEY) return advancedSummonerJobData();
+  return plannerRoot().jobs[jobKey];
+}
+
 /** Switch dataset for listJobs / getJobData / trees (home page only). */
 export function setPlannerGameMode(mode: GameMode): void {
   activeGameMode = mode;
@@ -87,7 +112,10 @@ export const PLANNER_META = {
 } as const;
 
 export function listJobs(): { key: string; label: string }[] {
-  return Object.values(plannerRoot().jobs).map((j) => ({ key: j.key, label: j.label }));
+  const jobs = Object.values(plannerRoot().jobs).map((j) => ({ key: j.key, label: j.label }));
+  const advancedSummoner = advancedSummonerJobData();
+  if (advancedSummoner) jobs.push({ key: advancedSummoner.key, label: advancedSummoner.label });
+  return jobs;
 }
 
 export function isQuestColumnTitle(title: string): boolean {
@@ -111,6 +139,9 @@ const RENEWAL_EXPANDED_BRANCH_KEYS = new Set([
   "JT_KAGEROU",
   "JT_OBORO",
   "JT_REBELLION",
+  "JT_DO_SUMMONER",
+  ADVANCED_SUMMONER_KEY,
+  "JT_SPIRIT_HANDLER",
   "JT_STAR_EMPEROR",
   "JT_SOUL_REAPER",
   "JT_SKY_EMPEROR",
@@ -218,55 +249,44 @@ export function jobPickerGroup(
   return "firstClass";
 }
 
-const THIRD_CLASS_PICKER_ORDER = [
-  "JT_RUNE_KNIGHT",
-  "JT_RUNE_KNIGHT_H",
-  "JT_ROYAL_GUARD",
-  "JT_ROYAL_GUARD_H",
-  "JT_WARLOCK",
-  "JT_WARLOCK_H",
-  "JT_SORCERER",
-  "JT_SORCERER_H",
-  "JT_RANGER",
-  "JT_RANGER_H",
-  "JT_MECHANIC",
-  "JT_MECHANIC_H",
-  "JT_GUILLOTINE_CROSS",
-  "JT_GUILLOTINE_CROSS_H",
-  "JT_ARCHBISHOP",
-  "JT_ARCHBISHOP_H",
-  "JT_GENETIC",
-  "JT_GENETIC_H",
-  "JT_SHADOW_CHASER",
-  "JT_SHADOW_CHASER_H",
-  "JT_MINSTREL",
-  "JT_MINSTREL_H",
-  "JT_WANDERER",
-  "JT_WANDERER_H",
-  "JT_SURA",
-  "JT_SURA_H",
+const THIRD_CLASS_PICKER_ROWS = [
+  [
+    "JT_RUNE_KNIGHT_H",
+    "JT_WARLOCK_H",
+    "JT_MECHANIC_H",
+    "JT_ARCHBISHOP_H",
+    "JT_GUILLOTINE_CROSS_H",
+    "JT_RANGER_H",
+  ],
+  [
+    "JT_ROYAL_GUARD_H",
+    "JT_SORCERER_H",
+    "JT_GENETIC_H",
+    "JT_SURA_H",
+    "JT_SHADOW_CHASER_H",
+    "JT_MINSTREL_H",
+    "JT_WANDERER_H",
+  ],
 ] as const;
 
-const FOURTH_CLASS_PICKER_ORDER = [
-  "JT_DRAGON_KNIGHT",
-  "JT_IMPERIAL_GUARD",
-  "JT_ARCH_MAGE",
-  "JT_ELEMENTAL_MASTER",
-  "JT_WINDHAWK",
-  "JT_MEISTER",
-  "JT_SHADOW_CROSS",
-  "JT_CARDINAL",
-  "JT_BIOLO",
-  "JT_ABYSS_CHASER",
-  "JT_INQUISITOR",
-  "JT_TROUBADOUR",
-  "JT_TROUVERE",
-] as const;
-
-const RENEWAL_OTHER_PICKER_ORDER = [
-  "JT_DO_SUMMONER",
-  "JT_SPIRIT_HANDLER",
-  "JT_HYPER_NOVICE",
+const FOURTH_CLASS_PICKER_ROWS = [
+  [
+    "JT_DRAGON_KNIGHT",
+    "JT_ARCH_MAGE",
+    "JT_MEISTER",
+    "JT_CARDINAL",
+    "JT_SHADOW_CROSS",
+    "JT_WINDHAWK",
+  ],
+  [
+    "JT_IMPERIAL_GUARD",
+    "JT_ELEMENTAL_MASTER",
+    "JT_BIOLO",
+    "JT_INQUISITOR",
+    "JT_ABYSS_CHASER",
+    "JT_TROUBADOUR",
+    "JT_TROUVERE",
+  ],
 ] as const;
 
 const FIRST_CLASS_PICKER_ORDER = [
@@ -429,9 +449,11 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
       ? ([
           {
             heading: "Novice branches",
-            jobRows: [row(["JT_SUPERNOVICE", "JT_SUPERNOVICE2", "JT_HYPER_NOVICE"])].filter(
-              (r) => r.length > 0,
-            ),
+            jobRows: [
+              row(["JT_SUPERNOVICE"]),
+              row(["JT_SUPERNOVICE2"]),
+              row(["JT_HYPER_NOVICE"]),
+            ].filter((r) => r.length > 0),
             jobRowsLayout: "progressionLine",
           },
           {
@@ -457,6 +479,15 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
             jobRows: [row(["JT_GUNSLINGER"]), row(["JT_REBELLION"]), row(["JT_NIGHT_WATCH"])].filter(
               (r) => r.length > 0,
             ),
+            jobRowsLayout: "progressionLine",
+          },
+          {
+            heading: "Summoner line",
+            jobRows: [
+              row(["JT_DO_SUMMONER"]),
+              row([ADVANCED_SUMMONER_KEY]),
+              row(["JT_SPIRIT_HANDLER"]),
+            ].filter((r) => r.length > 0),
             jobRowsLayout: "progressionLine",
           },
         ] satisfies JobPickerSection[])
@@ -494,50 +525,19 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
       sections: transcendentSections,
       jobKeys: jobKeysForPickerSections(transcendentSections),
     },
-    {
-      id: "expanded",
-      label: "Expanded",
-      sections: expandedSections,
-      jobKeys: jobKeysForPickerSections(expandedSections),
-    },
   ];
 
   if (getPlannerGameMode() === "renewal") {
-    const thirdClass = sortJobsByKeyOrder(
-      all.filter((j) => jobPickerGroup(j.key) === "thirdClass"),
-      THIRD_CLASS_PICKER_ORDER,
-    );
-    const fourthClass = sortJobsByKeyOrder(
-      all.filter((j) => jobPickerGroup(j.key) === "fourthClass"),
-      FOURTH_CLASS_PICKER_ORDER,
-    );
-    const renewalOther = sortJobsByKeyOrder(
-      all.filter((j) => jobPickerGroup(j.key) === "renewalOther"),
-      RENEWAL_OTHER_PICKER_ORDER,
-    );
-    const chunkRow = (jobs: { key: string; label: string }[], width: number) => {
-      const rows: { key: string; label: string }[][] = [];
-      for (let i = 0; i < jobs.length; i += width) rows.push(jobs.slice(i, i + width));
-      return rows;
-    };
-    const thirdOrderTrans = THIRD_CLASS_PICKER_ORDER.filter((k) => k.endsWith("_H"));
-    const thirdTransJobs = sortJobsByKeyOrder(
-      thirdClass.filter((j) => j.key.endsWith("_H")),
-      thirdOrderTrans,
-    );
-    const thirdAfter: JobPickerSection[] =
-      renewalOther.length > 0
-        ? [{ heading: "Summoner & misc.", jobs: renewalOther }]
-        : [];
+    const thirdRows = THIRD_CLASS_PICKER_ROWS.map((keys) => row(keys)).filter((r) => r.length > 0);
+    const fourthRows = FOURTH_CLASS_PICKER_ROWS.map((keys) => row(keys)).filter((r) => r.length > 0);
 
     const thirdSections: JobPickerSection[] = [
-      { heading: "Third class", jobRows: chunkRow(thirdTransJobs, 7) },
-      ...thirdAfter,
+      { heading: "Third class", jobRows: thirdRows },
     ].filter(sectionHasJobs);
 
     const thirdTabKeys: string[] = jobKeysForPickerSections(thirdSections);
     const fourthSections: JobPickerSection[] = [
-      { heading: "Fourth class", jobRows: chunkRow(fourthClass, 7) },
+      { heading: "Fourth class", jobRows: fourthRows },
     ].filter(sectionHasJobs);
 
     if (thirdTabKeys.length > 0) {
@@ -558,13 +558,20 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
     }
   }
 
+  tabs.push({
+    id: "expanded",
+    label: "Expanded",
+    sections: expandedSections,
+    jobKeys: jobKeysForPickerSections(expandedSections),
+  });
+
   return tabs.filter(
     (t) => t.sections.length > 0 || t.thirdPathSplit != null,
   );
 }
 
 export function getJobData(jobKey: string): JobData | undefined {
-  return plannerRoot().jobs[jobKey];
+  return resolveJobData(jobKey);
 }
 
 /**
@@ -611,7 +618,7 @@ export function shouldMergeRenewalTransPathSkillPanel(job: JobData): boolean {
 }
 
 export function buildSkillsForJob(jobKey: string): SkillDef[] {
-  const j = plannerRoot().jobs[jobKey];
+  const j = resolveJobData(jobKey);
   if (!j) return [];
   const questCol = j.columns.findIndex((c) => isQuestColumnTitle(c.title));
   const contentCols = j.columns.map((_, i) => i).filter((i) => questCol < 0 || i !== questCol);
@@ -658,7 +665,7 @@ export function buildSkillsForJob(jobKey: string): SkillDef[] {
 }
 
 export function getEdgesForJob(jobKey: string): PrereqEdge[] {
-  return plannerRoot().jobs[jobKey]?.edges ?? [];
+  return resolveJobData(jobKey)?.edges ?? [];
 }
 
 export function makeSkillMap(skills: SkillDef[]): Map<string, SkillDef> {

@@ -1,0 +1,39 @@
+{
+  "mounts": [
+    { "id": "peco-peco", "name": "Peco Peco · Knight / Lord Knight line", "outfit": 1, "previewJobKey": "JT_KNIGHT" },
+    { "id": "grand-peco", "name": "Grand Peco · Crusader / Paladin line", "outfit": 2, "previewJobKey": "JT_CRUSADER" },
+    { "id": "gryphon", "name": "Gryphon · Royal Guard / Imperial Guard", "outfit": 3, "previewJobKey": "JT_ROYAL_GUARD" },
+    { "id": "warg", "name": "Warg · Ranger / Windhawk", "outfit": 4, "previewJobKey": "JT_RANGER" },
+    { "id": "leopard", "name": "Leopard · Guillotine Cross / Shadow Cross", "outfit": 5, "previewJobKey": "JT_GUILLOTINE_CROSS" },
+    { "id": "madogear", "name": "Madogear · Mechanic / Meister", "outfit": 6, "previewJobKey": "JT_MECHANIC" },
+    { "id": "dragon-rk", "name": "Dragon · Rune Knight / Dragon Knight", "outfit": 7, "previewJobKey": "JT_DRAGON_KNIGHT" },
+    { "id": "cloud-warlock", "name": "Cloud / flight · Warlock / Arch Mage", "outfit": 8, "previewJobKey": "JT_WARLOCK" },
+    { "id": "summon-sorcerer", "name": "Elemental ride · Sorcerer / Elemental Master", "outfit": 9, "previewJobKey": "JT_SORCERER" },
+    { "id": "wings-ab", "name": "Wing pedestal · Arch Bishop / Cardinal", "outfit": 10, "previewJobKey": "JT_ARCHBISHOP" },
+    {
+      "id": "stage-bard",
+      "name": "Stage / cart · Minstrel / Wanderer / Troubadour(e)",
+      "outfit": 11,
+      "previewJobKey": "JT_MINSTREL"
+    },
+    { "id": "tiger-sura", "name": "Tiger · Sura / Inquisitor", "outfit": 12, "previewJobKey": "JT_SURA" },
+    { "id": "cloak-sc", "name": "Cloak rider · Shadow Chaser / Abyss Chaser", "outfit": 13, "previewJobKey": "JT_SHADOW_CHASER" },
+    { "id": "cart-genetic", "name": "Cart body · Genetic / Biolo", "outfit": 14, "previewJobKey": "JT_GENETIC" },
+    { "id": "star-mount", "name": "Celestial · Star Emperor / Sky Emperor", "outfit": 15, "previewJobKey": "JT_SKY_EMPEROR" },
+    { "id": "soul-mount", "name": "Soul tether · Soul Reaper / Soul Ascetic", "outfit": 16, "previewJobKey": "JT_SOUL_ASCETIC" },
+    { "id": "summoner-mount", "name": "Spirit mount · Summoner / Spirit Handler", "outfit": 17, "previewJobKey": "JT_SPIRIT_HANDLER" },
+    { "id": "rebellion-ride", "name": "Vehicle · Rebellion", "outfit": 18, "previewJobKey": "JT_REBELLION" },
+    {
+      "id": "mount-slot-19",
+      "name": "Riding costume slot 19 (see client costume_19)",
+      "outfit": 19,
+      "previewJobKey": "JT_RUNE_KNIGHT_H"
+    },
+    {
+      "id": "mount-slot-20",
+      "name": "Riding costume slot 20 (see client costume_20)",
+      "outfit": 20,
+      "previewJobKey": "JT_RUNE_KNIGHT_H"
+    }
+  ]
+}

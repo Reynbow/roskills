@@ -1,4 +1,4 @@
-import { jobPreviewSpriteUrl } from "./job-previews";
+import { jobArtKey, jobPreviewSpriteUrl } from "./job-previews";
 
 /**
  * Sitting sprite files live under `public/job-sit/{jobKey}--{gender}.png` (zrenderer action 17 = sit).
@@ -21,7 +21,7 @@ export type JobSitGender = "male" | "female";
 
 export function jobSitLocalPngUrl(jobKey: string, gender: JobSitGender): string {
   const base = import.meta.env.BASE_URL;
-  return `${base}job-sit/${jobKey}--${gender}.png`;
+  return `${base}job-sit/${jobArtKey(jobKey)}--${gender}.png`;
 }
 
 export function jobSitPortraitFallbackUrl(jobKey: string): string | undefined {

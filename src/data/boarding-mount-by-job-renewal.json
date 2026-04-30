@@ -1,0 +1,373 @@
+{
+  "aboutBoardingHalter": "In Renewal, the Boarding Halter is an accessory that grants Riding: when active, your character uses the riding body sprite that belongs to your class (often referred to via client costume/outfit folders). Exact item wording and NPC availability vary by server; pick your class below to see which riding appearance applies when you have Riding.",
+  "byJob": {
+    "JT_NOVICE": {
+      "mountId": null,
+      "note": "Novice — no class mount."
+    },
+    "JT_SUPERNOVICE": {
+      "mountId": null,
+      "note": "Super Novice — no standard costume mount."
+    },
+    "JT_TAEKWON": {
+      "mountId": null,
+      "note": "Taekwon — no standard costume mount."
+    },
+    "JT_STAR": {
+      "mountId": null,
+      "note": "Taekwon Master — no standard boarding-halter costume mount."
+    },
+    "JT_LINKER": {
+      "mountId": null,
+      "note": "Soul Linker — no riding costume."
+    },
+    "JT_NINJA": {
+      "mountId": null,
+      "note": "Ninja — advance to Kagerou/Oboro; no classic halter costume in table."
+    },
+    "JT_GUNSLINGER": {
+      "mountId": null,
+      "note": "Gunslinger — Rebellion provides the firearm-riding costume."
+    },
+    "JT_SWORDMAN": {
+      "mountId": null,
+      "note": "Swordman — become Knight/Crusader (or Renewal 3rd) for a riding costume."
+    },
+    "JT_MAGICIAN": {
+      "mountId": null,
+      "note": "Magician — no mount; advance for job-specific sprites."
+    },
+    "JT_ARCHER": {
+      "mountId": null,
+      "note": "Archer — no mount; Ranger/Windhawk use the Warg costume."
+    },
+    "JT_ACOLYTE": {
+      "mountId": null,
+      "note": "Acolyte — no mount; Archbishop/Cardinal use the pedestal/wing costume."
+    },
+    "JT_MERCHANT": {
+      "mountId": null,
+      "note": "Merchant — no mount; Mechanic uses Madogear, Genetic/Biolo the cart."
+    },
+    "JT_THIEF": {
+      "mountId": null,
+      "note": "Thief — no mount; assassin GX line uses leopard, Rogue SC line uses cloak mount."
+    },
+    "JT_KNIGHT": {
+      "mountId": "peco-peco",
+      "note": "Knight/Lord Knight classic Peco."
+    },
+    "JT_PRIEST": {
+      "mountId": null,
+      "note": "Priest — no Riding costume yet; Archbishop/Cardinal use wing pedestal."
+    },
+    "JT_WIZARD": {
+      "mountId": null,
+      "note": "Wizard — no mount; Warlock/Arch Mage use flight/cloud costume."
+    },
+    "JT_BLACKSMITH": {
+      "mountId": null,
+      "note": "Blacksmith — no mount; Mechanic/Meister use Madogear."
+    },
+    "JT_HUNTER": {
+      "mountId": null,
+      "note": "Hunter — no mount; Ranger/Windhawk use Warg."
+    },
+    "JT_ASSASSIN": {
+      "mountId": null,
+      "note": "Assassin — no mount; Guillotine Cross / Shadow Cross use leopard costume."
+    },
+    "JT_CRUSADER": {
+      "mountId": "grand-peco",
+      "note": "Crusader/Paladin Grand Peco."
+    },
+    "JT_MONK": {
+      "mountId": null,
+      "note": "Monk — no mount; Sura/Inquisitor use tiger riding costume."
+    },
+    "JT_SAGE": {
+      "mountId": null,
+      "note": "Sage — no mount; Sorcerer/Elemental Master use elemental ride."
+    },
+    "JT_ROGUE": {
+      "mountId": null,
+      "note": "Rogue — no mount; Shadow Chaser / Abyss Chaser use cloak rider."
+    },
+    "JT_ALCHEMIST": {
+      "mountId": null,
+      "note": "Alchemist — no mount; Genetic/Biolo use cart body."
+    },
+    "JT_BARD": {
+      "mountId": null,
+      "note": "Bard — no mount; Minstrel/Troubadour share performer mount."
+    },
+    "JT_DANCER": {
+      "mountId": null,
+      "note": "Dancer — no mount; Wanderer/Trouvere share performer mount."
+    },
+    "JT_KNIGHT_H": {
+      "mountId": "peco-peco",
+      "note": "Lord Knight — Peco."
+    },
+    "JT_PRIEST_H": {
+      "mountId": null,
+      "note": "High Priest — advance to Archbishop for wing pedestal mount."
+    },
+    "JT_WIZARD_H": {
+      "mountId": null,
+      "note": "High Wizard — advance to Warlock/Arch Mage for flight mount."
+    },
+    "JT_BLACKSMITH_H": {
+      "mountId": null,
+      "note": "Mastersmith — advance to Mechanic/Meister for Madogear."
+    },
+    "JT_HUNTER_H": {
+      "mountId": null,
+      "note": "Sniper — advance to Ranger/Windhawk for Warg."
+    },
+    "JT_ASSASSIN_H": {
+      "mountId": null,
+      "note": "Assassin Cross — advance to GX/Shadow Cross for leopard."
+    },
+    "JT_CRUSADER_H": {
+      "mountId": "grand-peco",
+      "note": "Paladin — Grand Peco."
+    },
+    "JT_MONK_H": {
+      "mountId": null,
+      "note": "Champion — advance to Sura/Inquisitor for tiger mount."
+    },
+    "JT_SAGE_H": {
+      "mountId": null,
+      "note": "Scholar — advance to Sorcerer/Elemental Master for elemental ride."
+    },
+    "JT_ROGUE_H": {
+      "mountId": null,
+      "note": "Stalker — advance to Shadow Chaser/Abyss Chaser for cloak mount."
+    },
+    "JT_ALCHEMIST_H": {
+      "mountId": null,
+      "note": "Biochemist — advance to Genetic/Biolo for cart mount."
+    },
+    "JT_BARD_H": {
+      "mountId": null,
+      "note": "Clown — advance to Minstrel/Troubadour for performer mount."
+    },
+    "JT_DANCER_H": {
+      "mountId": null,
+      "note": "Gypsy — advance to Wanderer/Trouvere for performer mount."
+    },
+    "JT_RUNE_KNIGHT": {
+      "mountId": "dragon-rk",
+      "note": "Rune Knight — dragon."
+    },
+    "JT_WARLOCK": {
+      "mountId": "cloud-warlock",
+      "note": "Warlock — flight cloud."
+    },
+    "JT_RANGER": {
+      "mountId": "warg",
+      "note": "Ranger — Warg."
+    },
+    "JT_ARCHBISHOP": {
+      "mountId": "wings-ab",
+      "note": "Archbishop — wing pedestal."
+    },
+    "JT_MECHANIC": {
+      "mountId": "madogear",
+      "note": "Mechanic — Madogear."
+    },
+    "JT_GUILLOTINE_CROSS": {
+      "mountId": "leopard",
+      "note": "Guillotine Cross — leopard."
+    },
+    "JT_RUNE_KNIGHT_H": {
+      "mountId": "dragon-rk",
+      "note": "Rune Knight (trans) — dragon."
+    },
+    "JT_WARLOCK_H": {
+      "mountId": "cloud-warlock",
+      "note": "Warlock (trans) — flight."
+    },
+    "JT_RANGER_H": {
+      "mountId": "warg",
+      "note": "Ranger (trans) — Warg."
+    },
+    "JT_ARCHBISHOP_H": {
+      "mountId": "wings-ab",
+      "note": "Archbishop (trans) — wing pedestal."
+    },
+    "JT_MECHANIC_H": {
+      "mountId": "madogear",
+      "note": "Mechanic (trans) — Madogear."
+    },
+    "JT_GUILLOTINE_CROSS_H": {
+      "mountId": "leopard",
+      "note": "Guillotine Cross (trans) — leopard."
+    },
+    "JT_ROYAL_GUARD": {
+      "mountId": "gryphon",
+      "note": "Royal Guard — gryphon."
+    },
+    "JT_SORCERER": {
+      "mountId": "summon-sorcerer",
+      "note": "Sorcerer — elemental ride."
+    },
+    "JT_MINSTREL": {
+      "mountId": "stage-bard",
+      "note": "Minstrel — performer/stage mount."
+    },
+    "JT_WANDERER": {
+      "mountId": "stage-bard",
+      "note": "Wanderer — performer/stage mount."
+    },
+    "JT_SURA": {
+      "mountId": "tiger-sura",
+      "note": "Sura — tiger."
+    },
+    "JT_GENETIC": {
+      "mountId": "cart-genetic",
+      "note": "Genetic — cart body."
+    },
+    "JT_SHADOW_CHASER": {
+      "mountId": "cloak-sc",
+      "note": "Shadow Chaser — cloak rider."
+    },
+    "JT_ROYAL_GUARD_H": {
+      "mountId": "gryphon",
+      "note": "Royal Guard (trans) — gryphon."
+    },
+    "JT_SORCERER_H": {
+      "mountId": "summon-sorcerer",
+      "note": "Sorcerer (trans) — elemental ride."
+    },
+    "JT_MINSTREL_H": {
+      "mountId": "stage-bard",
+      "note": "Minstrel (trans) — performer mount."
+    },
+    "JT_WANDERER_H": {
+      "mountId": "stage-bard",
+      "note": "Wanderer (trans) — performer mount."
+    },
+    "JT_SURA_H": {
+      "mountId": "tiger-sura",
+      "note": "Sura (trans) — tiger."
+    },
+    "JT_GENETIC_H": {
+      "mountId": "cart-genetic",
+      "note": "Genetic (trans) — cart."
+    },
+    "JT_SHADOW_CHASER_H": {
+      "mountId": "cloak-sc",
+      "note": "Shadow Chaser (trans) — cloak."
+    },
+    "JT_SUPERNOVICE2": {
+      "mountId": null,
+      "note": "Expanded Super Novice — no standard costume mount."
+    },
+    "JT_KAGEROU": {
+      "mountId": null,
+      "note": "Kagerou — costume mount varies by client; not in default table."
+    },
+    "JT_OBORO": {
+      "mountId": null,
+      "note": "Oboro — costume mount varies by client; not in default table."
+    },
+    "JT_REBELLION": {
+      "mountId": "rebellion-ride",
+      "note": "Rebellion — bike/vehicle riding costume."
+    },
+    "JT_DO_SUMMONER": {
+      "mountId": "summoner-mount",
+      "note": "Summoner — spirit mount."
+    },
+    "JT_STAR_EMPEROR": {
+      "mountId": "star-mount",
+      "note": "Star Emperor — celestial mount."
+    },
+    "JT_SOUL_REAPER": {
+      "mountId": "soul-mount",
+      "note": "Soul Reaper — soul tether mount."
+    },
+    "JT_DRAGON_KNIGHT": {
+      "mountId": "dragon-rk",
+      "note": "Dragon Knight (4th) — dragon."
+    },
+    "JT_MEISTER": {
+      "mountId": "madogear",
+      "note": "Meister (4th) — Madogear."
+    },
+    "JT_SHADOW_CROSS": {
+      "mountId": "leopard",
+      "note": "Shadow Cross (4th) — leopard."
+    },
+    "JT_ARCH_MAGE": {
+      "mountId": "cloud-warlock",
+      "note": "Arch Mage (4th) — flight/cloud."
+    },
+    "JT_CARDINAL": {
+      "mountId": "wings-ab",
+      "note": "Cardinal (4th) — pedestal/wings."
+    },
+    "JT_WINDHAWK": {
+      "mountId": "warg",
+      "note": "Windhawk (4th) — Warg."
+    },
+    "JT_IMPERIAL_GUARD": {
+      "mountId": "gryphon",
+      "note": "Imperial Guard (4th) — gryphon."
+    },
+    "JT_BIOLO": {
+      "mountId": "cart-genetic",
+      "note": "Biolo (4th) — cart."
+    },
+    "JT_ABYSS_CHASER": {
+      "mountId": "cloak-sc",
+      "note": "Abyss Chaser (4th) — cloak."
+    },
+    "JT_ELEMENTAL_MASTER": {
+      "mountId": "summon-sorcerer",
+      "note": "Elemental Master (4th) — elemental ride."
+    },
+    "JT_INQUISITOR": {
+      "mountId": "tiger-sura",
+      "note": "Inquisitor (4th) — tiger."
+    },
+    "JT_TROUBADOUR": {
+      "mountId": "stage-bard",
+      "note": "Troubadour (4th) — performer mount."
+    },
+    "JT_TROUVERE": {
+      "mountId": "stage-bard",
+      "note": "Trouvere (4th) — performer mount."
+    },
+    "JT_SHINKIRO": {
+      "mountId": null,
+      "note": "Shinkiro (4th ninja) — no entry in costume_1–20 table here."
+    },
+    "JT_SHIRANUI": {
+      "mountId": null,
+      "note": "Shiranui (4th ninja) — no entry in costume_1–20 table here."
+    },
+    "JT_NIGHT_WATCH": {
+      "mountId": null,
+      "note": "Night Watch (4th Gunslinger) — no dedicated costume-slot mount in default client list."
+    },
+    "JT_HYPER_NOVICE": {
+      "mountId": null,
+      "note": "Hyper Novice — no standard costume mount."
+    },
+    "JT_SPIRIT_HANDLER": {
+      "mountId": "summoner-mount",
+      "note": "Spirit Handler (4th) — spirit mount."
+    },
+    "JT_SKY_EMPEROR": {
+      "mountId": "star-mount",
+      "note": "Sky Emperor (4th) — celestial/star mount."
+    },
+    "JT_SOUL_ASCETIC": {
+      "mountId": "soul-mount",
+      "note": "Soul Ascetic (4th) — soul tether mount."
+    }
+  }
+}

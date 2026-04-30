@@ -1213,20 +1213,19 @@ function jobPickerStandSpriteMode(jobKey: string): JobPickerStandSpriteMode {
 
 function jobPickerDualStandPairInnerHtml(): string {
   return `<span class="job-picker-stand-pair">
-            <span class="job-picker-stand-pair__cell" data-stand-gender="male" title="Male">
+            <span class="job-picker-stand-pair__cell" data-stand-gender="male">
               <span class="job-picker-sprite-fallback" aria-hidden="true">♂</span>
             </span>
-            <span class="job-picker-stand-pair__cell" data-stand-gender="female" title="Female">
+            <span class="job-picker-stand-pair__cell" data-stand-gender="female">
               <span class="job-picker-sprite-fallback" aria-hidden="true">♀</span>
             </span>
           </span>`;
 }
 
 function jobPickerSoloStandPairInnerHtml(g: "male" | "female"): string {
-  const title = g === "male" ? "Male" : "Female";
   const sym = g === "male" ? "♂" : "♀";
   return `<span class="job-picker-stand-pair job-picker-stand-pair--solo" data-stand-top="${g}">
-            <span class="job-picker-stand-pair__cell" data-stand-gender="${g}" title="${title}">
+            <span class="job-picker-stand-pair__cell" data-stand-gender="${g}">
               <span class="job-picker-sprite-fallback" aria-hidden="true">${sym}</span>
             </span>
           </span>`;
@@ -1246,6 +1245,15 @@ function setJobPickerStandArt(spriteEl: HTMLElement, jobKey: string): void {
   const female = spriteEl.querySelector('[data-stand-gender="female"]') as HTMLElement | null;
   if (male) loadJobPickerStandHalf(male, jobPickerStandSpriteUrl(jobKey, "male"));
   if (female) loadJobPickerStandHalf(female, jobPickerStandSpriteUrl(jobKey, "female"));
+}
+
+function setJobPickerSplitStandArt(root: HTMLElement): void {
+  root.querySelectorAll<HTMLElement>("[data-split-job-key][data-stand-gender]").forEach((cell) => {
+    const key = cell.dataset.splitJobKey;
+    const gender = cell.dataset.standGender;
+    if (!key || (gender !== "male" && gender !== "female")) return;
+    loadJobPickerStandHalf(cell, jobPickerStandSpriteUrl(key, gender));
+  });
 }
 
 /** Which gender layer is in front — matches sit-dock gender toggle (`data-stand-top` on `.job-picker-stand-pair`). */
@@ -1278,6 +1286,20 @@ function syncJobPickerUi(root: HTMLElement): void {
     if (on) btn.setAttribute("aria-current", "true");
     else btn.removeAttribute("aria-current");
   });
+  root.querySelectorAll(".job-picker-split-hit").forEach((btn) => {
+    const key = (btn as HTMLButtonElement).dataset.jobKey;
+    const on = key === currentJob;
+    btn.classList.toggle("job-picker-split-hit--current", on);
+    if (on) btn.setAttribute("aria-current", "true");
+    else btn.removeAttribute("aria-current");
+  });
+  root.querySelectorAll(".job-picker-card-split").forEach((card) => {
+    const left = card.querySelector(".job-picker-split-hit--left") as HTMLButtonElement | null;
+    const right = card.querySelector(".job-picker-split-hit--right") as HTMLButtonElement | null;
+    card.classList.toggle("job-picker-card-split--current-left", left?.dataset.jobKey === currentJob);
+    card.classList.toggle("job-picker-card-split--current-right", right?.dataset.jobKey === currentJob);
+  });
+  setJobPickerSplitStandArt(root);
   updateJobPickerStandStacking(root);
 
   const sitDock = root.querySelector("#job-sit-dock") as HTMLElement | null;
@@ -1356,6 +1378,27 @@ function syncJobPickerUi(root: HTMLElement): void {
 
 type JobPickerPick = { key: string; label: string };
 
+function classProgressionTabLabel(jobKey: string): string | null {
+  if (jobKey === "JT_ADVANCED_SUMMONER") return "Summoner";
+  if (jobKey === "JT_SPIRIT_HANDLER") return "Advanced Summoner";
+
+  const job = getJobData(jobKey);
+  if (!job) return null;
+
+  const contentColumns = job.columns.filter((c) => !isQuestColumnTitle(c.title));
+  if (contentColumns.length <= 1) return null;
+
+  const prev = contentColumns[contentColumns.length - 2]?.title.trim();
+  if (!prev || /^novice$/i.test(prev)) return null;
+
+  return prev.replace(/\s*\(\s*Trans\.?\s*\)\s*$/i, "").trimEnd();
+}
+
+function jobPickerClassTabHtml(label: string | null): string {
+  if (!label) return "";
+  return `<span class="job-picker-class-tab" aria-label="Previous class: ${escapeHtml(label)}">${escapeHtml(label)}</span>`;
+}
+
 function jobPickerCardHtml(
   key: string,
   label: string,
@@ -1370,6 +1413,7 @@ function jobPickerCardHtml(
         ? " job-picker-card--joined job-picker-card--joined-end"
         : "";
   return `<button type="button" class="job-picker-card${joinCls}" data-job-key="${escKey}" aria-label="${lab}">
+        ${jobPickerClassTabHtml(classProgressionTabLabel(key))}
         ${jobPickerCardSpriteHtml(key)}
         <span class="job-picker-card-label">${lab}</span>
       </button>`;
@@ -1377,10 +1421,34 @@ function jobPickerCardHtml(
 
 function jobPickerJoinedPairHtml(left: JobPickerPick, right: JobPickerPick, aria: string): string {
   const a = escapeHtml(aria);
-  return `<div class="job-picker-card-joined" role="group" aria-label="${a}">${jobPickerCardHtml(left.key, left.label, "start")}${jobPickerCardHtml(right.key, right.label, "end")}</div>`;
+  const leftKey = escapeHtml(left.key);
+  const rightKey = escapeHtml(right.key);
+  const leftLabel = escapeHtml(jobPickerDisplayLabel(left.key, left.label));
+  const rightLabel = escapeHtml(jobPickerDisplayLabel(right.key, right.label));
+  const pairLabel = `${leftLabel} / ${rightLabel}`;
+  const leftPrev = classProgressionTabLabel(left.key);
+  const rightPrev = classProgressionTabLabel(right.key);
+  const prevLabel =
+    leftPrev && rightPrev ? (leftPrev === rightPrev ? leftPrev : `${leftPrev} / ${rightPrev}`) : leftPrev ?? rightPrev;
+  return `<div class="job-picker-card-split" role="group" aria-label="${a}">
+        ${jobPickerClassTabHtml(prevLabel)}
+        <span class="job-picker-sprite job-picker-sprite--card job-picker-sprite--split" aria-hidden="true">
+          <span class="job-picker-stand-pair job-picker-stand-pair--split">
+            <span class="job-picker-stand-pair__cell job-picker-split-sprite-cell" data-split-job-key="${leftKey}" data-stand-gender="male">
+              <span class="job-picker-sprite-fallback" aria-hidden="true">♂</span>
+            </span>
+            <span class="job-picker-stand-pair__cell job-picker-split-sprite-cell" data-split-job-key="${rightKey}" data-stand-gender="female">
+              <span class="job-picker-sprite-fallback" aria-hidden="true">♀</span>
+            </span>
+          </span>
+        </span>
+        <span class="job-picker-card-label">${pairLabel}</span>
+        <button type="button" class="job-picker-split-hit job-picker-split-hit--left" data-job-key="${leftKey}" aria-label="${leftLabel}"></button>
+        <button type="button" class="job-picker-split-hit job-picker-split-hit--right" data-job-key="${rightKey}" aria-label="${rightLabel}"></button>
+      </div>`;
 }
 
-/** One flex row: centered; Bard/Dancer and Clown/Gypsy as joined pairs (two buttons each). */
+/** One flex row: centered; gender-locked archer-line pairs render as one split visual with two buttons. */
 function jobPickerRowHtml(row: JobPickerPick[]): string {
   const parts: string[] = [];
   for (let i = 0; i < row.length; i++) {
@@ -1396,6 +1464,20 @@ function jobPickerRowHtml(row: JobPickerPick[]): string {
     if (next && j.key === "JT_BARD_H" && next.key === "JT_DANCER_H") {
       parts.push(
         jobPickerJoinedPairHtml(j, next, "Clown or Gypsy (same transcendent archer line)"),
+      );
+      i++;
+      continue;
+    }
+    if (next && j.key === "JT_MINSTREL_H" && next.key === "JT_WANDERER_H") {
+      parts.push(
+        jobPickerJoinedPairHtml(j, next, "Minstrel or Wanderer (same third-class archer line)"),
+      );
+      i++;
+      continue;
+    }
+    if (next && j.key === "JT_TROUBADOUR" && next.key === "JT_TROUVERE") {
+      parts.push(
+        jobPickerJoinedPairHtml(j, next, "Troubadour or Trouvere (same fourth-class archer line)"),
       );
       i++;
       continue;
@@ -1627,9 +1709,10 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
   for (const btn of root.querySelectorAll(".job-picker-card")) {
     const key = (btn as HTMLButtonElement).dataset.jobKey;
     if (!key) continue;
-    const sp = btn.querySelector(".job-picker-sprite") as HTMLElement;
-    setJobPickerStandArt(sp, key);
+    const sp = btn.querySelector(".job-picker-sprite") as HTMLElement | null;
+    if (sp) setJobPickerStandArt(sp, key);
   }
+  setJobPickerSplitStandArt(root);
   updateJobPickerStandStacking(root);
 
   if (!opts.skipDialogShell) {
@@ -1638,7 +1721,9 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
       dialog.showModal();
       trigger.setAttribute("aria-expanded", "true");
       requestAnimationFrame(() => {
-        const cur = root.querySelector(".job-picker-card--current") as HTMLElement | null;
+        const cur = root.querySelector(
+          ".job-picker-card--current, .job-picker-split-hit--current",
+        ) as HTMLElement | null;
         (cur ?? root.querySelector(".job-picker-close"))?.focus();
       });
     });
@@ -1705,7 +1790,9 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
       }
       return;
     }
-    const t = (e.target as HTMLElement).closest(".job-picker-card") as HTMLButtonElement | null;
+    const t = (e.target as HTMLElement).closest(
+      ".job-picker-split-hit, .job-picker-card",
+    ) as HTMLButtonElement | null;
     if (!t?.dataset.jobKey) return;
     pickJobFromDialog(root, t.dataset.jobKey);
   });
@@ -1761,6 +1848,7 @@ function renderApp(root: HTMLElement): void {
           <a class="site-nav__link site-nav__link--active" href="/skills" aria-current="page">Skill Planner</a>
           <a class="site-nav__link" href="/cards">Card Library</a>
           <a class="site-nav__link" href="/pets">Pets</a>
+          <a class="site-nav__link" href="/mounts">Mounts</a>
           <a class="site-nav__link" href="/monsters">Monsters</a>
           <a class="site-nav__link" href="/armour">Armour</a>
           <a class="site-nav__link" href="/weapons">Weapons</a>

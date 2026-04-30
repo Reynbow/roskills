@@ -9,6 +9,8 @@
     { "source": "/cards/", "destination": "/cards.html" },
     { "source": "/pets", "destination": "/pets.html" },
     { "source": "/pets/", "destination": "/pets.html" },
+    { "source": "/mounts", "destination": "/mounts.html" },
+    { "source": "/mounts/", "destination": "/mounts.html" },
     { "source": "/armour", "destination": "/armour.html" },
     { "source": "/armour/", "destination": "/armour.html" },
     { "source": "/weapons", "destination": "/weapons.html" },

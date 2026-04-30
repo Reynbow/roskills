@@ -46,6 +46,14 @@ const JOB_PREVIEW_BY_KEY: Record<string, string> = {
   JT_DANCER_H: "https://irowiki.org/w/images/e/e5/Gypsy.png",
 };
 
+const JOB_ART_KEY_ALIAS: Record<string, string> = {
+  JT_ADVANCED_SUMMONER: "JT_DO_SUMMONER",
+};
+
+export function jobArtKey(jobKey: string): string {
+  return JOB_ART_KEY_ALIAS[jobKey] ?? jobKey;
+}
+
 /** rAthena / client job ids → Divine Pride portraits (`/images/job/{id}.png`). */
 const JOB_PREVIEW_DIVINE_PRIDE_ID: Record<string, number> = {
   JT_RUNE_KNIGHT: 4054,
@@ -108,9 +116,10 @@ function divinePrideJobImageUrl(jobId: number): string {
 }
 
 export function jobPreviewSpriteUrl(jobKey: string): string | undefined {
-  const wiki = JOB_PREVIEW_BY_KEY[jobKey];
+  const key = jobArtKey(jobKey);
+  const wiki = JOB_PREVIEW_BY_KEY[key];
   if (wiki) return wiki;
-  const id = JOB_PREVIEW_DIVINE_PRIDE_ID[jobKey];
+  const id = JOB_PREVIEW_DIVINE_PRIDE_ID[key];
   if (id != null) return divinePrideJobImageUrl(id);
   return undefined;
 }
@@ -121,5 +130,5 @@ export function jobPreviewSpriteUrl(jobKey: string): string | undefined {
  */
 export function jobPickerStandSpriteUrl(jobKey: string, gender: "male" | "female"): string {
   const base = import.meta.env.BASE_URL;
-  return `${base}job-stand-pick/${jobKey}--${gender}.png`;
+  return `${base}job-stand-pick/${jobArtKey(jobKey)}--${gender}.png`;
 }

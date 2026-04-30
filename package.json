@@ -32,6 +32,10 @@
     "render:job-stand-picker:renewal": "node scripts/render-job-stand-picker-sprites.mjs --renewal-only",
     "render:job-stand-picker:renewal:skip": "node scripts/render-job-stand-picker-sprites.mjs --renewal-only --skip-existing",
     "render:job-stand-picker:all": "node scripts/render-job-stand-picker-sprites.mjs --with-renewal",
+    "render:mount-class": "node scripts/render-mount-class-previews.mjs",
+    "render:mount-class:print": "node scripts/render-mount-class-previews.mjs --print-only",
+    "render:mount-class:skip": "node scripts/render-mount-class-previews.mjs --skip-existing",
+    "emit:boarding-mount-json": "node scripts/emit-boarding-mount-by-job.mjs",
     "fix:ro-sprite-names": "node scripts/fix-ro-sprite-cp949-names.mjs"
   },
   "devDependencies": {
