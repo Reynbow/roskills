@@ -3986,6 +3986,32 @@ header.planner-header .site-nav {
     0 4px 20px var(--shadow);
 }
 
+.skill-grid-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem 1rem;
+}
+
+@media (max-width: 980px) {
+  .skill-grid-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skill-grid-split-block {
+  min-width: 0;
+}
+
+.skill-grid-split-title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(220, 235, 255, 0.7);
+}
+
 .skill-panel--quest {
   flex: 0 0 12.5rem;
   max-width: 14rem;

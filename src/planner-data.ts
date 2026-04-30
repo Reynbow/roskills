@@ -154,6 +154,14 @@ export function isThirdClassKey(jobKey: string): boolean {
   return getPlannerGameMode() === "renewal" && THIRD_CLASS_KEYS.has(jobKey);
 }
 
+/** Data often uses a trailing "(Trans.)" on Renewal third jobs; hide that in the class picker and toolbar. */
+const THIRD_CLASS_LABEL_TRAN_SUFFIX = /\s*\(\s*Trans\.?\s*\)\s*$/i;
+
+export function jobPickerDisplayLabel(jobKey: string, rawLabel: string): string {
+  if (!isThirdClassKey(jobKey)) return rawLabel;
+  return rawLabel.replace(THIRD_CLASS_LABEL_TRAN_SUFFIX, "").trimEnd();
+}
+
 const FOURTH_CLASS_KEYS = new Set([
   "JT_DRAGON_KNIGHT",
   "JT_IMPERIAL_GUARD",
@@ -367,8 +375,8 @@ export type JobPickerTabDef = {
   /** Job keys in this tab (used to open the tab that contains the current class). */
   jobKeys: readonly string[];
   /**
-   * Third class tab (renewal): trans vs base-2nd path grids, optional tail (e.g. Summoner).
-   * When set, `sections` is only the tail after the path-specific grids.
+   * Third class tab (renewal): optionally split grids (legacy). Prefer normal `sections` when possible.
+   * When set, `sections` is typically only the tail after the path-specific grids.
    */
   thirdPathSplit?: {
     trans: JobPickerSection;
@@ -513,28 +521,21 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
       return rows;
     };
     const thirdOrderTrans = THIRD_CLASS_PICKER_ORDER.filter((k) => k.endsWith("_H"));
-    const thirdOrderBase = THIRD_CLASS_PICKER_ORDER.filter((k) => !k.endsWith("_H"));
     const thirdTransJobs = sortJobsByKeyOrder(
       thirdClass.filter((j) => j.key.endsWith("_H")),
       thirdOrderTrans,
-    );
-    const thirdBaseJobs = sortJobsByKeyOrder(
-      thirdClass.filter((j) => !j.key.endsWith("_H")),
-      thirdOrderBase,
     );
     const thirdAfter: JobPickerSection[] =
       renewalOther.length > 0
         ? [{ heading: "Summoner & misc.", jobs: renewalOther }]
         : [];
-    const thirdPathSplit = {
-      trans: { heading: "Third class", jobRows: chunkRow(thirdTransJobs, 7) },
-      base: { heading: "Third class", jobRows: chunkRow(thirdBaseJobs, 7) },
-      ...(thirdAfter.length > 0 ? { after: thirdAfter } : {}),
-    };
-    const thirdTabKeys: string[] = [
-      ...jobKeysForPickerSections([thirdPathSplit.trans, thirdPathSplit.base]),
-      ...jobKeysForPickerSections(thirdAfter),
-    ];
+
+    const thirdSections: JobPickerSection[] = [
+      { heading: "Third class", jobRows: chunkRow(thirdTransJobs, 7) },
+      ...thirdAfter,
+    ].filter(sectionHasJobs);
+
+    const thirdTabKeys: string[] = jobKeysForPickerSections(thirdSections);
     const fourthSections: JobPickerSection[] = [
       { heading: "Fourth class", jobRows: chunkRow(fourthClass, 7) },
     ].filter(sectionHasJobs);
@@ -543,9 +544,8 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
       tabs.push({
         id: "third",
         label: "Third class",
-        sections: thirdAfter,
+        sections: thirdSections,
         jobKeys: thirdTabKeys,
-        thirdPathSplit,
       });
     }
     if (fourthSections.length > 0) {
@@ -569,7 +569,7 @@ export function getJobData(jobKey: string): JobData | undefined {
 
 /**
  * Lord Knight / High Priest / … : exactly three content columns where the last is the transcendent 2nd job.
- * Renewal 3rd jobs also have three columns (Swordman+novice, Knight, Rune Knight) but must NOT merge.
+ * Renewal trans-path 3rd/4th layouts are handled separately via `shouldMergeRenewalTransPathSkillPanel`.
  */
 const CLASSIC_TRANSCENDENT_SECOND_JOB_KEYS = new Set([
   "JT_KNIGHT_H",
@@ -595,6 +595,21 @@ export function shouldMergeTranscendentIntoSecondPanel(job: JobData): boolean {
   return content.length === 3;
 }
 
+/**
+ * Renewal "trans path" 3rd jobs: 1st line + 2nd + trans-2nd + 3rd job (4 non-quest cols).
+ * Renewal 4th jobs: 1st line + 2nd + trans-2nd + 3rd job (Trans.) + 4th job (5 non-quest cols).
+ *
+ * UI: **base** | **second + trans (one merged grid)** | **third** [| **fourth**], same idea as pre-renewal transcendent mid panel.
+ */
+export function shouldMergeRenewalTransPathSkillPanel(job: JobData): boolean {
+  if (getPlannerGameMode() !== "renewal") return false;
+  const q = job.columns.findIndex((c) => isQuestColumnTitle(c.title));
+  const content = job.columns.map((_, i) => i).filter((i) => q < 0 || i !== q);
+  if (content.length === 4) return THIRD_CLASS_KEYS.has(job.key) && job.key.endsWith("_H");
+  if (content.length === 5) return FOURTH_CLASS_KEYS.has(job.key);
+  return false;
+}
+
 export function buildSkillsForJob(jobKey: string): SkillDef[] {
   const j = plannerRoot().jobs[jobKey];
   if (!j) return [];
@@ -603,7 +618,10 @@ export function buildSkillsForJob(jobKey: string): SkillDef[] {
   const transcendentCol =
     contentCols.length === 3 && shouldMergeTranscendentIntoSecondPanel(j)
       ? contentCols[2]!
-      : -1;
+      : (contentCols.length === 4 || contentCols.length === 5) &&
+          shouldMergeRenewalTransPathSkillPanel(j)
+        ? contentCols[2]!
+        : -1;
   const out: SkillDef[] = [];
   j.columns.forEach((col, column) => {
     const quest = isQuestColumnTitle(col.title);

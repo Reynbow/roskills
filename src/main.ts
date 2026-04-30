@@ -10,9 +10,11 @@ import {
   GRID_COLS,
   isQuestColumnTitle,
   shouldMergeTranscendentIntoSecondPanel,
+  shouldMergeRenewalTransPathSkillPanel,
   setPlannerGameMode,
   getPlannerGameMode,
   isThirdClassKey,
+  jobPickerDisplayLabel,
   type GameMode,
   type JobData,
   type JobPickerSection,
@@ -68,7 +70,7 @@ function alignThirdClassPathToCurrentJobIfApplicable(root: HTMLElement, jobKey: 
   }
 }
 const DEFAULT_JOB = "JT_PRIEST";
-const DEFAULT_JOB_RENEWAL = "JT_RUNE_KNIGHT";
+const DEFAULT_JOB_RENEWAL = "JT_RUNE_KNIGHT_H";
 
 function defaultJobForMode(): string {
   return getPlannerGameMode() === "renewal" ? DEFAULT_JOB_RENEWAL : DEFAULT_JOB;
@@ -99,10 +101,10 @@ function skillIconUrl(skidId: number): string {
 const CLASS_SKILL_CAPS: readonly number[] = [49, 49, 69];
 
 /**
- * Renewal: tiers include 3rd job (max job level 70 → 69 points) and 4th job (max job level 50 → 49 points).
- * Extra content columns beyond these reuse the last cap.
+ * Renewal: tiers include 3rd job (max job level 70 → 69 points) and 4th job (54 skill points).
+ * Extra content columns beyond these reuse the last cap (fourth tier).
  */
-const CLASS_SKILL_CAPS_RENEWAL: readonly number[] = [49, 49, 69, 49, 49, 49, 49, 49, 49];
+const CLASS_SKILL_CAPS_RENEWAL: readonly number[] = [49, 49, 69, 54, 54, 54, 54, 54, 54];
 
 function classSkillCaps(): readonly number[] {
   return getPlannerGameMode() === "renewal" ? CLASS_SKILL_CAPS_RENEWAL : CLASS_SKILL_CAPS;
@@ -229,11 +231,20 @@ function clampLevelToSkill(s: SkillDef, v: unknown): number {
  * @param presetLevels When set, levels come from this map (share URL). When omitted, load from localStorage for `jobKey`.
  */
 function applyJob(jobKey: string, presetLevels?: Record<string, number> | null): void {
-  const j = getJobData(jobKey);
+  let k = jobKey;
+  if (
+    getPlannerGameMode() === "renewal" &&
+    isThirdClassKey(k) &&
+    !k.endsWith("_H") &&
+    getJobData(`${k}_H`)
+  ) {
+    k = `${k}_H`;
+  }
+  const j = getJobData(k);
   if (!j) return;
-  currentJob = jobKey;
-  skills = buildSkillsForJob(jobKey);
-  edges = getEdgesForJob(jobKey);
+  currentJob = k;
+  skills = buildSkillsForJob(k);
+  edges = getEdgesForJob(k);
   skillMap = makeSkillMap(skills);
 
   if (presetLevels != null) {
@@ -249,7 +260,8 @@ function applyJob(jobKey: string, presetLevels?: Record<string, number> | null):
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const data = JSON.parse(raw) as Stored;
-      const slot = currentPlannerSlot(data).jobs[jobKey];
+      const jobs = currentPlannerSlot(data).jobs;
+      const slot = jobs[k] ?? (k !== jobKey ? jobs[jobKey] : undefined);
       if (slot?.levels) {
         levels = {};
         for (const s of skills) {
@@ -362,6 +374,13 @@ function capForClassTier(tierIndex: number): number {
     }
     return TRANSCENDENT_COMBINED_SECOND_CAP;
   }
+  if (job && shouldMergeRenewalTransPathSkillPanel(job)) {
+    // Layout: base | (second + trans merged) | third [| fourth]. Merged 2nd + trans-2nd = one 69 SP pool.
+    if (tierIndex === 0) return caps[0]!;
+    if (tierIndex === 1) return TRANSCENDENT_COMBINED_SECOND_CAP;
+    if (tierIndex === 2) return caps[2]!;
+    return caps[Math.min(3, caps.length - 1)]!;
+  }
   if (tierIndex === 0 && job && TIER0_CLASS_CAP_OVERRIDE[job.key] != null) {
     return TIER0_CLASS_CAP_OVERRIDE[job.key]!;
   }
@@ -383,6 +402,23 @@ function pointsUsedPerClassTier(lv: Record<string, number>): number[] {
       .filter((s) => (s.column === c1 || s.column === c2) && !exemptFromClassSkillCap(s.id))
       .reduce((a, s) => a + (lv[s.id] ?? 0), 0);
     return [u0, uCombined];
+  }
+  if (shouldMergeRenewalTransPathSkillPanel(job)) {
+    const c0 = content[0]!;
+    const c1 = content[1]!;
+    const c2 = content[2]!;
+    const tail = content.slice(3);
+    const u0 = skills
+      .filter((s) => s.column === c0 && !exemptFromClassSkillCap(s.id))
+      .reduce((a, s) => a + (lv[s.id] ?? 0), 0);
+    const u12 = skills
+      .filter((s) => (s.column === c1 || s.column === c2) && !exemptFromClassSkillCap(s.id))
+      .reduce((a, s) => a + (lv[s.id] ?? 0), 0);
+    return [u0, u12, ...tail.map((col) =>
+      skills
+        .filter((s) => s.column === col && !exemptFromClassSkillCap(s.id))
+        .reduce((a, s) => a + (lv[s.id] ?? 0), 0),
+    )];
   }
   return content.map((col) =>
     skills
@@ -876,6 +912,7 @@ function skillDescriptionToHtml(description: string): string {
 
 /** Novice + first job share one 7-col client grid (unique slot indices); merge into one panel. */
 function mergeNoviceWithFirstJob(job: JobData): boolean {
+  if (shouldMergeRenewalTransPathSkillPanel(job)) return false;
   const idx = getContentColumnIndices(job);
   if (idx.length < 2) return false;
   return job.columns[idx[0]]?.title === "Novice";
@@ -884,6 +921,11 @@ function mergeNoviceWithFirstJob(job: JobData): boolean {
 /** Transcendent jobs: second + transcendent trees use the same client grid slots; one combined panel. */
 function mergeTranscendentIntoSecond(job: JobData): boolean {
   return shouldMergeTranscendentIntoSecondPanel(job);
+}
+
+/** Renewal trans-path 3rd (`…_H`) / 4th: panels are base | second+trans merged | third [| fourth]. */
+function isRenewalTransPathThirdFourthLayout(job: JobData): boolean {
+  return shouldMergeRenewalTransPathSkillPanel(job);
 }
 
 /** Client trees use 7 columns; show the full width even when skills only occupy the left slots. */
@@ -1032,6 +1074,49 @@ function renderColumns(root: HTMLElement): void {
     sec1.appendChild(renderSkillGrid(mergedSkills));
     sec1.appendChild(renderSkillList(mergedSkills));
     main.appendChild(sec1);
+  } else if (isRenewalTransPathThirdFourthLayout(job)) {
+    const c0 = contentIdx[0]!;
+    const c1 = contentIdx[1]!;
+    const c2 = contentIdx[2]!;
+    const n1 = job.columns[c1]?.title ?? "";
+    const n2 = job.columns[c2]?.title ?? "";
+    const mergedName = `${n1} + ${n2}`.trim() || job.label;
+
+    const secBase = document.createElement("section");
+    secBase.className = "skill-panel";
+    secBase.dataset.column = String(c0);
+    secBase.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${escapeHtml(job.columns[c0]?.title ?? "")}</span><span class="panel-title__stats" data-content-tier="0" aria-label="Skill points used for this class column"></span></h2>`;
+    const secBaseSkills = skillsByColumn(c0);
+    secBase.appendChild(renderSkillGrid(secBaseSkills));
+    secBase.appendChild(renderSkillList(secBaseSkills));
+    main.appendChild(secBase);
+
+    const secMid = document.createElement("section");
+    secMid.className = "skill-panel skill-panel--second-with-trans";
+    secMid.dataset.column = `${c1},${c2}`;
+    const midEsc = escapeHtml(mergedName);
+    secMid.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${midEsc}</span><span class="panel-title__stats panel-title__stats--transcendent" data-content-tier="1" aria-label="${midEsc} skill points (second + transcendent)"></span></h2>`;
+    const merged12 = [...skillsByColumn(c1), ...skillsByColumn(c2)].sort((a, b) => {
+      if (a.gridRow !== b.gridRow) return a.gridRow - b.gridRow;
+      if (a.gridCol !== b.gridCol) return a.gridCol - b.gridCol;
+      return a.row - b.row;
+    });
+    secMid.appendChild(renderSkillGrid(merged12));
+    secMid.appendChild(renderSkillList(merged12));
+    main.appendChild(secMid);
+
+    for (let i = 3; i < contentIdx.length; i++) {
+      const c = contentIdx[i]!;
+      const contentTier = i - 1;
+      const sec = document.createElement("section");
+      sec.className = "skill-panel";
+      sec.dataset.column = String(c);
+      sec.innerHTML = `<h2 class="panel-title"><span class="panel-title__name">${escapeHtml(job.columns[c]?.title ?? "")}</span><span class="panel-title__stats" data-content-tier="${contentTier}" aria-label="Skill points used for this class column"></span></h2>`;
+      const secSkills = skillsByColumn(c);
+      sec.appendChild(renderSkillGrid(secSkills));
+      sec.appendChild(renderSkillList(secSkills));
+      main.appendChild(sec);
+    }
   } else {
     for (let t = 0; t < contentIdx.length; t++) {
       const c = contentIdx[t]!;
@@ -1177,7 +1262,8 @@ let sitGender: SitGender = (localStorage.getItem(GENDER_STORAGE_KEY) as SitGende
 if (sitGender !== "male" && sitGender !== "female") sitGender = "male";
 
 function syncJobPickerUi(root: HTMLElement): void {
-  const label = getJobData(currentJob)?.label ?? currentJob;
+  const jd = getJobData(currentJob);
+  const label = jd ? jobPickerDisplayLabel(currentJob, jd.label) : currentJob;
   const labEl = root.querySelector("#job-picker-current-label");
   if (labEl) labEl.textContent = label;
   const trig = root.querySelector("#job-picker-trigger") as HTMLButtonElement | null;
@@ -1276,7 +1362,7 @@ function jobPickerCardHtml(
   joined?: "start" | "end",
 ): string {
   const escKey = escapeHtml(key);
-  const lab = escapeHtml(label);
+  const lab = escapeHtml(jobPickerDisplayLabel(key, label));
   const joinCls =
     joined === "start"
       ? " job-picker-card--joined job-picker-card--joined-start"
@@ -1339,7 +1425,7 @@ function jobPickerThirdClassTabHtml(
 ): string {
   const transStack = jobPickerJobRowsStackFromSection(
     split.trans,
-    "Third class, transcendent second path (e.g. Lord Knight, Clown, Arch Bishop (Trans.))",
+    "Third class, transcendent second path (e.g. Lord Knight, Clown, Arch Bishop)",
   );
   const baseStack = jobPickerJobRowsStackFromSection(
     split.base,
@@ -1996,6 +2082,7 @@ function updateToolbarClassStats(root: HTMLElement): void {
   const job = getJobData(currentJob);
   const perTier = pointsUsedPerClassTier(levels);
   const unifiedTrans = job !== undefined && shouldMergeTranscendentIntoSecondPanel(job);
+  const unifiedRenewalTransPath = job !== undefined && shouldMergeRenewalTransPathSkillPanel(job);
   const contentCols = job ? getContentColumnIndices(job) : [];
 
   const tierHost = root.querySelector("#toolbar-tier-stats") as HTMLElement | null;
@@ -2029,6 +2116,17 @@ function updateToolbarClassStats(root: HTMLElement): void {
       let colTitle = `Column ${t + 1}`;
       if (job && unifiedTrans && t === 1) {
         colTitle = job.label;
+      } else if (job && unifiedRenewalTransPath && t === 0) {
+        const c = contentCols[0];
+        if (c !== undefined) colTitle = job.columns[c]?.title ?? colTitle;
+      } else if (job && unifiedRenewalTransPath && t === 1) {
+        const ca = contentCols[1];
+        const cb = contentCols[2];
+        if (ca !== undefined && cb !== undefined)
+          colTitle = `${job.columns[ca]?.title ?? ""} + ${job.columns[cb]?.title ?? ""}`.trim();
+      } else if (job && unifiedRenewalTransPath && t >= 2) {
+        const c = contentCols[t + 1];
+        if (c !== undefined) colTitle = job.columns[c]?.title ?? colTitle;
       } else if (job) {
         const c = contentCols[t];
         if (c !== undefined) colTitle = job.columns[c]?.title ?? colTitle;
@@ -2037,7 +2135,9 @@ function updateToolbarClassStats(root: HTMLElement): void {
       const aria =
         unifiedTrans && t === 1
           ? `${job!.label} (combined second + transcendent pool)`
-          : colTitle;
+          : unifiedRenewalTransPath && t === 1
+            ? `${colTitle} (combined second + transcendent pool)`
+            : colTitle;
       setToolbarTierStat(wrap, used, cap, uN, capN, aria);
     }
   }
