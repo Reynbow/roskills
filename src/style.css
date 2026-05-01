@@ -3140,6 +3140,55 @@ header.planner-header .site-nav {
   border-radius: 6px;
 }
 
+/* Modal left rail: party-frame icons only (same `/job-icons/` as armour / weapons). */
+.job-picker-party-iconwrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.job-picker-party-iconwrap--shortcut {
+  margin: 0;
+}
+
+.job-picker-party-icon {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55));
+  opacity: 0.94;
+}
+
+.job-picker-party-icon--shortcut {
+  width: 28px;
+  height: 28px;
+}
+
+.job-picker-party-icon--secondary {
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 6px rgba(125, 185, 255, 0.22));
+}
+
+.job-picker-party-icon--rebirth {
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 6px rgba(255, 210, 120, 0.22));
+}
+
+.job-picker-party-icon--missing {
+  border-radius: 5px;
+  border: 1px dashed rgba(140, 170, 210, 0.35);
+  background: rgba(40, 48, 62, 0.5);
+  box-sizing: border-box;
+}
+
+.job-picker-party-icon--missing.job-picker-party-icon--shortcut {
+  width: 28px;
+  height: 28px;
+}
+
 /* Class picker: local standing renders — male | female overlapped (see `data-stand-top` for stack order) */
 .job-picker-sprite--dual {
   padding: 0;
@@ -3500,13 +3549,17 @@ header.planner-header .site-nav {
 .job-picker-modal-line-shortcuts--tabrail .job-picker-modal-line-shortcut {
   width: 100%;
   white-space: normal;
-  text-align: center;
+  text-align: left;
   font-size: 0.72rem;
-  padding: 0.38rem 0.45rem;
+  padding: 0.32rem 0.42rem;
   line-height: 1.15;
+  justify-content: flex-start;
 }
 
 .job-picker-modal-line-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
   font-size: 0.7rem;
   font-weight: 600;
   padding: 0.28rem 0.55rem;
@@ -3518,6 +3571,13 @@ header.planner-header .site-nav {
   font-family: inherit;
   line-height: 1.2;
   white-space: nowrap;
+}
+
+.job-picker-modal-line-shortcut-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  white-space: normal;
 }
 
 .job-picker-modal-line-shortcut:hover {

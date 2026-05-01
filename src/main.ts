@@ -24,6 +24,7 @@ import {
   type SkillDef,
   type PrereqEdge,
 } from "./planner-data";
+import { jobPartyFrameIconImgClass, jobPartyFrameIconUrl } from "./job-party-icon";
 import { jobPickerStandSpriteUrl } from "./job-previews";
 import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl } from "./job-sit-sprite";
 
@@ -776,15 +777,6 @@ function fitTooltipDynamicText(): void {
   });
 }
 
-function buildClassLineOpenButtonsMarkup(): string {
-  return listClassLineShortcuts()
-    .map(
-      (s) =>
-        `<button type="button" class="job-picker-modal-line-shortcut" data-class-line-anchor="${escapeHtml(s.anchorKey)}" aria-pressed="false">${escapeHtml(s.label)}</button>`,
-    )
-    .join("");
-}
-
 function clearJobPickerCategoryTabSelection(root: HTMLElement): void {
   root.querySelectorAll(".job-picker-tab").forEach((btn) => {
     const el = btn as HTMLButtonElement;
@@ -881,6 +873,28 @@ function escapeHtml(s: string): string {
   const d = document.createElement("div");
   d.textContent = s;
   return d.innerHTML;
+}
+
+/** Party-frame icon for the modal left rail only (same `/job-icons/` as armour / weapons). */
+function jobPickerModalLineShortcutIconHtml(jobKey: string): string {
+  const url = jobPartyFrameIconUrl(jobKey);
+  const cls = jobPartyFrameIconImgClass(jobKey);
+  const wrapCls = "job-picker-party-iconwrap job-picker-party-iconwrap--shortcut";
+  if (!url) {
+    return `<span class="${wrapCls}" aria-hidden="true"><span class="job-picker-party-icon job-picker-party-icon--shortcut job-picker-party-icon--missing" aria-hidden="true"></span></span>`;
+  }
+  return `<span class="${wrapCls}" aria-hidden="true"><img class="${cls} job-picker-party-icon--shortcut" src="${escapeHtml(
+    url,
+  )}" alt="" width="28" height="28" decoding="async" loading="lazy" referrerpolicy="no-referrer" /></span>`;
+}
+
+function buildClassLineOpenButtonsMarkup(): string {
+  return listClassLineShortcuts()
+    .map(
+      (s) =>
+        `<button type="button" class="job-picker-modal-line-shortcut" data-class-line-anchor="${escapeHtml(s.anchorKey)}" aria-pressed="false">${jobPickerModalLineShortcutIconHtml(s.anchorKey)}<span class="job-picker-modal-line-shortcut-label">${escapeHtml(s.label)}</span></button>`,
+    )
+    .join("");
 }
 
 const TOOLTIP_LV_LINE = /^\s*\[[Ll][Vv]\.?\s*\d+\]\s*:/i;
@@ -1352,6 +1366,11 @@ function renderColumns(root: HTMLElement): void {
   scheduleFitSkillText(root);
 }
 
+const GENDER_STORAGE_KEY = "ro-sit-gender";
+type SitGender = "male" | "female";
+let sitGender: SitGender = (localStorage.getItem(GENDER_STORAGE_KEY) as SitGender) || "male";
+if (sitGender !== "male" && sitGender !== "female") sitGender = "male";
+
 function loadJobPickerStandHalf(cell: HTMLElement, url: string): void {
   cell.querySelectorAll(".job-picker-sprite-img").forEach((n) => n.remove());
   const fb = cell.querySelector(".job-picker-sprite-fallback") as HTMLSpanElement | null;
@@ -1452,11 +1471,6 @@ function updateJobPickerStandStacking(root: HTMLElement): void {
     (el as HTMLElement).setAttribute("data-stand-top", top);
   });
 }
-
-const GENDER_STORAGE_KEY = "ro-sit-gender";
-type SitGender = "male" | "female";
-let sitGender: SitGender = (localStorage.getItem(GENDER_STORAGE_KEY) as SitGender) || "male";
-if (sitGender !== "male" && sitGender !== "female") sitGender = "male";
 
 function syncJobPickerUi(root: HTMLElement): void {
   const jd = getJobData(currentJob);
