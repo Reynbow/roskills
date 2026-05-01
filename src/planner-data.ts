@@ -443,7 +443,6 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
   const byKey = new Map(all.map((j) => [j.key, j] as const));
   const row = (keys: readonly string[]): { key: string; label: string }[] =>
     keys.map((k) => byKey.get(k)).filter((j): j is (typeof all)[number] => j != null);
-  const jobs = (keys: readonly string[]): { key: string; label: string }[] => row(keys);
   const novice = all.filter((j) => jobPickerGroup(j.key) === "novice");
   const firstClass = sortJobsByKeyOrder(
     all.filter((j) => jobPickerGroup(j.key) === "firstClass"),
@@ -506,6 +505,25 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
     ],
   ];
 
+  /** Same column layout as renewal expanded matrix; only jobs that exist in pre-renewal are shown. */
+  const preExpandedMatrix: JobPickerMatrixCell[][] = [
+    [
+      { jobs: ["JT_SUPERNOVICE"] },
+      { jobs: ["JT_TAEKWON"], colSpan: 2 },
+      { jobs: ["JT_NINJA"] },
+      { jobs: ["JT_GUNSLINGER"] },
+      { empty: true },
+    ],
+    [
+      { empty: true },
+      { jobs: ["JT_STAR"] },
+      { jobs: ["JT_LINKER"] },
+      { empty: true },
+      { empty: true },
+      { empty: true },
+    ],
+  ];
+
   const expandedSections: JobPickerSection[] = (
     getPlannerGameMode() === "renewal"
       ? ([
@@ -517,21 +535,9 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
         ] satisfies JobPickerSection[])
       : ([
           {
-            heading: "Super Novice",
-            jobs: jobs(["JT_SUPERNOVICE"]),
-          },
-          {
-            heading: "Taekwon line",
-            jobRows: [row(["JT_TAEKWON"]), row(["JT_STAR", "JT_LINKER"])].filter((r) => r.length > 0),
-            jobRowsLayout: "progressionLine",
-          },
-          {
-            heading: "Ninja",
-            jobs: jobs(["JT_NINJA"]),
-          },
-          {
-            heading: "Gunslinger",
-            jobs: jobs(["JT_GUNSLINGER"]),
+            heading: "Expanded classes",
+            jobRowsLayout: "expandedMatrix",
+            expandedMatrixRows: preExpandedMatrix,
           },
         ] satisfies JobPickerSection[])
   ).filter(sectionHasJobs);
