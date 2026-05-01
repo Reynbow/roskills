@@ -71,6 +71,15 @@ function plannerRoot(): PlannerRoot {
 const ADVANCED_SUMMONER_KEY = "JT_ADVANCED_SUMMONER";
 const ADVANCED_SUMMONER_LABEL = "Advanced Summoner";
 
+/**
+ * Renewal Summoner (not Advanced): in-game tree stops after Power of Sea/Land/Life; everything from
+ * Grooming onward is the Advanced Summoner continuation (incl. capstone Spirit of * passives).
+ * Matches `skilltreeview.lub` slot layout (grid indices ≥ 43).
+ */
+function isRenewalSummonerBaseHiddenSkill(sk: { gridIndex?: number }): boolean {
+  return (sk.gridIndex ?? 0) >= 43;
+}
+
 function advancedSummonerJobData(): JobData | undefined {
   if (activeGameMode !== "renewal") return undefined;
   const summoner = plannerRoot().jobs.JT_DO_SUMMONER;
@@ -746,6 +755,8 @@ export function shouldMergeRenewalTransPathSkillPanel(job: JobData): boolean {
 export function buildSkillsForJob(jobKey: string): SkillDef[] {
   const j = resolveJobData(jobKey);
   if (!j) return [];
+  const hideRenewalSummonerAdvSkills =
+    getPlannerGameMode() === "renewal" && jobKey === "JT_DO_SUMMONER";
   const questCol = j.columns.findIndex((c) => isQuestColumnTitle(c.title));
   const contentCols = j.columns.map((_, i) => i).filter((i) => questCol < 0 || i !== questCol);
   const transcendentCol =
@@ -761,6 +772,7 @@ export function buildSkillsForJob(jobKey: string): SkillDef[] {
     col.skillIds.forEach((id, row) => {
       const s = j.skills[id];
       if (!s) return;
+      if (hideRenewalSummonerAdvSkills && isRenewalSummonerBaseHiddenSkill(s)) return;
       const gi = s.gridIndex ?? 0;
       let gridCol: number;
       let gridRow: number;
@@ -791,7 +803,15 @@ export function buildSkillsForJob(jobKey: string): SkillDef[] {
 }
 
 export function getEdgesForJob(jobKey: string): PrereqEdge[] {
-  return resolveJobData(jobKey)?.edges ?? [];
+  const j = resolveJobData(jobKey);
+  if (!j) return [];
+  const raw = j.edges ?? [];
+  if (getPlannerGameMode() !== "renewal" || jobKey !== "JT_DO_SUMMONER") return raw;
+  const hidden = (id: string): boolean => {
+    const sk = j.skills[id];
+    return sk ? isRenewalSummonerBaseHiddenSkill(sk) : false;
+  };
+  return raw.filter((e) => !hidden(e.fromId) && !hidden(e.toId));
 }
 
 export function makeSkillMap(skills: SkillDef[]): Map<string, SkillDef> {
