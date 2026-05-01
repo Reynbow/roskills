@@ -3311,13 +3311,31 @@ header.planner-header .site-nav {
   max-height: min(90vh, calc(100vh - 2rem));
   display: flex;
   flex-direction: column;
+  gap: 0.6rem;
   overflow-y: auto;
-  padding: 0.4rem;
+  padding: 0.45rem;
   border-radius: 10px;
   background: var(--bg-panel);
   border: 1px solid var(--border-panel);
   box-shadow: 0 16px 40px var(--shadow), inset 0 1px 0 var(--inset-highlight);
   scrollbar-width: thin;
+}
+
+/* Separate visual blocks: category tabs vs. first-job line shortcuts (not a single list with a rule between). */
+.job-picker-tabrail-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.42rem 0.48rem;
+  border-radius: 8px;
+  border: 1px solid rgba(100, 140, 200, 0.28);
+  background: rgba(8, 12, 20, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.job-picker-tabrail-block--lines {
+  border-color: rgba(130, 175, 235, 0.32);
+  background: rgba(12, 18, 32, 0.55);
 }
 
 .job-picker-tablist {
@@ -3400,6 +3418,22 @@ header.planner-header .site-nav {
     min-width: 5.25rem;
     width: auto;
   }
+
+  .job-picker-tabrail-block {
+    padding: 0.38rem 0.42rem;
+  }
+
+  .job-picker-tabrail-block--lines .job-picker-modal-line-shortcuts--tabrail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.4rem;
+  }
+
+  .job-picker-modal-line-shortcuts--tabrail .job-picker-modal-line-shortcut {
+    flex: 1 1 auto;
+    min-width: 5rem;
+    width: auto;
+  }
 }
 
 .job-picker-dialog-head {
@@ -3452,6 +3486,56 @@ header.planner-header .site-nav {
   outline-offset: 2px;
 }
 
+/* First-job line shortcuts: nested inside `.job-picker-tabrail-block--lines`. */
+.job-picker-modal-line-shortcuts--tabrail {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.32rem;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.job-picker-modal-line-shortcuts--tabrail .job-picker-modal-line-shortcut {
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+  font-size: 0.72rem;
+  padding: 0.38rem 0.45rem;
+  line-height: 1.15;
+}
+
+.job-picker-modal-line-shortcut {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.28rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid rgba(130, 165, 215, 0.35);
+  background: var(--bg-node);
+  color: #dbe4f4;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.job-picker-modal-line-shortcut:hover {
+  border-color: rgba(160, 205, 255, 0.55);
+  color: #fff;
+}
+
+.job-picker-modal-line-shortcut--active {
+  border-color: rgba(120, 185, 255, 0.75);
+  box-shadow: 0 0 0 1px rgba(90, 160, 255, 0.35);
+  color: #f2f7ff;
+}
+
+.job-picker-modal-line-shortcut:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .job-picker-body {
   display: flex;
   flex-direction: column;
@@ -3468,6 +3552,116 @@ header.planner-header .site-nav {
   flex: 1 1 auto;
   min-height: 0;
   overflow: visible;
+}
+
+#job-picker-body-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* `#job-picker-body-main { display: flex }` can beat the default `[hidden]` rule in the cascade; force hide when switching to a class-line view. */
+#job-picker-body-main[hidden],
+#job-picker-body-line[hidden] {
+  display: none !important;
+}
+
+.job-picker-body-line {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+.job-picker-body-line-inner {
+  padding: 0.15rem 0.35rem 0;
+}
+
+/* Class-line modal only (Archer, …): tighter gaps so wide tiers (Windhawk + Troubadour/Trouvere) stay on one row. */
+#job-picker-body-line .job-picker-body-line-inner {
+  padding: 1rem 0.2rem 0;
+}
+
+#job-picker-body-line .job-picker-stage-line {
+  gap: 0.35rem 0.48rem;
+  padding: 0.04rem 0;
+}
+
+#job-picker-body-line .job-picker-grid {
+  --jp-gap-x: 0.28rem;
+  --jp-gap-y: 0.4rem;
+  padding: 0.04rem 0;
+}
+
+#job-picker-body-line .job-picker-grid.job-picker-grid--stage {
+  --jp-cell: clamp(7.2rem, 8.2vw, 8.65rem);
+}
+
+#job-picker-body-line .job-picker-stage-arrow {
+  padding: 0 0.06rem;
+}
+
+/* Class-line modal omits prerequisite tabs in markup; zero reserved height so split hit targets align. */
+#job-picker-body-line .job-picker-card,
+#job-picker-body-line .job-picker-card-split {
+  --jp-class-tab-h: 0;
+}
+
+/*
+ * Ninja / Gunslinger / Super Novice / Summoner: drop starter-stage vertical alignment (in-flow label like other stages).
+ */
+#job-picker-body-line:is(
+    [data-line-anchor="JT_NINJA"],
+    [data-line-anchor="JT_GUNSLINGER"],
+    [data-line-anchor="JT_SUPERNOVICE"],
+    [data-line-anchor="JT_DO_SUMMONER"]
+  )
+  .job-picker-stage-line
+  > .job-picker-stage:first-child {
+  display: block;
+  align-items: initial;
+  padding-bottom: 0;
+}
+
+#job-picker-body-line:is(
+    [data-line-anchor="JT_NINJA"],
+    [data-line-anchor="JT_GUNSLINGER"],
+    [data-line-anchor="JT_SUPERNOVICE"],
+    [data-line-anchor="JT_DO_SUMMONER"]
+  )
+  .job-picker-stage-line
+  > .job-picker-stage:first-child
+  .job-picker-card,
+#job-picker-body-line:is(
+    [data-line-anchor="JT_NINJA"],
+    [data-line-anchor="JT_GUNSLINGER"],
+    [data-line-anchor="JT_SUPERNOVICE"],
+    [data-line-anchor="JT_DO_SUMMONER"]
+  )
+  .job-picker-stage-line
+  > .job-picker-stage:first-child
+  .job-picker-card-split {
+  position: static;
+  min-height: 8.15rem;
+  overflow: visible;
+}
+
+#job-picker-body-line:is(
+    [data-line-anchor="JT_NINJA"],
+    [data-line-anchor="JT_GUNSLINGER"],
+    [data-line-anchor="JT_SUPERNOVICE"],
+    [data-line-anchor="JT_DO_SUMMONER"]
+  )
+  .job-picker-stage-line
+  > .job-picker-stage:first-child
+  .job-picker-card-label {
+  position: static;
+  top: auto;
+  left: auto;
+  right: auto;
+  margin: 0;
+  padding: 0;
 }
 
 .job-picker-section {
@@ -3545,11 +3739,135 @@ header.planner-header .site-nav {
   min-width: 0;
 }
 
+.job-picker-stage-line > .job-picker-stage:first-child {
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
+
+/* Starter stage: vertical alignment follows the sprite square (+ optional class tab), not the name below. */
+.job-picker-stage-line > .job-picker-stage:first-child .job-picker-card,
+.job-picker-stage-line > .job-picker-stage:first-child .job-picker-card-split {
+  position: relative;
+  min-height: unset;
+  overflow: visible;
+}
+
+.job-picker-stage-line > .job-picker-stage:first-child .job-picker-card-label {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0 0.15rem;
+  box-sizing: border-box;
+}
+
 .job-picker-grid.job-picker-grid--stage {
   /* Stage grids should not inherit the tiny 1/7th-width cell sizing. */
   --jp-cell: clamp(8.25rem, 10vw, 9.5rem);
   width: auto;
   justify-content: center;
+}
+
+/* Renewal Expanded tab: tier rows share a 6-column track so columns line up across class lines. */
+.job-picker-expanded-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.job-picker-matrix-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.45rem 0.55rem;
+  align-items: start;
+  justify-items: center;
+  min-width: 0;
+}
+
+.job-picker-matrix-cell {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.job-picker-matrix-cell-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.job-picker-matrix-cell-inner.job-picker-grid--stage {
+  width: 100%;
+}
+
+.job-picker-matrix-cell--empty {
+  min-height: 1px;
+  pointer-events: none;
+}
+
+.job-picker-matrix-row--arrows {
+  align-items: center;
+  padding: 0.1rem 0 0.05rem;
+  pointer-events: none;
+}
+
+.job-picker-matrix-arrow-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 1.2rem;
+  padding: 0.08rem 0;
+}
+
+.job-picker-matrix-tier-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(220, 235, 255, 0.55);
+  font-weight: 800;
+  font-size: 1.05rem;
+  line-height: 1;
+  user-select: none;
+}
+
+/* SE/SR-only tier: one shared ↓ for ninja + gunslinger + summoner columns (skip row). */
+.job-picker-matrix-row--arrows-compact-tier-skip {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.job-picker-matrix-row--arrows-compact-tier-skip .job-picker-matrix-arrow-cell--cluster {
+  grid-column: span 3;
+}
+
+.job-picker-matrix-arrow-cell--hold {
+  min-height: 1.2rem;
+  padding: 0.08rem 0;
+}
+
+/* Match starter-row label behavior for the matrix first tier (sprite alignment). */
+.job-picker-expanded-matrix .job-picker-matrix-row:first-child .job-picker-card,
+.job-picker-expanded-matrix .job-picker-matrix-row:first-child .job-picker-card-split {
+  position: relative;
+  min-height: unset;
+  overflow: visible;
+}
+
+.job-picker-expanded-matrix .job-picker-matrix-row:first-child .job-picker-card-label {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0 0.15rem;
+  box-sizing: border-box;
 }
 
 .job-picker-stage-arrow {
@@ -5356,6 +5674,69 @@ header.planner-header .site-nav {
     padding: 0;
   }
 
+  /* Room for starter name below sprite when label is out-of-flow (desktop rule); stacked layout needs explicit space. */
+  .job-picker-stage-line > .job-picker-stage:first-child {
+    padding-bottom: 1.75rem;
+  }
+
+  .job-picker-stage-line > .job-picker-stage:first-child .job-picker-card,
+  .job-picker-stage-line > .job-picker-stage:first-child .job-picker-card-split {
+    min-height: unset;
+  }
+
+  #job-picker-body-line:is(
+      [data-line-anchor="JT_NINJA"],
+      [data-line-anchor="JT_GUNSLINGER"],
+      [data-line-anchor="JT_SUPERNOVICE"],
+      [data-line-anchor="JT_DO_SUMMONER"]
+    )
+    .job-picker-stage-line
+    > .job-picker-stage:first-child {
+    padding-bottom: 0;
+  }
+
+  #job-picker-body-line:is(
+      [data-line-anchor="JT_NINJA"],
+      [data-line-anchor="JT_GUNSLINGER"],
+      [data-line-anchor="JT_SUPERNOVICE"],
+      [data-line-anchor="JT_DO_SUMMONER"]
+    )
+    .job-picker-stage-line
+    > .job-picker-stage:first-child
+    .job-picker-card,
+  #job-picker-body-line:is(
+      [data-line-anchor="JT_NINJA"],
+      [data-line-anchor="JT_GUNSLINGER"],
+      [data-line-anchor="JT_SUPERNOVICE"],
+      [data-line-anchor="JT_DO_SUMMONER"]
+    )
+    .job-picker-stage-line
+    > .job-picker-stage:first-child
+    .job-picker-card-split {
+    min-height: 6.7rem;
+  }
+
+  .job-picker-expanded-matrix {
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .job-picker-matrix-row {
+    min-width: min(42rem, max-content);
+    grid-template-columns: repeat(6, minmax(5.75rem, 1fr));
+    gap: 0.4rem 0.45rem;
+  }
+
+  .job-picker-expanded-matrix .job-picker-matrix-row:first-child {
+    padding-bottom: 1.75rem;
+  }
+
+  .job-picker-expanded-matrix .job-picker-matrix-row:first-child .job-picker-card,
+  .job-picker-expanded-matrix .job-picker-matrix-row:first-child .job-picker-card-split {
+    min-height: unset;
+  }
+
   .job-picker-grid {
     flex-direction: row;
     flex-wrap: wrap;
@@ -5363,6 +5744,23 @@ header.planner-header .site-nav {
     justify-content: center;
     row-gap: 0.65rem;
     column-gap: 0.45rem;
+  }
+
+  #job-picker-body-line .job-picker-grid {
+    column-gap: 0.3rem;
+    row-gap: 0.52rem;
+  }
+
+  #job-picker-body-line .job-picker-stage-line {
+    gap: 0.38rem 0.42rem;
+  }
+
+  #job-picker-body-line .job-picker-card,
+  #job-picker-body-line .job-picker-card-split,
+  #job-picker-body-line .job-picker-card-joined .job-picker-card {
+    width: 6.5rem;
+    max-width: 6.5rem;
+    min-height: 6.7rem;
   }
 
   .job-picker-card,

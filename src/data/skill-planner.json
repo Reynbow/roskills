@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-30T02:48:42.382Z",
+  "generated": "2026-05-01T03:25:14.994Z",
   "gameMode": "pre",
   "source": "skillinfo/*.lua + skilldescript.lub (English descriptions) + rAthena skill_db.yml (names / fallback) [pre-re db/pre-re/skill_db.yml]",
   "jobs": {

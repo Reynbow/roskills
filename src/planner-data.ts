@@ -360,6 +360,11 @@ function sortJobsByKeyOrder(
   });
 }
 
+/** One cell in the renewal Expanded tab alignment grid (`expandedMatrix` layout). */
+export type JobPickerMatrixCell =
+  | { readonly jobs: readonly string[]; readonly colSpan?: number }
+  | { readonly empty: true; readonly colSpan?: number };
+
 export type JobPickerSection = {
   heading: string;
   /** Single grid (Novice / first class). */
@@ -367,13 +372,20 @@ export type JobPickerSection = {
   /** Stacked grids (second class / transcendent rows). */
   jobRows?: { key: string; label: string }[][];
   /** When set, interpret `jobRows` as left→right progression stages (rendered horizontally). */
-  jobRowsLayout?: "progressionLine";
+  jobRowsLayout?: "progressionLine" | "expandedMatrix";
+  /**
+   * Renewal expanded: fixed-column rows so starters / 2nd / 3rd / 4th tiers line up across class lines.
+   * Used when `jobRowsLayout === "expandedMatrix"` (ignore `jobRows`).
+   */
+  expandedMatrixRows?: JobPickerMatrixCell[][];
 };
 
 function sectionHasJobs(g: JobPickerSection): boolean {
   return (
     (g.jobs != null && g.jobs.length > 0) ||
-    (g.jobRows != null && g.jobRows.some((r) => r.length > 0))
+    (g.jobRows != null && g.jobRows.some((r) => r.length > 0)) ||
+    (g.expandedMatrixRows != null &&
+      g.expandedMatrixRows.some((row) => row.some((c) => "jobs" in c && c.jobs.length > 0)))
   );
 }
 
@@ -383,6 +395,13 @@ function jobKeysForPickerSections(sections: JobPickerSection[]): string[] {
     if (s.jobs) for (const j of s.jobs) keys.push(j.key);
     if (s.jobRows)
       for (const row of s.jobRows) for (const j of row) if (j) keys.push(j.key);
+    if (s.expandedMatrixRows) {
+      for (const row of s.expandedMatrixRows) {
+        for (const c of row) {
+          if ("jobs" in c) for (const k of c.jobs) keys.push(k);
+        }
+      }
+    }
   }
   return keys;
 }
@@ -444,51 +463,47 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
     { heading: "Transcendent", jobRows: transRows },
   ].filter(sectionHasJobs);
 
+  const renewalExpandedMatrix: JobPickerMatrixCell[][] = [
+    [
+      { jobs: ["JT_SUPERNOVICE"] },
+      { jobs: ["JT_TAEKWON"], colSpan: 2 },
+      { jobs: ["JT_NINJA"] },
+      { jobs: ["JT_GUNSLINGER"] },
+      { jobs: ["JT_DO_SUMMONER"] },
+    ],
+    [
+      { jobs: ["JT_SUPERNOVICE2"] },
+      { jobs: ["JT_STAR"] },
+      { jobs: ["JT_LINKER"] },
+      { jobs: ["JT_KAGEROU", "JT_OBORO"] },
+      { jobs: ["JT_REBELLION"] },
+      { jobs: [ADVANCED_SUMMONER_KEY] },
+    ],
+    [
+      { empty: true },
+      { jobs: ["JT_STAR_EMPEROR"] },
+      { jobs: ["JT_SOUL_REAPER"] },
+      { empty: true },
+      { empty: true },
+      { empty: true },
+    ],
+    [
+      { jobs: ["JT_HYPER_NOVICE"] },
+      { jobs: ["JT_SKY_EMPEROR"] },
+      { jobs: ["JT_SOUL_ASCETIC"] },
+      { jobs: ["JT_SHINKIRO", "JT_SHIRANUI"] },
+      { jobs: ["JT_NIGHT_WATCH"] },
+      { jobs: ["JT_SPIRIT_HANDLER"] },
+    ],
+  ];
+
   const expandedSections: JobPickerSection[] = (
     getPlannerGameMode() === "renewal"
       ? ([
           {
-            heading: "Novice branches",
-            jobRows: [
-              row(["JT_SUPERNOVICE"]),
-              row(["JT_SUPERNOVICE2"]),
-              row(["JT_HYPER_NOVICE"]),
-            ].filter((r) => r.length > 0),
-            jobRowsLayout: "progressionLine",
-          },
-          {
-            heading: "Taekwon line",
-            jobRows: [
-              row(["JT_TAEKWON"]),
-              row(["JT_STAR", "JT_LINKER"]),
-              row(["JT_STAR_EMPEROR", "JT_SKY_EMPEROR", "JT_SOUL_REAPER", "JT_SOUL_ASCETIC"]),
-            ].filter((r) => r.length > 0),
-            jobRowsLayout: "progressionLine",
-          },
-          {
-            heading: "Ninja line",
-            jobRows: [
-              row(["JT_NINJA"]),
-              row(["JT_KAGEROU", "JT_OBORO"]),
-              row(["JT_SHIRANUI", "JT_SHINKIRO"]),
-            ].filter((r) => r.length > 0),
-            jobRowsLayout: "progressionLine",
-          },
-          {
-            heading: "Gunslinger line",
-            jobRows: [row(["JT_GUNSLINGER"]), row(["JT_REBELLION"]), row(["JT_NIGHT_WATCH"])].filter(
-              (r) => r.length > 0,
-            ),
-            jobRowsLayout: "progressionLine",
-          },
-          {
-            heading: "Summoner line",
-            jobRows: [
-              row(["JT_DO_SUMMONER"]),
-              row([ADVANCED_SUMMONER_KEY]),
-              row(["JT_SPIRIT_HANDLER"]),
-            ].filter((r) => r.length > 0),
-            jobRowsLayout: "progressionLine",
+            heading: "Expanded classes",
+            jobRowsLayout: "expandedMatrix",
+            expandedMatrixRows: renewalExpandedMatrix,
           },
         ] satisfies JobPickerSection[])
       : ([
@@ -568,6 +583,117 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
   return tabs.filter(
     (t) => t.sections.length > 0 || t.thirdPathSplit != null,
   );
+}
+
+/**
+ * Progression rows for the per-line class picker modal (renewal-oriented; pre-renewal omits missing keys).
+ * Each row is one horizontal stage; pairs use the same job keys as the main picker (joined cards where applicable).
+ */
+const CLASS_LINE_MODAL_STAGES: Record<string, readonly (readonly string[])[]> = {
+  JT_SWORDMAN: [
+    ["JT_SWORDMAN"],
+    ["JT_KNIGHT", "JT_CRUSADER"],
+    ["JT_KNIGHT_H", "JT_CRUSADER_H"],
+    ["JT_RUNE_KNIGHT_H", "JT_ROYAL_GUARD_H"],
+    ["JT_DRAGON_KNIGHT", "JT_IMPERIAL_GUARD"],
+  ],
+  JT_MAGICIAN: [
+    ["JT_MAGICIAN"],
+    ["JT_WIZARD", "JT_SAGE"],
+    ["JT_WIZARD_H", "JT_SAGE_H"],
+    ["JT_WARLOCK_H", "JT_SORCERER_H"],
+    ["JT_ARCH_MAGE", "JT_ELEMENTAL_MASTER"],
+  ],
+  JT_MERCHANT: [
+    ["JT_MERCHANT"],
+    ["JT_BLACKSMITH", "JT_ALCHEMIST"],
+    ["JT_BLACKSMITH_H", "JT_ALCHEMIST_H"],
+    ["JT_MECHANIC_H", "JT_GENETIC_H"],
+    ["JT_MEISTER", "JT_BIOLO"],
+  ],
+  JT_ACOLYTE: [
+    ["JT_ACOLYTE"],
+    ["JT_PRIEST", "JT_MONK"],
+    ["JT_PRIEST_H", "JT_MONK_H"],
+    ["JT_ARCHBISHOP_H", "JT_SURA_H"],
+    ["JT_CARDINAL", "JT_INQUISITOR"],
+  ],
+  JT_THIEF: [
+    ["JT_THIEF"],
+    ["JT_ASSASSIN", "JT_ROGUE"],
+    ["JT_ASSASSIN_H", "JT_ROGUE_H"],
+    ["JT_GUILLOTINE_CROSS_H", "JT_SHADOW_CHASER_H"],
+    ["JT_SHADOW_CROSS", "JT_ABYSS_CHASER"],
+  ],
+  JT_ARCHER: [
+    ["JT_ARCHER"],
+    ["JT_HUNTER", "JT_BARD", "JT_DANCER"],
+    ["JT_HUNTER_H", "JT_BARD_H", "JT_DANCER_H"],
+    ["JT_RANGER_H", "JT_MINSTREL_H", "JT_WANDERER_H"],
+    ["JT_WINDHAWK", "JT_TROUBADOUR", "JT_TROUVERE"],
+  ],
+  JT_TAEKWON: [
+    ["JT_TAEKWON"],
+    ["JT_STAR", "JT_LINKER"],
+    ["JT_STAR_EMPEROR", "JT_SOUL_REAPER"],
+    ["JT_SKY_EMPEROR", "JT_SOUL_ASCETIC"],
+  ],
+  JT_NINJA: [
+    ["JT_NINJA"],
+    ["JT_KAGEROU", "JT_OBORO"],
+    ["JT_SHINKIRO", "JT_SHIRANUI"],
+  ],
+  JT_GUNSLINGER: [["JT_GUNSLINGER"], ["JT_REBELLION"], ["JT_NIGHT_WATCH"]],
+  JT_SUPERNOVICE: [["JT_SUPERNOVICE"], ["JT_SUPERNOVICE2"], ["JT_HYPER_NOVICE"]],
+  JT_DO_SUMMONER: [
+    ["JT_DO_SUMMONER"],
+    [ADVANCED_SUMMONER_KEY],
+    ["JT_SPIRIT_HANDLER"],
+  ],
+};
+
+const CLASS_LINE_SHORTCUT_ORDER: readonly string[] = [
+  "JT_SWORDMAN",
+  "JT_MAGICIAN",
+  "JT_MERCHANT",
+  "JT_ACOLYTE",
+  "JT_THIEF",
+  "JT_ARCHER",
+  "JT_TAEKWON",
+  "JT_NINJA",
+  "JT_GUNSLINGER",
+  "JT_SUPERNOVICE",
+  "JT_DO_SUMMONER",
+];
+
+/** Optional toolbar labels (otherwise uses `JobData.label`). */
+const CLASS_LINE_SHORTCUT_LABEL: Partial<Record<string, string>> = {
+  JT_MAGICIAN: "Mage",
+  JT_DO_SUMMONER: "Summoner",
+};
+
+/** Job keys per stage row for the line-specific class modal, omitting keys not in the current game mode. */
+export function classLineModalJobRows(anchorKey: string): string[][] {
+  const raw = CLASS_LINE_MODAL_STAGES[anchorKey];
+  if (!raw) return [];
+  const available = new Set(listJobs().map((j) => j.key));
+  const out: string[][] = [];
+  for (const row of raw) {
+    const keys = row.filter((k) => available.has(k));
+    if (keys.length > 0) out.push([...keys]);
+  }
+  return out;
+}
+
+export function listClassLineShortcuts(): { anchorKey: string; label: string }[] {
+  const out: { anchorKey: string; label: string }[] = [];
+  for (const anchorKey of CLASS_LINE_SHORTCUT_ORDER) {
+    if (classLineModalJobRows(anchorKey).length === 0) continue;
+    const override = CLASS_LINE_SHORTCUT_LABEL[anchorKey];
+    const job = resolveJobData(anchorKey);
+    out.push({ anchorKey, label: override ?? job?.label ?? anchorKey });
+  }
+  return out;
 }
 
 export function getJobData(jobKey: string): JobData | undefined {

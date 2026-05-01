@@ -2,7 +2,9 @@ import "./style.css";
 import { inject } from "@vercel/analytics";
 import {
   listJobPickerTabs,
+  listClassLineShortcuts,
   listJobs,
+  classLineModalJobRows,
   getJobData,
   buildSkillsForJob,
   getEdgesForJob,
@@ -35,7 +37,69 @@ try {
 const STORAGE_KEY = "ro-planner-state-v2";
 const GAME_MODE_STORAGE_KEY = "ro-planner-game-mode";
 const THIRD_CLASS_PATH_STORAGE_KEY = "ro-planner-third-class-path";
+/** Remember class-line vs category tab view between modal opens (per game mode). */
+const CLASS_PICKER_VIEW_STORAGE_KEY = "ro-planner-class-picker-view";
 type ThirdClassPathKey = "trans" | "base";
+
+type StoredClassPickerView =
+  | { mode: "line"; lineAnchor: string }
+  | { mode: "tabs"; tabId: string };
+
+function classPickerViewStorageKey(): string {
+  return `${CLASS_PICKER_VIEW_STORAGE_KEY}:${getPlannerGameMode()}`;
+}
+
+function persistClassPickerViewFromUi(root: HTMLElement): void {
+  try {
+    if (jobPickerInlineLineKey) {
+      localStorage.setItem(
+        classPickerViewStorageKey(),
+        JSON.stringify({ mode: "line", lineAnchor: jobPickerInlineLineKey } satisfies StoredClassPickerView),
+      );
+      return;
+    }
+    const activeTab = root.querySelector(
+      ".job-picker-tab[aria-selected=\"true\"]",
+    ) as HTMLButtonElement | null;
+    const tabId = activeTab?.dataset.jobPickerTab;
+    if (tabId) {
+      localStorage.setItem(
+        classPickerViewStorageKey(),
+        JSON.stringify({ mode: "tabs", tabId } satisfies StoredClassPickerView),
+      );
+      return;
+    }
+    localStorage.removeItem(classPickerViewStorageKey());
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
+function applyStoredClassPickerView(root: HTMLElement): void {
+  let raw: string | null = null;
+  try {
+    raw = localStorage.getItem(classPickerViewStorageKey());
+  } catch {
+    return;
+  }
+  if (!raw) return;
+  let parsed: StoredClassPickerView;
+  try {
+    parsed = JSON.parse(raw) as StoredClassPickerView;
+  } catch {
+    return;
+  }
+  if (parsed.mode === "line" && parsed.lineAnchor) {
+    if (classLineModalJobRows(parsed.lineAnchor).length === 0) return;
+    showJobPickerInlineLineView(root, parsed.lineAnchor);
+    return;
+  }
+  if (parsed.mode === "tabs" && parsed.tabId) {
+    const tabs = listJobPickerTabs();
+    if (!tabs.some((t) => t.id === parsed.tabId)) return;
+    applyJobPickerTab(root, parsed.tabId);
+  }
+}
 
 function getDefaultThirdPathForJobPicker(jobKey: string): ThirdClassPathKey {
   if (isThirdClassKey(jobKey)) {
@@ -62,6 +126,7 @@ function applyThirdClassPathPanel(root: HTMLElement, path: ThirdClassPathKey): v
       btn.setAttribute("aria-pressed", on ? "true" : "false");
     },
   );
+  scheduleFitJobPickerStageStarterLabels(root);
 }
 
 function alignThirdClassPathToCurrentJobIfApplicable(root: HTMLElement, jobKey: string): void {
@@ -170,6 +235,10 @@ function currentPlannerSlot(raw: Stored): PlannerSlot {
 }
 
 let currentJob = DEFAULT_JOB;
+
+/** When set, main class picker body shows this first-job line progression instead of category tabs. */
+let jobPickerInlineLineKey: string | null = null;
+
 let levels: Record<string, number> = {};
 let skills: SkillDef[] = [];
 let edges: PrereqEdge[] = [];
@@ -682,6 +751,21 @@ function scheduleFitSkillText(root: HTMLElement): void {
   });
 }
 
+/** Progression "starter" row labels sit in a narrow column; keep one line (e.g. Super Novice) via font scaling. */
+function scheduleFitJobPickerStageStarterLabels(root: HTMLElement): void {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const rf = rootFontPx();
+      const minPx = 0.52 * rf;
+      const sel =
+        ".job-picker-stage-line > .job-picker-stage:first-child .job-picker-card-label, .job-picker-expanded-matrix .job-picker-matrix-row:first-child .job-picker-card-label";
+      root.querySelectorAll(sel).forEach((n) => {
+        if (n instanceof HTMLElement) fitSingleLineNoWrap(n, minPx);
+      });
+    });
+  });
+}
+
 function fitTooltipDynamicText(): void {
   if (tooltip.hidden) return;
   const rf = rootFontPx();
@@ -689,6 +773,107 @@ function fitTooltipDynamicText(): void {
   if (t instanceof HTMLElement) fitSingleLineNoWrap(t, 0.62 * rf);
   tooltip.querySelectorAll(".tooltip-skill-list li").forEach((li) => {
     if (li instanceof HTMLElement) fitSingleLineNoWrap(li, 0.54 * rf);
+  });
+}
+
+function buildClassLineOpenButtonsMarkup(): string {
+  return listClassLineShortcuts()
+    .map(
+      (s) =>
+        `<button type="button" class="job-picker-modal-line-shortcut" data-class-line-anchor="${escapeHtml(s.anchorKey)}" aria-pressed="false">${escapeHtml(s.label)}</button>`,
+    )
+    .join("");
+}
+
+function clearJobPickerCategoryTabSelection(root: HTMLElement): void {
+  root.querySelectorAll(".job-picker-tab").forEach((btn) => {
+    const el = btn as HTMLButtonElement;
+    el.setAttribute("aria-selected", "false");
+    el.tabIndex = -1;
+    el.classList.remove("job-picker-tab--active");
+  });
+}
+
+function clearJobPickerLineShortcutSelection(root: HTMLElement): void {
+  root.querySelectorAll(".job-picker-modal-line-shortcut").forEach((b) => {
+    const el = b as HTMLButtonElement;
+    el.classList.remove("job-picker-modal-line-shortcut--active");
+    el.setAttribute("aria-pressed", "false");
+  });
+}
+
+function buildJobPickerInlineLineBodyHtml(rows: string[][]): string {
+  const stages = rows
+    .map((keys, ri) => {
+      const picks = jobPickerPicksFromKeys(keys);
+      if (picks.length === 0) return "";
+      const cards = jobPickerRowHtml(picks, false);
+      const arrow =
+        ri === 0 ? "" : `<div class="job-picker-stage-arrow" aria-hidden="true">→</div>`;
+      return `${arrow}<div class="job-picker-stage" role="group" aria-label="Stage ${ri + 1}">
+        <div class="job-picker-grid job-picker-grid--stage">${cards}</div>
+      </div>`;
+    })
+    .join("");
+  return `<div class="job-picker-stage-line" role="group" aria-label="Class progression">${stages}</div>`;
+}
+
+function exitJobPickerInlineLineView(root: HTMLElement): void {
+  if (!jobPickerInlineLineKey) return;
+  jobPickerInlineLineKey = null;
+  const main = root.querySelector("#job-picker-body-main") as HTMLElement | null;
+  const line = root.querySelector("#job-picker-body-line") as HTMLElement | null;
+  const title = root.querySelector("#job-picker-dialog-title");
+  main?.removeAttribute("hidden");
+  line?.setAttribute("hidden", "");
+  if (line) {
+    line.removeAttribute("data-line-anchor");
+    line.innerHTML = "";
+  }
+  if (title) title.textContent = "Choose class";
+  clearJobPickerLineShortcutSelection(root);
+}
+
+function showJobPickerInlineLineView(root: HTMLElement, anchorKey: string): void {
+  const rows = classLineModalJobRows(anchorKey);
+  if (rows.length === 0) return;
+  jobPickerInlineLineKey = anchorKey;
+  const main = root.querySelector("#job-picker-body-main") as HTMLElement | null;
+  const line = root.querySelector("#job-picker-body-line") as HTMLElement | null;
+  const title = root.querySelector("#job-picker-dialog-title");
+  if (!main || !line || !title) return;
+  const def = listClassLineShortcuts().find((d) => d.anchorKey === anchorKey);
+  title.textContent = `${def?.label ?? anchorKey} line`;
+  /* Hide category-tab panels before swapping line HTML so tab content never stacks with the line view. */
+  main.setAttribute("hidden", "");
+  line.innerHTML = `<div class="job-picker-body-line-inner">${buildJobPickerInlineLineBodyHtml(rows)}</div>`;
+  line.setAttribute("data-line-anchor", anchorKey);
+  for (const btn of line.querySelectorAll(".job-picker-card")) {
+    const key = (btn as HTMLButtonElement).dataset.jobKey;
+    if (!key) continue;
+    const sp = btn.querySelector(".job-picker-sprite") as HTMLElement | null;
+    if (sp) setJobPickerStandArt(sp, key);
+  }
+  setJobPickerSplitStandArt(root);
+  updateJobPickerStandStacking(root);
+  syncJobPickerUi(root);
+  line.removeAttribute("hidden");
+  clearJobPickerCategoryTabSelection(root);
+  root.querySelectorAll(".job-picker-modal-line-shortcut").forEach((b) => {
+    const btn = b as HTMLButtonElement;
+    const on = btn.dataset.classLineAnchor === anchorKey;
+    btn.classList.toggle("job-picker-modal-line-shortcut--active", on);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  scheduleFitJobPickerStageStarterLabels(root);
+  requestAnimationFrame(() => {
+    const focusEl =
+      (line.querySelector(".job-picker-card--current, .job-picker-split-hit--current") as
+        | HTMLElement
+        | null) ??
+      (line.querySelector(".job-picker-card, .job-picker-split-hit") as HTMLElement | null) ??
+      (root.querySelector(".job-picker-close") as HTMLElement | null);
+    focusEl?.focus();
   });
 }
 
@@ -1191,13 +1376,17 @@ function loadJobPickerStandHalf(cell: HTMLElement, url: string): void {
 const JOB_PICKER_STAND_MALE_ONLY = new Set<string>([
   "JT_BARD",
   "JT_BARD_H",
+  "JT_KAGEROU",
   "JT_MINSTREL",
   "JT_MINSTREL_H",
+  "JT_SHINKIRO",
   "JT_TROUBADOUR",
 ]);
 const JOB_PICKER_STAND_FEMALE_ONLY = new Set<string>([
   "JT_DANCER",
   "JT_DANCER_H",
+  "JT_OBORO",
+  "JT_SHIRANUI",
   "JT_WANDERER",
   "JT_WANDERER_H",
   "JT_TROUVERE",
@@ -1403,6 +1592,7 @@ function jobPickerCardHtml(
   key: string,
   label: string,
   joined?: "start" | "end",
+  showClassProgressionTab = true,
 ): string {
   const escKey = escapeHtml(key);
   const lab = escapeHtml(jobPickerDisplayLabel(key, label));
@@ -1412,14 +1602,21 @@ function jobPickerCardHtml(
       : joined === "end"
         ? " job-picker-card--joined job-picker-card--joined-end"
         : "";
+  const tab =
+    showClassProgressionTab ? jobPickerClassTabHtml(classProgressionTabLabel(key)) : "";
   return `<button type="button" class="job-picker-card${joinCls}" data-job-key="${escKey}" aria-label="${lab}">
-        ${jobPickerClassTabHtml(classProgressionTabLabel(key))}
+        ${tab}
         ${jobPickerCardSpriteHtml(key)}
         <span class="job-picker-card-label">${lab}</span>
       </button>`;
 }
 
-function jobPickerJoinedPairHtml(left: JobPickerPick, right: JobPickerPick, aria: string): string {
+function jobPickerJoinedPairHtml(
+  left: JobPickerPick,
+  right: JobPickerPick,
+  aria: string,
+  showClassProgressionTab = true,
+): string {
   const a = escapeHtml(aria);
   const leftKey = escapeHtml(left.key);
   const rightKey = escapeHtml(right.key);
@@ -1430,8 +1627,9 @@ function jobPickerJoinedPairHtml(left: JobPickerPick, right: JobPickerPick, aria
   const rightPrev = classProgressionTabLabel(right.key);
   const prevLabel =
     leftPrev && rightPrev ? (leftPrev === rightPrev ? leftPrev : `${leftPrev} / ${rightPrev}`) : leftPrev ?? rightPrev;
+  const tab = showClassProgressionTab ? jobPickerClassTabHtml(prevLabel) : "";
   return `<div class="job-picker-card-split" role="group" aria-label="${a}">
-        ${jobPickerClassTabHtml(prevLabel)}
+        ${tab}
         <span class="job-picker-sprite job-picker-sprite--card job-picker-sprite--split" aria-hidden="true">
           <span class="job-picker-stand-pair job-picker-stand-pair--split">
             <span class="job-picker-stand-pair__cell job-picker-split-sprite-cell" data-split-job-key="${leftKey}" data-stand-gender="male">
@@ -1449,40 +1647,54 @@ function jobPickerJoinedPairHtml(left: JobPickerPick, right: JobPickerPick, aria
 }
 
 /** One flex row: centered; gender-locked archer-line pairs render as one split visual with two buttons. */
-function jobPickerRowHtml(row: JobPickerPick[]): string {
+function jobPickerRowHtml(row: JobPickerPick[], showClassProgressionTab = true): string {
   const parts: string[] = [];
   for (let i = 0; i < row.length; i++) {
     const j = row[i]!;
     const next = row[i + 1];
     if (next && j.key === "JT_BARD" && next.key === "JT_DANCER") {
       parts.push(
-        jobPickerJoinedPairHtml(j, next, "Bard or Dancer (same second-class line)"),
+        jobPickerJoinedPairHtml(j, next, "Bard or Dancer (same second-class line)", showClassProgressionTab),
       );
       i++;
       continue;
     }
     if (next && j.key === "JT_BARD_H" && next.key === "JT_DANCER_H") {
       parts.push(
-        jobPickerJoinedPairHtml(j, next, "Clown or Gypsy (same transcendent archer line)"),
+        jobPickerJoinedPairHtml(j, next, "Clown or Gypsy (same transcendent archer line)", showClassProgressionTab),
+      );
+      i++;
+      continue;
+    }
+    if (next && j.key === "JT_KAGEROU" && next.key === "JT_OBORO") {
+      parts.push(
+        jobPickerJoinedPairHtml(j, next, "Kagerou or Oboro (same expanded ninja line)", showClassProgressionTab),
+      );
+      i++;
+      continue;
+    }
+    if (next && j.key === "JT_SHINKIRO" && next.key === "JT_SHIRANUI") {
+      parts.push(
+        jobPickerJoinedPairHtml(j, next, "Shinkiro or Shiranui (same expanded ninja line)", showClassProgressionTab),
       );
       i++;
       continue;
     }
     if (next && j.key === "JT_MINSTREL_H" && next.key === "JT_WANDERER_H") {
       parts.push(
-        jobPickerJoinedPairHtml(j, next, "Minstrel or Wanderer (same third-class archer line)"),
+        jobPickerJoinedPairHtml(j, next, "Minstrel or Wanderer (same third-class archer line)", showClassProgressionTab),
       );
       i++;
       continue;
     }
     if (next && j.key === "JT_TROUBADOUR" && next.key === "JT_TROUVERE") {
       parts.push(
-        jobPickerJoinedPairHtml(j, next, "Troubadour or Trouvere (same fourth-class archer line)"),
+        jobPickerJoinedPairHtml(j, next, "Troubadour or Trouvere (same fourth-class archer line)", showClassProgressionTab),
       );
       i++;
       continue;
     }
-    parts.push(jobPickerCardHtml(j.key, j.label));
+    parts.push(jobPickerCardHtml(j.key, j.label, undefined, showClassProgressionTab));
   }
   return parts.join("");
 }
@@ -1536,8 +1748,125 @@ function jobPickerThirdClassTabHtml(
   </div>${tail}`;
 }
 
+function jobPickerPicksFromKeys(keys: readonly string[]): JobPickerPick[] {
+  const picks: JobPickerPick[] = [];
+  for (const key of keys) {
+    const job = getJobData(key);
+    if (job) picks.push({ key: job.key, label: job.label });
+  }
+  return picks;
+}
+
+function jobPickerMatrixRowHtml(
+  row: NonNullable<JobPickerSection["expandedMatrixRows"]>[number],
+  ri: number,
+  labelEsc: string,
+): string {
+  const cells = row
+    .map((cell, ci) => {
+      const span = "colSpan" in cell && cell.colSpan != null ? cell.colSpan : 1;
+      const spanAttr = span > 1 ? ` style="grid-column: span ${span}"` : "";
+      if (!("jobs" in cell)) {
+        return `<div class="job-picker-matrix-cell job-picker-matrix-cell--empty"${spanAttr} aria-hidden="true"></div>`;
+      }
+      const picks = jobPickerPicksFromKeys(cell.jobs);
+      if (picks.length === 0) {
+        return `<div class="job-picker-matrix-cell job-picker-matrix-cell--empty"${spanAttr} aria-hidden="true"></div>`;
+      }
+      const cards = jobPickerRowHtml(picks);
+      return `<div class="job-picker-matrix-cell"${spanAttr} role="group" aria-label="${labelEsc}, row ${ri + 1}, slot ${ci + 1}"><div class="job-picker-matrix-cell-inner job-picker-grid job-picker-grid--stage">${cards}</div></div>`;
+    })
+    .join("");
+  return `<div class="job-picker-matrix-row" role="group" aria-label="${labelEsc}, tier ${ri + 1}">${cells}</div>`;
+}
+
+/** Down-arrows between tiers; grid matches the row above so arrows sit under each class column (incl. colspan). */
+function jobPickerMatrixArrowRowAfter(precedingRow: NonNullable<JobPickerSection["expandedMatrixRows"]>[number]): string {
+  const cells = precedingRow
+    .map((cell) => {
+      const span = "colSpan" in cell && cell.colSpan != null ? cell.colSpan : 1;
+      const spanAttr = span > 1 ? ` style="grid-column: span ${span}"` : "";
+      return `<div class="job-picker-matrix-cell job-picker-matrix-arrow-cell"${spanAttr} aria-hidden="true"><span class="job-picker-matrix-tier-arrow">↓</span></div>`;
+    })
+    .join("");
+  return `<div class="job-picker-matrix-row job-picker-matrix-row--arrows">${cells}</div>`;
+}
+
+/** Star Emperor / Soul Reaper tier only (other columns skip this row). */
+function isExpandedMatrixGapTierRow(
+  row: NonNullable<JobPickerSection["expandedMatrixRows"]>[number],
+): boolean {
+  if (row.length !== 6) return false;
+  const hasJob = (i: number) => "jobs" in row[i]! && row[i]!.jobs.length > 0;
+  return (
+    !hasJob(0) &&
+    hasJob(1) &&
+    hasJob(2) &&
+    !hasJob(3) &&
+    !hasJob(4) &&
+    !hasJob(5)
+  );
+}
+
+/**
+ * Entering SE/SR-only tier: only TM → Star Emperor and Soul Linker → Soul Reaper need arrows here.
+ * Skip columns (SN, ninja, gunslinger, summoner) get **no** arrow here — their ↓ appears only in the row
+ * after the gap tier (`jobPickerMatrixArrowRowCompactAfterGap`) so those paths are not double-stacked.
+ */
+function jobPickerMatrixArrowRowCompactBeforeGap(): string {
+  const down =
+    '<span class="job-picker-matrix-tier-arrow" aria-hidden="true">↓</span>';
+  const hold =
+    '<div class="job-picker-matrix-cell job-picker-matrix-arrow-cell job-picker-matrix-arrow-cell--hold" aria-hidden="true"></div>';
+  return `<div class="job-picker-matrix-row job-picker-matrix-row--arrows job-picker-matrix-row--arrows-compact-tier-skip" aria-hidden="true">
+  ${hold}
+  <div class="job-picker-matrix-cell job-picker-matrix-arrow-cell">${down}</div>
+  <div class="job-picker-matrix-cell job-picker-matrix-arrow-cell">${down}</div>
+  <div class="job-picker-matrix-cell job-picker-matrix-arrow-cell job-picker-matrix-arrow-cell--cluster job-picker-matrix-arrow-cell--hold" aria-hidden="true"></div>
+</div>`;
+}
+
+/** Leaving SE/SR-only tier: full-width ↓ row so every final-tier column (incl. Shinkiro/Shiranui, Spirit Handler) aligns. */
+function jobPickerMatrixArrowRowCompactAfterGap(): string {
+  const down =
+    '<span class="job-picker-matrix-tier-arrow" aria-hidden="true">↓</span>';
+  const cells = Array.from(
+    { length: 6 },
+    () =>
+      `<div class="job-picker-matrix-cell job-picker-matrix-arrow-cell" aria-hidden="true">${down}</div>`,
+  ).join("");
+  return `<div class="job-picker-matrix-row job-picker-matrix-row--arrows" aria-hidden="true">${cells}</div>`;
+}
+
+function jobPickerExpandedMatrixHtml(g: JobPickerSection, labelEsc: string): string {
+  const rows = g.expandedMatrixRows!;
+  const parts: string[] = [];
+  for (let ri = 0; ri < rows.length; ri++) {
+    parts.push(jobPickerMatrixRowHtml(rows[ri]!, ri, labelEsc));
+    if (ri < rows.length - 1) {
+      const pre = rows[ri]!;
+      const next = rows[ri + 1]!;
+      if (isExpandedMatrixGapTierRow(next)) {
+        parts.push(jobPickerMatrixArrowRowCompactBeforeGap());
+      } else if (isExpandedMatrixGapTierRow(pre)) {
+        parts.push(jobPickerMatrixArrowRowCompactAfterGap());
+      } else {
+        parts.push(jobPickerMatrixArrowRowAfter(pre));
+      }
+    }
+  }
+  return `<div class="job-picker-expanded-matrix" role="group" aria-label="${labelEsc}">${parts.join("")}</div>`;
+}
+
 function jobPickerSectionHtml(g: JobPickerSection, sid: string): string {
   const labelEsc = escapeHtml(g.heading);
+  if (g.jobRowsLayout === "expandedMatrix" && g.expandedMatrixRows?.length) {
+    const matrix = jobPickerExpandedMatrixHtml(g, labelEsc);
+    return `<section class="job-picker-section" aria-labelledby="${sid}">
+        <h3 class="job-picker-section-title" id="${sid}">${labelEsc}</h3>
+        ${matrix}
+      </section>`;
+  }
   if (g.jobRows?.length) {
     if (g.jobRowsLayout === "progressionLine") {
       const stages = g.jobRows
@@ -1579,7 +1908,9 @@ function jobPickerSectionsHtml(sections: JobPickerSection[], idPrefix: string): 
   const filtered = sections.filter(
     (g) =>
       (g.jobs != null && g.jobs.length > 0) ||
-      (g.jobRows != null && g.jobRows.some((r) => r.length > 0)),
+      (g.jobRows != null && g.jobRows.some((r) => r.length > 0)) ||
+      (g.expandedMatrixRows != null &&
+        g.expandedMatrixRows.some((row) => row.some((c) => "jobs" in c && c.jobs.length > 0))),
   );
   return filtered.map((g, i) => jobPickerSectionHtml(g, `${idPrefix}-sec-${i}`)).join("");
 }
@@ -1590,6 +1921,8 @@ function jobPickerTabIdForJob(tabs: JobPickerTabDef[], jobKey: string): string {
 }
 
 function applyJobPickerTab(root: HTMLElement, activeId: string): void {
+  exitJobPickerInlineLineView(root);
+  clearJobPickerLineShortcutSelection(root);
   root.querySelectorAll(".job-picker-tab").forEach((btn) => {
     const el = btn as HTMLButtonElement;
     const id = el.dataset.jobPickerTab;
@@ -1607,6 +1940,7 @@ function applyJobPickerTab(root: HTMLElement, activeId: string): void {
   if (activeId === "third") {
     alignThirdClassPathToCurrentJobIfApplicable(root, currentJob);
   }
+  scheduleFitJobPickerStageStarterLabels(root);
 }
 
 function closeJobPickerDialog(root: HTMLElement): void {
@@ -1685,18 +2019,47 @@ function buildJobPickerPanelsHtml(pickerTabs: JobPickerTabDef[], initialTabId: s
     .join("");
 }
 
-function buildJobPickerDialogInnerMarkup(pickerTabs: JobPickerTabDef[], initialTabId: string): string {
-  const tablistHtml = buildJobPickerTablistHtml(pickerTabs, initialTabId);
+function remountJobPickerDialog(root: HTMLElement): void {
+  const dialog = root.querySelector("#job-picker-dialog") as HTMLDialogElement | null;
+  if (!dialog) return;
+  jobPickerInlineLineKey = null;
+  const tabs = listJobPickerTabs();
+  const initialTabId = jobPickerTabIdForJob(tabs, currentJob);
+  dialog.innerHTML = buildJobPickerDialogInnerMarkup(tabs, initialTabId, "Choose class");
+  wireJobPickerInteractions(root, { skipDialogShell: true });
+  applyJobPickerTab(root, initialTabId);
+}
+
+function buildJobPickerDialogInnerMarkup(
+  pickerTabs: JobPickerTabDef[],
+  initialTabId: string,
+  dialogTitle = "Choose class",
+): string {
+  const tablistHtml =
+    pickerTabs.length > 1 ? buildJobPickerTablistHtml(pickerTabs, initialTabId) : "";
   const panelsHtml = buildJobPickerPanelsHtml(pickerTabs, initialTabId);
-  return `${pickerTabs.length > 1 ? `<aside class="job-picker-tabrail">${tablistHtml}</aside>` : ""}
+  const lineShortcutsHtml = buildClassLineOpenButtonsMarkup();
+  const categoriesBlock = tablistHtml
+    ? `<div class="job-picker-tabrail-block job-picker-tabrail-block--categories">${tablistHtml}</div>`
+    : "";
+  const tabrailHtml = `<aside class="job-picker-tabrail">
+    ${categoriesBlock}
+    <div class="job-picker-tabrail-block job-picker-tabrail-block--lines">
+      <div class="job-picker-modal-line-shortcuts job-picker-modal-line-shortcuts--tabrail" role="group" aria-label="Class line progression pickers">
+        ${lineShortcutsHtml}
+      </div>
+    </div>
+  </aside>`;
+  return `${tabrailHtml}
       <div class="job-picker-dialog-panel">
         <div class="job-picker-dialog-head">
-          <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">Choose class</h2>
+          <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">${escapeHtml(dialogTitle)}</h2>
           <button type="button" class="job-picker-close" aria-label="Close class picker">×</button>
         </div>
         <div class="job-picker-dialog-scroll">
           <div id="job-picker-body" role="region" aria-label="Character classes">
-            ${panelsHtml}
+            <div id="job-picker-body-main">${panelsHtml}</div>
+            <div id="job-picker-body-line" class="job-picker-body-line" hidden></div>
           </div>
         </div>
       </div>`;
@@ -1717,11 +2080,17 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
 
   if (!opts.skipDialogShell) {
     trigger.addEventListener("click", () => {
-      applyJobPickerTab(root, jobPickerTabIdForJob(listJobPickerTabs(), currentJob));
+      remountJobPickerDialog(root);
+      applyStoredClassPickerView(root);
       dialog.showModal();
       trigger.setAttribute("aria-expanded", "true");
       requestAnimationFrame(() => {
-        const cur = root.querySelector(
+        const line = root.querySelector("#job-picker-body-line") as HTMLElement | null;
+        const focusRoot =
+          line && !line.hasAttribute("hidden")
+            ? line
+            : (root.querySelector(".job-picker-dialog-panel") as HTMLElement | null) ?? root;
+        const cur = focusRoot.querySelector(
           ".job-picker-card--current, .job-picker-split-hit--current",
         ) as HTMLElement | null;
         (cur ?? root.querySelector(".job-picker-close"))?.focus();
@@ -1729,11 +2098,22 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
     });
 
     dialog.addEventListener("close", () => {
+      persistClassPickerViewFromUi(root);
+      jobPickerInlineLineKey = null;
       trigger.setAttribute("aria-expanded", "false");
       trigger.focus();
     });
 
     dialog.addEventListener("click", (e) => {
+      const lineBtn = (e.target as HTMLElement).closest(
+        ".job-picker-modal-line-shortcut",
+      ) as HTMLButtonElement | null;
+      if (lineBtn) {
+        const a = lineBtn.dataset.classLineAnchor;
+        if (!a) return;
+        showJobPickerInlineLineView(root, a);
+        return;
+      }
       if (e.target === dialog) closeJobPickerDialog(root);
     });
   }
@@ -1796,6 +2176,8 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
     if (!t?.dataset.jobKey) return;
     pickJobFromDialog(root, t.dataset.jobKey);
   });
+
+  scheduleFitJobPickerStageStarterLabels(root);
 }
 
 function applyGameModeFromUi(root: HTMLElement, mode: GameMode): void {
@@ -1807,12 +2189,11 @@ function applyGameModeFromUi(root: HTMLElement, mode: GameMode): void {
   saveState();
   syncGameModeToggleUi(root);
   const dialog = root.querySelector("#job-picker-dialog") as HTMLDialogElement | null;
-  const pickerTabs = listJobPickerTabs();
-  const initialTabId = jobPickerTabIdForJob(pickerTabs, currentJob);
   if (dialog) {
-    dialog.innerHTML = buildJobPickerDialogInnerMarkup(pickerTabs, initialTabId);
+    remountJobPickerDialog(root);
+  } else {
+    wireJobPickerInteractions(root, { skipDialogShell: true });
   }
-  wireJobPickerInteractions(root, { skipDialogShell: true });
   renderColumns(root);
   refreshAll(root);
   syncJobPickerUi(root);
@@ -1824,7 +2205,7 @@ function renderApp(root: HTMLElement): void {
 
   const pickerTabs = listJobPickerTabs();
   const initialTabId = jobPickerTabIdForJob(pickerTabs, currentJob);
-  const jobPickerDialogInner = buildJobPickerDialogInnerMarkup(pickerTabs, initialTabId);
+  const jobPickerDialogInner = buildJobPickerDialogInnerMarkup(pickerTabs, initialTabId, "Choose class");
 
   const initialGameMode = getPlannerGameMode();
   const initialDataActive = initialGameMode === "renewal" ? "renewal" : "pre";
