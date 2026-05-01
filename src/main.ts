@@ -178,18 +178,50 @@ function classSkillCaps(): readonly number[] {
 
 /** Single merged-column jobs that use a non-default tier-0 class point cap (rest use CLASS_SKILL_CAPS[0]). */
 const TIER0_CLASS_CAP_OVERRIDE: Partial<Record<string, number>> = {
-  /** Super Novice: total class pool is 99 (server rule). */
-  JT_SUPERNOVICE: 99,
-  /** Expanded classes: max job level 70 → 69 class skill points (Basic Skill still exempt). */
-  JT_TAEKWON: 69,
-  JT_STAR: 69,
-  JT_LINKER: 69,
+  /** Super Novice: total class pool is 98 (server rule). */
+  JT_SUPERNOVICE: 98,
+  /** Expanded base job pools. */
+  JT_TAEKWON: 49,
   JT_NINJA: 69,
+  // Renewal expanded ninja line: base Ninja column is still a 69-point expanded pool.
+  JT_KAGEROU: 69,
+  JT_OBORO: 69,
+  JT_SHINKIRO: 69,
+  JT_SHIRANUI: 69,
   JT_GUNSLINGER: 69,
+  JT_REBELLION: 69,
+  JT_NIGHT_WATCH: 69,
+  JT_SUPERNOVICE2: 69,
 };
 
 /** Transcendent jobs: second + transcendent columns share one pool (high 2nd max job level 70 → 69 points). */
 const TRANSCENDENT_COMBINED_SECOND_CAP = 69;
+
+/**
+ * Per-job per-tier class skill point caps.
+ * Tier index corresponds to content columns (excluding Quest/Special).
+ */
+const CLASS_TIER_CAP_OVERRIDE: Partial<Record<string, Partial<Record<number, number>>>> = {
+  // Taekwon line
+  JT_STAR_EMPEROR: { 0: 49, 2: 59 },
+  JT_SKY_EMPEROR: { 0: 49, 2: 59, 3: 49 },
+  JT_SOUL_ASCETIC: { 0: 49, 3: 49 },
+
+  // Ninja line
+  JT_KAGEROU: { 1: 59 },
+  JT_SHINKIRO: { 1: 59 },
+  JT_OBORO: { 1: 49 },
+  JT_SHIRANUI: { 1: 49, 2: 49 },
+
+  // Gunslinger line
+  JT_REBELLION: { 1: 59 },
+  JT_NIGHT_WATCH: { 1: 59, 2: 49 },
+
+  // Super Novice line
+  JT_SUPERNOVICE: { 0: 98 },
+  JT_SUPERNOVICE2: { 0: 69 },
+  JT_HYPER_NOVICE: { 0: 98, 1: 69, 2: 49 },
+};
 
 /** Basic Skill does not consume the per-class skill point budget (matches common planner / in-game treatment). */
 const BASIC_SKILL_ID = "nv_basic";
@@ -438,6 +470,8 @@ function getContentColumnIndices(job: JobData): number[] {
 function capForClassTier(tierIndex: number): number {
   const caps = classSkillCaps();
   const job = getJobData(currentJob);
+  const override = job ? CLASS_TIER_CAP_OVERRIDE[job.key]?.[tierIndex] : undefined;
+  if (typeof override === "number") return override;
   if (job && shouldMergeTranscendentIntoSecondPanel(job)) {
     if (tierIndex === 0) {
       return TIER0_CLASS_CAP_OVERRIDE[job.key] ?? caps[0]!;
