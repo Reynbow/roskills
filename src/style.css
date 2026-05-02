@@ -4829,6 +4829,62 @@ header.planner-header .site-nav {
   min-height: 0;
 }
 
+/*
+ * Aside stays narrow so the main skill grid keeps width. Quest rows use a slightly denser control
+ * strip (smaller icon, pill, ±) so everything stays on one line without misaligned buttons.
+ */
+.skill-panel--quest .skill-node {
+  padding: 0.4rem 0.45rem;
+}
+
+.skill-panel--quest .skill-node-row {
+  gap: 0.35rem;
+}
+
+.skill-panel--quest .skill-icon {
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.88rem;
+}
+
+.skill-panel--quest .skill-node .name {
+  font-size: 0.74rem;
+}
+
+.skill-panel--quest .skill-node .lvl-disp {
+  flex: 0 0 4rem;
+  min-width: 4rem;
+  padding: 0.06rem 0.25rem;
+  font-size: 0.6rem;
+}
+
+.skill-panel--quest .skill-node .lvl-disp .cur,
+.skill-panel--quest .skill-node .lvl-disp .lvl-max,
+.skill-panel--quest .skill-node .lvl-disp .lvl-sep {
+  font-size: 0.66rem;
+}
+
+.skill-panel--quest .skill-node .lvl-row {
+  gap: 0.12rem;
+  margin-top: 0.06rem;
+}
+
+.skill-panel--quest .skill-node .lvl {
+  width: 1.35rem;
+  height: 1.35rem;
+  font-size: 0.8rem;
+}
+
+.skill-panel--quest .level-pips {
+  gap: 3px;
+}
+
+.skill-panel--quest .level-pips .pip {
+  width: 8px;
+  height: 8px;
+}
+
 .panel-title {
   display: flex;
   flex-wrap: wrap;
