@@ -29,7 +29,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
-import { buildPlannerJobsList } from "./planner-zrenderer-jobs.mjs";
+import { buildPlannerJobsList, PLANNER_KEYS_THIRD_CLASS_ALT_OUTFIT } from "./planner-zrenderer-jobs.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -75,6 +75,11 @@ const HEAD_ID_MAX = Number(process.env.ZRENDERER_HEAD_MAX ?? 24);
 const HEAD_SEED = process.env.ZRENDERER_HEAD_SEED ?? "ro-sit-sprites";
 
 const GENDERS = ["male", "female"];
+
+const THIRD_CLASS_ALT_KEYS = new Set(PLANNER_KEYS_THIRD_CLASS_ALT_OUTFIT);
+/** zrenderer `--outfit` for alternate 3rd class bodies (0 = default). */
+const ALT_OUTFIT_ID = Number(process.env.ZRENDERER_ALT_OUTFIT ?? 1);
+const SKIP_ALT_OUTFIT = /^(1|true|yes)$/i.test(process.env.ZRENDERER_SKIP_ALT_OUTFIT?.trim() ?? "");
 
 function fnv1a32(str) {
   let h = 2166136261 >>> 0;
@@ -289,13 +294,14 @@ function findRenderedPng(tmpOut, jobId, action, frame, legacy) {
   return fallback;
 }
 
-function runZrenderer(cmd, resourcePath, tmpOut, jobId, gender, headId) {
+function runZrenderer(cmd, resourcePath, tmpOut, jobId, gender, headId, outfit = 0) {
   const args = [
     `--resourcepath=${resourcePath}`,
     `--job=${jobId}`,
     `--action=${ACTION}`,
     `--gender=${gender}`,
     `--head=${headId}`,
+    `--outfit=${outfit}`,
     `--outdir=${tmpOut}`,
     `--enableShadow=false`,
     `--loglevel=warning`,
@@ -386,6 +392,14 @@ if (HEAD_FIXED !== undefined && HEAD_FIXED !== "") {
     `Heads: ${HEAD_ID_MIN}–${HEAD_ID_MAX} per job (seed "${HEAD_SEED}"). Set ZRENDERER_HEAD= for one style.\n`,
   );
 }
+if (!SKIP_ALT_OUTFIT && ALT_OUTFIT_ID > 0) {
+  console.log(
+    `3rd class alternate sit sprites: outfit id ${ALT_OUTFIT_ID} → *--(male|female)--alt.png (${THIRD_CLASS_ALT_KEYS.size} jobs). ` +
+      `Disable: ZRENDERER_SKIP_ALT_OUTFIT=1\n`,
+  );
+} else if (SKIP_ALT_OUTFIT) {
+  console.log("Skipping 3rd class alternate outfit renders (ZRENDERER_SKIP_ALT_OUTFIT).\n");
+}
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.mkdirSync(TMP_ROOT, { recursive: true });
@@ -400,53 +414,92 @@ for (const [key, jobId] of JOBS) {
 
   for (const gender of GENDERS) {
     const dest = path.join(OUT_DIR, `${key}--${gender}.png`);
-    if (SKIP_EXISTING && !FORCE && fs.existsSync(dest) && fs.statSync(dest).size > 800) {
+    const headId = pickHeadId(key, gender);
+    const defaultOkAlready = SKIP_EXISTING && !FORCE && fs.existsSync(dest) && fs.statSync(dest).size > 800;
+
+    if (!defaultOkAlready) {
+      const tmpOut = path.join(TMP_ROOT, `${key}--${gender}`);
+      fs.rmSync(tmpOut, { recursive: true, force: true });
+      fs.mkdirSync(tmpOut, { recursive: true });
+
+      let renderedJobId = null;
+      for (const tryId of jobIds) {
+        console.log(
+          `render ${key} (${gender}) (job ${tryId}${jobIds.length > 1 ? `/${jobIds.join("|")}` : ""}, head ${headId}${SIT_LEGACY ? `, headdir ${HEAD_DIR}` : ""})…`,
+        );
+        if (runZrenderer(zCmd, zrendererPath, tmpOut, tryId, gender, headId, 0)) {
+          renderedJobId = tryId;
+          break;
+        }
+        console.error(`  ✗ zrenderer failed for ${key} (${gender}) (job ${tryId})`);
+      }
+      if (renderedJobId === null) {
+        fail++;
+        continue;
+      }
+
+      const pickFrame = resolveSitPickFrame(tmpOut, renderedJobId, ACTION, SIT_LEGACY);
+      if (!SIT_LEGACY && SIT_FRAME_AUTO) {
+        const idxs = listSitOutputIndices(tmpOut, renderedJobId, ACTION);
+        console.log(
+          `  → sit output ${ACTION}-${pickFrame}.png (${idxs.length} frames, auto / ${SIT_HEAD_DIR_GROUP})`,
+        );
+      }
+
+      const png = findRenderedPng(tmpOut, renderedJobId, ACTION, pickFrame, SIT_LEGACY);
+      if (!png) {
+        console.error(`  ✗ no PNG found in ${tmpOut}`);
+        fail++;
+        continue;
+      }
+
+      fs.copyFileSync(png, dest);
+      console.log(`  ✓ ${dest}  (${fs.statSync(dest).size} bytes)`);
+      ok++;
+      anyOkForJob = true;
+    } else {
       console.log(`skip (exists): ${key} (${gender})`);
       skipped++;
       anyOkForJob = true;
-      continue;
     }
 
-    const tmpOut = path.join(TMP_ROOT, `${key}--${gender}`);
-    fs.rmSync(tmpOut, { recursive: true, force: true });
-    fs.mkdirSync(tmpOut, { recursive: true });
-
-    const headId = pickHeadId(key, gender);
-    let renderedJobId = null;
-    for (const tryId of jobIds) {
-      console.log(
-        `render ${key} (${gender}) (job ${tryId}${jobIds.length > 1 ? `/${jobIds.join("|")}` : ""}, head ${headId}${SIT_LEGACY ? `, headdir ${HEAD_DIR}` : ""})…`,
-      );
-      if (runZrenderer(zCmd, zrendererPath, tmpOut, tryId, gender, headId)) {
-        renderedJobId = tryId;
-        break;
+    const basePngOk = fs.existsSync(dest) && fs.statSync(dest).size > 800;
+    if (
+      basePngOk &&
+      THIRD_CLASS_ALT_KEYS.has(key) &&
+      !SKIP_ALT_OUTFIT &&
+      ALT_OUTFIT_ID > 0
+    ) {
+      const destAlt = path.join(OUT_DIR, `${key}--${gender}--alt.png`);
+      if (SKIP_EXISTING && !FORCE && fs.existsSync(destAlt) && fs.statSync(destAlt).size > 800) {
+        console.log(`  skip alt (exists): ${key} (${gender})`);
+      } else {
+        const tmpOutAlt = path.join(TMP_ROOT, `${key}--${gender}-alt${ALT_OUTFIT_ID}`);
+        fs.rmSync(tmpOutAlt, { recursive: true, force: true });
+        fs.mkdirSync(tmpOutAlt, { recursive: true });
+        let renderedAltId = null;
+        for (const tryId of jobIds) {
+          console.log(
+            `  render ${key} (${gender}) alt outfit ${ALT_OUTFIT_ID} (job ${tryId}${jobIds.length > 1 ? `/${jobIds.join("|")}` : ""}, head ${headId})…`,
+          );
+          if (runZrenderer(zCmd, zrendererPath, tmpOutAlt, tryId, gender, headId, ALT_OUTFIT_ID)) {
+            renderedAltId = tryId;
+            break;
+          }
+          console.error(`  ✗ zrenderer alt outfit failed for ${key} (${gender}) (job ${tryId})`);
+        }
+        if (renderedAltId !== null) {
+          const pickFrameAlt = resolveSitPickFrame(tmpOutAlt, renderedAltId, ACTION, SIT_LEGACY);
+          const pngAlt = findRenderedPng(tmpOutAlt, renderedAltId, ACTION, pickFrameAlt, SIT_LEGACY);
+          if (pngAlt) {
+            fs.copyFileSync(pngAlt, destAlt);
+            console.log(`  ✓ ${destAlt} (${fs.statSync(destAlt).size} bytes)`);
+          } else {
+            console.error(`  ✗ no alt outfit PNG in ${tmpOutAlt}`);
+          }
+        }
       }
-      console.error(`  ✗ zrenderer failed for ${key} (${gender}) (job ${tryId})`);
     }
-    if (renderedJobId === null) {
-      fail++;
-      continue;
-    }
-
-    const pickFrame = resolveSitPickFrame(tmpOut, renderedJobId, ACTION, SIT_LEGACY);
-    if (!SIT_LEGACY && SIT_FRAME_AUTO) {
-      const idxs = listSitOutputIndices(tmpOut, renderedJobId, ACTION);
-      console.log(
-        `  → sit output ${ACTION}-${pickFrame}.png (${idxs.length} frames, auto / ${SIT_HEAD_DIR_GROUP})`,
-      );
-    }
-
-    const png = findRenderedPng(tmpOut, renderedJobId, ACTION, pickFrame, SIT_LEGACY);
-    if (!png) {
-      console.error(`  ✗ no PNG found in ${tmpOut}`);
-      fail++;
-      continue;
-    }
-
-    fs.copyFileSync(png, dest);
-    console.log(`  ✓ ${dest}  (${fs.statSync(dest).size} bytes)`);
-    ok++;
-    anyOkForJob = true;
   }
 
   // If one gender fails but the other succeeded, keep the UI functional by copying.
@@ -462,6 +515,19 @@ for (const [key, jobId] of JOBS) {
     } else if (femaleOk && !maleOk) {
       fs.copyFileSync(female, male);
       console.log(`  ↺ copied ${key}: female → male (fallback)`);
+    }
+    if (THIRD_CLASS_ALT_KEYS.has(key)) {
+      const maleA = path.join(OUT_DIR, `${key}--male--alt.png`);
+      const femaleA = path.join(OUT_DIR, `${key}--female--alt.png`);
+      const mAok = fs.existsSync(maleA) && fs.statSync(maleA).size > 800;
+      const fAok = fs.existsSync(femaleA) && fs.statSync(femaleA).size > 800;
+      if (mAok && !fAok) {
+        fs.copyFileSync(maleA, femaleA);
+        console.log(`  ↺ copied ${key} alt: male → female (fallback)`);
+      } else if (fAok && !mAok) {
+        fs.copyFileSync(femaleA, maleA);
+        console.log(`  ↺ copied ${key} alt: female → male (fallback)`);
+      }
     }
   }
 }

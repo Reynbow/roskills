@@ -104,6 +104,13 @@ export const JOBS_RENEWAL_EXTRA = [
 ];
 
 /**
+ * Renewal 3rd class jobs only (client ids 4054–4079): kRO added alternate body sprites
+ * (dress room / achievements / stylist — varies by server). zrenderer renders them with `--outfit=1`.
+ * @type {readonly string[]}
+ */
+export const PLANNER_KEYS_THIRD_CLASS_ALT_OUTFIT = JOBS_RENEWAL_EXTRA.slice(0, 26).map(([k]) => k);
+
+/**
  * @param {{ renewalOnly?: boolean; withRenewal?: boolean }} o
  * @returns {readonly [string, number | readonly number[]][]}
  */

@@ -26,7 +26,7 @@ import {
 } from "./planner-data";
 import { jobPartyFrameIconImgClass, jobPartyFrameIconUrl } from "./job-party-icon";
 import { jobPickerStandSpriteUrl } from "./job-previews";
-import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl } from "./job-sit-sprite";
+import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl, jobStandDockLocalPngUrl } from "./job-sit-sprite";
 
 // Initialize Vercel Web Analytics (never block app shell if script fails)
 try {
@@ -1254,8 +1254,8 @@ function renderColumns(root: HTMLElement): void {
   const job = getJobData(currentJob);
   if (!board || !job) return;
 
-  const sitDockPreserve = root.querySelector("#job-sit-dock");
-  sitDockPreserve?.remove();
+  const sitStackPreserve = root.querySelector("#job-sit-stack");
+  sitStackPreserve?.remove();
 
   unlockTooltip(root);
 
@@ -1369,6 +1369,18 @@ function renderColumns(root: HTMLElement): void {
 
   if (questIdx >= 0) {
     const colDef = job.columns[questIdx];
+    const asideCol = document.createElement("div");
+    asideCol.className = "tree-aside-col";
+
+    if (sitStackPreserve) {
+      sitStackPreserve.classList.remove("job-sit-stack--overlay");
+      const spriteSec = document.createElement("section");
+      spriteSec.className = "skill-panel skill-panel--sprite";
+      spriteSec.setAttribute("aria-label", "Class sitting sprite");
+      spriteSec.appendChild(sitStackPreserve);
+      asideCol.appendChild(spriteSec);
+    }
+
     const aside = document.createElement("aside");
     aside.className = "skill-panel skill-panel--quest";
     aside.dataset.column = String(questIdx);
@@ -1381,17 +1393,13 @@ function renderColumns(root: HTMLElement): void {
     }
     stack.appendChild(renderSkillList(questSkills));
     aside.appendChild(stack);
-    if (sitDockPreserve) {
-      sitDockPreserve.classList.remove("job-sit-dock--overlay");
-      aside.appendChild(sitDockPreserve);
-    }
-    body.appendChild(aside);
+    asideCol.appendChild(aside);
+    body.appendChild(asideCol);
   } else {
     const treeWrap = root.querySelector("#tree-wrap");
-    if (sitDockPreserve && treeWrap) {
-      treeWrap.appendChild(sitDockPreserve);
-      sitDockPreserve.classList.remove("job-sit-dock--hidden");
-      sitDockPreserve.classList.add("job-sit-dock--overlay");
+    if (sitStackPreserve && treeWrap) {
+      treeWrap.appendChild(sitStackPreserve);
+      sitStackPreserve.classList.add("job-sit-stack--overlay");
     }
   }
 
@@ -1401,9 +1409,15 @@ function renderColumns(root: HTMLElement): void {
 }
 
 const GENDER_STORAGE_KEY = "ro-sit-gender";
+const SIT_OUTFIT_ALT_STORAGE_KEY = "ro-sit-third-class-outfit-alt";
+const DOCK_POSE_STORAGE_KEY = "ro-sit-dock-pose";
 type SitGender = "male" | "female";
+type DockPose = "sit" | "stand";
 let sitGender: SitGender = (localStorage.getItem(GENDER_STORAGE_KEY) as SitGender) || "male";
 if (sitGender !== "male" && sitGender !== "female") sitGender = "male";
+/** Alternate body sprite (zrenderer outfit 1) for renewal 3rd classes when `*--gender--alt.png` exists. */
+let sitThirdClassOutfitAlt = localStorage.getItem(SIT_OUTFIT_ALT_STORAGE_KEY) === "1";
+let dockPose: DockPose = localStorage.getItem(DOCK_POSE_STORAGE_KEY) === "stand" ? "stand" : "sit";
 
 function loadJobPickerStandHalf(cell: HTMLElement, url: string): void {
   cell.querySelectorAll(".job-picker-sprite-img").forEach((n) => n.remove());
@@ -1539,18 +1553,51 @@ function syncJobPickerUi(root: HTMLElement): void {
   setJobPickerSplitStandArt(root);
   updateJobPickerStandStacking(root);
 
+  const sitStack = root.querySelector("#job-sit-stack") as HTMLElement | null;
   const sitDock = root.querySelector("#job-sit-dock") as HTMLElement | null;
   const sitImg = root.querySelector("#job-sit-sprite-img") as HTMLImageElement | null;
-  if (sitDock && sitImg) {
-    // Prefer anchoring in the Quest/Special panel when present; otherwise, show as a dock overlay.
-    sitDock.classList.toggle("job-sit-dock--overlay", !sitDock.closest(".skill-panel--quest"));
+  const outfitGroup = root.querySelector("#job-sit-outfit-toggle") as HTMLElement | null;
+  const poseBtn = root.querySelector("#btn-job-dock-pose") as HTMLButtonElement | null;
+  const dockControlsRow = root.querySelector(".job-sit-dock-controls-row") as HTMLElement | null;
+  if (sitStack && sitDock && sitImg) {
+    sitStack.classList.toggle("job-sit-stack--overlay", !sitStack.closest(".tree-aside-col"));
 
-    const sitKey = `${currentJob}::${sitGender}`;
+    const showOutfitToggle = isThirdClassKey(currentJob);
+    dockControlsRow?.classList.toggle("job-sit-dock-controls-row--pose-only", !showOutfitToggle);
+    if (outfitGroup) {
+      outfitGroup.hidden = !showOutfitToggle;
+      outfitGroup.dataset.active = sitThirdClassOutfitAlt ? "alt" : "default";
+      outfitGroup.querySelectorAll(".game-mode-toggle__btn").forEach((btn) => {
+        const b = btn as HTMLButtonElement;
+        const isAltBtn = b.dataset.sitOutfit === "1";
+        const on = sitThirdClassOutfitAlt === isAltBtn;
+        b.classList.toggle("game-mode-toggle__btn--active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
+    if (poseBtn) {
+      const standing = dockPose === "stand";
+      poseBtn.classList.toggle("job-dock-pose-btn--stand", standing);
+      poseBtn.setAttribute("aria-pressed", standing ? "true" : "false");
+      poseBtn.setAttribute(
+        "aria-label",
+        standing ? "Pose: standing. Click to show sitting sprite." : "Pose: sitting. Click to show standing sprite.",
+      );
+    }
+
+    const sitKey = `${currentJob}::${sitGender}::${sitThirdClassOutfitAlt ? "alt" : "def"}::${dockPose}`;
+    sitImg.classList.toggle("job-sit-dock__img--stand-pose", dockPose === "stand");
     if (sitImg.dataset.sitForJob === sitKey) return;
     sitImg.dataset.sitForJob = sitKey;
 
-    const localSit = jobSitLocalPngUrl(currentJob, sitGender);
+    const localSitDefault = jobSitLocalPngUrl(currentJob, sitGender, { outfitAlt: false });
+    const localSitAlt = jobSitLocalPngUrl(currentJob, sitGender, { outfitAlt: true });
     const legacyLocalSit = `${import.meta.env.BASE_URL}job-sit/${currentJob}.png`;
+    const localStandDefault = jobStandDockLocalPngUrl(currentJob, sitGender, { outfitAlt: false });
+    const localStandAlt = jobStandDockLocalPngUrl(currentJob, sitGender, { outfitAlt: true });
+    const legacyLocalStand = `${import.meta.env.BASE_URL}job-stand-dock/${currentJob}.png`;
+    const pickerStandUrl = jobPickerStandSpriteUrl(currentJob, sitGender);
     const portrait = jobSitPortraitFallbackUrl(currentJob);
     const missingDataUri = (): string => {
       const esc = (s: string): string =>
@@ -1573,6 +1620,29 @@ function syncJobPickerUi(root: HTMLElement): void {
 </svg>`;
       return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
     };
+
+    const urls: string[] = [];
+    if (dockPose === "sit") {
+      if (showOutfitToggle && sitThirdClassOutfitAlt) {
+        urls.push(localSitAlt);
+      }
+      urls.push(localSitDefault);
+      if (legacyLocalSit !== localSitDefault) {
+        urls.push(legacyLocalSit);
+      }
+    } else {
+      if (showOutfitToggle && sitThirdClassOutfitAlt) {
+        urls.push(localStandAlt);
+      }
+      urls.push(localStandDefault);
+      if (legacyLocalStand !== localStandDefault) {
+        urls.push(legacyLocalStand);
+      }
+      if (pickerStandUrl !== localStandDefault && pickerStandUrl !== localStandAlt) {
+        urls.push(pickerStandUrl);
+      }
+    }
+
     sitDock.classList.remove("job-sit-dock--hidden");
     sitImg.classList.add("job-sit-dock__img--loading");
     sitImg.classList.remove("job-sit-dock__img--fail");
@@ -1580,6 +1650,8 @@ function syncJobPickerUi(root: HTMLElement): void {
     sitImg.decoding = "async";
 
     const finishOk = (): void => {
+      sitImg.onload = null;
+      sitImg.onerror = null;
       sitImg.classList.remove("job-sit-dock__img--loading");
       sitDock.classList.remove("job-sit-dock--hidden");
     };
@@ -1599,17 +1671,23 @@ function syncJobPickerUi(root: HTMLElement): void {
       sitImg.src = portrait;
     };
 
-    let triedLegacy = false;
-    sitImg.onload = finishOk;
-    sitImg.onerror = (): void => {
-      if (!triedLegacy && legacyLocalSit !== localSit) {
-        triedLegacy = true;
-        sitImg.src = legacyLocalSit;
+    let urlIdx = 0;
+    const tryNextUrl = (): void => {
+      if (urlIdx >= urls.length) {
+        tryPortrait();
         return;
       }
-      tryPortrait();
+      const nextUrl = urls[urlIdx]!;
+      urlIdx++;
+      sitImg.onload = (): void => {
+        finishOk();
+      };
+      sitImg.onerror = (): void => {
+        tryNextUrl();
+      };
+      sitImg.src = nextUrl;
     };
-    sitImg.src = localSit;
+    tryNextUrl();
   }
 }
 
@@ -2327,8 +2405,88 @@ function renderApp(root: HTMLElement): void {
     </div>
     <div class="tree-wrap" id="tree-wrap">
       <div class="tree-board" id="tree-board"></div>
-      <div class="job-sit-dock" id="job-sit-dock" aria-hidden="true">
-        <img class="job-sit-dock__img" id="job-sit-sprite-img" alt="" width="120" height="120" />
+      <div class="job-sit-stack" id="job-sit-stack" aria-hidden="true">
+        <div class="job-sit-dock" id="job-sit-dock">
+          <img class="job-sit-dock__img" id="job-sit-sprite-img" alt="" width="120" height="120" />
+        </div>
+        <div class="job-sit-dock-controls-row">
+          <div
+            class="game-mode-toggle game-mode-toggle--header game-mode-toggle--sit-outfit"
+            id="job-sit-outfit-toggle"
+            data-active="default"
+            role="group"
+            aria-label="Third class outfit sprite"
+            hidden
+          >
+            <span class="game-mode-toggle__slider" aria-hidden="true"></span>
+            <button type="button" class="game-mode-toggle__btn game-mode-toggle__btn--active" data-sit-outfit="0" aria-pressed="true">
+              <span class="game-mode-toggle__text">Default</span>
+            </button>
+            <button type="button" class="game-mode-toggle__btn" data-sit-outfit="1" aria-pressed="false">
+              <span class="game-mode-toggle__text">Alt</span>
+            </button>
+          </div>
+          <button
+            type="button"
+            class="job-dock-pose-btn"
+            id="btn-job-dock-pose"
+            aria-pressed="false"
+            aria-label="Pose: sitting. Click to show standing sprite."
+          >
+            <svg
+              class="job-dock-pose-icon job-dock-pose-icon--sit"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M3.5 17.5H20.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle cx="15.25" cy="7.25" r="2.25" fill="currentColor" />
+              <path
+                d="M15.25 9.5 12.75 14.75 8.75 17.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="job-dock-pose-icon job-dock-pose-icon--stand"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="12" cy="5" r="2.25" fill="currentColor" />
+              <path
+                d="M12 7.5v8"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M12 15.5 8.25 21M12 15.5 15.75 21"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="job-dock-pose-caption job-dock-pose-caption--sit" aria-hidden="true">Sit</span>
+            <span class="job-dock-pose-caption job-dock-pose-caption--stand" aria-hidden="true">Stand</span>
+          </button>
+        </div>
       </div>
     </div>
     <dialog class="job-picker-dialog" id="job-picker-dialog" aria-labelledby="job-picker-dialog-title">
@@ -2383,6 +2541,22 @@ function renderApp(root: HTMLElement): void {
     sitGender = sitGender === "female" ? "male" : "female";
     localStorage.setItem(GENDER_STORAGE_KEY, sitGender);
     syncGenderBtn();
+    syncJobPickerUi(root);
+  });
+
+  root.querySelectorAll("#job-sit-outfit-toggle .game-mode-toggle__btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const b = btn as HTMLButtonElement;
+      const v = b.dataset.sitOutfit;
+      sitThirdClassOutfitAlt = v === "1";
+      localStorage.setItem(SIT_OUTFIT_ALT_STORAGE_KEY, sitThirdClassOutfitAlt ? "1" : "0");
+      syncJobPickerUi(root);
+    });
+  });
+
+  root.querySelector("#btn-job-dock-pose")?.addEventListener("click", () => {
+    dockPose = dockPose === "stand" ? "sit" : "stand";
+    localStorage.setItem(DOCK_POSE_STORAGE_KEY, dockPose);
     syncJobPickerUi(root);
   });
 

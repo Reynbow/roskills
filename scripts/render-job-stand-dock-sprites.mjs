@@ -1,0 +1,542 @@
+/**
+ * Batch-render **standing** (idle) class sprites for the skill-planner dock: zrenderer action 0, with the
+ * **same** head-direction slice and head seed as `render-job-sit-sprites.mjs` (ZRENDERER_SIT_HEAD_DIR,
+ * ZRENDERER_SIT_FRAME, ZRENDERER_HEAD_SEED, etc.) so stand/sit toggles match facing.
+ *
+ * Output: `public/job-stand-dock/{JT_*}--(male|female).png` and `*--alt.png` for 3rd jobs (outfit 1).
+ *
+ * Prerequisites: same as sit script (zrenderer + RO_ZRENDERER_RESOURCES).
+ *
+ * Usage:
+ *   RO_ZRENDERER_RESOURCES="C:\path\to\data" node scripts/render-job-stand-dock-sprites.mjs
+ *   RO_ZRENDERER_RESOURCES="C:\path\to\renewal\data" node scripts/render-job-stand-dock-sprites.mjs --renewal-only
+ *
+ * Override idle action if needed: ZRENDERER_STAND_DOCK_ACTION=0 (default).
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
+import { buildPlannerJobsList, PLANNER_KEYS_THIRD_CLASS_ALT_OUTFIT } from "./planner-zrenderer-jobs.mjs";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.join(__dirname, "..");
+const OUT_DIR = path.join(ROOT, "public", "job-stand-dock");
+const TMP_ROOT = path.join(ROOT, ".tmp-zrender-stand-dock");
+
+const PRINT_ONLY = process.argv.includes("--print-only");
+const SKIP_EXISTING = process.argv.includes("--skip-existing");
+const FORCE = process.argv.includes("--force");
+const RENEWAL_ONLY = process.argv.includes("--renewal-only");
+const WITH_RENEWAL = process.argv.includes("--with-renewal");
+
+const JOBS = buildPlannerJobsList({
+  renewalOnly: RENEWAL_ONLY,
+  withRenewal: WITH_RENEWAL,
+});
+
+const ACTION = Number(process.env.ZRENDERER_STAND_DOCK_ACTION ?? 0);
+const SIT_FRAME_RAW = process.env.ZRENDERER_SIT_FRAME?.trim() ?? "";
+/** If unset or "auto", pick a slice from one of the three head-direction groups zrenderer uses (see pickAutoSitOutputIndex). */
+const SIT_FRAME_AUTO = SIT_FRAME_RAW === "" || /^auto$/i.test(SIT_FRAME_RAW);
+const SIT_PICK_FRAME_MANUAL = SIT_FRAME_AUTO ? NaN : Number(SIT_FRAME_RAW);
+/**
+ * Which head-direction third to prefer when auto-picking (zrenderer maps output i to dir i / (maxframes/3)).
+ * left=dir 2 (last third), right=dir 1 (middle), straight=dir 0 (first). Default "right" (middle) tends
+ * to read as a side view when only 3 sit frames exist; use "left" for zrenderer’s last third / README sit frame 2.
+ */
+const SIT_HEAD_DIR_GROUP = (process.env.ZRENDERER_SIT_HEAD_DIR ?? "right").trim().toLowerCase();
+/**
+ * Old pipeline: `--frame=SIT_PICK_FRAME` in one shot. Head often stays "front" because zrenderer only
+ * applies --headdir when --frame < 0 (see zrenderer source/app.d + renderer.d).
+ * Leave unset to use multi-frame export (recommended).
+ */
+const SIT_LEGACY = /^(1|true|yes)$/i.test(process.env.ZRENDERER_SIT_LEGACY?.trim() ?? "");
+const DEFAULT_GENDER = process.env.ZRENDERER_GENDER ?? "male";
+/** Fixed head id for every job; if unset, each job gets a stable pseudo-random head (see pickHeadId). */
+const HEAD_FIXED = process.env.ZRENDERER_HEAD?.trim();
+/** Only used with ZRENDERER_SIT_LEGACY=1; ignored for multi-frame export (uses all). */
+const HEAD_DIR = process.env.ZRENDERER_HEAD_DIR ?? "left";
+const HEAD_ID_MIN = Number(process.env.ZRENDERER_HEAD_MIN ?? 1);
+const HEAD_ID_MAX = Number(process.env.ZRENDERER_HEAD_MAX ?? 24);
+/** String mixed into the per-job head hash so you can reshuffle hairstyles without changing job keys. */
+const HEAD_SEED = process.env.ZRENDERER_HEAD_SEED ?? "ro-sit-sprites";
+
+const GENDERS = ["male", "female"];
+
+const THIRD_CLASS_ALT_KEYS = new Set(PLANNER_KEYS_THIRD_CLASS_ALT_OUTFIT);
+/** zrenderer `--outfit` for alternate 3rd class bodies (0 = default). */
+const ALT_OUTFIT_ID = Number(process.env.ZRENDERER_ALT_OUTFIT ?? 1);
+const SKIP_ALT_OUTFIT = /^(1|true|yes)$/i.test(process.env.ZRENDERER_SKIP_ALT_OUTFIT?.trim() ?? "");
+
+function fnv1a32(str) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return h >>> 0;
+}
+
+/** Stable hairstyle per job (same inputs → same head id). Override with ZRENDERER_HEAD=12. */
+function pickHeadId(jobKey, gender) {
+  if (HEAD_FIXED !== undefined && HEAD_FIXED !== "") {
+    return String(Number(HEAD_FIXED));
+  }
+  const span = HEAD_ID_MAX - HEAD_ID_MIN + 1;
+  if (span <= 0) return String(HEAD_ID_MIN);
+  const n = fnv1a32(`${HEAD_SEED}\0${gender}\0${jobKey}`) % span;
+  return String(HEAD_ID_MIN + n);
+}
+
+function bundledZrendererExe() {
+  return path.join(ROOT, "third_party", "zrenderer-win", "zrenderer.exe");
+}
+
+function resolveZrendererCmd() {
+  const fromEnv = process.env.ZRENDERER_CMD?.trim();
+  if (fromEnv) return fromEnv;
+  const b = bundledZrendererExe();
+  if (fs.existsSync(b)) return b;
+  return "zrenderer";
+}
+
+/**
+ * Inner RO `data` folder (contains luafiles514/, sprite/, …).
+ * zrenderer 1.4.x joins paths like `data/sprite/...` relative to a *client* root, so if your
+ * tree is `...\something\data\` with `luafiles514` inside that inner `data`, pass that inner
+ * path to assertRoDataRoot — and use zrendererResourceRoot() for --resourcepath.
+ */
+function assertRoDataRoot(dir) {
+  const datainfo = path.join(dir, "luafiles514", "lua files", "datainfo");
+  if (!fs.existsSync(datainfo)) {
+    console.error(
+      "RO_ZRENDERER_RESOURCES does not look like an RO client *data* folder.\n" +
+        `Missing: ${datainfo}\n` +
+        "Point it at the extracted `data` directory from your full client (see zrenderer RESOURCES.md).\n" +
+        "This repo’s `skillinfo/` folder alone is not enough — you need sprites + lua datainfo from the game.",
+    );
+    process.exit(1);
+  }
+  let names;
+  try {
+    names = fs.readdirSync(datainfo);
+  } catch {
+    console.error(`Cannot read: ${datainfo}`);
+    process.exit(1);
+  }
+  if (!names.some((f) => f.toLowerCase().startsWith("accessoryid"))) {
+    console.error(
+      `No accessoryid.* under ${datainfo} — resource tree is incomplete for zrenderer.`,
+    );
+    process.exit(1);
+  }
+}
+
+/**
+ * Directory to pass as zrenderer `--resourcepath`: parent of the inner `data` folder when the
+ * layout is `<resourcepath>/data/luafiles514` (common for Gravity-style extracts).
+ */
+function zrendererResourceRoot(innerDataRoot) {
+  const resolved = path.resolve(innerDataRoot);
+  const base = path.basename(resolved);
+  if (base.toLowerCase() !== "data") return resolved;
+  const parent = path.dirname(resolved);
+  const innerLua = path.join(resolved, "luafiles514");
+  const innerSprite = path.join(resolved, "sprite");
+  const viaParent = path.join(parent, "data", "luafiles514");
+  if (
+    fs.existsSync(innerLua) &&
+    fs.existsSync(innerSprite) &&
+    fs.existsSync(viaParent) &&
+    path.resolve(viaParent) === path.resolve(innerLua)
+  ) {
+    return parent;
+  }
+  return resolved;
+}
+
+function zrendererCwd(cmd) {
+  const exe = path.resolve(cmd);
+  if (exe.endsWith(`${path.sep}zrenderer.exe`) || exe.endsWith(`${path.sep}zrenderer`)) {
+    const d = path.dirname(exe);
+    if (fs.existsSync(path.join(d, "resolver_data"))) return d;
+  }
+  return ROOT;
+}
+
+function* walkFiles(dir) {
+  if (!fs.existsSync(dir)) return;
+  for (const name of fs.readdirSync(dir)) {
+    const p = path.join(dir, name);
+    const st = fs.statSync(p);
+    if (st.isDirectory()) yield* walkFiles(p);
+    else yield p;
+  }
+}
+
+/**
+ * Indices of `action-N.png` zrenderer wrote under tmpOut/jobId/.
+ */
+function listSitOutputIndices(tmpOut, jobId, action) {
+  const id = String(jobId);
+  const dir = path.join(tmpOut, id);
+  if (!fs.existsSync(dir)) return [];
+  const prefix = `${action}-`;
+  const suffix = ".png";
+  const out = [];
+  for (const name of fs.readdirSync(dir)) {
+    if (!name.startsWith(prefix) || !name.endsWith(suffix)) continue;
+    if (name.slice(prefix.length, -suffix.length).includes("-")) continue;
+    const n = Number(name.slice(prefix.length, -suffix.length));
+    if (Number.isFinite(n)) out.push(n);
+  }
+  return out.sort((a, b) => a - b);
+}
+
+/**
+ * zrenderer renderer.d: for sit/stand + headdir=all, head dir = floor(i / (maxframes/3)).
+ * Pick the middle frame of the chosen direction group (0=straight, 1=right, 2=left in zrenderer enums).
+ */
+function pickAutoSitOutputIndex(indices) {
+  if (indices.length === 0) return 2;
+  const maxIdx = indices[indices.length - 1];
+  const maxframes = maxIdx + 1;
+  if (maxframes < 3) {
+    const i = Math.min(indices.length - 1, Math.max(0, Math.floor(indices.length / 2)));
+    return indices[i];
+  }
+  const third = Math.floor(maxframes / 3);
+  if (third < 1) return maxIdx;
+  let dir = 2;
+  if (SIT_HEAD_DIR_GROUP === "right" || SIT_HEAD_DIR_GROUP === "1") dir = 1;
+  else if (
+    SIT_HEAD_DIR_GROUP === "straight" ||
+    SIT_HEAD_DIR_GROUP === "front" ||
+    SIT_HEAD_DIR_GROUP === "0"
+  ) {
+    dir = 0;
+  }
+  const start = dir * third;
+  const end = Math.min(maxIdx, (dir + 1) * third - 1);
+  if (start > end) return indices[Math.floor(indices.length / 2)];
+  return start + Math.floor((end - start) / 2);
+}
+
+function resolveSitPickFrame(tmpOut, jobId, action, legacy) {
+  if (legacy) {
+    return Number.isFinite(SIT_PICK_FRAME_MANUAL) ? SIT_PICK_FRAME_MANUAL : 2;
+  }
+  if (Number.isFinite(SIT_PICK_FRAME_MANUAL)) return SIT_PICK_FRAME_MANUAL;
+  const indices = listSitOutputIndices(tmpOut, jobId, action);
+  return pickAutoSitOutputIndex(indices);
+}
+
+/**
+ * Multi-frame + --singleframes writes `tmpOut/<jobId>/<action>-<i>.png`.
+ * Legacy single shot uses `job_action_frame.png` or similar.
+ */
+function findRenderedPng(tmpOut, jobId, action, frame, legacy) {
+  const id = String(jobId);
+  const ordered = legacy
+    ? [
+        path.join(tmpOut, `${jobId}_${action}_${frame}.png`),
+        path.join(tmpOut, `${id}_${action}_${frame}.png`),
+        path.join(tmpOut, id, `${action}-${frame}.png`),
+        path.join(tmpOut, id, `${action}_${frame}.png`),
+      ]
+    : [
+        path.join(tmpOut, id, `${action}-${frame}.png`),
+        path.join(tmpOut, id, `${action}_${frame}.png`),
+        path.join(tmpOut, `${jobId}_${action}_${frame}.png`),
+        path.join(tmpOut, `${id}_${action}_${frame}.png`),
+      ];
+  for (const p of ordered) {
+    try {
+      if (fs.existsSync(p) && fs.statSync(p).size > 800) return p;
+    } catch {
+      /* ignore */
+    }
+  }
+  let fallback = null;
+  let fallbackSize = 0;
+  for (const p of walkFiles(tmpOut)) {
+    if (!p.toLowerCase().endsWith(".png")) continue;
+    const sz = fs.statSync(p).size;
+    if (sz < 800) continue;
+    const base = path.basename(p);
+    if (base.startsWith(`${id}_`) && sz > fallbackSize) {
+      fallback = p;
+      fallbackSize = sz;
+    }
+  }
+  if (fallback) return fallback;
+  for (const p of walkFiles(tmpOut)) {
+    if (!p.toLowerCase().endsWith(".png")) continue;
+    const sz = fs.statSync(p).size;
+    if (sz > fallbackSize) {
+      fallback = p;
+      fallbackSize = sz;
+    }
+  }
+  return fallback;
+}
+
+function runZrenderer(cmd, resourcePath, tmpOut, jobId, gender, headId, outfit = 0) {
+  const args = [
+    `--resourcepath=${resourcePath}`,
+    `--job=${jobId}`,
+    `--action=${ACTION}`,
+    `--gender=${gender}`,
+    `--head=${headId}`,
+    `--outfit=${outfit}`,
+    `--outdir=${tmpOut}`,
+    `--enableShadow=false`,
+    `--loglevel=warning`,
+  ];
+  if (SIT_LEGACY) {
+    const lf = Number.isFinite(SIT_PICK_FRAME_MANUAL) ? SIT_PICK_FRAME_MANUAL : 2;
+    args.push(`--frame=${lf}`, `--headdir=${HEAD_DIR}`);
+  } else {
+    args.push(`--frame=-1`, `--headdir=all`, `--singleframes=true`);
+  }
+  const res = spawnSync(cmd, args, {
+    stdio: "inherit",
+    cwd: zrendererCwd(cmd),
+    env: process.env,
+    shell: false,
+  });
+  return res.status === 0;
+}
+
+if (PRINT_ONLY) {
+  console.log(
+    "# Set RO_ZRENDERER_RESOURCES, then run each line (or run this script without --print-only).\n",
+  );
+  for (const [key, jobIdOrIds] of JOBS) {
+    const jobIds = Array.isArray(jobIdOrIds) ? jobIdOrIds : [jobIdOrIds];
+    console.log(
+      `# ${key} (job ${jobIds.join(" | ")}) → public\\job-stand-dock\\${key}--(male|female).png\n` +
+        `# Same facing as sit script: ZRENDERER_SIT_HEAD_DIR / ZRENDERER_SIT_FRAME. Multi export: --frame=-1 --headdir=all --singleframes=true.\n` +
+        `# Run once for each gender (male + female):\n` +
+        `zrenderer --resourcepath="$RO_ZRENDERER_RESOURCES" --job=<one of: ${jobIds.join(", ")}> --action=${ACTION} --frame=-1 --headdir=all --singleframes=true --gender=male --head=<id> --outdir=./tmp-zrender-one --enableShadow=false\n` +
+        `zrenderer --resourcepath="$RO_ZRENDERER_RESOURCES" --job=<one of: ${jobIds.join(", ")}> --action=${ACTION} --frame=-1 --headdir=all --singleframes=true --gender=female --head=<id> --outdir=./tmp-zrender-one --enableShadow=false\n` +
+        `# then copy the generated PNG(s) to public\\job-stand-dock\\${key}--male.png and public\\job-stand-dock\\${key}--female.png\n`,
+    );
+  }
+  process.exit(0);
+}
+
+const resourcePath = process.env.RO_ZRENDERER_RESOURCES?.trim();
+if (!resourcePath) {
+  console.error(
+    "Missing RO_ZRENDERER_RESOURCES (path to unpacked RO client data for zrenderer).\n" +
+      "See: https://github.com/zhad3/zrenderer/blob/main/RESOURCES.md\n" +
+      "Example: RO_ZRENDERER_RESOURCES=C:\\\\ro\\\\extracted\\\\data node scripts/render-job-stand-dock-sprites.mjs\n" +
+      "Or run with --print-only to only print commands.",
+  );
+  process.exit(1);
+}
+
+if (!fs.existsSync(resourcePath)) {
+  console.error(`RO_ZRENDERER_RESOURCES does not exist: ${resourcePath}`);
+  process.exit(1);
+}
+
+const absRes = path.resolve(resourcePath);
+assertRoDataRoot(absRes);
+const zrendererPath = zrendererResourceRoot(absRes);
+
+const zCmd = resolveZrendererCmd();
+const looksLikeExplicitPath =
+  zCmd.includes(path.sep) || zCmd.endsWith(".exe") || path.isAbsolute(zCmd);
+if (looksLikeExplicitPath && !fs.existsSync(zCmd)) {
+  console.error(`zrenderer executable not found: ${zCmd}\nRun: npm run setup:zrenderer`);
+  process.exit(1);
+}
+if (fs.existsSync(bundledZrendererExe()) && path.resolve(zCmd) === path.resolve(bundledZrendererExe())) {
+  console.log(`Using bundled zrenderer: ${zCmd}\n`);
+}
+if (zrendererPath !== absRes) {
+  console.log(`zrenderer --resourcepath: ${zrendererPath} (inner data: ${absRes})\n`);
+}
+if (SIT_LEGACY) {
+  const lf = Number.isFinite(SIT_PICK_FRAME_MANUAL) ? SIT_PICK_FRAME_MANUAL : 2;
+  console.log(`Stand dock: LEGACY (--frame=${lf}, --headdir=${HEAD_DIR}) — head may not match body.\n`);
+} else if (SIT_FRAME_AUTO) {
+  console.log(
+    `Stand dock: multi-frame; auto-pick stand PNG (same head dir as sit: "${SIT_HEAD_DIR_GROUP}": left|right|straight). ` +
+      `Override slice: ZRENDERER_SIT_FRAME=<n>\n`,
+  );
+} else {
+  console.log(
+    `Stand dock: multi-frame; fixed slice ZRENDERER_SIT_FRAME=${SIT_PICK_FRAME_MANUAL} → ${ACTION}-${SIT_PICK_FRAME_MANUAL}.png.\n`,
+  );
+}
+if (HEAD_FIXED !== undefined && HEAD_FIXED !== "") {
+  console.log(`Using fixed head id for all jobs: ${HEAD_FIXED}\n`);
+} else {
+  console.log(
+    `Heads: ${HEAD_ID_MIN}–${HEAD_ID_MAX} per job (seed "${HEAD_SEED}"). Set ZRENDERER_HEAD= for one style.\n`,
+  );
+}
+if (!SKIP_ALT_OUTFIT && ALT_OUTFIT_ID > 0) {
+  console.log(
+    `3rd class alternate stand dock sprites: outfit id ${ALT_OUTFIT_ID} → *--(male|female)--alt.png (${THIRD_CLASS_ALT_KEYS.size} jobs). ` +
+      `Disable: ZRENDERER_SKIP_ALT_OUTFIT=1\n`,
+  );
+} else if (SKIP_ALT_OUTFIT) {
+  console.log("Skipping 3rd class alternate outfit renders (ZRENDERER_SKIP_ALT_OUTFIT).\n");
+}
+
+fs.mkdirSync(OUT_DIR, { recursive: true });
+fs.mkdirSync(TMP_ROOT, { recursive: true });
+
+let ok = 0;
+let fail = 0;
+let skipped = 0;
+
+for (const [key, jobId] of JOBS) {
+  const jobIds = Array.isArray(jobId) ? jobId : [jobId];
+  let anyOkForJob = false;
+
+  for (const gender of GENDERS) {
+    const dest = path.join(OUT_DIR, `${key}--${gender}.png`);
+    const headId = pickHeadId(key, gender);
+    const defaultOkAlready = SKIP_EXISTING && !FORCE && fs.existsSync(dest) && fs.statSync(dest).size > 800;
+
+    if (!defaultOkAlready) {
+      const tmpOut = path.join(TMP_ROOT, `${key}--${gender}`);
+      fs.rmSync(tmpOut, { recursive: true, force: true });
+      fs.mkdirSync(tmpOut, { recursive: true });
+
+      let renderedJobId = null;
+      for (const tryId of jobIds) {
+        console.log(
+          `render ${key} (${gender}) (job ${tryId}${jobIds.length > 1 ? `/${jobIds.join("|")}` : ""}, head ${headId}${SIT_LEGACY ? `, headdir ${HEAD_DIR}` : ""})…`,
+        );
+        if (runZrenderer(zCmd, zrendererPath, tmpOut, tryId, gender, headId, 0)) {
+          renderedJobId = tryId;
+          break;
+        }
+        console.error(`  ✗ zrenderer failed for ${key} (${gender}) (job ${tryId})`);
+      }
+      if (renderedJobId === null) {
+        fail++;
+        continue;
+      }
+
+      const pickFrame = resolveSitPickFrame(tmpOut, renderedJobId, ACTION, SIT_LEGACY);
+      if (!SIT_LEGACY && SIT_FRAME_AUTO) {
+        const idxs = listSitOutputIndices(tmpOut, renderedJobId, ACTION);
+        console.log(
+          `  → stand output ${ACTION}-${pickFrame}.png (${idxs.length} frames, auto / ${SIT_HEAD_DIR_GROUP})`,
+        );
+      }
+
+      const png = findRenderedPng(tmpOut, renderedJobId, ACTION, pickFrame, SIT_LEGACY);
+      if (!png) {
+        console.error(`  ✗ no PNG found in ${tmpOut}`);
+        fail++;
+        continue;
+      }
+
+      fs.copyFileSync(png, dest);
+      console.log(`  ✓ ${dest}  (${fs.statSync(dest).size} bytes)`);
+      ok++;
+      anyOkForJob = true;
+    } else {
+      console.log(`skip (exists): ${key} (${gender})`);
+      skipped++;
+      anyOkForJob = true;
+    }
+
+    const basePngOk = fs.existsSync(dest) && fs.statSync(dest).size > 800;
+    if (
+      basePngOk &&
+      THIRD_CLASS_ALT_KEYS.has(key) &&
+      !SKIP_ALT_OUTFIT &&
+      ALT_OUTFIT_ID > 0
+    ) {
+      const destAlt = path.join(OUT_DIR, `${key}--${gender}--alt.png`);
+      if (SKIP_EXISTING && !FORCE && fs.existsSync(destAlt) && fs.statSync(destAlt).size > 800) {
+        console.log(`  skip alt (exists): ${key} (${gender})`);
+      } else {
+        const tmpOutAlt = path.join(TMP_ROOT, `${key}--${gender}-alt${ALT_OUTFIT_ID}`);
+        fs.rmSync(tmpOutAlt, { recursive: true, force: true });
+        fs.mkdirSync(tmpOutAlt, { recursive: true });
+        let renderedAltId = null;
+        for (const tryId of jobIds) {
+          console.log(
+            `  render ${key} (${gender}) alt outfit ${ALT_OUTFIT_ID} (job ${tryId}${jobIds.length > 1 ? `/${jobIds.join("|")}` : ""}, head ${headId})…`,
+          );
+          if (runZrenderer(zCmd, zrendererPath, tmpOutAlt, tryId, gender, headId, ALT_OUTFIT_ID)) {
+            renderedAltId = tryId;
+            break;
+          }
+          console.error(`  ✗ zrenderer alt outfit failed for ${key} (${gender}) (job ${tryId})`);
+        }
+        if (renderedAltId !== null) {
+          const pickFrameAlt = resolveSitPickFrame(tmpOutAlt, renderedAltId, ACTION, SIT_LEGACY);
+          const pngAlt = findRenderedPng(tmpOutAlt, renderedAltId, ACTION, pickFrameAlt, SIT_LEGACY);
+          if (pngAlt) {
+            fs.copyFileSync(pngAlt, destAlt);
+            console.log(`  ✓ ${destAlt} (${fs.statSync(destAlt).size} bytes)`);
+          } else {
+            console.error(`  ✗ no alt outfit PNG in ${tmpOutAlt}`);
+          }
+        }
+      }
+    }
+  }
+
+  // If one gender fails but the other succeeded, keep the UI functional by copying.
+  // (This happens on some client dumps where only one gender has a full sprite set for a given job.)
+  if (anyOkForJob) {
+    const male = path.join(OUT_DIR, `${key}--male.png`);
+    const female = path.join(OUT_DIR, `${key}--female.png`);
+    const maleOk = fs.existsSync(male) && fs.statSync(male).size > 800;
+    const femaleOk = fs.existsSync(female) && fs.statSync(female).size > 800;
+    if (maleOk && !femaleOk) {
+      fs.copyFileSync(male, female);
+      console.log(`  ↺ copied ${key}: male → female (fallback)`);
+    } else if (femaleOk && !maleOk) {
+      fs.copyFileSync(female, male);
+      console.log(`  ↺ copied ${key}: female → male (fallback)`);
+    }
+    if (THIRD_CLASS_ALT_KEYS.has(key)) {
+      const maleA = path.join(OUT_DIR, `${key}--male--alt.png`);
+      const femaleA = path.join(OUT_DIR, `${key}--female--alt.png`);
+      const mAok = fs.existsSync(maleA) && fs.statSync(maleA).size > 800;
+      const fAok = fs.existsSync(femaleA) && fs.statSync(femaleA).size > 800;
+      if (mAok && !fAok) {
+        fs.copyFileSync(maleA, femaleA);
+        console.log(`  ↺ copied ${key} alt: male → female (fallback)`);
+      } else if (fAok && !mAok) {
+        fs.copyFileSync(femaleA, maleA);
+        console.log(`  ↺ copied ${key} alt: female → male (fallback)`);
+      }
+    }
+  }
+}
+
+const missingJobs = [];
+for (const [key] of JOBS) {
+  const male = path.join(OUT_DIR, `${key}--male.png`);
+  const female = path.join(OUT_DIR, `${key}--female.png`);
+  const mOk = fs.existsSync(male) && fs.statSync(male).size > 800;
+  const fOk = fs.existsSync(female) && fs.statSync(female).size > 800;
+  if (!mOk && !fOk) missingJobs.push(key);
+}
+
+if (fail === 0 && missingJobs.length === 0) {
+  fs.rmSync(TMP_ROOT, { recursive: true, force: true });
+} else {
+  console.error(`\nLeft ${TMP_ROOT} on disk for debugging failed renders.`);
+}
+
+console.log(`\nDone: ${ok} rendered, ${skipped} skipped, ${fail} gender-pass failures (some recovered via male↔female copy).`);
+if (missingJobs.length) {
+  console.error(`\nNo valid stand dock PNG for these job keys (both genders missing or <800 bytes): ${missingJobs.join(", ")}`);
+}
+process.exit(missingJobs.length > 0 ? 1 : 0);

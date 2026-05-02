@@ -79,31 +79,188 @@ body {
   box-sizing: border-box;
 }
 
-/* Sitting class art: anchored to bottom of Quest / special panel (see renderColumns). */
+/* Sitting class art: own panel above Quest / special when that column exists (see renderColumns). */
 .job-sit-dock {
   flex-shrink: 0;
   margin: 0;
   padding: 0;
   pointer-events: none;
   user-select: none;
+  overflow: visible;
 }
 
-.job-sit-dock--overlay {
+.job-sit-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  overflow: visible;
+}
+
+/*
+ * Stand dock PNGs are framed with more empty space than sit sprites, so at the same height
+ * the character still reads smaller. Scale stand only for visual parity (not animated — see .job-sit-dock__img transition).
+ */
+.job-sit-stack:has(.job-sit-dock__img--stand-pose) {
+  --job-dock-stand-scale: 1.488;
+}
+
+.job-sit-stack--overlay {
   position: absolute;
   right: 0.75rem;
   bottom: 0.75rem;
+  z-index: 2;
   width: auto;
-  padding: 0.25rem;
+  max-width: min(11rem, 42vw);
+  padding: 0.35rem 0.45rem 0.45rem;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(120, 165, 220, 0.18);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.skill-panel--quest .job-sit-dock {
-  margin-top: auto;
+.job-sit-stack--overlay:has(.job-sit-dock__img--stand-pose) {
+  max-width: min(13.25rem, 50vw);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+
+.job-sit-stack:has(.job-sit-dock__img--stand-pose) .job-sit-dock {
+  min-height: calc(clamp(72px, 11vh, 118px) * var(--job-dock-stand-scale, 1.488));
+}
+
+.job-sit-dock-controls-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.45rem;
   width: 100%;
-  padding-top: 0.65rem;
+}
+
+.job-sit-dock-controls-row .game-mode-toggle--sit-outfit {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* `.game-mode-toggle--header { display: inline-flex }` wins over the default `[hidden]` rule — force hide. */
+#job-sit-outfit-toggle[hidden] {
+  display: none !important;
+}
+
+/* No Default/Alt: single full-width pose control with icon + Sit/Stand label. */
+.job-sit-dock-controls-row--pose-only {
+  justify-content: stretch;
+}
+
+.job-sit-dock-controls-row--pose-only .job-dock-pose-btn {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.job-sit-stack--overlay .job-sit-dock-controls-row {
+  align-self: stretch;
+}
+
+.job-sit-stack--overlay .job-sit-dock-controls-row .game-mode-toggle--sit-outfit {
+  width: auto;
+}
+
+/* Single control: sitting vs standing sprite (icons); matches header toggle shell. */
+.job-dock-pose-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0.28rem 0.45rem;
+  border-radius: 10px;
+  border: 1px solid rgba(140, 170, 210, 0.26);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.1)),
+    rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.32);
+  cursor: pointer;
+  color: rgba(200, 218, 245, 0.42);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.job-dock-pose-btn:hover {
+  color: rgba(230, 240, 255, 0.72);
+  border-color: rgba(160, 195, 240, 0.38);
+}
+
+.job-dock-pose-btn:focus {
+  outline: none;
+}
+
+.job-dock-pose-btn:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.32),
+    0 0 0 2px var(--bg-cream),
+    0 0 0 4px rgba(142, 197, 255, 0.45);
+}
+
+/* Filled head + few strokes — reads clearly at ~22px vs busy outline stick figures. */
+.job-dock-pose-icon {
+  display: block;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.job-dock-pose-icon--sit {
+  display: block;
+}
+
+.job-dock-pose-icon--stand {
+  display: none;
+}
+
+.job-dock-pose-btn.job-dock-pose-btn--stand .job-dock-pose-icon--sit {
+  display: none;
+}
+
+.job-dock-pose-btn.job-dock-pose-btn--stand .job-dock-pose-icon--stand {
+  display: block;
+}
+
+.job-dock-pose-caption {
+  display: none;
+  font-family: inherit;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+}
+
+.job-sit-dock-controls-row--pose-only .job-dock-pose-caption--sit {
+  display: block;
+}
+
+.job-sit-dock-controls-row--pose-only .job-dock-pose-caption--stand {
+  display: none;
+}
+
+.job-sit-dock-controls-row--pose-only .job-dock-pose-btn.job-dock-pose-btn--stand .job-dock-pose-caption--sit {
+  display: none;
+}
+
+.job-sit-dock-controls-row--pose-only .job-dock-pose-btn.job-dock-pose-btn--stand .job-dock-pose-caption--stand {
+  display: block;
+}
+
+.skill-panel--sprite .job-sit-dock {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -123,7 +280,14 @@ body {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   filter: drop-shadow(0 4px 12px rgba(10, 12, 18, 0.35));
+  /* Opacity only — never transition transform or scale “bounces” on sit/stand toggle. */
   transition: opacity 0.15s ease;
+  transform: none;
+  transform-origin: center bottom;
+}
+
+.job-sit-dock__img.job-sit-dock__img--stand-pose {
+  transform: scale(var(--job-dock-stand-scale, 1.488));
 }
 
 .job-sit-dock__img.job-sit-dock__img--loading {
@@ -251,6 +415,10 @@ header.planner-header .site-nav {
   transform: translate3d(100%, 0, 0);
 }
 
+.game-mode-toggle--header.game-mode-toggle--sit-outfit[data-active="alt"] .game-mode-toggle__slider {
+  transform: translate3d(100%, 0, 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .game-mode-toggle--header .game-mode-toggle__slider {
     transition-duration: 0.01ms;
@@ -308,6 +476,25 @@ header.planner-header .site-nav {
   border-radius: 0 7px 7px 0;
   box-shadow: 0 0 0 2px var(--bg-cream), 0 0 0 4px rgba(142, 197, 255, 0.5);
   z-index: 2;
+}
+
+/* Sit sprite panel: same pre/renewal control look, narrower for the sidebar. */
+.game-mode-toggle--header.game-mode-toggle--sit-outfit {
+  width: 100%;
+  max-width: 100%;
+}
+
+.game-mode-toggle--header.game-mode-toggle--sit-outfit .game-mode-toggle__btn {
+  min-width: 0;
+  flex: 1 1 50%;
+  padding: 0.32rem 0.4rem;
+  font-size: 0.52rem;
+  letter-spacing: 0.05em;
+}
+
+.skill-panel--sprite .job-sit-dock-controls-row,
+.skill-panel--sprite .game-mode-toggle--sit-outfit {
+  max-width: 100%;
 }
 
 .site-header {
@@ -4562,6 +4749,16 @@ header.planner-header .site-nav {
   overflow: visible;
 }
 
+.tree-aside-col {
+  flex: 0 0 12.5rem;
+  max-width: 14rem;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
 .skill-panel {
   background: linear-gradient(
     165deg,
@@ -4610,10 +4807,18 @@ header.planner-header .site-nav {
   color: rgba(220, 235, 255, 0.7);
 }
 
+.skill-panel--sprite {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.25rem;
+}
+
 .skill-panel--quest {
-  flex: 0 0 12.5rem;
-  max-width: 14rem;
-  align-self: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: none;
   overflow: visible;
   display: flex;
   flex-direction: column;
@@ -5608,9 +5813,15 @@ header.planner-header .site-nav {
     flex-direction: column;
   }
 
-  .skill-panel--quest {
+  .tree-aside-col {
     flex: none;
     max-width: none;
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .skill-panel--quest {
+    flex: none;
     width: 100%;
   }
 

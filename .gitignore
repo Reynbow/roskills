@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 .tmp-zrender-sit
+.tmp-zrender-stand-dock
 .tmp-zrender-stand-pick
 .tmp-zt
 .tmp-zt2
