@@ -24,8 +24,10 @@ dist-ssr
 secrets/
 .env.local
 
-# Import script caches (Divine Pride responses, etc.)
-scripts/.cache/
+# Maintainer-only tooling (not used by `vite build` / production). Keep a local copy to regenerate
+# `src/data/*.json`, `public/job-*` sprites, mount previews, etc.
+/scripts/
+/skillinfo/
 
 # Editor directories and files
 .vscode/*

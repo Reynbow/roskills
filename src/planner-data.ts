@@ -90,7 +90,7 @@ function advancedSummonerJobData(): JobData | undefined {
     label: ADVANCED_SUMMONER_LABEL,
     columns: summoner.columns.map((c) => ({
       ...c,
-      title: ADVANCED_SUMMONER_LABEL,
+      title: isQuestColumnTitle(c.title) ? c.title : ADVANCED_SUMMONER_LABEL,
       skillIds: [...c.skillIds],
     })),
     edges: [...summoner.edges],

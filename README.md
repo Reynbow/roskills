@@ -14,6 +14,16 @@ Then start the dev server:
 npm run dev
 ```
 
+Production build (same as CI):
+
+```bash
+npm run build
+```
+
+The app is served from committed **`src/data/*.json`**, **`public/`** assets, and **`src/`** — no import step runs on install or build.
+
 If you see `Failed to resolve import "@vercel/analytics"`, run `npm install` again — the package is listed in `dependencies` and is required for both local and production builds.
 
-Optional: `SKIP_RATHENA_FETCH=1` skips downloading rAthena data during `predev` / `prebuild` if you are offline (skill names may fall back to placeholders).
+## Maintainer tooling (not in this repo)
+
+Data import, zrenderer sprite batches, mount previews, and related Lua/YML sources are **gitignored** (`scripts/`, `skillinfo/`). They are not required for the website to run. Keep those directories locally if you regenerate skill JSON, card/equip DBs, or class sprites; everyone else uses the committed outputs only.
