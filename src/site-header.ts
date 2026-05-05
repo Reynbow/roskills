@@ -22,11 +22,12 @@ const NAV_ITEMS: NavItem[] = [
   { id: "skills", href: "/skills", label: "Skill Planner" },
   { id: "cards", href: "/cards", label: "Card Library" },
   { id: "pets", href: "/pets", label: "Pets" },
-  { id: "msq", href: "/msq", label: "MSQ", renewalOnly: true },
   { id: "mounts", href: "/mounts", label: "Mounts" },
   { id: "monsters", href: "/monsters", label: "Monsters" },
   { id: "armour", href: "/armour", label: "Armour" },
   { id: "weapons", href: "/weapons", label: "Weapons" },
+  // Renewal-only links are intentionally last so they're always rightmost in the nav.
+  { id: "msq", href: "/msq", label: "MSQ", renewalOnly: true },
   { id: "equipment", href: "/equipment", label: "Equipment", renewalOnly: true },
 ];
 
