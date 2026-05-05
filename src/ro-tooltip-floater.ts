@@ -61,14 +61,14 @@ export function setupRoTooltipFloater(
     });
   };
 
-  const onOver = (e: PointerEvent): void => {
+  const onOver = (e: Event): void => {
     const el = (e.target as HTMLElement | null)?.closest(options.hitSelector) as HTMLElement | null;
     if (!el || !hoverRoot.contains(el)) return;
     showTip(el);
   };
 
-  const onOut = (e: PointerEvent): void => {
-    const related = e.relatedTarget as Node | null;
+  const onOut = (e: Event): void => {
+    const related = (e as MouseEvent).relatedTarget as Node | null;
     if (related && hoverRoot.contains(related)) {
       const toEl = (related as HTMLElement).closest(options.hitSelector) as HTMLElement | null;
       if (toEl) {
@@ -79,14 +79,19 @@ export function setupRoTooltipFloater(
     hideTip();
   };
 
+  // Pointer events when available; mouse events as a fallback.
   hoverRoot.addEventListener("pointerover", onOver);
   hoverRoot.addEventListener("pointerout", onOut);
+  hoverRoot.addEventListener("mouseover", onOver);
+  hoverRoot.addEventListener("mouseout", onOut);
   window.addEventListener("scroll", hideTip, true);
   window.addEventListener("resize", hideTip);
 
   return (): void => {
     hoverRoot.removeEventListener("pointerover", onOver);
     hoverRoot.removeEventListener("pointerout", onOut);
+    hoverRoot.removeEventListener("mouseover", onOver);
+    hoverRoot.removeEventListener("mouseout", onOut);
     window.removeEventListener("scroll", hideTip, true);
     window.removeEventListener("resize", hideTip);
     hideTip();
