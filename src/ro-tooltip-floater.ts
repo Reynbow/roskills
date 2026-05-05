@@ -87,13 +87,7 @@ export function setupRoTooltipFloater(
   window.addEventListener("scroll", hideTip, true);
   window.addEventListener("resize", hideTip);
 
-  return (): void => {
-    hoverRoot.removeEventListener("pointerover", onOver);
-    hoverRoot.removeEventListener("pointerout", onOut);
-    hoverRoot.removeEventListener("mouseover", onOver);
-    hoverRoot.removeEventListener("mouseout", onOut);
-    window.removeEventListener("scroll", hideTip, true);
-    window.removeEventListener("resize", hideTip);
-    hideTip();
-  };
+  // Return `hideTip` (not teardown). Some callers invoke the return value frequently to
+  // hide the tooltip during re-renders/filters; returning teardown would disable tooltips.
+  return hideTip;
 }

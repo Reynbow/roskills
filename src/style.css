@@ -558,6 +558,32 @@ header.site-header .site-nav {
     transform 0.18s ease;
 }
 
+/* Renewal-only links: push to far right + purple accent border */
+.site-nav__link[data-site-nav="msq"] {
+  margin-left: auto;
+}
+
+.site-nav__link[data-site-nav="msq"],
+.site-nav__link[data-site-nav="equipment"] {
+  border-color: rgba(190, 140, 255, 0.62);
+}
+
+.site-nav__link[data-site-nav="msq"]:hover,
+.site-nav__link[data-site-nav="equipment"]:hover {
+  border-color: rgba(215, 175, 255, 0.82);
+}
+
+.site-nav__link--active[data-site-nav="msq"],
+.site-nav__link--active[data-site-nav="equipment"],
+.site-nav__link[aria-current="page"][data-site-nav="msq"],
+.site-nav__link[aria-current="page"][data-site-nav="equipment"] {
+  border-color: rgba(230, 205, 255, 0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(205, 160, 255, 0.22);
+}
+
 /* Native [hidden] is overridden by display:inline-flex above (author vs UA). */
 .site-nav__link[hidden] {
   display: none !important;
