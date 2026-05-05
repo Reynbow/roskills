@@ -16,6 +16,10 @@
     { "source": "/weapons", "destination": "/weapons.html" },
     { "source": "/weapons/", "destination": "/weapons.html" },
     { "source": "/monsters", "destination": "/monsters.html" },
-    { "source": "/monsters/", "destination": "/monsters.html" }
+    { "source": "/monsters/", "destination": "/monsters.html" },
+    { "source": "/msq", "destination": "/msq.html" },
+    { "source": "/msq/", "destination": "/msq.html" },
+    { "source": "/equipment", "destination": "/equipment.html" },
+    { "source": "/equipment/", "destination": "/equipment.html" }
   ]
 }
