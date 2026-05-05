@@ -15,6 +15,7 @@ import {
   shouldMergeRenewalTransPathSkillPanel,
   setPlannerGameMode,
   getPlannerGameMode,
+  persistPlannerGameMode,
   isThirdClassKey,
   jobPickerDisplayLabel,
   type GameMode,
@@ -27,6 +28,8 @@ import {
 import { jobPartyFrameIconImgClass, jobPartyFrameIconUrl } from "./job-party-icon";
 import { jobPickerStandSpriteUrl } from "./job-previews";
 import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl, jobStandDockLocalPngUrl } from "./job-sit-sprite";
+import { initPlannerGameModeFromUrlOrStorage } from "./game-mode";
+import { plannerHeaderInnerHtml, syncGameModeToggleChrome } from "./site-header";
 
 // Initialize Vercel Web Analytics (never block app shell if script fails)
 try {
@@ -36,7 +39,6 @@ try {
 }
 
 const STORAGE_KEY = "ro-planner-state-v2";
-const GAME_MODE_STORAGE_KEY = "ro-planner-game-mode";
 const THIRD_CLASS_PATH_STORAGE_KEY = "ro-planner-third-class-path";
 /** Remember class-line vs category tab view between modal opens (per game mode). */
 const CLASS_PICKER_VIEW_STORAGE_KEY = "ro-planner-class-picker-view";
@@ -2085,23 +2087,7 @@ function pickJobFromDialog(root: HTMLElement, jobKey: string): void {
 }
 
 function syncGameModeToggleUi(root: HTMLElement): void {
-  const mode = getPlannerGameMode();
-  const headerT = root.querySelector(".game-mode-toggle--header");
-  if (headerT) {
-    headerT.setAttribute("data-active", mode === "renewal" ? "renewal" : "pre");
-  }
-  root.querySelectorAll("[data-set-game-mode]").forEach((el) => {
-    const btn = el as HTMLButtonElement;
-    const m = btn.dataset.setGameMode as GameMode | undefined;
-    const on = m === mode;
-    btn.classList.toggle("game-mode-toggle__btn--active", on);
-    btn.setAttribute("aria-pressed", on ? "true" : "false");
-  });
-  const title = root.querySelector("#planner-page-title");
-  if (title) {
-    title.textContent =
-      mode === "renewal" ? "RO Renewal Skill Planner" : "RO Pre-Renewal Skill Planner";
-  }
+  syncGameModeToggleChrome(root);
 }
 
 function buildJobPickerTablistHtml(pickerTabs: JobPickerTabDef[], initialTabId: string): string {
@@ -2307,7 +2293,7 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
 }
 
 function applyGameModeFromUi(root: HTMLElement, mode: GameMode): void {
-  localStorage.setItem(GAME_MODE_STORAGE_KEY, mode);
+  persistPlannerGameMode(mode);
   setPlannerGameMode(mode);
   loadState();
   ensureCurrentJobInData();
@@ -2333,35 +2319,8 @@ function renderApp(root: HTMLElement): void {
   const initialTabId = jobPickerTabIdForJob(pickerTabs, currentJob);
   const jobPickerDialogInner = buildJobPickerDialogInnerMarkup(pickerTabs, initialTabId, "Choose class");
 
-  const initialGameMode = getPlannerGameMode();
-  const initialDataActive = initialGameMode === "renewal" ? "renewal" : "pre";
-
   root.innerHTML = `
-    <header class="planner-header">
-      <div class="planner-header__left">
-        <h1 class="planner-header__title" id="planner-page-title">RO Pre-Renewal Skill Planner</h1>
-        <div class="planner-header__center">
-          <div class="game-mode-toggle game-mode-toggle--header" data-active="${initialDataActive}" role="group" aria-label="Game client version">
-            <span class="game-mode-toggle__slider" aria-hidden="true"></span>
-            <button type="button" class="game-mode-toggle__btn" data-set-game-mode="pre">
-              <span class="game-mode-toggle__text">Pre-Renewal</span>
-            </button>
-            <button type="button" class="game-mode-toggle__btn" data-set-game-mode="renewal">
-              <span class="game-mode-toggle__text">Renewal</span>
-            </button>
-          </div>
-        </div>
-        <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link site-nav__link--active" href="/skills" aria-current="page">Skill Planner</a>
-          <a class="site-nav__link" href="/cards">Card Library</a>
-          <a class="site-nav__link" href="/pets">Pets</a>
-          <a class="site-nav__link" href="/mounts">Mounts</a>
-          <a class="site-nav__link" href="/monsters">Monsters</a>
-          <a class="site-nav__link" href="/armour">Armour</a>
-          <a class="site-nav__link" href="/weapons">Weapons</a>
-        </nav>
-      </div>
-    </header>
+    ${plannerHeaderInnerHtml("skills")}
     <div class="toolbar">
       <div class="job-picker-field">
         <span class="job-picker-field-label" id="job-picker-field-label">Class</span>
@@ -3078,21 +3037,6 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
       if (tooltipLockedSkillId === id) unlockTooltip(root);
     });
   });
-}
-
-function initPlannerGameModeFromUrlOrStorage(): void {
-  try {
-    const u = new URL(window.location.href);
-    const m = u.searchParams.get("mode");
-    if (m === "renewal" || m === "pre") {
-      setPlannerGameMode(m);
-      return;
-    }
-  } catch {
-    /* ignore */
-  }
-  const s = localStorage.getItem(GAME_MODE_STORAGE_KEY);
-  if (s === "renewal" || s === "pre") setPlannerGameMode(s);
 }
 
 initPlannerGameModeFromUrlOrStorage();

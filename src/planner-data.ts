@@ -1,11 +1,17 @@
 import plannerJson from "./data/skill-planner.json" with { type: "json" };
 import plannerRenewalJson from "./data/skill-planner-renewal.json" with { type: "json" };
+import { getPlannerGameMode } from "./game-mode";
+
+export type { GameMode } from "./game-mode";
+export {
+  getPlannerGameMode,
+  setPlannerGameMode,
+  initPlannerGameModeFromUrlOrStorage,
+  persistPlannerGameMode,
+  GAME_MODE_STORAGE_KEY,
+} from "./game-mode";
 
 export type SkillColumn = number;
-
-export type GameMode = "pre" | "renewal";
-
-let activeGameMode: GameMode = "pre";
 
 /** Client SKILL_TREEVIEW_FOR_JOB uses a 7-wide grid (see Novice slots 0, 7, 14). */
 export const GRID_COLS = 7;
@@ -65,7 +71,7 @@ type PlannerRoot = {
 };
 
 function plannerRoot(): PlannerRoot {
-  return (activeGameMode === "renewal" ? plannerRenewalJson : plannerJson) as PlannerRoot;
+  return (getPlannerGameMode() === "renewal" ? plannerRenewalJson : plannerJson) as PlannerRoot;
 }
 
 const ADVANCED_SUMMONER_KEY = "JT_ADVANCED_SUMMONER";
@@ -81,7 +87,7 @@ function isRenewalSummonerBaseHiddenSkill(sk: { gridIndex?: number }): boolean {
 }
 
 function advancedSummonerJobData(): JobData | undefined {
-  if (activeGameMode !== "renewal") return undefined;
+  if (getPlannerGameMode() !== "renewal") return undefined;
   const summoner = plannerRoot().jobs.JT_DO_SUMMONER;
   if (!summoner) return undefined;
   return {
@@ -100,15 +106,6 @@ function advancedSummonerJobData(): JobData | undefined {
 function resolveJobData(jobKey: string): JobData | undefined {
   if (jobKey === ADVANCED_SUMMONER_KEY) return advancedSummonerJobData();
   return plannerRoot().jobs[jobKey];
-}
-
-/** Switch dataset for listJobs / getJobData / trees (home page only). */
-export function setPlannerGameMode(mode: GameMode): void {
-  activeGameMode = mode;
-}
-
-export function getPlannerGameMode(): GameMode {
-  return activeGameMode;
 }
 
 export const PLANNER_META = {

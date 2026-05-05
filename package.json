@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "update:f2p-equipment": "node scripts/update-free-to-play-equipment.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {

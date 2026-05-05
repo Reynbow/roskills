@@ -2,7 +2,9 @@ import "./style.css";
 import { inject } from "@vercel/analytics";
 import { jobPickerStandSpriteUrl } from "./job-previews";
 import boardingRaw from "./data/boarding-mount-by-job-renewal.json";
-import { setPlannerGameMode, listJobs } from "./planner-data";
+import { initPlannerGameModeFromUrlOrStorage, setPlannerGameMode } from "./game-mode";
+import { listJobs } from "./planner-data";
+import { siteHeaderRowHtml, wireSiteGameModeToggle } from "./site-header";
 import mountsRaw from "./data/mounts.json";
 
 try {
@@ -11,6 +13,7 @@ try {
   /* ignore */
 }
 
+initPlannerGameModeFromUrlOrStorage();
 setPlannerGameMode("renewal");
 
 type MountRow = {
@@ -350,20 +353,7 @@ function initMountsPage(root: HTMLElement): void {
   })).filter((t) => t.keys.length > 0);
 
   root.innerHTML = `
-    <header class="site-header">
-      <div class="site-header__left">
-        <a class="site-brand" href="/">RO Pre-Renewal</a>
-        <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link" href="/skills">Skill Planner</a>
-          <a class="site-nav__link" href="/cards">Card Library</a>
-          <a class="site-nav__link" href="/pets">Pets</a>
-          <a class="site-nav__link site-nav__link--active" href="/mounts" aria-current="page">Mounts</a>
-          <a class="site-nav__link" href="/monsters">Monsters</a>
-          <a class="site-nav__link" href="/armour">Armour</a>
-          <a class="site-nav__link" href="/weapons">Weapons</a>
-        </nav>
-      </div>
-    </header>
+    ${siteHeaderRowHtml("mounts")}
 
     <section class="page">
       <div class="cards-windowhead" role="banner" aria-label="Boarding mounts">
@@ -405,6 +395,8 @@ function initMountsPage(root: HTMLElement): void {
       <div id="mount-tree-grid" class="mount-tree-grid"></div>
     </section>
   `;
+
+  wireSiteGameModeToggle(root);
 
   const sel = root.querySelector("#mount-job-select") as HTMLSelectElement;
   const panel = root.querySelector("#mount-boarding-panel") as HTMLElement;

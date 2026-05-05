@@ -1,5 +1,7 @@
 import "./style.css";
 import { inject } from "@vercel/analytics";
+import { initPlannerGameModeFromUrlOrStorage } from "./game-mode";
+import { siteHeaderRowHtml, wireSiteGameModeToggle } from "./site-header";
 import armourRaw from "./data/armour.json";
 import monstersRaw from "./data/monsters.json";
 
@@ -514,20 +516,7 @@ function mount(root: HTMLElement): void {
     })
     .sort((a, b) => a.localeCompare(b));
   root.innerHTML = `
-    <header class="site-header">
-      <div class="site-header__left">
-        <a class="site-brand" href="/">RO Pre-Renewal</a>
-        <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link" href="/skills">Skill Planner</a>
-          <a class="site-nav__link" href="/cards">Card Library</a>
-          <a class="site-nav__link" href="/pets">Pets</a>
-          <a class="site-nav__link" href="/mounts">Mounts</a>
-          <a class="site-nav__link" href="/monsters">Monsters</a>
-          <a class="site-nav__link site-nav__link--active" href="/armour" aria-current="page">Armour</a>
-          <a class="site-nav__link" href="/weapons">Weapons</a>
-        </nav>
-      </div>
-    </header>
+    ${siteHeaderRowHtml("armour")}
 
     <section class="page equip-page equip-page--armour">
       <div class="cards-windowhead" role="banner" aria-label="Armour page header">
@@ -552,6 +541,8 @@ function mount(root: HTMLElement): void {
       </div>
     </section>
   `;
+
+  wireSiteGameModeToggle(root);
 
   const q = root.querySelector("#q") as HTMLInputElement;
   const rowsEl = root.querySelector("#rows") as HTMLElement;
@@ -754,5 +745,6 @@ function mount(root: HTMLElement): void {
   });
 }
 
+initPlannerGameModeFromUrlOrStorage();
 mount(document.querySelector("#app") as HTMLElement);
 

@@ -310,12 +310,10 @@ header.planner-header {
   padding-bottom: 0.85rem;
 }
 
-/* Three columns: title (flex) | pre/renewal toggle (true center) | site nav — toggle position is stable when the title string changes. */
 header.planner-header .planner-header__left {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  display: flex;
   align-items: center;
-  gap: 0.65rem 1.25rem;
+  gap: 0.75rem;
   width: 100%;
 }
 
@@ -331,15 +329,8 @@ header.planner-header .planner-header__title {
   text-align: left;
 }
 
-header.planner-header .planner-header__center {
-  justify-self: center;
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 header.planner-header .site-nav {
-  justify-self: end;
+  margin-left: auto;
   justify-content: flex-end;
 }
 
@@ -510,10 +501,14 @@ header.planner-header .site-nav {
 
 .site-header__left {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.65rem 1.25rem;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+header.site-header .site-nav {
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
 .site-brand {
@@ -531,7 +526,7 @@ header.planner-header .site-nav {
 
 .site-nav {
   display: inline-flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.35rem;
   align-items: center;
 }
@@ -563,6 +558,11 @@ header.planner-header .site-nav {
     transform 0.18s ease;
 }
 
+/* Native [hidden] is overridden by display:inline-flex above (author vs UA). */
+.site-nav__link[hidden] {
+  display: none !important;
+}
+
 .site-nav__link:hover {
   border-color: rgba(165, 205, 245, 0.52);
   color: rgba(245, 250, 255, 0.92);
@@ -589,6 +589,218 @@ header.planner-header .site-nav {
 
 .page {
   padding: 0.25rem 0;
+}
+
+/* Free-to-play Equipment (iRO Wiki snapshot) */
+.f2p-equipment-page {
+  min-width: 0;
+}
+
+.f2p-equipment__meta {
+  margin: 0 0 0.75rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: rgba(210, 220, 240, 0.82);
+}
+
+.f2p-equipment__meta a {
+  color: rgba(130, 200, 255, 0.95);
+}
+
+.f2p-equipment__code {
+  font-size: 0.78em;
+  padding: 0.12rem 0.35rem;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(140, 170, 210, 0.22);
+}
+
+.f2p-equipment__toolbar {
+  margin-bottom: 0.75rem;
+}
+
+.f2p-wiki-host {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 165, 220, 0.22);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.06));
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text);
+  overflow-x: auto;
+}
+
+.f2p-wiki-host .mw-parser-output {
+  max-width: 100%;
+}
+
+.f2p-wiki-host #toc {
+  display: none;
+}
+
+.f2p-wiki-host .mw-editsection {
+  display: none;
+}
+
+.f2p-wiki-host .mw-heading h4 {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 800;
+  margin: 1.15rem 0 0.45rem;
+  color: rgba(230, 238, 255, 0.96);
+  letter-spacing: 0.02em;
+}
+
+.f2p-wiki-host .mw-heading:first-child h4,
+.f2p-wiki-host .mw-parser-output > .mw-heading:first-of-type h4 {
+  margin-top: 0.35rem;
+}
+
+.f2p-wiki-host p {
+  margin: 0.4rem 0;
+}
+
+.f2p-wiki-host a {
+  color: rgba(130, 200, 255, 0.95);
+  text-decoration: underline;
+  text-decoration-color: rgba(130, 200, 255, 0.35);
+}
+
+.f2p-wiki-host a:hover {
+  color: rgba(180, 225, 255, 1);
+}
+
+.f2p-wiki-host .wikitable,
+.f2p-wiki-host .wikitablec {
+  width: 100%;
+  min-width: min(100%, 36rem);
+  border-collapse: collapse;
+  margin: 0.55rem 0 1rem;
+  font-size: 0.82rem;
+  border: 1px solid rgba(120, 165, 220, 0.28);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.f2p-wiki-host .wikitable th,
+.f2p-wiki-host .wikitable td,
+.f2p-wiki-host .wikitablec th,
+.f2p-wiki-host .wikitablec td {
+  border: 1px solid rgba(100, 140, 200, 0.2);
+  padding: 0.35rem 0.45rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.f2p-wiki-host .wikitable th,
+.f2p-wiki-host .wikitablec th {
+  background: rgba(50, 75, 120, 0.35);
+  color: rgba(220, 232, 255, 0.92);
+  font-weight: 700;
+}
+
+.f2p-wiki-host .wikitable td,
+.f2p-wiki-host .wikitablec td {
+  background: rgba(15, 20, 32, 0.35);
+}
+
+.f2p-wiki-host .wikitable img,
+.f2p-wiki-host .wikitablec img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.f2p-wiki-host .plainlinks a.external {
+  white-space: nowrap;
+}
+
+.f2p-wiki-host a.f2p-item-hit {
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(130, 200, 255, 0.42);
+  text-underline-offset: 0.14em;
+}
+
+/* Wiki navi coords: make clearly clickable */
+.f2p-wiki-host .naviClickable,
+.f2p-wiki-host .f2p-navi-click {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(130, 200, 255, 0.45);
+  text-underline-offset: 0.12em;
+}
+
+.f2p-wiki-host .naviClickable:hover,
+.f2p-wiki-host .f2p-navi-click:hover {
+  color: rgba(180, 225, 255, 1);
+}
+
+.f2p-navi-toast {
+  z-index: 1005;
+  max-width: min(16rem, calc(100vw - 20px));
+  padding: 0.45rem 0.7rem;
+}
+
+/* iRO wiki naviBlock: hide inline map; show as tooltip on hover/focus of NPC + coords */
+.f2p-wiki-host .f2p-navi-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.f2p-wiki-host .f2p-navi-wrap .naviBlock {
+  position: static;
+  display: inline;
+}
+
+.f2p-wiki-host .naviBlock {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.f2p-wiki-host .naviMap {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 6px);
+  transform: translateX(-50%);
+  z-index: 80;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.12s ease,
+    visibility 0.12s ease;
+  background: rgba(12, 16, 24, 0.97);
+  border: 1px solid rgba(120, 165, 220, 0.42);
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5);
+  max-width: min(300px, 90vw);
+  line-height: 0;
+}
+
+.f2p-wiki-host .f2p-navi-wrap:hover .naviMap,
+.f2p-wiki-host .f2p-navi-wrap:focus-within .naviMap,
+.f2p-wiki-host .naviBlock:hover .naviMap,
+.f2p-wiki-host .naviBlock:focus-within .naviMap {
+  opacity: 1;
+  visibility: visible;
+}
+
+.f2p-wiki-host .naviMap img {
+  display: block;
+  max-width: min(280px, 85vw);
+  width: auto;
+  height: auto;
+  margin: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 /* Cards: RO-style window header */
@@ -969,6 +1181,267 @@ header.planner-header .site-nav {
   .cards-filter-tooltip {
     transition-duration: 0.01ms;
   }
+}
+
+/* MSQ: Ragnarok-style item card tooltip (white client window) */
+.ro-tooltip-floater {
+  position: fixed;
+  z-index: 1002;
+  left: 0;
+  top: 0;
+  max-width: min(19.5rem, calc(100vw - 20px));
+  padding: 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  /* Position only; no transform animation — fade opacity instead of sliding. */
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.ro-tooltip-floater.ro-tooltip-floater--below {
+  transform: translate(-50%, 0);
+}
+
+.ro-tooltip-floater.ro-tooltip-floater--visible {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 0.2s ease,
+    visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ro-tooltip-floater {
+    transition-duration: 0.01ms;
+  }
+
+  .ro-tooltip-floater.ro-tooltip-floater--visible {
+    transition-duration: 0.01ms;
+  }
+}
+
+.ro-item-tooltip {
+  --ro-tip-bg: #fefefe;
+  --ro-tip-border: #b8b8b8;
+  --ro-tip-inner: #6b8fd4;
+  --ro-tip-meta: #0000c8;
+  --ro-tip-text: #111111;
+  font-family: Galmuri11, "Courier New", monospace;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--ro-tip-text);
+  background: var(--ro-tip-bg);
+  border: 1px solid var(--ro-tip-border);
+  border-radius: 5px;
+  box-shadow:
+    inset 0 0 0 1px #fff,
+    inset 0 0 0 2px var(--ro-tip-inner),
+    0 4px 18px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  -webkit-font-smoothing: none;
+}
+
+.ro-item-tooltip__chrome-top {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 14px;
+  padding: 0 4px 0 5px;
+  background: linear-gradient(180deg, #ececec 0%, #ddd 100%);
+  border-bottom: 1px solid #ccc;
+}
+
+.ro-item-tooltip__stripes {
+  width: 28px;
+  height: 9px;
+  background: repeating-linear-gradient(
+    -12deg,
+    #999 0px,
+    #999 2px,
+    #bbb 2px,
+    #bbb 4px
+  );
+  border-radius: 1px;
+  opacity: 0.85;
+}
+
+.ro-item-tooltip__chrome-spacer {
+  flex: 1;
+}
+
+.ro-item-tooltip__chrome-x {
+  width: 13px;
+  height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  line-height: 1;
+  color: #fff;
+  background: linear-gradient(180deg, #4a7fd4 0%, #2e5cb8 100%);
+  border-radius: 2px;
+  border: 1px solid #1e4a9a;
+}
+
+.ro-item-tooltip__scroll {
+  max-height: none;
+  overflow: visible;
+  padding: 7px 9px 6px 8px;
+}
+
+.ro-item-tooltip__head {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 7px 9px;
+  align-items: start;
+}
+
+.ro-item-tooltip__iconbox {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f3f3;
+  border: 1px solid #c8c8c8;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0 #fff;
+}
+
+.ro-item-tooltip__iconimg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.ro-item-tooltip__headmain {
+  min-width: 0;
+}
+
+.ro-item-tooltip__itemname {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  margin: 0 0 4px;
+  color: #000;
+}
+
+.ro-item-tooltip__flavor {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 400;
+  color: #111;
+  white-space: pre-line;
+}
+
+.ro-item-tooltip__hr {
+  height: 0;
+  margin: 7px 0;
+  border: none;
+  border-top: 1px dashed #888;
+}
+
+.ro-item-tooltip__effects {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  font-size: 11px;
+  color: #111;
+}
+
+.ro-item-tooltip__effects li {
+  margin: 0.15rem 0;
+}
+
+.ro-item-tooltip__meta {
+  font-size: 11px;
+  color: var(--ro-tip-meta);
+}
+
+.ro-item-tooltip__meta-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0.25rem 0.5rem;
+  margin: 0.1rem 0;
+}
+
+.ro-item-tooltip__meta-k {
+  font-weight: 600;
+}
+
+.ro-item-tooltip__meta-k::after {
+  content: " :";
+}
+
+.ro-item-tooltip__meta-v {
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.ro-item-tooltip__upgrade {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed #a8c0e8;
+  font-size: 11px;
+  color: var(--ro-tip-meta);
+}
+
+.ro-item-tooltip__upgrade-k {
+  font-weight: 600;
+}
+
+.ro-item-tooltip__upgrade-k::after {
+  content: " ";
+}
+
+.ro-item-tooltip__link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: default;
+}
+
+.ro-item-tooltip__source {
+  margin: 8px 0 0;
+  font-size: 9px;
+  color: #666;
+  opacity: 0.85;
+}
+
+.ro-item-tooltip__grip {
+  height: 10px;
+  margin: 0 4px 2px auto;
+  width: 14px;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 2px,
+    #aaa 2px,
+    #aaa 3px
+  );
+  opacity: 0.5;
+}
+
+.ro-item-tooltip__slotbar {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 3px 6px 5px;
+  background: linear-gradient(180deg, #e6e6e6 0%, #d4d4d4 100%);
+  border-top: 1px solid #bbb;
+}
+
+.ro-item-tooltip__diamond {
+  width: 10px;
+  height: 10px;
+  background: #9a9a9a;
+  transform: rotate(45deg);
+  border: 1px solid #7a7a7a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 /* Map name hover preview (Divine Pride large minimap PNG) */
@@ -1366,6 +1839,520 @@ header.planner-header .site-nav {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+/* --- MSQ: pets-style episode cards (modifiers on .pets-card) ---------------- */
+.msq-episode-page__cards {
+  max-width: min(90rem, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0.5rem;
+}
+
+/* MSQ list: one row per episode — story card ~⅓, equipment card ~⅔ */
+.pets-cards.msq-episode-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  grid-template-columns: unset;
+  max-width: 100%;
+}
+
+.msq-step-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 0.75rem 1rem;
+  align-items: stretch;
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .msq-step-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pets-card.msq-step-card {
+  min-width: 0;
+  height: 100%;
+}
+
+.msq-step-card--story {
+  display: flex;
+  flex-direction: column;
+}
+
+.msq-step-card__head {
+  margin-bottom: 0.45rem;
+}
+
+.msq-step-card__head .pets-card__k {
+  margin-bottom: 0.2rem;
+}
+
+.msq-step-card__story-body {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.msq-step-card__wiki-block {
+  margin-top: 0.55rem;
+}
+
+.msq-step-card__wiki-block .pets-card__k {
+  margin-bottom: 0.28rem;
+}
+
+.msq-step-card__wiki-kv {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.msq-step-card__wiki-kv th,
+.msq-step-card__wiki-kv td {
+  padding: 0.2rem 0.35rem 0.2rem 0;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(160, 198, 255, 0.12);
+}
+
+.msq-step-card__wiki-kv tr:last-child th,
+.msq-step-card__wiki-kv tr:last-child td {
+  border-bottom: none;
+}
+
+.msq-step-card__wiki-k {
+  width: 38%;
+  max-width: 9.5rem;
+  font-weight: 600;
+  color: rgba(200, 220, 255, 0.88);
+  text-align: left;
+}
+
+.msq-step-card__wiki-k::after {
+  content: ":";
+}
+
+.msq-step-card__wiki-v {
+  color: rgba(230, 236, 248, 0.92);
+}
+
+.msq-step-card__wiki-a {
+  color: rgba(130, 200, 255, 0.98);
+  text-decoration: underline;
+  text-decoration-color: rgba(130, 200, 255, 0.45);
+  text-underline-offset: 0.14em;
+  position: relative;
+  z-index: 1;
+}
+
+.msq-step-card__wiki-a:hover {
+  color: rgba(180, 225, 255, 1);
+  text-decoration-color: rgba(180, 225, 255, 0.65);
+}
+
+.msq-step-card__wiki-cta {
+  margin-top: auto;
+  padding-top: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(160, 198, 255, 0.5);
+  text-decoration: none;
+  align-self: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.msq-step-card__wiki-cta:hover {
+  color: rgba(180, 220, 255, 0.85);
+}
+
+.msq-step-card__wiki-cta:focus-visible {
+  outline: 2px solid rgba(120, 180, 255, 0.75);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.msq-step-card--equip {
+  display: flex;
+  flex-direction: column;
+}
+
+.msq-step-card__equip-head {
+  margin-bottom: 0.45rem;
+}
+
+.msq-step-card__equip-title {
+  font-size: clamp(0.95rem, 1.35vw, 1.08rem);
+  line-height: 1.25;
+}
+
+.msq-step-card__equip-bg {
+  opacity: 0.08;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pets-card.msq-episode-card:hover .msq-step-card__equip-bg {
+    opacity: 0.2;
+  }
+}
+
+.msq-step-card__equip-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.msq-step-card__equip-section {
+  min-width: 0;
+}
+
+.pets-card.msq-episode-card {
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+a.pets-card.msq-episode-card {
+  cursor: pointer;
+}
+
+.pets-card.msq-episode-card:hover {
+  border-color: rgba(120, 180, 255, 0.38);
+  box-shadow:
+    0 10px 32px var(--shadow),
+    inset 0 1px 0 var(--inset-highlight),
+    0 0 0 1px rgba(120, 180, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.pets-card.msq-episode-card:focus-visible {
+  outline: 2px solid rgba(120, 180, 255, 0.7);
+  outline-offset: 2px;
+}
+
+.msq-episode-card__bg {
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.85rem;
+  transform: scale(1);
+  transform-origin: right center;
+  opacity: 0.11;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: rgba(180, 210, 255, 0.95);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pets-card.msq-episode-card:hover .msq-episode-card__bg {
+    opacity: 0.28;
+  }
+}
+
+.msq-episode-card__step-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  flex-wrap: wrap;
+  margin: 0 0 0.85rem;
+  padding: 0.55rem 0.7rem 0.6rem;
+  border-radius: 10px;
+  background: linear-gradient(
+    125deg,
+    rgba(70, 110, 190, 0.38) 0%,
+    rgba(35, 55, 95, 0.45) 48%,
+    rgba(25, 40, 72, 0.52) 100%
+  );
+  border: 1px solid rgba(130, 175, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 12px rgba(0, 0, 0, 0.22);
+}
+
+a.msq-episode-card__step-bar--link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+a.msq-episode-card__step-bar--link:hover {
+  border-color: rgba(160, 200, 255, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 3px 16px rgba(0, 0, 0, 0.28);
+}
+
+a.msq-episode-card__step-bar--link:focus-visible {
+  outline: 2px solid rgba(120, 180, 255, 0.75);
+  outline-offset: 2px;
+}
+
+.msq-episode-card__step-bar-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.msq-episode-card__step-bar-ep {
+  margin-bottom: 0;
+}
+
+.msq-episode-card__step-bar-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.8vw, 1.2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(248, 250, 255, 0.98);
+}
+
+.msq-episode-card__step-bar-nums {
+  display: flex;
+  align-items: baseline;
+  flex-shrink: 0;
+  gap: 0.08rem 0.2rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.35);
+}
+
+.msq-episode-card__step-n {
+  font-size: clamp(2.35rem, 6.5vmin, 3.35rem);
+  color: rgba(255, 255, 255, 0.98);
+  letter-spacing: -0.03em;
+}
+
+.msq-episode-card__step-slash {
+  font-size: clamp(1.35rem, 3.8vmin, 1.85rem);
+  font-weight: 700;
+  color: rgba(220, 235, 255, 0.38);
+  padding: 0 0.02rem;
+}
+
+.msq-episode-card__step-denom {
+  font-size: clamp(1.55rem, 4.2vmin, 2.1rem);
+  font-weight: 800;
+  color: rgba(220, 235, 255, 0.78);
+  letter-spacing: -0.02em;
+}
+
+.msq-episode-card__lead {
+  min-width: 0;
+}
+
+.msq-episode-card__title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: 0.02em;
+  margin: 0.15rem 0 0;
+}
+
+.msq-episode-card__text {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.msq-episode-card__armour,
+.msq-episode-card__weapons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.msq-episode-card__armour-set-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: rgba(240, 248, 255, 0.96);
+}
+
+.msq-episode-card__armour-segment {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+}
+
+.msq-episode-card__armour-segment:first-of-type {
+  margin-top: 0.15rem;
+}
+
+/* Issgard: Glacier | Snow Flower armour side by side */
+.msq-episode-card__armour-segments--glacier-snowflower {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.65rem 1rem;
+  align-items: start;
+}
+
+.msq-episode-card__armour-segments--glacier-snowflower .msq-episode-card__armour-segment {
+  margin-top: 0;
+}
+
+.msq-episode-card__armour-segments--glacier-snowflower .msq-episode-card__armour-segment:first-of-type {
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .msq-episode-card__armour-segments--glacier-snowflower {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Issgard weapons: shop + Dim segments in one horizontal flow */
+.msq-episode-card__weapon-segments--row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  align-items: flex-start;
+}
+
+.msq-episode-card__weapon-segments--row .msq-episode-card__weapon-segment {
+  flex: 1 1 240px;
+  min-width: min(240px, 100%);
+  margin-top: 0;
+}
+
+.msq-episode-card__weapon-segments--row .msq-episode-card__weapon-segment:first-of-type {
+  margin-top: 0;
+}
+
+.msq-episode-card__armour-segment-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(180, 210, 255, 0.78);
+}
+
+.msq-episode-card__armour-icon-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.msq-episode-card__armour-group {
+  padding: 0.45rem 0.55rem 0.5rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(130, 175, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.msq-episode-card__armour-group-label {
+  display: block;
+  margin: 0 0 0.38rem;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(200, 220, 255, 0.58);
+}
+
+.msq-episode-card__armour-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.msq-episode-card__armour-icon-hit {
+  display: inline-flex;
+  cursor: help;
+  vertical-align: middle;
+  border-radius: 9px;
+  outline: none;
+}
+
+.msq-episode-card__armour-icon-hit:focus-visible {
+  box-shadow: 0 0 0 2px rgba(120, 180, 255, 0.55);
+}
+
+.msq-episode-card__armour-icon-wrap {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.msq-episode-card__armour-icon-wrap img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.msq-episode-card__armour-note {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(210, 225, 250, 0.62);
+}
+
+/* Prev/next titles can wrap; pet rate rows default to nowrap */
+.msq-episode-card .pets-card__rates .pets-item {
+  flex-wrap: wrap;
+  white-space: normal;
+}
+
+.msq-footnote {
+  max-width: min(90rem, calc(100vw - 2rem));
+  margin: 0 auto 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: rgba(220, 235, 255, 0.58);
+  text-align: center;
 }
 
 .cards-rowcard {
@@ -5935,6 +6922,29 @@ header.planner-header .site-nav {
   header.planner-header .site-nav {
     width: 100%;
     justify-content: center;
+  }
+
+  header.site-header .site-header__left {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+  }
+
+  header.site-header .site-header__center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  header.site-header .site-nav {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Allow nav to wrap on small screens. */
+  .site-nav {
+    flex-wrap: wrap;
   }
 
   .toolbar {

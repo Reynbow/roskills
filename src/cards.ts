@@ -1,5 +1,7 @@
 import "./style.css";
 import { inject } from "@vercel/analytics";
+import { initPlannerGameModeFromUrlOrStorage } from "./game-mode";
+import { siteHeaderRowHtml, wireSiteGameModeToggle } from "./site-header";
 import cardsRaw from "./data/cards.json";
 
 inject();
@@ -632,20 +634,7 @@ const STAT_TOOLTIPS: Record<StatKey, string> = {
 
 function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <header class="site-header">
-      <div class="site-header__left">
-        <a class="site-brand" href="/">RO Pre-Renewal</a>
-        <nav class="site-nav" aria-label="Site">
-          <a class="site-nav__link" href="/skills">Skill Planner</a>
-          <a class="site-nav__link site-nav__link--active" href="/cards" aria-current="page">Card Library</a>
-          <a class="site-nav__link" href="/pets">Pets</a>
-          <a class="site-nav__link" href="/mounts">Mounts</a>
-          <a class="site-nav__link" href="/monsters">Monsters</a>
-          <a class="site-nav__link" href="/armour">Armour</a>
-          <a class="site-nav__link" href="/weapons">Weapons</a>
-        </nav>
-      </div>
-    </header>
+    ${siteHeaderRowHtml("cards")}
 
     <section class="page">
       <div class="cards-windowhead" role="banner" aria-label="Card Library header">
@@ -731,6 +720,8 @@ function mount(root: HTMLElement): void {
       </div>
     </dialog>
   `;
+
+  wireSiteGameModeToggle(root);
 
   const q = root.querySelector("#q") as HTMLInputElement;
   const cardsEl = root.querySelector("#cards-rowcards") as HTMLElement;
@@ -1491,5 +1482,6 @@ function mount(root: HTMLElement): void {
 }
 
 const appRoot = document.querySelector("#app") as HTMLElement;
+initPlannerGameModeFromUrlOrStorage();
 mount(appRoot);
 
