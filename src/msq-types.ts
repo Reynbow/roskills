@@ -53,7 +53,8 @@ export type MsqWeaponSegment = {
 /** Segment of a wiki infobox cell: plain text or a link to an iRO Wiki article path (after `/wiki/`). */
 export type MsqWikiPart =
   | { readonly kind: "text"; readonly text: string }
-  | { readonly kind: "link"; readonly text: string; readonly wikiPath: string };
+  | { readonly kind: "link"; readonly text: string; readonly wikiPath: string }
+  | { readonly kind: "url"; readonly text: string; readonly url: string };
 
 /** One row from the iRO Wiki quest infobox (Requirements / Rewards tables). */
 export type MsqWikiRow = {

@@ -2040,6 +2040,88 @@ header.site-header .site-nav {
   z-index: 1;
 }
 
+.msq-step-card__equip-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.msq-step-card__equip-col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.msq-step-card__equip-col-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.msq-step-card__equip-note {
+  font-size: 0.86rem;
+  color: rgba(170, 210, 255, 0.7);
+}
+
+.msq-step-card__equip-acquire {
+  font-size: 0.86rem;
+  color: rgba(160, 198, 255, 0.72);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  align-self: flex-start;
+}
+
+.msq-step-card__equip-acquire:hover {
+  color: rgba(185, 225, 255, 0.9);
+}
+
+.msq-step-card__equip-acquire:focus-visible {
+  outline: 2px solid rgba(120, 180, 255, 0.7);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.msq-step-card__equip-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.6rem;
+}
+
+.msq-step-card__equip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: rgba(210, 235, 255, 0.88);
+  text-decoration: none;
+  padding: 0.18rem 0.38rem;
+  border-radius: 8px;
+  background: rgba(120, 180, 255, 0.1);
+  border: 1px solid rgba(120, 180, 255, 0.18);
+}
+
+.msq-step-card__equip-link:hover {
+  background: rgba(120, 180, 255, 0.15);
+  border-color: rgba(120, 180, 255, 0.28);
+}
+
+.msq-step-card__equip-link:focus-visible {
+  outline: 2px solid rgba(120, 180, 255, 0.7);
+  outline-offset: 2px;
+}
+
+@media (max-width: 860px) {
+  .msq-step-card__equip-split {
+    grid-template-columns: 1fr;
+  }
+}
+
 .msq-step-card__equip-section {
   min-width: 0;
 }

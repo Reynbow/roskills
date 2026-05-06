@@ -16,6 +16,10 @@ function L(text: string, wikiPath: string): MsqWikiPart {
   return { kind: "link", text, wikiPath };
 }
 
+function U(text: string, url: string): MsqWikiPart {
+  return { kind: "url", text, url };
+}
+
 export const EPISODES: MsqEpisode[] = [
   {
     id: "16.1",
@@ -118,18 +122,18 @@ export const EPISODES: MsqEpisode[] = [
     id: "17.2",
     episode: "Episode 17.2",
     title: "Legacy of the Wise One",
-    url: "https://irowiki.org/wiki/Legacy_of_the_Wise_One_(17.2)_Equipment_and_Enchants",
+    url: "https://irowiki.org/wiki/Legacy_of_the_Wise_One#Main_Quest",
     wikiRequirements: [
       { label: "Base Level", value: [T("130")] },
       {
         label: "Item(s) (Consumed)",
         value: [
           T("1 "),
-          L("Yggdrasil Leaf", "Yggdrasil_Leaf"),
+          U("Yggdrasil Leaf", "https://db.irowiki.org/db/item-info/610/"),
           T(", 10 "),
-          L("Broken Sword", "Broken_Sword"),
+          U("Broken Sword", "https://db.irowiki.org/db/item-info/7110/"),
           T(", 10 "),
-          L("Fluorescent Liquid", "Fluorescent_Liquid"),
+          U("Fluorescent Liquid", "https://db.irowiki.org/db/item-info/7326/"),
         ],
       },
       { label: "Quest Prerequisite(s)", value: [L("Illusion", "Illusion")] },
@@ -137,7 +141,7 @@ export const EPISODES: MsqEpisode[] = [
     wikiRewards: [
       { label: "Base Experience", value: [T("Multiple")] },
       { label: "Job Experience", value: [T("Multiple")] },
-      { label: "Item(s)", value: [T("105 "), L("Barmeal Ticket", "Barmeal_Ticket")] },
+      { label: "Item(s)", value: [T("105 "), U("Barmeal Ticket", "https://www.divine-pride.net/database/item/1000103/")] },
       { label: "Quest Reward(s)", value: [L("Direction of Prayer", "Direction_of_Prayer")] },
     ],
     synopsis:
@@ -171,9 +175,9 @@ export const EPISODES: MsqEpisode[] = [
         label: "Item(s)",
         value: [
           T("700 "),
-          L("Amethyst Fragment", "Amethyst_Fragment"),
+          U("Amethyst Fragment", "https://www.divine-pride.net/database/item/1000405/"),
           T(" (main quest: 460; side quest: 240); "),
-          L("Costume Mini Elly", "Costume_Mini_Elly"),
+          U("Costume Mini Elly", "https://www.divine-pride.net/database/item/1000608/"),
         ],
       },
       {

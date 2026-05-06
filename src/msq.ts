@@ -31,6 +31,11 @@ function wikiPartsHtml(parts: readonly MsqWikiPart[]): string {
   return parts
     .map((p) => {
       if (p.kind === "text") return escapeHtml(p.text);
+      if (p.kind === "url") {
+        return `<a class="msq-step-card__wiki-a" href="${escapeHtml(
+          p.url,
+        )}" target="_blank" rel="noreferrer noopener">${escapeHtml(p.text)}</a>`;
+      }
       const href = wikiArticleUrl(p.wikiPath);
       return `<a class="msq-step-card__wiki-a" href="${escapeHtml(href)}" target="_blank" rel="noreferrer noopener">${escapeHtml(p.text)}</a>`;
     })
@@ -208,6 +213,48 @@ function weaponStripHtml(ep: MsqEpisode, opts?: { omitOuterSetTitle?: boolean })
 function episodeEquipmentPanelHtml(ep: MsqEpisode): string {
   const stripOpts = { omitOuterSetTitle: true } as const;
   const weapons = weaponStripHtml(ep, stripOpts);
+
+  if (ep.id === "17.1") {
+    const illusionUrl = "https://irowiki.org/wiki/Illusion_Equipment_and_Enchants";
+    const graceUrl = "https://irowiki.org/wiki/Grace_Equipment";
+
+    return `<div class="msq-step-card__equip-split">
+      <div class="msq-step-card__equip-col">
+        <div class="msq-step-card__equip-col-head">
+          <div class="pets-card__k">Illusion gear</div>
+          <div class="msq-step-card__equip-note">Lv 130+</div>
+          <a class="msq-step-card__equip-acquire" href="${escapeHtml(illusionUrl)}" target="_blank" rel="noreferrer noopener">How to acquire episode equipment.</a>
+        </div>
+        <div class="msq-step-card__equip-links">
+          <a class="msq-step-card__equip-link" href="${escapeHtml(`${illusionUrl}#Illusion_Armor`)}" target="_blank" rel="noreferrer noopener">Illusion Armor</a>
+          <a class="msq-step-card__equip-link" href="${escapeHtml(`${illusionUrl}#OS_Weapons`)}" target="_blank" rel="noreferrer noopener">OS Weapons</a>
+        </div>
+      </div>
+
+      <div class="msq-step-card__equip-col">
+        <div class="msq-step-card__equip-col-head">
+          <div class="pets-card__k">Grace gear</div>
+          <div class="msq-step-card__equip-note">Lv 150+</div>
+          <a class="msq-step-card__equip-acquire" href="${escapeHtml(graceUrl)}" target="_blank" rel="noreferrer noopener">How to acquire episode equipment.</a>
+        </div>
+        <div class="msq-step-card__equip-stack">
+          <div class="msq-step-card__equip-section">
+            <div class="pets-card__k">Armour</div>
+            ${armourStripHtml(ep, stripOpts)}
+          </div>
+          ${
+            weapons ?
+              `<div class="msq-step-card__equip-section">
+            <div class="pets-card__k">Weapons</div>
+            ${weapons}
+          </div>`
+            : ""
+          }
+        </div>
+      </div>
+    </div>`;
+  }
+
   return `<div class="msq-step-card__equip-stack">
       <div class="msq-step-card__equip-section">
         <div class="pets-card__k">Armour</div>
@@ -222,6 +269,18 @@ function episodeEquipmentPanelHtml(ep: MsqEpisode): string {
         : ""
       }
     </div>`;
+}
+
+function episodeEquipmentAcquireUrl(ep: MsqEpisode): string {
+  if (ep.armourSetName === "Noblesse") return "https://irowiki.org/wiki/Noblesse_Equipment";
+  if (ep.armourSetName === "Imperial") return "https://irowiki.org/wiki/Imperial_Equipment";
+  if (ep.armourSetName === "Grace") return "https://irowiki.org/wiki/Grace_Equipment";
+  return ep.url;
+}
+
+function episodeEquipmentTitle(ep: MsqEpisode): string {
+  if (ep.id === "17.1") return "Illusion · Grace";
+  return `${ep.armourSetName}${ep.weaponSetName ? ` · ${ep.weaponSetName}` : ""}`;
 }
 
 function setupMsqArmourTooltips(root: HTMLElement, gridEl: HTMLElement): () => void {
@@ -294,7 +353,8 @@ function cardHtml(ep: MsqEpisode, index: number, query: string): string {
   const order = index + 1;
 
   const ariaStory = escapeHtml(`Open iRO Wiki walkthrough: ${ep.title}`);
-  const ariaEquip = escapeHtml(`Open iRO Wiki (${ep.title} — equipment notes)`);
+  const ariaEquip = escapeHtml(`${ep.title} — episode equipment`);
+  const equipAcquireUrl = episodeEquipmentAcquireUrl(ep);
 
   return `<div class="msq-step-row" role="group" aria-label="${escapeHtml(`${ep.episode}: ${ep.title}`)}">
     <div class="pets-card msq-episode-card msq-step-card msq-step-card--story">
@@ -322,17 +382,17 @@ function cardHtml(ep: MsqEpisode, index: number, query: string): string {
       <a class="msq-step-card__wiki-cta" href="${escapeHtml(ep.url)}" target="_blank" rel="noreferrer noopener">iRO Wiki →</a>
     </div>
 
-    <a class="pets-card msq-episode-card msq-step-card msq-step-card--equip" href="${escapeHtml(ep.url)}" target="_blank" rel="noreferrer noopener" aria-label="${ariaEquip}">
+    <div class="pets-card msq-episode-card msq-step-card msq-step-card--equip" aria-label="${ariaEquip}">
       <div class="msq-episode-card__bg msq-step-card__equip-bg" aria-hidden="true">gear</div>
       <header class="pets-card__head msq-step-card__equip-head">
         <div class="pets-monster msq-episode-card__lead">
           <div class="pets-card__k">Episode equipment</div>
-          <div class="msq-episode-card__title msq-step-card__equip-title">${escapeHtml(ep.armourSetName)}${ep.weaponSetName ? ` · ${escapeHtml(ep.weaponSetName)}` : ""}</div>
-          <div class="pets-monster__meta">Hover icons for stats · same walkthrough link</div>
+          <div class="msq-episode-card__title msq-step-card__equip-title">${escapeHtml(episodeEquipmentTitle(ep))}</div>
+          <a class="msq-step-card__equip-acquire" href="${escapeHtml(equipAcquireUrl)}" target="_blank" rel="noreferrer noopener">How to acquire episode equipment.</a>
         </div>
       </header>
       ${episodeEquipmentPanelHtml(ep)}
-    </a>
+    </div>
   </div>`;
 }
 
