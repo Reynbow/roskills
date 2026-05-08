@@ -91,12 +91,13 @@ const monstersById = new Map<number, MonsterEntry>(
   (monstersRaw as unknown as MonsterEntry[]).map((m) => [m.id, m]),
 );
 
-const VARIANT_NAME_TOKENS = ["ringleader", "furious", "elusive", "swift", "solid"] as const;
+const VARIANT_NAME_TOKENS = ["ringleader", "ringlea", "ringleade", "furious", "elusive", "swift", "solid"] as const;
 
 function isVariantMonsterName(name: string): boolean {
   const n = normalize(name);
-  // Match whole-word tokens to avoid false positives inside other words.
-  // Examples: "Furious Orc Warrior", "Ringleader Chen", etc.
+  // Prefer whole-word tokens to avoid false positives inside other words.
+  // Some upstream names appear truncated (e.g. "... Ringlea"), so include those
+  // as explicit tokens too.
   return VARIANT_NAME_TOKENS.some((t) => new RegExp(`\\b${t}\\b`, "i").test(n));
 }
 
