@@ -91,9 +91,19 @@ const monstersById = new Map<number, MonsterEntry>(
   (monstersRaw as unknown as MonsterEntry[]).map((m) => [m.id, m]),
 );
 
+const VARIANT_NAME_TOKENS = ["ringleader", "furious", "elusive", "swift", "solid"] as const;
+
+function isVariantMonsterName(name: string): boolean {
+  const n = normalize(name);
+  // Match whole-word tokens to avoid false positives inside other words.
+  // Examples: "Furious Orc Warrior", "Ringleader Chen", etc.
+  return VARIANT_NAME_TOKENS.some((t) => new RegExp(`\\b${t}\\b`, "i").test(n));
+}
+
 const monstersAll: MonsterEntry[] = (monstersRaw as unknown as MonsterEntry[])
   .slice()
   .filter((m) => typeof m.id === "number" && typeof m.name === "string" && typeof m.level === "number")
+  .filter((m) => !isVariantMonsterName(m.name))
   .filter((m) => Array.isArray(m.maps) && m.maps.length > 0);
 
 const DEFAULT_FOCUS_MOB_ID = 1015;
@@ -101,6 +111,22 @@ const DEFAULT_FOCUS_MOB_ID = 1015;
 function clampInt(n: number, min: number, max: number): number {
   if (!Number.isFinite(n)) return min;
   return Math.max(min, Math.min(max, Math.trunc(n)));
+}
+
+function readLs(key: string): string {
+  try {
+    return localStorage.getItem(key) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function writeLs(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* ignore */
+  }
 }
 
 function normalize(s: string): string {
@@ -111,10 +137,6 @@ function rmsUrlForMob(mobId: number): string {
   return `https://ratemyserver.net/index.php?page=re_mob_db&quick=1&mob_name=${encodeURIComponent(
     String(mobId),
   )}&mob_search=Search`;
-}
-
-function rmsGifSpriteUrl(mobId: number): string {
-  return `https://file5s.ratemyserver.net/mobs/${encodeURIComponent(String(mobId))}.gif`;
 }
 
 function divinePridePngSpriteUrl(mobId: number): string {
@@ -311,8 +333,7 @@ function monsterCardHtml(m: MonsterEntry, playerLevel: number, mult: { base: num
   // Bonus range (green): EXP yield > 100%. From the iRO table this is diff +3..+15 (inclusive).
   const bonusMinPlayerLv = Math.max(1, m.level - 15);
   const bonusMaxPlayerLv = Math.max(1, m.level - 3);
-  const spritePrimary = rmsGifSpriteUrl(m.id);
-  const spriteFallback = m.sprite || divinePridePngSpriteUrl(m.id);
+  const spriteStatic = m.sprite || divinePridePngSpriteUrl(m.id);
   const badge =
     m.isMvp ? `<span class="leveling-badge leveling-badge--mvp">MVP</span>`
     : m.isBoss ? `<span class="leveling-badge leveling-badge--mini">Mini Boss</span>`
@@ -349,8 +370,7 @@ function monsterCardHtml(m: MonsterEntry, playerLevel: number, mult: { base: num
           <div class="leveling-card__top-right" aria-hidden="true">
             <img
               class="leveling-card__sprite"
-              src="${escapeHtml(spritePrimary)}"
-              data-fallback-src="${escapeHtml(spriteFallback)}"
+              src="${escapeHtml(spriteStatic)}"
               alt=""
               loading="lazy"
               decoding="async"
@@ -478,7 +498,9 @@ function monsterListHtml(
       return a.m.level - b.m.level;
     });
 
+  const isSearching = Boolean(q);
   const bonus = scored.filter((s) => s.pct > 100);
+  const items = isSearching ? scored : bonus;
 
   const LIMIT = q ? 60 : 30;
   return `<div class="leveling-list">
@@ -487,7 +509,13 @@ function monsterListHtml(
         <span>Name</span><span>Tag</span><span>Lv</span><span>%</span><span>Eff Base</span><span>Δ</span>
       </div>
     </div>
-    ${sectionHtml("Bonus EXP (>100%)", bonus, focusId, LIMIT, "No bonus monsters in this filter.")}
+    ${sectionHtml(
+      isSearching ? "Matches" : "Bonus EXP (>100%)",
+      items,
+      focusId,
+      LIMIT,
+      isSearching ? "No matches." : "No bonus monsters in this filter.",
+    )}
   </div>`;
 }
 
@@ -498,10 +526,13 @@ function mount(root: HTMLElement): void {
     setAndPersistPlannerGameMode("renewal");
   }
 
-  const initialLevel = 17;
-  const initialQuery = "";
+  const initialLevel = clampInt(parseInt(readLs("levelingPlayerLevel") || "", 10), 1, 275) || 17;
+  const initialQuery = readLs("levelingMonsterQuery") || "";
   const initialFocusId = DEFAULT_FOCUS_MOB_ID;
   const initialHideBosses = localStorage.getItem("levelingHideBosses") === "1";
+  const initialMultBase = readLs("levelingMultBase") || "1";
+  const initialMultJob = readLs("levelingMultJob") || "1";
+  const initialMultDrops = readLs("levelingMultDrops") || "1";
 
   root.innerHTML = `
     ${siteHeaderRowHtml("leveling")}
@@ -524,9 +555,14 @@ function mount(root: HTMLElement): void {
         <div class="leveling-query">
           <label class="cards-search">
             <span class="cards-search__label">Monster name (filter)</span>
-            <input id="monsterQuery" class="cards-search__input" type="search" placeholder="e.g. zombie or 1015" autocomplete="off" value="${escapeHtml(
-              initialQuery,
-            )}" />
+            <span class="leveling-searchwrap">
+              <input id="monsterQuery" class="cards-search__input" type="search" placeholder="e.g. zombie or 1015" autocomplete="off" value="${escapeHtml(
+                initialQuery,
+              )}" />
+              <button type="button" class="leveling-clear" id="monsterClear" aria-label="Clear monster search" title="Clear" ${
+                initialQuery.trim() ? "" : "hidden"
+              }>×</button>
+            </span>
           </label>
           <label class="toolbar-toggle toolbar-toggle--compact leveling-toggle" title="Hide MVPs and Mini Bosses">
             <span class="toolbar-toggle-text">Hide bosses</span>
@@ -541,15 +577,21 @@ function mount(root: HTMLElement): void {
           <div class="leveling-mults__grid">
             <label class="leveling-mults__field">
               <span class="leveling-mults__k">Base</span>
-              <input id="multBase" class="leveling-mults__input" type="number" min="0" step="0.1" value="1" inputmode="decimal" />
+              <input id="multBase" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
+                initialMultBase,
+              )}" inputmode="decimal" />
             </label>
             <label class="leveling-mults__field">
               <span class="leveling-mults__k">Job</span>
-              <input id="multJob" class="leveling-mults__input" type="number" min="0" step="0.1" value="1" inputmode="decimal" />
+              <input id="multJob" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
+                initialMultJob,
+              )}" inputmode="decimal" />
             </label>
             <label class="leveling-mults__field">
               <span class="leveling-mults__k">Drops</span>
-              <input id="multDrops" class="leveling-mults__input" type="number" min="0" step="0.1" value="1" inputmode="decimal" />
+              <input id="multDrops" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
+                initialMultDrops,
+              )}" inputmode="decimal" />
             </label>
           </div>
         </div>
@@ -584,6 +626,7 @@ function mount(root: HTMLElement): void {
   const minus = root.querySelector<HTMLButtonElement>("#lvMinus")!;
   const plus = root.querySelector<HTMLButtonElement>("#lvPlus")!;
   const query = root.querySelector<HTMLInputElement>("#monsterQuery")!;
+  const queryClear = root.querySelector<HTMLButtonElement>("#monsterClear")!;
   const multBase = root.querySelector<HTMLInputElement>("#multBase")!;
   const multJob = root.querySelector<HTMLInputElement>("#multJob")!;
   const multDrops = root.querySelector<HTMLInputElement>("#multDrops")!;
@@ -597,6 +640,19 @@ function mount(root: HTMLElement): void {
   plus.style.display = "inline-flex";
 
   let focusId = initialFocusId;
+  let persistTimer: number | undefined;
+
+  const schedulePersist = (): void => {
+    if (persistTimer !== undefined) window.clearTimeout(persistTimer);
+    persistTimer = window.setTimeout(() => {
+      persistTimer = undefined;
+      writeLs("levelingPlayerLevel", input.value || "");
+      writeLs("levelingMonsterQuery", query.value || "");
+      writeLs("levelingMultBase", multBase.value || "");
+      writeLs("levelingMultJob", multJob.value || "");
+      writeLs("levelingMultDrops", multDrops.value || "");
+    }, 80);
+  };
 
   const render = (): void => {
     const lv = clampInt(parseInt(input.value || "", 10), 1, 275);
@@ -635,35 +691,50 @@ function mount(root: HTMLElement): void {
       (hideBossesOn ? monstersAll.find((m) => !isBossLike(m)) : null) ??
       monstersById.get(DEFAULT_FOCUS_MOB_ID);
     focusEl.innerHTML = focusMonster ? monsterCardHtml(focusMonster, lv, mult) : "";
-    // If the animated RMS sprite fails, fall back to the PNG sprite.
-    const sprite = focusEl.querySelector<HTMLImageElement>(".leveling-card__sprite");
-    if (sprite) {
-      const fallback = sprite.getAttribute("data-fallback-src") || "";
-      sprite.onerror = () => {
-        if (!fallback) return;
-        if (sprite.src === fallback) return;
-        sprite.src = fallback;
-      };
-    }
     listEl.innerHTML = monsterListHtml(lv, q, focusId, mult.base, { hideBosses: hideBossesOn });
   };
 
   const setLevel = (lv: number): void => {
     input.value = String(clampInt(lv, 1, 275));
+    schedulePersist();
     render();
   };
 
-  input.addEventListener("input", () => render());
+  input.addEventListener("input", () => {
+    schedulePersist();
+    render();
+  });
   slider.addEventListener("input", () => setLevel(parseInt(slider.value || "", 10)));
   minus.addEventListener("click", () => setLevel(parseInt(input.value || "", 10) - 1));
   plus.addEventListener("click", () => setLevel(parseInt(input.value || "", 10) + 1));
-  query.addEventListener("input", () => render());
-  multBase.addEventListener("input", () => render());
-  multJob.addEventListener("input", () => render());
-  multDrops.addEventListener("input", () => render());
+  query.addEventListener("input", () => {
+    queryClear.hidden = !query.value.trim();
+    schedulePersist();
+    render();
+  });
+  multBase.addEventListener("input", () => {
+    schedulePersist();
+    render();
+  });
+  multJob.addEventListener("input", () => {
+    schedulePersist();
+    render();
+  });
+  multDrops.addEventListener("input", () => {
+    schedulePersist();
+    render();
+  });
   hideBosses.addEventListener("input", () => {
     localStorage.setItem("levelingHideBosses", hideBosses.checked ? "1" : "0");
     render();
+  });
+
+  queryClear.addEventListener("click", () => {
+    query.value = "";
+    queryClear.hidden = true;
+    schedulePersist();
+    render();
+    query.focus();
   });
 
   root.addEventListener("click", (e) => {

@@ -926,6 +926,64 @@ header.site-header .site-nav {
   flex: 0 0 auto;
 }
 
+/* Leveling: make search clear (X) easier to hit */
+.leveling-page input#monsterQuery[type="search"] {
+  padding-right: 2.55rem; /* leave room for our clear button */
+}
+.leveling-page input#monsterQuery[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Leveling: custom clear button inside the search field */
+.leveling-searchwrap {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.leveling-clear {
+  position: absolute;
+  right: 0.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(140, 170, 210, 0.22);
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(235, 245, 255, 0.88);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.leveling-clear:hover {
+  border-color: rgba(120, 180, 255, 0.34);
+  background: rgba(120, 180, 255, 0.10);
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.leveling-clear:focus-visible {
+  outline: 2px solid rgba(120, 180, 255, 0.7);
+  outline-offset: 2px;
+}
+
+/* Leveling: hide native number spinners (we have +/- buttons) */
+.leveling-page input#playerLevel[type="number"]::-webkit-outer-spin-button,
+.leveling-page input#playerLevel[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.leveling-page input#playerLevel[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .cards-toolbar label.toolbar-toggle {
   display: inline-flex;
   gap: 0.55rem;
@@ -1094,10 +1152,14 @@ header.site-header .site-nav {
   grid-template-columns: 1fr 180px;
   gap: 0.85rem;
   align-items: start;
+  position: relative;
+  overflow: visible;
 }
 
 .leveling-card__top-left {
   min-width: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .leveling-card__top-right {
@@ -1105,16 +1167,26 @@ header.site-header .site-nav {
   align-items: flex-start;
   justify-content: flex-end;
   padding-top: 1.25rem; /* large top padding above sprite */
+  position: relative;
+  overflow: visible;
 }
 
 .leveling-card__sprite {
-  width: 170px;
-  height: 170px;
-  object-fit: contain;
+  display: block;
+  width: auto;
+  height: auto;
+  object-fit: unset;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   opacity: 1;
   filter: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: scale(2);
+  transform-origin: top right;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .leveling-card__body {
@@ -1122,10 +1194,14 @@ header.site-header .site-nav {
   flex-direction: column;
   gap: 0.75rem;
   min-height: 520px;
+  position: relative;
+  z-index: 1;
 }
 
 .leveling-card__section {
   min-width: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .leveling-card__section--elem {
@@ -1171,7 +1247,9 @@ header.site-header .site-nav {
   padding: 0.3rem 0.45rem;
   border-radius: 10px;
   border: 1px solid rgba(140, 170, 210, 0.18);
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(10, 12, 18, 0.48);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   font-size: 0.9rem;
   color: inherit;
   text-decoration: none;
@@ -1179,12 +1257,12 @@ header.site-header .site-nav {
 
 .leveling-droprow--mvp {
   border-color: rgba(200, 160, 255, 0.24);
-  background: rgba(170, 120, 255, 0.08);
+  background: rgba(40, 18, 55, 0.42);
 }
 
 .leveling-droprow--link:hover {
   border-color: rgba(120, 180, 255, 0.34);
-  background: rgba(120, 180, 255, 0.08);
+  background: rgba(35, 55, 85, 0.34);
 }
 
 .leveling-droprow--link:focus-visible {
@@ -1296,7 +1374,9 @@ header.site-header .site-nav {
   padding: 0.3rem 0.45rem;
   border-radius: 10px;
   border: 1px solid rgba(140, 170, 210, 0.18);
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(10, 12, 18, 0.48);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   font-size: 0.9rem;
 }
 

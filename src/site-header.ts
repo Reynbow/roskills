@@ -59,7 +59,9 @@ export function gameModeToggleHtml(): string {
 function navLinkHtml(item: NavItem, active: SiteNavId): string {
   const isActive = item.id === active;
   const mode = getPlannerGameMode();
-  const hidden = item.renewalOnly && mode !== "renewal";
+  const isRenewalOnly = !!item.renewalOnly;
+  const isSkills = item.id === "skills";
+  const hidden = (isRenewalOnly && mode !== "renewal") || (!isRenewalOnly && !isSkills && mode === "renewal");
   const cls = `site-nav__link${isActive ? " site-nav__link--active" : ""}`;
   const current = isActive ? ` aria-current="page"` : "";
   const hiddenAttr = hidden ? " hidden" : "";
@@ -115,8 +117,11 @@ export function syncGameModeToggleChrome(
     btn.setAttribute("aria-pressed", on ? "true" : "false");
   });
   // Planner title is fixed to brand (`roskills.com`) and doesn't change per mode anymore.
-  root.querySelectorAll<HTMLAnchorElement>("a[data-renewal-only='true']").forEach((a) => {
-    const hide = mode !== "renewal";
+  root.querySelectorAll<HTMLAnchorElement>("a.site-nav__link[data-site-nav]").forEach((a) => {
+    const id = (a.getAttribute("data-site-nav") || "") as SiteNavId | "";
+    const renewalOnly = a.getAttribute("data-renewal-only") === "true";
+    const isSkills = id === "skills";
+    const hide = (renewalOnly && mode !== "renewal") || (!renewalOnly && !isSkills && mode === "renewal");
     if (hide) {
       a.setAttribute("hidden", "");
       a.setAttribute("aria-hidden", "true");
