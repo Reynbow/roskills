@@ -24,8 +24,10 @@ export default defineConfig({
           "/msq/": "/msq.html",
           "/equipment": "/equipment.html",
           "/equipment/": "/equipment.html",
-          "/leveling": "/leveling.html",
-          "/leveling/": "/leveling.html",
+          "/re-monsters": "/re-monsters.html",
+          "/re-monsters/": "/re-monsters.html",
+          "/leveling": "/re-monsters.html",
+          "/leveling/": "/re-monsters.html",
         };
 
         server.middlewares.use((req, _res, next) => {
@@ -48,7 +50,7 @@ export default defineConfig({
         weapons: "weapons.html",
         monsters: "monsters.html",
         equipment: "equipment.html",
-        leveling: "leveling.html",
+        "re-monsters": "re-monsters.html",
       },
     },
   },

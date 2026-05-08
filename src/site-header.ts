@@ -15,7 +15,7 @@ export type SiteNavId =
   | "armour"
   | "weapons"
   | "equipment"
-  | "leveling";
+  | "re-monsters";
 
 type NavItem = { id: SiteNavId; href: string; label: string; renewalOnly?: boolean };
 
@@ -30,7 +30,7 @@ const NAV_ITEMS: NavItem[] = [
   // Renewal-only links are intentionally last so they're always rightmost in the nav.
   { id: "msq", href: "/msq", label: "MSQ", renewalOnly: true },
   { id: "equipment", href: "/equipment", label: "Equipment", renewalOnly: true },
-  { id: "leveling", href: "/leveling", label: "Leveling", renewalOnly: true },
+  { id: "re-monsters", href: "/re-monsters", label: "Re-Monsters", renewalOnly: true },
 ];
 
 function escapeHtml(s: string): string {

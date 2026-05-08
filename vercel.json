@@ -21,7 +21,9 @@
     { "source": "/msq/", "destination": "/msq.html" },
     { "source": "/equipment", "destination": "/equipment.html" },
     { "source": "/equipment/", "destination": "/equipment.html" },
-    { "source": "/leveling", "destination": "/leveling.html" },
-    { "source": "/leveling/", "destination": "/leveling.html" }
+    { "source": "/re-monsters", "destination": "/re-monsters.html" },
+    { "source": "/re-monsters/", "destination": "/re-monsters.html" },
+    { "source": "/leveling", "destination": "/re-monsters.html" },
+    { "source": "/leveling/", "destination": "/re-monsters.html" }
   ]
 }

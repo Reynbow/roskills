@@ -536,7 +536,7 @@ function mount(root: HTMLElement): void {
   const initialMultDrops = readLs("levelingMultDrops") || "1";
 
   root.innerHTML = `
-    ${siteHeaderRowHtml("leveling")}
+    ${siteHeaderRowHtml("re-monsters")}
 
     <section class="page leveling-page">
       <div class="cards-toolbar">
