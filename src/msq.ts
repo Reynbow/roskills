@@ -1,6 +1,6 @@
 import "./style.css";
 import { inject } from "@vercel/analytics";
-import { getPlannerGameMode, initPlannerGameModeFromUrlOrStorage } from "./game-mode";
+import { getPlannerGameMode, initPlannerGameModeFromUrlOrStorage, setAndPersistPlannerGameMode } from "./game-mode";
 import { EPISODE_TOTAL, EPISODES, episodeArmourPiecesFlat, episodeWeaponPiecesFlat } from "./msq-episodes";
 import { getMsqItemTooltipPayload } from "./msq-item-tooltip-lookup";
 import type { MsqEpisode, MsqWikiPart, MsqWikiRow, RoArmourPiece, RoWeaponPiece } from "./msq-types";
@@ -398,8 +398,8 @@ function cardHtml(ep: MsqEpisode, index: number, query: string): string {
 
 function mount(root: HTMLElement): void {
   if (getPlannerGameMode() !== "renewal") {
-    window.location.assign("/skills");
-    return;
+    // If the user deep-links to a renewal-only page, automatically enable Renewal.
+    setAndPersistPlannerGameMode("renewal");
   }
 
   root.innerHTML = `

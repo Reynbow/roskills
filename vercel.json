@@ -20,6 +20,8 @@
     { "source": "/msq", "destination": "/msq.html" },
     { "source": "/msq/", "destination": "/msq.html" },
     { "source": "/equipment", "destination": "/equipment.html" },
-    { "source": "/equipment/", "destination": "/equipment.html" }
+    { "source": "/equipment/", "destination": "/equipment.html" },
+    { "source": "/leveling", "destination": "/leveling.html" },
+    { "source": "/leveling/", "destination": "/leveling.html" }
   ]
 }

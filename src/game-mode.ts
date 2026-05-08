@@ -40,3 +40,9 @@ export function setPlannerGameMode(mode: GameMode): void {
 export function getPlannerGameMode(): GameMode {
   return activeGameMode;
 }
+
+/** Convenience for pages that want to change mode and persist it. */
+export function setAndPersistPlannerGameMode(mode: GameMode): void {
+  persistPlannerGameMode(mode);
+  setPlannerGameMode(mode);
+}

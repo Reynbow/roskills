@@ -2,6 +2,7 @@ import "./style.css";
 import { inject } from "@vercel/analytics";
 import { initPlannerGameModeFromUrlOrStorage } from "./game-mode";
 import { getPlannerGameMode } from "./game-mode";
+import { setAndPersistPlannerGameMode } from "./game-mode";
 import { getMsqItemTooltipPayload } from "./msq-item-tooltip-lookup";
 import type { F2pScrapedItemTooltip } from "./ro-item-tooltip-html";
 import {
@@ -178,8 +179,8 @@ function setupF2pNaviCopy(root: HTMLElement, host: HTMLElement): void {
 
 function mount(root: HTMLElement): void {
   if (getPlannerGameMode() !== "renewal") {
-    window.location.assign("/skills");
-    return;
+    // If the user deep-links to a renewal-only page, automatically enable Renewal.
+    setAndPersistPlannerGameMode("renewal");
   }
   root.innerHTML = `
     ${siteHeaderRowHtml("equipment")}

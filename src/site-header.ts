@@ -14,7 +14,8 @@ export type SiteNavId =
   | "monsters"
   | "armour"
   | "weapons"
-  | "equipment";
+  | "equipment"
+  | "leveling";
 
 type NavItem = { id: SiteNavId; href: string; label: string; renewalOnly?: boolean };
 
@@ -29,6 +30,7 @@ const NAV_ITEMS: NavItem[] = [
   // Renewal-only links are intentionally last so they're always rightmost in the nav.
   { id: "msq", href: "/msq", label: "MSQ", renewalOnly: true },
   { id: "equipment", href: "/equipment", label: "Equipment", renewalOnly: true },
+  { id: "leveling", href: "/leveling", label: "Leveling", renewalOnly: true },
 ];
 
 function escapeHtml(s: string): string {
@@ -63,7 +65,8 @@ function navLinkHtml(item: NavItem, active: SiteNavId): string {
   const hiddenAttr = hidden ? " hidden" : "";
   const ariaH = hidden ? ` aria-hidden="true"` : "";
   const tab = hidden ? ` tabindex="-1"` : "";
-  return `<a class="${cls}" href="${item.href}" data-site-nav="${item.id}"${current}${hiddenAttr}${ariaH}${tab}>${escapeHtml(item.label)}</a>`;
+  const renewalOnlyAttr = item.renewalOnly ? ` data-renewal-only="true"` : "";
+  return `<a class="${cls}" href="${item.href}" data-site-nav="${item.id}"${renewalOnlyAttr}${current}${hiddenAttr}${ariaH}${tab}>${escapeHtml(item.label)}</a>`;
 }
 
 export function siteNavHtml(active: SiteNavId): string {
@@ -112,20 +115,7 @@ export function syncGameModeToggleChrome(
     btn.setAttribute("aria-pressed", on ? "true" : "false");
   });
   // Planner title is fixed to brand (`roskills.com`) and doesn't change per mode anymore.
-  root.querySelectorAll<HTMLAnchorElement>("a[data-site-nav='msq']").forEach((a) => {
-    const hide = mode !== "renewal";
-    if (hide) {
-      a.setAttribute("hidden", "");
-      a.setAttribute("aria-hidden", "true");
-      a.setAttribute("tabindex", "-1");
-    } else {
-      a.removeAttribute("hidden");
-      a.removeAttribute("aria-hidden");
-      a.removeAttribute("tabindex");
-    }
-  });
-
-  root.querySelectorAll<HTMLAnchorElement>("a[data-site-nav='equipment']").forEach((a) => {
+  root.querySelectorAll<HTMLAnchorElement>("a[data-renewal-only='true']").forEach((a) => {
     const hide = mode !== "renewal";
     if (hide) {
       a.setAttribute("hidden", "");
