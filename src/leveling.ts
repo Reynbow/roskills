@@ -166,10 +166,15 @@ const E3: Record<string, string> = {
   Wind: "WND",
   Poison: "PSN",
   Holy: "HLY",
-  Dark: "DRK",
+  Dark: "SHW",
   Ghost: "GST",
   Undead: "UND",
 };
+
+/** Data / tables use "Dark"; UI label matches common RO naming. */
+function elementDisplayName(internalElem: string): string {
+  return internalElem === "Dark" ? "Shadow" : internalElem;
+}
 
 function clamp(n: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, n));
@@ -253,14 +258,12 @@ function elementPreviewHtml(m: MonsterEntry): string {
   const w3 = weak ? E3[weak.elem] ?? weak.elem.slice(0, 3).toUpperCase() : "—";
   const r3 = resist ? E3[resist.elem] ?? resist.elem.slice(0, 3).toUpperCase() : "—";
 
+  const weakTitle = weak ? `${elementDisplayName(weak.elem)} ${weak.pct}%` : "No weakness";
+  const resistTitle = resist ? `${elementDisplayName(resist.elem)} ${resist.pct}%` : "No resist";
   return `<span class="leveling-elem" aria-label="Element preview">
-    <span class="leveling-elem__w" title="${escapeHtml(weak ? `${weak.elem} ${weak.pct}%` : "No weakness")}">${escapeHtml(
-      w3,
-    )}↑</span>
+    <span class="leveling-elem__w" title="${escapeHtml(weakTitle)}">${escapeHtml(w3)}↑</span>
     <span class="leveling-elem__sep" aria-hidden="true">/</span>
-    <span class="leveling-elem__r" title="${escapeHtml(
-      resist ? `${resist.elem} ${resist.pct}%` : "No resist",
-    )}">${escapeHtml(r3)}↓</span>
+    <span class="leveling-elem__r" title="${escapeHtml(resistTitle)}">${escapeHtml(r3)}↓</span>
   </span>`;
 }
 
@@ -279,9 +282,9 @@ function elementColumnHtml(monsterId: number): string {
       const pct = clamp(Math.round(r.pct), 0, 300);
       const cls = pct > 100 ? "leveling-elemrow leveling-elemrow--weak" : "leveling-elemrow leveling-elemrow--resist";
       const v = pct === 0 ? "IMMUNE" : `${pct}%`;
-      return `<div class="${cls}"><div class="leveling-elemrow__k">${escapeHtml(r.elem)}</div><div class="leveling-elemrow__v">${escapeHtml(
-        v,
-      )}</div></div>`;
+      return `<div class="${cls}"><div class="leveling-elemrow__k">${escapeHtml(
+        elementDisplayName(r.elem),
+      )}</div><div class="leveling-elemrow__v">${escapeHtml(v)}</div></div>`;
     })
     .join("")}</div>`;
 }
@@ -460,9 +463,10 @@ function monsterCardHtml(
     : m.isBoss ? `<span class="leveling-badge leveling-badge--mini">Mini Boss</span>`
     : "";
   const race = (m.race || "").trim() || "—";
-  const elem = (m.element || "").trim() || "—";
+  const elemRaw = (m.element || "").trim() || "—";
+  const elemDisp = elemRaw === "—" ? "—" : elementDisplayName(elemRaw);
   const elemLv = typeof m.elementLevel === "number" && Number.isFinite(m.elementLevel) ? m.elementLevel : null;
-  const elemLabel = elemLv ? `${elem} ${elemLv}` : elem;
+  const elemLabel = elemLv ? `${elemDisp} ${elemLv}` : elemDisp;
 
   return `
     <div class="pets-card leveling-card" style="max-width: 980px;">

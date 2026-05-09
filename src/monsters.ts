@@ -173,6 +173,10 @@ const ELEMENTS: readonly string[] = [
   "Undead",
 ];
 
+function elementDisplayName(internalElem: string): string {
+  return internalElem === "Dark" ? "Shadow" : internalElem;
+}
+
 function clamp(n: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, n));
 }
@@ -258,7 +262,9 @@ function chipButton(id: string, label: string, pressed: boolean, kind: string, d
 
 function renderFilters(state: FilterState, races: string[], elements: string[], sizes: string[]): string {
   const raceChips = races.map((r) => chipButton(r, r, state.races.has(r), "race")).join("");
-  const elementChips = elements.map((e) => chipButton(e, e, state.elements.has(e), "element")).join("");
+  const elementChips = elements
+    .map((e) => chipButton(e, elementDisplayName(e), state.elements.has(e), "element"))
+    .join("");
   const sizeChips = sizes.map((s) => chipButton(s, s, state.sizes.has(s), "size")).join("");
   const mvpChips = [
     chipButton("mvp", "MVP", state.mvp.has("mvp"), "mvp", "MVP monsters"),
@@ -430,7 +436,8 @@ function rowCardHtml(m: MonsterEntry): string {
     ? `<img class="cards-rowcard__mob" src="${sprite}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" />`
     : "";
 
-  const subtitle = `${m.isMvp ? "MVP · " : ""}${m.race ?? "Unknown"} · ${m.element ?? "?"}${typeof m.elementLevel === "number" ? ` ${m.elementLevel}` : ""}`;
+  const elSub = m.element ? elementDisplayName(m.element) : "?";
+  const subtitle = `${m.isMvp ? "MVP · " : ""}${m.race ?? "Unknown"} · ${elSub}${typeof m.elementLevel === "number" ? ` ${m.elementLevel}` : ""}`;
   const lvLine = `Lv ${escapeHtml(String(m.level ?? "-"))}`;
   const hpLine = `HP ${escapeHtml(typeof m.hp === "number" ? m.hp.toLocaleString() : "-")}`;
   return `<article class="cards-rowcard">
