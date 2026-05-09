@@ -163,55 +163,66 @@ function clamp(n: number, lo: number, hi: number): number {
 }
 
 /**
- * Renewal-ish element matchup model, mirrored from `src/monsters.ts` (compact output).
+ * Element damage taken table (Renewal), sourced from rAthena `db/re/attr_fix.yml`.
  * Returns "damage taken" multipliers by attack element (percent).
  */
 function elementDamageTaken(defElem: string | null, defLv: number | null): Array<{ elem: string; pct: number }> {
-  const e = String(defElem || "").trim();
+  const e = String(defElem || "Neutral").trim() || "Neutral";
   const lv = clamp(typeof defLv === "number" && Number.isFinite(defLv) ? defLv : 1, 1, 4);
 
-  const base = new Map(ELEMENTS.map((k) => [k, 100]));
-
-  // Wheel: Fire -> Earth -> Wind -> Water -> Fire
-  const strongAgainst: Record<string, string> = { Fire: "Earth", Earth: "Wind", Wind: "Water", Water: "Fire" };
-  const weakAgainst: Record<string, string> = { Fire: "Water", Earth: "Fire", Wind: "Earth", Water: "Wind" };
-
-  const set = (atk: string, pct: number): void => {
-    if (base.has(atk)) base.set(atk, pct);
+  const T: Record<number, Record<string, Record<string, number>>> = {
+    1: {
+      Neutral: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 100, Holy: 100, Dark: 100, Ghost: 90, Undead: 100 },
+      Water: { Neutral: 100, Water: 25, Earth: 100, Fire: 150, Wind: 90, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Earth: { Neutral: 100, Water: 100, Earth: 25, Fire: 90, Wind: 150, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Fire: { Neutral: 100, Water: 90, Earth: 150, Fire: 25, Wind: 100, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 125 },
+      Wind: { Neutral: 100, Water: 150, Earth: 90, Fire: 100, Wind: 25, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Poison: { Neutral: 100, Water: 150, Earth: 150, Fire: 150, Wind: 150, Poison: 0, Holy: 75, Dark: 75, Ghost: 75, Undead: 75 },
+      Holy: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 75, Holy: 0, Dark: 125, Ghost: 100, Undead: 125 },
+      Dark: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 75, Holy: 125, Dark: 0, Ghost: 100, Undead: 0 },
+      Ghost: { Neutral: 90, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 75, Holy: 90, Dark: 90, Ghost: 125, Undead: 100 },
+      Undead: { Neutral: 100, Water: 100, Earth: 100, Fire: 90, Wind: 100, Poison: 75, Holy: 125, Dark: 0, Ghost: 100, Undead: 0 },
+    },
+    2: {
+      Neutral: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 100, Holy: 100, Dark: 100, Ghost: 70, Undead: 100 },
+      Water: { Neutral: 100, Water: 0, Earth: 100, Fire: 175, Wind: 80, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Earth: { Neutral: 100, Water: 100, Earth: 0, Fire: 80, Wind: 175, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Fire: { Neutral: 100, Water: 80, Earth: 175, Fire: 0, Wind: 100, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 150 },
+      Wind: { Neutral: 100, Water: 175, Earth: 80, Fire: 100, Wind: 0, Poison: 150, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Poison: { Neutral: 100, Water: 150, Earth: 150, Fire: 150, Wind: 150, Poison: 0, Holy: 75, Dark: 75, Ghost: 75, Undead: 50 },
+      Holy: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 75, Holy: 0, Dark: 150, Ghost: 100, Undead: 150 },
+      Dark: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 75, Holy: 150, Dark: 0, Ghost: 100, Undead: 0 },
+      Ghost: { Neutral: 70, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 75, Holy: 80, Dark: 80, Ghost: 150, Undead: 125 },
+      Undead: { Neutral: 100, Water: 100, Earth: 100, Fire: 80, Wind: 100, Poison: 50, Holy: 150, Dark: 0, Ghost: 125, Undead: 0 },
+    },
+    3: {
+      Neutral: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 100, Holy: 100, Dark: 100, Ghost: 50, Undead: 100 },
+      Water: { Neutral: 100, Water: 0, Earth: 100, Fire: 200, Wind: 70, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Earth: { Neutral: 100, Water: 100, Earth: 0, Fire: 70, Wind: 200, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Fire: { Neutral: 100, Water: 70, Earth: 200, Fire: 0, Wind: 100, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 175 },
+      Wind: { Neutral: 100, Water: 200, Earth: 70, Fire: 100, Wind: 0, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Poison: { Neutral: 100, Water: 125, Earth: 125, Fire: 125, Wind: 125, Poison: 0, Holy: 50, Dark: 50, Ghost: 50, Undead: 25 },
+      Holy: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 50, Holy: 0, Dark: 175, Ghost: 100, Undead: 175 },
+      Dark: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 50, Holy: 175, Dark: 0, Ghost: 100, Undead: 0 },
+      Ghost: { Neutral: 50, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 50, Holy: 70, Dark: 70, Ghost: 175, Undead: 150 },
+      Undead: { Neutral: 100, Water: 100, Earth: 100, Fire: 70, Wind: 100, Poison: 25, Holy: 175, Dark: 0, Ghost: 150, Undead: 0 },
+    },
+    4: {
+      Neutral: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 100, Holy: 100, Dark: 100, Ghost: 0, Undead: 100 },
+      Water: { Neutral: 100, Water: 0, Earth: 100, Fire: 200, Wind: 60, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Earth: { Neutral: 100, Water: 100, Earth: 0, Fire: 60, Wind: 200, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Fire: { Neutral: 100, Water: 60, Earth: 200, Fire: 0, Wind: 100, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 200 },
+      Wind: { Neutral: 100, Water: 200, Earth: 60, Fire: 100, Wind: 0, Poison: 125, Holy: 100, Dark: 100, Ghost: 100, Undead: 100 },
+      Poison: { Neutral: 100, Water: 125, Earth: 125, Fire: 125, Wind: 125, Poison: 0, Holy: 50, Dark: 50, Ghost: 50, Undead: 0 },
+      Holy: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 50, Holy: 0, Dark: 200, Ghost: 100, Undead: 200 },
+      Dark: { Neutral: 100, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 50, Holy: 200, Dark: 0, Ghost: 100, Undead: 0 },
+      Ghost: { Neutral: 0, Water: 100, Earth: 100, Fire: 100, Wind: 100, Poison: 50, Holy: 60, Dark: 60, Ghost: 200, Undead: 175 },
+      Undead: { Neutral: 100, Water: 100, Earth: 100, Fire: 60, Wind: 100, Poison: 0, Holy: 200, Dark: 0, Ghost: 175, Undead: 0 },
+    },
   };
 
-  if (e in strongAgainst || e in weakAgainst) {
-    // More extreme at higher element levels.
-    const weakPct = 125 + (lv - 1) * 25; // 125,150,175,200
-    const resistPct = 75 - (lv - 1) * 25; // 75,50,25,0
-    set(weakAgainst[e]!, weakPct);
-    set(strongAgainst[e]!, resistPct);
-    // Same element tends to resist more at higher levels
-    set(e, resistPct);
-  }
-
-  if (e === "Holy") {
-    set("Dark", 150 + (lv - 1) * 25);
-    set("Undead", 150 + (lv - 1) * 25);
-    set("Holy", 75 - (lv - 1) * 25);
-  } else if (e === "Dark") {
-    set("Holy", 150 + (lv - 1) * 25);
-    set("Dark", 75 - (lv - 1) * 25);
-  } else if (e === "Ghost") {
-    set("Neutral", 75 - (lv - 1) * 25);
-    set("Ghost", 125 + (lv - 1) * 25);
-  } else if (e === "Undead") {
-    set("Holy", 150 + (lv - 1) * 25);
-    set("Poison", 75 - (lv - 1) * 25);
-    set("Undead", 75 - (lv - 1) * 25);
-  } else if (e === "Poison") {
-    set("Fire", 125 + (lv - 1) * 25);
-    set("Poison", 75 - (lv - 1) * 25);
-  } else if (e === "Neutral") {
-    set("Ghost", 75 - (lv - 1) * 25);
-  }
-
-  return ELEMENTS.map((k) => ({ elem: k, pct: base.get(k) ?? 100 }));
+  const row = T[lv] ?? T[1];
+  return ELEMENTS.map((atk) => ({ elem: atk, pct: row[atk]?.[e] ?? 100 }));
 }
 
 function elementColumnHtml(monsterId: number): string {
@@ -940,6 +951,20 @@ function mount(root: HTMLElement): void {
     if (!idRaw) return;
     const id = parseInt(idRaw, 10);
     if (!Number.isFinite(id)) return;
+
+    // If the user manually selects a monster that doesn't match the currently
+    // selected map-focus constraint, treat that as intent to switch away from
+    // the map constraint (otherwise focus will "snap back" and feel unclickable).
+    const mapFocusOn = (mapFocus || "").trim();
+    if (mapFocusOn) {
+      const m = monstersById.get(id);
+      const maps = Array.isArray(m?.maps) ? m!.maps! : [];
+      const inMap = maps.some((x) => x && typeof x.map === "string" && x.map === mapFocusOn);
+      if (!inMap) {
+        mapFocus = "";
+        schedulePersist();
+      }
+    }
     focusId = id;
     render();
   });
