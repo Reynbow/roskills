@@ -1204,6 +1204,8 @@ function mount(root: HTMLElement): void {
       e.stopPropagation();
       const map = (copyBtn.getAttribute("data-copy-map") || "").trim();
       if (!map) return;
+      // Capture geometry before `render()` replaces the DOM (detached nodes get a 0×0 rect).
+      const anchor = copyBtn.getBoundingClientRect();
       mapFocus = map;
       schedulePersist();
       render();
@@ -1215,33 +1217,30 @@ function mount(root: HTMLElement): void {
         toast.textContent = "";
       };
 
-      const show = (target: HTMLElement, label: string): void => {
+      const show = (label: string): void => {
         toast.textContent = label;
         toast.setAttribute("aria-hidden", "false");
         toast.classList.remove("cards-copy-toast--visible");
         toast.classList.remove("cards-copy-toast--below");
         void toast.offsetWidth;
 
-        const r = target.getBoundingClientRect();
         const gap = 10;
-        const cx = r.left + r.width / 2;
+        const cx = anchor.left + anchor.width / 2;
         toast.style.left = `${cx}px`;
-        toast.style.top = `${r.top - gap}px`;
+        toast.style.top = `${anchor.top - gap}px`;
 
         requestAnimationFrame(() => {
           const tr = toast.getBoundingClientRect();
           if (tr.top < 8) {
             toast.classList.add("cards-copy-toast--below");
-            toast.style.top = `${r.bottom + gap}px`;
+            toast.style.top = `${anchor.bottom + gap}px`;
           }
           toast.classList.add("cards-copy-toast--visible");
           window.setTimeout(hide, 900);
         });
       };
 
-      void copyTextToClipboard(map)
-        .then(() => show(copyBtn, "Copied to clipboard"))
-        .catch(() => show(copyBtn, "Copy failed"));
+      void copyTextToClipboard(map).then(() => show("Copied to clipboard")).catch(() => show("Copy failed"));
 
       return;
     }
