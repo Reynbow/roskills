@@ -900,12 +900,94 @@ header.site-header .site-nav {
   margin-bottom: 1rem;
 }
 
+.leveling-topbar {
+  max-width: min(96vw, 1380px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, min(34vw, 400px));
+  gap: 1rem 1.25rem;
+  align-items: stretch;
+}
+
+.leveling-itemdrop-panel {
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.9rem;
+  background: var(--bg-node-strong);
+  border: 1px solid var(--border-panel);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px var(--shadow), inset 0 1px 0 var(--inset-highlight);
+}
+
+.leveling-itemdrop-panel__title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(220, 235, 255, 0.72);
+  margin: 0 0 0.5rem;
+}
+
+.leveling-itemdrop-panel .cards-search {
+  width: 100%;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .leveling-topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .leveling-query {
+    max-width: none;
+    flex: 1 1 auto;
+  }
+}
+
 .leveling-page .cards-toolbar {
   max-width: 980px;
   margin-left: auto;
   margin-right: auto;
   flex-wrap: nowrap;
   align-items: flex-start;
+}
+
+.leveling-page .leveling-topbar .cards-toolbar {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.leveling-page .leveling-topbar .cards-toolbar > .leveling-toolbar-main {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+.leveling-toolbar-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 1.25rem;
+  min-width: 0;
+}
+
+@media (min-width: 1150px) {
+  .leveling-page .leveling-toolbar-main {
+    flex-wrap: nowrap;
+  }
 }
 
 .leveling-page .cards-toolbar > * {
@@ -917,7 +999,11 @@ header.site-header .site-nav {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.35rem;
-  max-width: 360px;
+  /* 220px + 50% → 330px; item-drop column narrowed to compensate */
+  flex: 0 1 330px;
+  width: 100%;
+  max-width: 330px;
+  min-width: 0;
 }
 
 .leveling-query .cards-search {
@@ -926,11 +1012,17 @@ header.site-header .site-nav {
   flex: 0 0 auto;
 }
 
+.leveling-query .cards-search__label {
+  white-space: nowrap;
+}
+
 /* Leveling: make search clear (X) easier to hit */
-.leveling-page input#monsterQuery[type="search"] {
+.leveling-page input#monsterQuery[type="search"],
+.leveling-page input#itemDropQuery[type="search"] {
   padding-right: 2.55rem; /* leave room for our clear button */
 }
-.leveling-page input#monsterQuery[type="search"]::-webkit-search-cancel-button {
+.leveling-page input#monsterQuery[type="search"]::-webkit-search-cancel-button,
+.leveling-page input#itemDropQuery[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
 
@@ -1066,6 +1158,17 @@ header.site-header .site-nav {
   grid-template-rows: auto auto;
   gap: 0.45rem 0.6rem;
   align-items: end;
+}
+
+.leveling-page .leveling-level {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: none;
+}
+
+.leveling-page .leveling-level__search {
+  max-width: 380px;
+  width: 100%;
 }
 
 .leveling-level__controls {
@@ -1338,6 +1441,20 @@ header.site-header .site-nav {
   border-radius: 10px;
 }
 
+.leveling-droprow--search-hit {
+  box-shadow:
+    0 0 0 2px rgba(130, 210, 255, 0.78),
+    0 0 24px 4px rgba(100, 190, 255, 0.42);
+  border-color: rgba(130, 200, 255, 0.55);
+}
+
+.leveling-droprow--search-hit.leveling-droprow--mvp {
+  box-shadow:
+    0 0 0 2px rgba(200, 175, 255, 0.82),
+    0 0 24px 4px rgba(170, 140, 255, 0.45);
+  border-color: rgba(190, 165, 255, 0.5);
+}
+
 .leveling-drop__icon {
   width: 24px;
   height: 24px;
@@ -1525,6 +1642,7 @@ header.site-header .site-nav {
 .leveling-mults {
   margin-left: 0;
   width: 232px;
+  flex: 0 0 auto;
   padding: 0.45rem 0.55rem;
   border-radius: 10px;
   border: 1px solid rgba(120, 165, 220, 0.2);
@@ -1579,6 +1697,15 @@ header.site-header .site-nav {
   grid-template-columns: 1fr 56px 120px 64px 64px 84px 84px 48px;
   gap: 0.45rem;
   padding: 0 0.55rem;
+}
+
+.leveling-cols--itemdrop {
+  grid-template-columns: 1fr minmax(6.75rem, auto);
+}
+
+.leveling-coltxt--num {
+  justify-self: end;
+  text-align: right;
 }
 
 .leveling-section {
@@ -1647,6 +1774,50 @@ header.site-header .site-nav {
 .leveling-row--active {
   border-color: rgba(120, 180, 255, 0.46);
   box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.14);
+}
+
+.leveling-row--itemdrop {
+  grid-template-columns: 1fr minmax(6.75rem, auto);
+}
+
+.leveling-row__item-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.leveling-row__item-primary .leveling-row__name {
+  flex: 1;
+  min-width: 0;
+}
+
+.leveling-row__drop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-self: end;
+  text-align: right;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.leveling-row__drop-pct {
+  white-space: nowrap;
+}
+
+.leveling-row__drop-note {
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.08rem 0.32rem;
+  border-radius: 999px;
+  color: rgba(255, 235, 255, 0.95);
+  background: rgba(170, 120, 255, 0.22);
+  border: 1px solid rgba(200, 160, 255, 0.35);
 }
 
 .leveling-row__name {
@@ -1819,32 +1990,47 @@ header.site-header .site-nav {
   .leveling-cols {
     display: none;
   }
-  .leveling-row {
+  .leveling-row:not(.leveling-row--itemdrop) {
     grid-template-columns: 1fr auto;
     grid-template-areas:
       "name pct"
       "meta meta";
     row-gap: 0.2rem;
   }
-  .leveling-row__name {
+  .leveling-row:not(.leveling-row--itemdrop) .leveling-row__name {
     grid-area: name;
   }
-  .leveling-row__tag {
+  .leveling-row:not(.leveling-row--itemdrop) .leveling-row__tag {
     display: none;
   }
   .leveling-row__elem {
     display: none;
   }
-  .leveling-row__pct {
+  .leveling-row:not(.leveling-row--itemdrop) .leveling-row__pct {
     grid-area: pct;
     justify-self: end;
   }
-  .leveling-row__meta {
+  .leveling-row:not(.leveling-row--itemdrop) .leveling-row__meta {
     grid-area: meta;
   }
-  .leveling-row__eff,
-  .leveling-row__diff {
+  .leveling-row:not(.leveling-row--itemdrop) .leveling-row__eff,
+  .leveling-row:not(.leveling-row--itemdrop) .leveling-row__diff {
     display: none;
+  }
+
+  .leveling-row--itemdrop {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "prim drop";
+    row-gap: 0.2rem;
+  }
+
+  .leveling-row--itemdrop .leveling-row__item-primary {
+    grid-area: prim;
+  }
+
+  .leveling-row--itemdrop .leveling-row__drop {
+    grid-area: drop;
+    align-self: center;
   }
 
   .leveling-layout {

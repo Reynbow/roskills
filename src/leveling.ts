@@ -328,23 +328,84 @@ function dropRateLabel(rate: number, dropMult: number): string {
   return `${pct.toFixed(2)}%`;
 }
 
-function dropsHtml(m: MonsterEntry, mult: { drop: number }): string {
+function dropDisplayName(d: { name: string | null; aegis: string; id: number | null }): string {
+  const n = String(d.name ?? "").trim();
+  if (n) return n;
+  const aegis = String(d.aegis ?? "").trim();
+  if (typeof d.id === "number" && Number.isFinite(d.id)) {
+    if (/^ITEM_\d+$/i.test(aegis)) return `Item #${d.id}`;
+  }
+  if (aegis) return aegis.replace(/_/g, " ");
+  return typeof d.id === "number" && Number.isFinite(d.id) ? `Item #${d.id}` : "Unknown item";
+}
+
+/** Single drop matches item filter (same rules as monster list filter). */
+function dropMatchesItemQuery(
+  d: NonNullable<MonsterEntry["drops"]>[number],
+  itemQn: string,
+): boolean {
+  const qn = normalize(itemQn);
+  if (!qn) return false;
+  if (/^\d+$/.test(qn)) {
+    const idQ = parseInt(qn, 10);
+    return typeof d.id === "number" && d.id === idQ;
+  }
+  const compactQ = qn.replace(/\s+/g, "");
+  const dn = normalize(dropDisplayName(d));
+  if (dn.includes(qn)) return true;
+  const raw = String(d.aegis || "").replace(/^ITEM_/i, "");
+  const ag = normalize(raw.replace(/_/g, " "));
+  if (ag.includes(qn)) return true;
+  const agCompact = normalize(raw).replace(/_/g, "");
+  if (agCompact.includes(compactQ)) return true;
+  return false;
+}
+
+/** True if monster has a drop matching item filter (name substring or numeric item id). */
+function monsterMatchesItemQuery(m: MonsterEntry, itemQn: string): boolean {
+  const qn = normalize(itemQn);
+  if (!qn) return true;
+  const drops = Array.isArray(m.drops) ? m.drops : [];
+  return drops.some((d) => dropMatchesItemQuery(d, qn));
+}
+
+function bestMatchingDropForItemQuery(
+  m: MonsterEntry,
+  itemQn: string,
+): { rate: number; isMvp: boolean } | null {
+  const qn = normalize(itemQn);
+  if (!qn) return null;
+  const drops = Array.isArray(m.drops) ? m.drops : [];
+  let best: { rate: number; isMvp: boolean } | null = null;
+  for (const d of drops) {
+    if (!d || typeof d.rate !== "number" || d.rate <= 0) continue;
+    if (!dropMatchesItemQuery(d, qn)) continue;
+    if (!best || d.rate > best.rate) best = { rate: d.rate, isMvp: !!d.isMvp };
+  }
+  return best;
+}
+
+function dropsHtml(m: MonsterEntry, mult: { drop: number }, itemQueryRaw: string): string {
+  const iq = normalize(itemQueryRaw);
   const drops = Array.isArray(m.drops) ? m.drops.slice() : [];
   const rows = drops
     .filter((d) => d && typeof d.rate === "number" && d.rate > 0)
     .sort((a, b) => Number(b.isMvp) - Number(a.isMvp) || b.rate - a.rate)
     .map((d) => ({
-      name: String(d.name || d.aegis || "").trim() || d.aegis,
+      name: dropDisplayName(d),
       id: typeof d.id === "number" && Number.isFinite(d.id) ? d.id : null,
       rate: d.rate,
       isMvp: !!d.isMvp,
+      searchHit: Boolean(iq && dropMatchesItemQuery(d, iq)),
     }));
 
   if (!rows.length) return `<div class="leveling-drops__empty">—</div>`;
 
   return `<div class="leveling-drops__list">${rows
     .map((r) => {
-      const cls = r.isMvp ? "leveling-droprow leveling-droprow--mvp" : "leveling-droprow";
+      const hitCls = r.searchHit ? " leveling-droprow--search-hit" : "";
+      const cls =
+        (r.isMvp ? "leveling-droprow leveling-droprow--mvp" : "leveling-droprow") + hitCls;
       const icon =
         r.id == null ?
           `<span class="leveling-drop__icon leveling-drop__icon--missing" aria-hidden="true"></span>`
@@ -370,7 +431,12 @@ function dropsHtml(m: MonsterEntry, mult: { drop: number }): string {
     .join("")}</div>`;
 }
 
-function monsterCardHtml(m: MonsterEntry, playerLevel: number, mult: { base: number; job: number; drop: number }): string {
+function monsterCardHtml(
+  m: MonsterEntry,
+  playerLevel: number,
+  mult: { base: number; job: number; drop: number },
+  itemQueryRaw: string,
+): string {
   const diff = m.level - playerLevel;
   const pct = renewalExpYieldPercent(diff);
   const baseSrc = typeof m.baseExp === "number" ? m.baseExp : null;
@@ -462,7 +528,7 @@ function monsterCardHtml(m: MonsterEntry, playerLevel: number, mult: { base: num
             </div>
             <div class="leveling-card__twocol-col">
               <div class="pets-card__k">Drops</div>
-              ${dropsHtml(m, mult)}
+              ${dropsHtml(m, mult, itemQueryRaw)}
             </div>
           </div>
         </div>
@@ -501,6 +567,38 @@ function scoreMonster(m: MonsterEntry, playerLevel: number, mult: { base: number
   return { m, pct, effBase, effJob, diff };
 }
 
+function sortScoredByItemDrop(items: ScoredMonster[], itemQn: string): ScoredMonster[] {
+  const qn = normalize(itemQn);
+  if (!qn) return items.slice();
+  return items.slice().sort((a, b) => {
+    const ra = bestMatchingDropForItemQuery(a.m, qn)?.rate ?? -1;
+    const rb = bestMatchingDropForItemQuery(b.m, qn)?.rate ?? -1;
+    if (rb !== ra) return rb - ra;
+    return a.m.name.localeCompare(b.m.name) || a.m.id - b.m.id;
+  });
+}
+
+/** Min/max raw drop rates (per 10000) for the current item filter; used to color rows red→green. */
+function itemDropColorScale(list: ScoredMonster[], itemQueryRaw: string): { min: number; max: number } | null {
+  const rates: number[] = [];
+  for (const s of list) {
+    const d = bestMatchingDropForItemQuery(s.m, itemQueryRaw);
+    if (d && d.rate > 0) rates.push(d.rate);
+  }
+  if (rates.length === 0) return null;
+  return { min: Math.min(...rates), max: Math.max(...rates) };
+}
+
+/** CSS color: low rate → red (hue 0), high → green (hue 120). */
+function dropChanceColorForRate(rate: number, scale: { min: number; max: number }): string {
+  const { min, max } = scale;
+  if (!Number.isFinite(rate) || rate <= 0 || max <= 0) return "hsl(0, 65%, 58%)";
+  if (max === min) return "hsl(120, 65%, 52%)";
+  const t = Math.max(0, Math.min(1, (rate - min) / (max - min)));
+  const h = t * 120;
+  return `hsl(${h}, 72%, 52%)`;
+}
+
 function pctToneClass(pct: number): string {
   return pct > 100 ? "leveling-exp--up" : pct < 100 ? "leveling-exp--down" : "leveling-exp--flat";
 }
@@ -527,6 +625,40 @@ function monsterRowHtml(s: ScoredMonster, isActive: boolean): string {
     <span class="leveling-row__eff">${escapeHtml(eff)}</span>
     <span class="leveling-row__job">${escapeHtml(effJob)}</span>
     <span class="leveling-row__diff">${escapeHtml(diff)}</span>
+  </button>`;
+}
+
+function monsterRowItemSearchHtml(
+  s: ScoredMonster,
+  isActive: boolean,
+  itemQueryRaw: string,
+  dropMult: number,
+  colorScale: { min: number; max: number } | null,
+): string {
+  const name = escapeHtml(s.m.name);
+  const id = escapeHtml(String(s.m.id));
+  const det = bestMatchingDropForItemQuery(s.m, itemQueryRaw);
+  const pctLabel = det ? dropRateLabel(det.rate, dropMult) : "—";
+  const pctColor =
+    det && colorScale ? dropChanceColorForRate(det.rate, colorScale) : "";
+  const pctStyle = pctColor ? ` style="color:${pctColor}"` : "";
+  const mvpDrop =
+    det?.isMvp ?
+      `<span class="leveling-row__drop-note" title="Drop is from MVP loot">MVP</span>`
+    : "";
+  const active = isActive ? " leveling-row--active" : "";
+  const badge =
+    s.m.isMvp ? `<span class="leveling-badge leveling-badge--mvp">MVP</span>`
+    : s.m.isBoss ? `<span class="leveling-badge leveling-badge--mini">Mini</span>`
+    : `<span class="leveling-badge leveling-badge--empty" aria-hidden="true"></span>`;
+  return `<button type="button" class="leveling-row leveling-row--itemdrop${active}" data-focus-mob="${id}">
+    <span class="leveling-row__item-primary">
+      <span class="leveling-row__name">${name} <span class="leveling-row__id">#${id}</span></span>
+      <span class="leveling-row__tag" aria-label="${s.m.isMvp ? "MVP" : s.m.isBoss ? "Mini Boss" : ""}">${badge}</span>
+    </span>
+    <span class="leveling-row__drop" aria-label="Drop chance for your search">
+      <span class="leveling-row__drop-pct"${pctStyle}>${escapeHtml(pctLabel)}</span>${mvpDrop}
+    </span>
   </button>`;
 }
 
@@ -586,9 +718,17 @@ function sectionHtml(
   focusId: number,
   limit: number,
   empty: string,
+  itemDropMode?: { query: string; dropMult: number },
 ): string {
   const shown = items.slice(0, limit);
-  const rows = shown.map((s) => monsterRowHtml(s, s.m.id === focusId)).join("");
+  const dropScale = itemDropMode ? itemDropColorScale(items, itemDropMode.query) : null;
+  const rows = itemDropMode
+    ? shown
+        .map((s) =>
+          monsterRowItemSearchHtml(s, s.m.id === focusId, itemDropMode.query, itemDropMode.dropMult, dropScale),
+        )
+        .join("")
+    : shown.map((s) => monsterRowHtml(s, s.m.id === focusId)).join("");
   const more = items.length > limit ? `<div class="leveling-more">Showing ${limit} of ${items.length}</div>` : "";
   const body = rows || `<div class="leveling-empty">${escapeHtml(empty)}</div>`;
   return `<section class="leveling-section">
@@ -604,19 +744,23 @@ function sectionHtml(
 function monsterListHtml(
   playerLevel: number,
   query: string,
+  itemQuery: string,
   focusId: number,
-  mult: { base: number; job: number },
+  mult: { base: number; job: number; drop: number },
   opts: { hideBosses: boolean; mapFocus: string; sortKey: SortKey; sortDir: SortDir },
 ): string {
   const q = normalize(query);
   const isIdQuery = q && /^\d+$/.test(q);
   const idQuery = isIdQuery ? parseInt(q, 10) : null;
+  const iq = normalize(itemQuery);
+  const itemDropMode = iq ? { query: itemQuery, dropMult: mult.drop } : undefined;
 
   const mapFocus = (opts.mapFocus || "").trim();
   const mapItems = mapFocus
     ? monstersAll
         .filter((m) => {
           if (opts.hideBosses && isBossLike(m)) return false;
+          if (!monsterMatchesItemQuery(m, iq)) return false;
           const maps = Array.isArray(m.maps) ? m.maps : [];
           return maps.some((x) => x && typeof x.map === "string" && x.map === mapFocus);
         })
@@ -625,6 +769,7 @@ function monsterListHtml(
 
   const filtered = monstersAll.filter((m) => {
     if (opts.hideBosses && isBossLike(m)) return false;
+    if (!monsterMatchesItemQuery(m, iq)) return false;
     if (!q) return true;
     if (idQuery != null) return m.id === idQuery;
     return normalize(m.name).includes(q);
@@ -632,16 +777,34 @@ function monsterListHtml(
 
   const scored = filtered.map((m) => scoreMonster(m, playerLevel, mult));
 
-  const isSearching = Boolean(q);
+  const isSearching = Boolean(q) || Boolean(iq);
   const bonus = scored.filter((s) => s.pct > 100);
   const itemsRaw = isSearching ? scored : bonus;
-  const items = sortScored(itemsRaw, opts.sortKey, opts.sortDir);
-  const mapItemsSorted = mapItems.length ? sortScored(mapItems, opts.sortKey, opts.sortDir) : mapItems;
+  const items = itemDropMode ? sortScoredByItemDrop(itemsRaw, itemQuery) : sortScored(itemsRaw, opts.sortKey, opts.sortDir);
+  const mapItemsSorted = mapItems.length
+    ? itemDropMode
+      ? sortScoredByItemDrop(mapItems, itemQuery)
+      : sortScored(mapItems, opts.sortKey, opts.sortDir)
+    : mapItems;
 
-  const LIMIT = q ? 60 : 30;
-  return `<div class="leveling-list">
-    <div class="leveling-list__head">
-      <div class="leveling-cols" aria-hidden="true">
+  const LIMIT = q || iq ? 60 : 30;
+
+  let sectionTitle = "Bonus EXP (>100%)";
+  let sectionEmpty = "No bonus monsters in this filter.";
+  if (iq && !q) {
+    sectionTitle = "Item drops";
+    sectionEmpty = "No monsters drop a matching item.";
+  } else if (q) {
+    sectionTitle = "Matches";
+    sectionEmpty = "No matches.";
+  }
+
+  const listHeadCols = itemDropMode
+    ? `<div class="leveling-cols leveling-cols--itemdrop" aria-hidden="true">
+        <div class="leveling-coltxt">Monster</div>
+        <div class="leveling-coltxt leveling-coltxt--num" title="Chance for this item (uses Drops rate multiplier)">Drop chance</div>
+      </div>`
+    : `<div class="leveling-cols" aria-hidden="true">
         ${sortButtonHtml("name", opts.sortKey, opts.sortDir)}
         ${sortButtonHtml("tag", opts.sortKey, opts.sortDir)}
         <div class="leveling-coltxt" title="Element preview">Elm</div>
@@ -650,7 +813,23 @@ function monsterListHtml(
         ${sortButtonHtml("effBase", opts.sortKey, opts.sortDir)}
         ${sortButtonHtml("effJob", opts.sortKey, opts.sortDir)}
         ${sortButtonHtml("diff", opts.sortKey, opts.sortDir)}
-      </div>
+      </div>`;
+
+  const mapDropScale = itemDropMode && mapItemsSorted.length ? itemDropColorScale(mapItemsSorted, itemQuery) : null;
+
+  const mapRowsHtml = (() => {
+    if (!mapItemsSorted.length) return `<div class="leveling-empty">No spawns found for this map.</div>`;
+    const slice = mapItemsSorted.slice(0, LIMIT);
+    return itemDropMode
+      ? slice.map((s) =>
+          monsterRowItemSearchHtml(s, s.m.id === focusId, itemQuery, mult.drop, mapDropScale),
+        ).join("")
+      : slice.map((s) => monsterRowHtml(s, s.m.id === focusId)).join("");
+  })();
+
+  return `<div class="leveling-list">
+    <div class="leveling-list__head">
+      ${listHeadCols}
     </div>
     ${
       mapFocus
@@ -662,19 +841,11 @@ function monsterListHtml(
           <button type="button" class="cards-filter-clear" data-clear-map="1">Clear</button>
         </div>
       </div>
-      <div class="leveling-rows">${
-        mapItemsSorted.length ? mapItemsSorted.slice(0, LIMIT).map((s) => monsterRowHtml(s, s.m.id === focusId)).join("") : `<div class="leveling-empty">No spawns found for this map.</div>`
-      }</div>
+      <div class="leveling-rows">${mapRowsHtml}</div>
     </section>`
         : ""
     }
-    ${sectionHtml(
-      isSearching ? "Matches" : "Bonus EXP (>100%)",
-      items,
-      focusId,
-      LIMIT,
-      isSearching ? "No matches." : "No bonus monsters in this filter.",
-    )}
+    ${sectionHtml(sectionTitle, items, focusId, LIMIT, sectionEmpty, itemDropMode)}
   </div>`;
 }
 
@@ -687,6 +858,11 @@ function mount(root: HTMLElement): void {
 
   const initialLevel = clampInt(parseInt(readLs("levelingPlayerLevel") || "", 10), 1, 275) || 17;
   const initialQuery = readLs("levelingMonsterQuery") || "";
+  let initialItemQuery = readLs("levelingItemQuery") || "";
+  if (initialQuery.trim() && initialItemQuery.trim()) {
+    initialItemQuery = "";
+    writeLs("levelingItemQuery", "");
+  }
   const initialFocusId = DEFAULT_FOCUS_MOB_ID;
   const initialHideBosses = localStorage.getItem("levelingHideBosses") === "1";
   const initialMultBase = readLs("levelingMultBase") || "1";
@@ -697,65 +873,81 @@ function mount(root: HTMLElement): void {
     ${siteHeaderRowHtml("re-monsters")}
 
     <section class="page leveling-page">
-      <div class="cards-toolbar">
-        <div class="leveling-level" style="max-width: 560px;">
-          <label class="cards-search" style="max-width: 320px;">
-            <span class="cards-search__label">Your Base Level (Renewal)</span>
-            <input id="playerLevel" class="cards-search__input" type="number" min="1" max="275" step="1" value="${initialLevel}" inputmode="numeric" />
-          </label>
-          <div class="leveling-level__controls" aria-label="Adjust level">
-            <button type="button" class="cards-overflow-btn leveling-level__btn" id="lvMinus" aria-label="Decrease level">−</button>
-            <button type="button" class="cards-overflow-btn leveling-level__btn" id="lvPlus" aria-label="Increase level">+</button>
+      <div class="leveling-topbar">
+        <div class="cards-toolbar">
+          <div class="leveling-toolbar-main">
+            <div class="leveling-level">
+            <label class="cards-search leveling-level__search">
+              <span class="cards-search__label">Your Base Level (Renewal)</span>
+              <input id="playerLevel" class="cards-search__input" type="number" min="1" max="275" step="1" value="${initialLevel}" inputmode="numeric" />
+            </label>
+            <div class="leveling-level__controls" aria-label="Adjust level">
+              <button type="button" class="cards-overflow-btn leveling-level__btn" id="lvMinus" aria-label="Decrease level">−</button>
+              <button type="button" class="cards-overflow-btn leveling-level__btn" id="lvPlus" aria-label="Increase level">+</button>
+            </div>
+            <label class="leveling-level__slider" aria-label="Level slider">
+              <input id="playerLevelSlider" type="range" min="1" max="275" step="1" value="${initialLevel}" />
+            </label>
+            </div>
+            <div class="leveling-query">
+            <label class="cards-search">
+              <span class="cards-search__label">Monster name (filter)</span>
+              <span class="leveling-searchwrap">
+                <input id="monsterQuery" class="cards-search__input" type="search" placeholder="e.g. zombie or 1015" autocomplete="off" value="${escapeHtml(
+                  initialQuery,
+                )}" />
+                <button type="button" class="leveling-clear" id="monsterClear" aria-label="Clear monster search" title="Clear" ${
+                  initialQuery.trim() ? "" : "hidden"
+                }>×</button>
+              </span>
+            </label>
+            <label class="toolbar-toggle toolbar-toggle--compact leveling-toggle" title="Hide MVPs and Mini Bosses">
+              <span class="toolbar-toggle-text">Hide bosses</span>
+              <span class="toggle-switch">
+                <input id="hideBosses" class="toggle-switch-input" type="checkbox" ${initialHideBosses ? "checked" : ""} />
+                <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb" aria-hidden="true"></span></span>
+              </span>
+            </label>
+            </div>
+            <div class="leveling-mults" aria-label="Rate multipliers">
+            <div class="pets-card__k">Rates</div>
+            <div class="leveling-mults__grid">
+              <label class="leveling-mults__field">
+                <span class="leveling-mults__k">Base</span>
+                <input id="multBase" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
+                  initialMultBase,
+                )}" inputmode="decimal" />
+              </label>
+              <label class="leveling-mults__field">
+                <span class="leveling-mults__k">Job</span>
+                <input id="multJob" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
+                  initialMultJob,
+                )}" inputmode="decimal" />
+              </label>
+              <label class="leveling-mults__field">
+                <span class="leveling-mults__k">Drops</span>
+                <input id="multDrops" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
+                  initialMultDrops,
+                )}" inputmode="decimal" />
+              </label>
+            </div>
+            </div>
           </div>
-          <label class="leveling-level__slider" aria-label="Level slider">
-            <input id="playerLevelSlider" type="range" min="1" max="275" step="1" value="${initialLevel}" />
-          </label>
         </div>
-        <div class="leveling-query">
+        <aside class="leveling-itemdrop-panel" aria-label="Filter monsters by item drop">
+          <div class="leveling-itemdrop-panel__title">Item drop</div>
           <label class="cards-search">
-            <span class="cards-search__label">Monster name (filter)</span>
+            <span class="cards-search__label">Search drops</span>
             <span class="leveling-searchwrap">
-              <input id="monsterQuery" class="cards-search__input" type="search" placeholder="e.g. zombie or 1015" autocomplete="off" value="${escapeHtml(
-                initialQuery,
+              <input id="itemDropQuery" class="cards-search__input" type="search" placeholder="e.g. jellopy or 909" autocomplete="off" value="${escapeHtml(
+                initialItemQuery,
               )}" />
-              <button type="button" class="leveling-clear" id="monsterClear" aria-label="Clear monster search" title="Clear" ${
-                initialQuery.trim() ? "" : "hidden"
+              <button type="button" class="leveling-clear" id="itemDropClear" aria-label="Clear item search" title="Clear" ${
+                initialItemQuery.trim() ? "" : "hidden"
               }>×</button>
             </span>
           </label>
-          <label class="toolbar-toggle toolbar-toggle--compact leveling-toggle" title="Hide MVPs and Mini Bosses">
-            <span class="toolbar-toggle-text">Hide bosses</span>
-            <span class="toggle-switch">
-              <input id="hideBosses" class="toggle-switch-input" type="checkbox" ${initialHideBosses ? "checked" : ""} />
-              <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb" aria-hidden="true"></span></span>
-            </span>
-          </label>
-        </div>
-        <div class="leveling-mults" aria-label="Rate multipliers">
-          <div class="pets-card__k">Rates</div>
-          <div class="leveling-mults__grid">
-            <label class="leveling-mults__field">
-              <span class="leveling-mults__k">Base</span>
-              <input id="multBase" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
-                initialMultBase,
-              )}" inputmode="decimal" />
-            </label>
-            <label class="leveling-mults__field">
-              <span class="leveling-mults__k">Job</span>
-              <input id="multJob" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
-                initialMultJob,
-              )}" inputmode="decimal" />
-            </label>
-            <label class="leveling-mults__field">
-              <span class="leveling-mults__k">Drops</span>
-              <input id="multDrops" class="leveling-mults__input" type="number" min="0" step="0.1" value="${escapeHtml(
-                initialMultDrops,
-              )}" inputmode="decimal" />
-            </label>
-          </div>
-        </div>
-        <div class="cards-count" role="status" aria-live="polite" style="opacity:.75;">
-        </div>
+        </aside>
       </div>
 
       <div style="padding: 0 16px 24px;">
@@ -786,6 +978,8 @@ function mount(root: HTMLElement): void {
   const plus = root.querySelector<HTMLButtonElement>("#lvPlus")!;
   const query = root.querySelector<HTMLInputElement>("#monsterQuery")!;
   const queryClear = root.querySelector<HTMLButtonElement>("#monsterClear")!;
+  const itemDrop = root.querySelector<HTMLInputElement>("#itemDropQuery")!;
+  const itemDropClear = root.querySelector<HTMLButtonElement>("#itemDropClear")!;
   const multBase = root.querySelector<HTMLInputElement>("#multBase")!;
   const multJob = root.querySelector<HTMLInputElement>("#multJob")!;
   const multDrops = root.querySelector<HTMLInputElement>("#multDrops")!;
@@ -810,6 +1004,7 @@ function mount(root: HTMLElement): void {
       persistTimer = undefined;
       writeLs("levelingPlayerLevel", input.value || "");
       writeLs("levelingMonsterQuery", query.value || "");
+      writeLs("levelingItemQuery", itemDrop.value || "");
       writeLs("levelingMultBase", multBase.value || "");
       writeLs("levelingMultJob", multJob.value || "");
       writeLs("levelingMultDrops", multDrops.value || "");
@@ -836,6 +1031,8 @@ function mount(root: HTMLElement): void {
     const qn = normalize(q);
     const isId = qn && /^\d+$/.test(qn);
     const idQ = isId ? parseInt(qn, 10) : null;
+    const iqRaw = itemDrop.value || "";
+    const iq = normalize(iqRaw);
     const focusMonster0 = monstersById.get(focusId);
     const mapFocusOn = (mapFocus || "").trim();
     const inMapFocus =
@@ -843,21 +1040,24 @@ function mount(root: HTMLElement): void {
       (Array.isArray(focusMonster0?.maps) &&
         focusMonster0!.maps!.some((x) => x && typeof x.map === "string" && x.map === mapFocusOn));
 
-    // When a map is selected, the "map mobs" list becomes the primary constraint
-    // for focus (so clicking a map mob doesn't snap back to the name-query list).
-    const inQueryFilter =
-      !qn ||
+    const nameConstrainsFocus = !mapFocusOn && Boolean(qn);
+    const nameOk =
+      !nameConstrainsFocus ||
       (idQ != null ? focusId === idQ : normalize(focusMonster0?.name ?? "").includes(qn));
+    const itemOk =
+      !iq || (!!focusMonster0 && monsterMatchesItemQuery(focusMonster0, iq));
 
-    const inFilter = (!hideBossesOn || !isBossLike(focusMonster0)) && inMapFocus && (mapFocusOn ? true : inQueryFilter);
+    const inFilter = (!hideBossesOn || !isBossLike(focusMonster0)) && inMapFocus && nameOk && itemOk;
     if (!inFilter) {
       const first = monstersAll.find((m) => {
         if (hideBossesOn && isBossLike(m)) return false;
+        if (!monsterMatchesItemQuery(m, iq)) return false;
         if (mapFocusOn) {
           const maps = Array.isArray(m.maps) ? m.maps : [];
           if (!maps.some((x) => x && typeof x.map === "string" && x.map === mapFocusOn)) return false;
           return true;
         }
+        if (!qn) return true;
         return idQ != null ? m.id === idQ : normalize(m.name).includes(qn);
       });
       if (first) focusId = first.id;
@@ -867,17 +1067,32 @@ function mount(root: HTMLElement): void {
       monstersById.get(focusId) ??
       (hideBossesOn ? monstersAll.find((m) => !isBossLike(m)) : null) ??
       monstersById.get(DEFAULT_FOCUS_MOB_ID);
-    focusEl.innerHTML = focusMonster ? monsterCardHtml(focusMonster, lv, mult) : "";
-    listEl.innerHTML = monsterListHtml(lv, q, focusId, { base: mult.base, job: mult.job }, { hideBosses: hideBossesOn, mapFocus, sortKey, sortDir });
+    focusEl.innerHTML = focusMonster ? monsterCardHtml(focusMonster, lv, mult, iqRaw) : "";
+    listEl.innerHTML = monsterListHtml(
+      lv,
+      q,
+      iqRaw,
+      focusId,
+      { base: mult.base, job: mult.job, drop: mult.drop },
+      { hideBosses: hideBossesOn, mapFocus, sortKey, sortDir },
+    );
+  };
+
+  const clearItemDropFilter = (): void => {
+    itemDrop.value = "";
+    itemDropClear.hidden = true;
+    writeLs("levelingItemQuery", "");
   };
 
   const setLevel = (lv: number): void => {
+    clearItemDropFilter();
     input.value = String(clampInt(lv, 1, 275));
     schedulePersist();
     render();
   };
 
   input.addEventListener("input", () => {
+    clearItemDropFilter();
     schedulePersist();
     render();
   });
@@ -885,6 +1100,11 @@ function mount(root: HTMLElement): void {
   minus.addEventListener("click", () => setLevel(parseInt(input.value || "", 10) - 1));
   plus.addEventListener("click", () => setLevel(parseInt(input.value || "", 10) + 1));
   query.addEventListener("input", () => {
+    if (itemDrop.value.trim()) {
+      itemDrop.value = "";
+      itemDropClear.hidden = true;
+      writeLs("levelingItemQuery", "");
+    }
     queryClear.hidden = !query.value.trim();
     schedulePersist();
     render();
@@ -902,7 +1122,20 @@ function mount(root: HTMLElement): void {
     render();
   });
   hideBosses.addEventListener("input", () => {
+    clearItemDropFilter();
     localStorage.setItem("levelingHideBosses", hideBosses.checked ? "1" : "0");
+    schedulePersist();
+    render();
+  });
+
+  itemDrop.addEventListener("input", () => {
+    if (query.value.trim()) {
+      query.value = "";
+      queryClear.hidden = true;
+      writeLs("levelingMonsterQuery", "");
+    }
+    itemDropClear.hidden = !itemDrop.value.trim();
+    schedulePersist();
     render();
   });
 
@@ -912,6 +1145,14 @@ function mount(root: HTMLElement): void {
     schedulePersist();
     render();
     query.focus();
+  });
+
+  itemDropClear.addEventListener("click", () => {
+    itemDrop.value = "";
+    itemDropClear.hidden = true;
+    schedulePersist();
+    render();
+    itemDrop.focus();
   });
 
   root.addEventListener("click", (e) => {
