@@ -372,16 +372,17 @@ function monsterMatchesItemQuery(m: MonsterEntry, itemQn: string): boolean {
 function bestMatchingDropForItemQuery(
   m: MonsterEntry,
   itemQn: string,
-): { rate: number; isMvp: boolean; itemLabel: string } | null {
+): { rate: number; isMvp: boolean; itemLabel: string; itemId: number | null } | null {
   const qn = normalize(itemQn);
   if (!qn) return null;
   const drops = Array.isArray(m.drops) ? m.drops : [];
-  let best: { rate: number; isMvp: boolean; itemLabel: string } | null = null;
+  let best: { rate: number; isMvp: boolean; itemLabel: string; itemId: number | null } | null = null;
   for (const d of drops) {
     if (!d || typeof d.rate !== "number" || d.rate <= 0) continue;
     if (!dropMatchesItemQuery(d, qn)) continue;
     if (!best || d.rate > best.rate) {
-      best = { rate: d.rate, isMvp: !!d.isMvp, itemLabel: dropDisplayName(d) };
+      const itemId = typeof d.id === "number" && Number.isFinite(d.id) ? d.id : null;
+      best = { rate: d.rate, isMvp: !!d.isMvp, itemLabel: dropDisplayName(d), itemId };
     }
   }
   return best;
@@ -643,6 +644,13 @@ function monsterRowItemSearchHtml(
   const pctLabel = det ? dropRateLabel(det.rate, dropMult) : "—";
   const itemLabel = det?.itemLabel ?? "—";
   const itemTitle = det ? escapeHtml(det.itemLabel) : "";
+  const itemIcon =
+    !det ? ""
+    : det.itemId == null ?
+      `<span class="leveling-drop__icon leveling-drop__icon--missing leveling-row__matched-icon" aria-hidden="true"></span>`
+    : `<img class="leveling-drop__icon leveling-row__matched-icon" src="https://static.divine-pride.net/images/items/item/${escapeHtml(
+        String(det.itemId),
+      )}.png" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" />`;
   const pctColor =
     det && colorScale ? dropChanceColorForRate(det.rate, colorScale) : "";
   const pctStyle = pctColor ? ` style="color:${pctColor}"` : "";
@@ -660,7 +668,7 @@ function monsterRowItemSearchHtml(
       <span class="leveling-row__name">${name} <span class="leveling-row__id">#${id}</span></span>
       <span class="leveling-row__tag" aria-label="${s.m.isMvp ? "MVP" : s.m.isBoss ? "Mini Boss" : ""}">${badge}</span>
     </span>
-    <span class="leveling-row__matched-item"${itemTitle ? ` title="${itemTitle}"` : ""}>${escapeHtml(itemLabel)}</span>
+    <span class="leveling-row__matched-item"${itemTitle ? ` title="${itemTitle}"` : ""}>${itemIcon}<span class="leveling-row__matched-item-text">${escapeHtml(itemLabel)}</span></span>
     <span class="leveling-row__drop" aria-label="Drop chance for your search">
       <span class="leveling-row__drop-pct"${pctStyle}>${escapeHtml(pctLabel)}</span>${mvpDrop}
     </span>

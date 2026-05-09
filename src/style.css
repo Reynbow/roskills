@@ -1781,14 +1781,25 @@ header.site-header .site-nav {
 }
 
 .leveling-row__matched-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
   min-width: 0;
   font-size: 0.88rem;
   line-height: 1.25;
   opacity: 0.92;
+  align-self: center;
+}
+
+.leveling-row__matched-icon {
+  flex-shrink: 0;
+}
+
+.leveling-row__matched-item-text {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  align-self: center;
 }
 
 .leveling-row__item-primary {
