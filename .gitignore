@@ -22,6 +22,7 @@ dist-ssr
 
 # Local secrets (never commit)
 secrets/
+.env
 .env.local
 
 # Maintainer-only tooling (not used by `vite build` / production). Keep a local copy to regenerate

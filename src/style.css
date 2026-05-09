@@ -1111,10 +1111,10 @@ header.site-header .site-nav {
   font-weight: 900;
   letter-spacing: 0.02em;
   line-height: 1;
-  padding: 0.15rem 0.45rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
 }
 
 .leveling-exp__sub {
@@ -1124,13 +1124,11 @@ header.site-header .site-nav {
 
 .leveling-exp--up {
   color: rgba(90, 235, 185, 0.95);
-  background: rgba(50, 200, 150, 0.18);
   border-color: rgba(90, 235, 185, 0.35);
 }
 
 .leveling-exp--down {
   color: rgba(240, 128, 136, 0.95);
-  background: rgba(240, 128, 136, 0.14);
   border-color: rgba(240, 128, 136, 0.3);
 }
 
@@ -1138,13 +1136,82 @@ header.site-header .site-nav {
   color: rgba(210, 235, 255, 0.92);
 }
 
-.leveling-bonus {
-  display: inline-flex;
+.leveling-name__id {
+  margin-left: 0.5rem;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(190, 210, 235, 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+.leveling-spec {
+  margin-top: 0.3rem;
+  display: grid;
+  gap: 0.18rem;
+}
+
+.leveling-spec__row {
+  display: grid;
+  grid-template-columns: 4.6rem 1fr;
+  gap: 0.45rem;
   align-items: baseline;
-  padding: 0.45rem 0.6rem;
-  border-radius: 10px;
-  border: 1px solid rgba(90, 235, 185, 0.24);
-  background: rgba(50, 200, 150, 0.1);
+}
+
+.leveling-spec__k {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(210, 235, 255, 0.55);
+}
+
+.leveling-spec__v {
+  font-weight: 600;
+  color: rgba(235, 245, 255, 0.84);
+}
+
+.leveling-expblock {
+  display: contents;
+}
+
+.leveling-expblock__kvs {
+  display: contents;
+}
+
+.leveling-bonus {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(210, 235, 255, 0.85);
+}
+
+.leveling-expgrid {
+  margin-top: 0.55rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.leveling-expgrid__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: baseline;
+}
+
+.leveling-expgrid__k {
+  font-size: 0.9rem;
+  color: rgba(210, 235, 255, 0.75);
+}
+
+.leveling-expgrid__v {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.leveling-expgrid__v--up {
+  color: rgba(90, 235, 185, 0.95);
 }
 
 .leveling-card__top {
@@ -1509,9 +1576,9 @@ header.site-header .site-nav {
 
 .leveling-cols {
   display: grid;
-  grid-template-columns: 1fr 64px 72px 74px 92px 56px;
+  grid-template-columns: 1fr 64px 72px 74px 92px 92px 56px;
   gap: 0.5rem;
-  padding: 0 0.25rem;
+  padding: 0 0.45rem;
 }
 
 .leveling-section {
@@ -1519,6 +1586,20 @@ header.site-header .site-nav {
   border: 1px solid rgba(120, 165, 220, 0.16);
   border-radius: 12px;
   padding: 0.6rem;
+}
+
+.leveling-section--map {
+  border-color: rgba(190, 140, 255, 0.35);
+  background: rgba(60, 20, 90, 0.10);
+}
+
+.leveling-section--map .leveling-row {
+  border-color: rgba(190, 140, 255, 0.28);
+}
+
+.leveling-section--map .leveling-row:hover {
+  border-color: rgba(215, 175, 255, 0.42);
+  background: rgba(170, 120, 255, 0.10);
 }
 
 .leveling-section__head {
@@ -1545,7 +1626,7 @@ header.site-header .site-nav {
 .leveling-row {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 64px 72px 74px 92px 56px;
+  grid-template-columns: 1fr 64px 72px 74px 92px 92px 56px;
   gap: 0.5rem;
   align-items: center;
   text-align: left;
@@ -1628,7 +1709,61 @@ header.site-header .site-nav {
 .leveling-row__pct {
   font-variant-numeric: tabular-nums;
   font-weight: 900;
-  justify-self: start;
+  justify-self: end;
+  text-align: right;
+}
+
+.leveling-row__job {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+  justify-self: end;
+  text-align: right;
+}
+
+.leveling-row__eff,
+.leveling-row__diff {
+  justify-self: end;
+  text-align: right;
+}
+
+.leveling-colbtn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(220, 235, 255, 0.6);
+  cursor: pointer;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.leveling-cols > :nth-child(4),
+.leveling-cols > :nth-child(5),
+.leveling-cols > :nth-child(6),
+.leveling-cols > :nth-child(7) {
+  justify-self: end;
+  text-align: right;
+}
+
+.leveling-colbtn:hover {
+  color: rgba(245, 250, 255, 0.9);
+}
+
+.leveling-colbtn--active {
+  color: rgba(245, 250, 255, 0.95);
+}
+
+.leveling-colbtn:focus-visible {
+  outline: 2px solid rgba(120, 180, 255, 0.7);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
 .leveling-empty,

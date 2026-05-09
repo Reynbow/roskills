@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "update:f2p-equipment": "node scripts/update-free-to-play-equipment.mjs",
+    "update:re-monsters:dp": "node scripts/import-monsters-divine-pride-renewal.mjs",
+    "restore:re-monsters:backup": "node restore-monsters-renewal-backup.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {

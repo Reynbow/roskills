@@ -79,6 +79,7 @@ type MonsterEntry = {
   baseExp: number | null;
   jobExp: number | null;
   sprite?: string;
+  race?: string | null;
   element?: string | null;
   elementLevel?: number | null;
   isBoss?: boolean;
@@ -339,6 +340,10 @@ function monsterCardHtml(m: MonsterEntry, playerLevel: number, mult: { base: num
     m.isMvp ? `<span class="leveling-badge leveling-badge--mvp">MVP</span>`
     : m.isBoss ? `<span class="leveling-badge leveling-badge--mini">Mini Boss</span>`
     : "";
+  const race = (m.race || "").trim() || "—";
+  const elem = (m.element || "").trim() || "—";
+  const elemLv = typeof m.elementLevel === "number" && Number.isFinite(m.elementLevel) ? m.elementLevel : null;
+  const elemLabel = elemLv ? `${elem} ${elemLv}` : elem;
 
   return `
     <div class="pets-card leveling-card" style="max-width: 980px;">
@@ -346,20 +351,39 @@ function monsterCardHtml(m: MonsterEntry, playerLevel: number, mult: { base: num
         <div class="leveling-card__top">
           <div class="leveling-card__top-left">
             <div class="pets-card__k">Monster</div>
-            <div class="pets-monster__name">${escapeHtml(m.name)} ${badge} <span style="opacity:.65;">(#${m.id} · Lv ${m.level})</span></div>
-            <div class="leveling-exp" style="margin-top:.15rem;">
-              <span class="leveling-exp__label">EXP yield</span>
-              <span class="leveling-exp__pct ${pctTone}">${pct}%</span>
-              <span class="leveling-exp__sub">(diff ${diff >= 0 ? "+" : ""}${diff})</span>
+            <div class="pets-monster__name">
+              ${escapeHtml(m.name)} ${badge}
+              <span class="leveling-name__id">#${escapeHtml(String(m.id))}</span>
+            </div>
+            <div class="leveling-spec" aria-label="Monster details">
+              <div class="leveling-spec__row"><div class="leveling-spec__k">Level</div><div class="leveling-spec__v">${escapeHtml(
+                String(m.level),
+              )}</div></div>
+              <div class="leveling-spec__row"><div class="leveling-spec__k">Race</div><div class="leveling-spec__v">${escapeHtml(
+                race,
+              )}</div></div>
+              <div class="leveling-spec__row"><div class="leveling-spec__k">Element</div><div class="leveling-spec__v">${escapeHtml(
+                elemLabel,
+              )}</div></div>
             </div>
 
-            <div style="margin-top:.55rem;">
-              <span class="leveling-bonus">Bonus EXP range: <b>Lv ${bonusMinPlayerLv}–${bonusMaxPlayerLv}</b></span>
-            </div>
+            <div class="leveling-expgrid" aria-label="Experience information">
+              <div class="leveling-exp">
+                <span class="leveling-exp__label">EXP yield</span>
+                <span class="leveling-exp__pct ${pctTone}">${pct}%</span>
+                <span class="leveling-exp__sub">(diff ${diff >= 0 ? "+" : ""}${diff})</span>
+              </div>
 
-            <div class="leveling-card__section leveling-card__section--exp" style="margin-top:.55rem;">
+              <div class="leveling-expgrid__row">
+                <span class="leveling-expgrid__k">Bonus EXP range</span>
+                <span class="leveling-expgrid__v leveling-expgrid__v--up">Lv ${escapeHtml(
+                  String(bonusMinPlayerLv),
+                )}–${escapeHtml(String(bonusMaxPlayerLv))}</span>
+              </div>
+
               <div class="leveling-card__kv">Base EXP: <span class="leveling-card__kv-v">${baseSrc ?? "-"}</span> → <b>${base ?? "-"}</b></div>
               <div class="leveling-card__kv">Job EXP: <span class="leveling-card__kv-v">${jobSrc ?? "-"}</span> → <b>${job ?? "-"}</b></div>
+
               <div style="margin-top:.25rem;">
                 <a class="msq-step-card__wiki-cta" href="${escapeHtml(
                   rmsUrlForMob(m.id),
@@ -408,6 +432,7 @@ type ScoredMonster = {
   m: MonsterEntry;
   pct: number;
   effBase: number | null;
+  effJob: number | null;
   diff: number;
 };
 
@@ -416,12 +441,14 @@ function isBossLike(m: MonsterEntry | undefined): boolean {
   return !!m.isMvp || !!m.isBoss;
 }
 
-function scoreMonster(m: MonsterEntry, playerLevel: number, multBase: number): ScoredMonster {
+function scoreMonster(m: MonsterEntry, playerLevel: number, mult: { base: number; job: number }): ScoredMonster {
   const diff = m.level - playerLevel;
   const pct = renewalExpYieldPercent(diff);
   const effBase =
-    typeof m.baseExp === "number" ? Math.round(((m.baseExp * pct) / 100) * multBase) : null;
-  return { m, pct, effBase, diff };
+    typeof m.baseExp === "number" ? Math.round(((m.baseExp * pct) / 100) * mult.base) : null;
+  const effJob =
+    typeof m.jobExp === "number" ? Math.round(((m.jobExp * pct) / 100) * mult.job) : null;
+  return { m, pct, effBase, effJob, diff };
 }
 
 function pctToneClass(pct: number): string {
@@ -434,6 +461,7 @@ function monsterRowHtml(s: ScoredMonster, isActive: boolean): string {
   const lv = escapeHtml(String(s.m.level));
   const pctCls = pctToneClass(s.pct);
   const eff = s.effBase == null ? "-" : s.effBase.toLocaleString();
+  const effJob = s.effJob == null ? "-" : s.effJob.toLocaleString();
   const diff = `${s.diff >= 0 ? "+" : ""}${s.diff}`;
   const active = isActive ? " leveling-row--active" : "";
   const badge =
@@ -446,8 +474,59 @@ function monsterRowHtml(s: ScoredMonster, isActive: boolean): string {
     <span class="leveling-row__meta">Lv ${lv}</span>
     <span class="leveling-row__pct ${pctCls}">${escapeHtml(String(s.pct))}%</span>
     <span class="leveling-row__eff">${escapeHtml(eff)}</span>
+    <span class="leveling-row__job">${escapeHtml(effJob)}</span>
     <span class="leveling-row__diff">${escapeHtml(diff)}</span>
   </button>`;
+}
+
+type SortKey = "name" | "tag" | "level" | "pct" | "effBase" | "effJob" | "diff";
+type SortDir = "asc" | "desc";
+
+function sortLabel(key: SortKey): string {
+  switch (key) {
+    case "name":
+      return "Name";
+    case "tag":
+      return "Tag";
+    case "level":
+      return "Lv";
+    case "pct":
+      return "%";
+    case "effBase":
+      return "Base";
+    case "effJob":
+      return "Job";
+    case "diff":
+      return "Δ";
+  }
+}
+
+function sortButtonHtml(key: SortKey, activeKey: SortKey, dir: SortDir): string {
+  const isActive = key === activeKey;
+  const arrow = !isActive ? "" : dir === "asc" ? " ▲" : " ▼";
+  const cls = `leveling-colbtn${isActive ? " leveling-colbtn--active" : ""}`;
+  return `<button type="button" class="${cls}" data-sort-key="${escapeHtml(
+    key,
+  )}" aria-label="Sort by ${escapeHtml(sortLabel(key))}${isActive ? (dir === "asc" ? " ascending" : " descending") : ""}">${escapeHtml(
+    sortLabel(key),
+  )}${arrow}</button>`;
+}
+
+function sortScored(items: ScoredMonster[], key: SortKey, dir: SortDir): ScoredMonster[] {
+  const sign = dir === "asc" ? 1 : -1;
+  const tagRank = (m: MonsterEntry): number => (m.isMvp ? 2 : m.isBoss ? 1 : 0);
+  const num = (n: number | null): number => (typeof n === "number" && Number.isFinite(n) ? n : -Infinity);
+  return items.slice().sort((a, b) => {
+    let c = 0;
+    if (key === "name") c = a.m.name.localeCompare(b.m.name) || a.m.id - b.m.id;
+    else if (key === "tag") c = tagRank(b.m) - tagRank(a.m) || a.m.name.localeCompare(b.m.name);
+    else if (key === "level") c = a.m.level - b.m.level || a.m.name.localeCompare(b.m.name);
+    else if (key === "pct") c = a.pct - b.pct || num(a.effBase) - num(b.effBase);
+    else if (key === "effBase") c = num(a.effBase) - num(b.effBase) || a.m.level - b.m.level;
+    else if (key === "effJob") c = num(a.effJob) - num(b.effJob) || a.m.level - b.m.level;
+    else if (key === "diff") c = a.diff - b.diff || num(a.effBase) - num(b.effBase);
+    return c * sign;
+  });
 }
 
 function sectionHtml(
@@ -475,12 +554,23 @@ function monsterListHtml(
   playerLevel: number,
   query: string,
   focusId: number,
-  multBase: number,
-  opts: { hideBosses: boolean },
+  mult: { base: number; job: number },
+  opts: { hideBosses: boolean; mapFocus: string; sortKey: SortKey; sortDir: SortDir },
 ): string {
   const q = normalize(query);
   const isIdQuery = q && /^\d+$/.test(q);
   const idQuery = isIdQuery ? parseInt(q, 10) : null;
+
+  const mapFocus = (opts.mapFocus || "").trim();
+  const mapItems = mapFocus
+    ? monstersAll
+        .filter((m) => {
+          if (opts.hideBosses && isBossLike(m)) return false;
+          const maps = Array.isArray(m.maps) ? m.maps : [];
+          return maps.some((x) => x && typeof x.map === "string" && x.map === mapFocus);
+        })
+        .map((m) => scoreMonster(m, playerLevel, mult))
+    : [];
 
   const filtered = monstersAll.filter((m) => {
     if (opts.hideBosses && isBossLike(m)) return false;
@@ -489,27 +579,43 @@ function monsterListHtml(
     return normalize(m.name).includes(q);
   });
 
-  const scored = filtered
-    .map((m) => scoreMonster(m, playerLevel, multBase))
-    // prefer monsters with exp data first
-    .sort((a, b) => {
-      const ae = a.effBase == null ? -1 : a.effBase;
-      const be = b.effBase == null ? -1 : b.effBase;
-      if (be !== ae) return be - ae;
-      return a.m.level - b.m.level;
-    });
+  const scored = filtered.map((m) => scoreMonster(m, playerLevel, mult));
 
   const isSearching = Boolean(q);
   const bonus = scored.filter((s) => s.pct > 100);
-  const items = isSearching ? scored : bonus;
+  const itemsRaw = isSearching ? scored : bonus;
+  const items = sortScored(itemsRaw, opts.sortKey, opts.sortDir);
+  const mapItemsSorted = mapItems.length ? sortScored(mapItems, opts.sortKey, opts.sortDir) : mapItems;
 
   const LIMIT = q ? 60 : 30;
   return `<div class="leveling-list">
     <div class="leveling-list__head">
       <div class="leveling-cols" aria-hidden="true">
-        <span>Name</span><span>Tag</span><span>Lv</span><span>%</span><span>Eff Base</span><span>Δ</span>
+        ${sortButtonHtml("name", opts.sortKey, opts.sortDir)}
+        ${sortButtonHtml("tag", opts.sortKey, opts.sortDir)}
+        ${sortButtonHtml("level", opts.sortKey, opts.sortDir)}
+        ${sortButtonHtml("pct", opts.sortKey, opts.sortDir)}
+        ${sortButtonHtml("effBase", opts.sortKey, opts.sortDir)}
+        ${sortButtonHtml("effJob", opts.sortKey, opts.sortDir)}
+        ${sortButtonHtml("diff", opts.sortKey, opts.sortDir)}
       </div>
     </div>
+    ${
+      mapFocus
+        ? `<section class="leveling-section leveling-section--map">
+      <div class="leveling-section__head">
+        <div class="pets-card__k">Map: ${escapeHtml(mapFocus)}</div>
+        <div style="display:flex; align-items:baseline; gap:.6rem;">
+          <div class="leveling-section__count">${mapItems.length.toLocaleString()}</div>
+          <button type="button" class="cards-filter-clear" data-clear-map="1">Clear</button>
+        </div>
+      </div>
+      <div class="leveling-rows">${
+        mapItemsSorted.length ? mapItemsSorted.slice(0, LIMIT).map((s) => monsterRowHtml(s, s.m.id === focusId)).join("") : `<div class="leveling-empty">No spawns found for this map.</div>`
+      }</div>
+    </section>`
+        : ""
+    }
     ${sectionHtml(
       isSearching ? "Matches" : "Bonus EXP (>100%)",
       items,
@@ -641,6 +747,9 @@ function mount(root: HTMLElement): void {
   plus.style.display = "inline-flex";
 
   let focusId = initialFocusId;
+  let mapFocus = readLs("levelingMapFocus") || "";
+  let sortKey = (readLs("levelingSortKey") || "effBase") as SortKey;
+  let sortDir = (readLs("levelingSortDir") || "desc") as SortDir;
   let persistTimer: number | undefined;
 
   const schedulePersist = (): void => {
@@ -652,6 +761,9 @@ function mount(root: HTMLElement): void {
       writeLs("levelingMultBase", multBase.value || "");
       writeLs("levelingMultJob", multJob.value || "");
       writeLs("levelingMultDrops", multDrops.value || "");
+      writeLs("levelingMapFocus", mapFocus || "");
+      writeLs("levelingSortKey", sortKey);
+      writeLs("levelingSortDir", sortDir);
     }, 80);
   };
 
@@ -673,15 +785,27 @@ function mount(root: HTMLElement): void {
     const isId = qn && /^\d+$/.test(qn);
     const idQ = isId ? parseInt(qn, 10) : null;
     const focusMonster0 = monstersById.get(focusId);
-    const inFilter =
-      (!qn ||
-        (idQ != null ?
-          focusId === idQ
-        : normalize(focusMonster0?.name ?? "").includes(qn))) &&
-      (!hideBossesOn || !isBossLike(focusMonster0));
+    const mapFocusOn = (mapFocus || "").trim();
+    const inMapFocus =
+      !mapFocusOn ||
+      (Array.isArray(focusMonster0?.maps) &&
+        focusMonster0!.maps!.some((x) => x && typeof x.map === "string" && x.map === mapFocusOn));
+
+    // When a map is selected, the "map mobs" list becomes the primary constraint
+    // for focus (so clicking a map mob doesn't snap back to the name-query list).
+    const inQueryFilter =
+      !qn ||
+      (idQ != null ? focusId === idQ : normalize(focusMonster0?.name ?? "").includes(qn));
+
+    const inFilter = (!hideBossesOn || !isBossLike(focusMonster0)) && inMapFocus && (mapFocusOn ? true : inQueryFilter);
     if (!inFilter) {
       const first = monstersAll.find((m) => {
         if (hideBossesOn && isBossLike(m)) return false;
+        if (mapFocusOn) {
+          const maps = Array.isArray(m.maps) ? m.maps : [];
+          if (!maps.some((x) => x && typeof x.map === "string" && x.map === mapFocusOn)) return false;
+          return true;
+        }
         return idQ != null ? m.id === idQ : normalize(m.name).includes(qn);
       });
       if (first) focusId = first.id;
@@ -692,7 +816,7 @@ function mount(root: HTMLElement): void {
       (hideBossesOn ? monstersAll.find((m) => !isBossLike(m)) : null) ??
       monstersById.get(DEFAULT_FOCUS_MOB_ID);
     focusEl.innerHTML = focusMonster ? monsterCardHtml(focusMonster, lv, mult) : "";
-    listEl.innerHTML = monsterListHtml(lv, q, focusId, mult.base, { hideBosses: hideBossesOn });
+    listEl.innerHTML = monsterListHtml(lv, q, focusId, { base: mult.base, job: mult.job }, { hideBosses: hideBossesOn, mapFocus, sortKey, sortDir });
   };
 
   const setLevel = (lv: number): void => {
@@ -739,12 +863,39 @@ function mount(root: HTMLElement): void {
   });
 
   root.addEventListener("click", (e) => {
+    const sortBtn = (e.target as HTMLElement | null)?.closest?.("[data-sort-key]") as HTMLButtonElement | null;
+    if (sortBtn && root.contains(sortBtn)) {
+      e.preventDefault();
+      const key = (sortBtn.getAttribute("data-sort-key") || "") as SortKey | "";
+      if (!key) return;
+      if (key === sortKey) sortDir = sortDir === "asc" ? "desc" : "asc";
+      else {
+        sortKey = key;
+        sortDir = key === "name" ? "asc" : "desc";
+      }
+      schedulePersist();
+      render();
+      return;
+    }
+
+    const clearMap = (e.target as HTMLElement | null)?.closest?.("[data-clear-map]") as HTMLButtonElement | null;
+    if (clearMap && root.contains(clearMap)) {
+      e.preventDefault();
+      mapFocus = "";
+      schedulePersist();
+      render();
+      return;
+    }
+
     const copyBtn = (e.target as HTMLElement | null)?.closest?.("[data-copy-map]") as HTMLButtonElement | null;
     if (copyBtn && root.contains(copyBtn)) {
       e.preventDefault();
       e.stopPropagation();
       const map = (copyBtn.getAttribute("data-copy-map") || "").trim();
       if (!map) return;
+      mapFocus = map;
+      schedulePersist();
+      render();
 
       const hide = (): void => {
         toast.classList.remove("cards-copy-toast--visible");
