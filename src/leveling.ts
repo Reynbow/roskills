@@ -158,6 +158,19 @@ const ELEMENTS: readonly string[] = [
   "Undead",
 ];
 
+const E3: Record<string, string> = {
+  Neutral: "NEU",
+  Water: "WAT",
+  Earth: "ERT",
+  Fire: "FIR",
+  Wind: "WND",
+  Poison: "PSN",
+  Holy: "HLY",
+  Dark: "DRK",
+  Ghost: "GST",
+  Undead: "UND",
+};
+
 function clamp(n: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, n));
 }
@@ -223,6 +236,32 @@ function elementDamageTaken(defElem: string | null, defLv: number | null): Array
 
   const row = T[lv] ?? T[1];
   return ELEMENTS.map((atk) => ({ elem: atk, pct: row[atk]?.[e] ?? 100 }));
+}
+
+function elementPreviewHtml(m: MonsterEntry): string {
+  const defElem = m.element ?? "Neutral";
+  const defLv = typeof m.elementLevel === "number" ? m.elementLevel : 1;
+  const rows = elementDamageTaken(defElem, defLv);
+
+  const weak = rows
+    .filter((r) => r.pct > 100)
+    .sort((a, b) => b.pct - a.pct || a.elem.localeCompare(b.elem))[0];
+  const resist = rows
+    .filter((r) => r.pct < 100)
+    .sort((a, b) => a.pct - b.pct || a.elem.localeCompare(b.elem))[0];
+
+  const w3 = weak ? E3[weak.elem] ?? weak.elem.slice(0, 3).toUpperCase() : "—";
+  const r3 = resist ? E3[resist.elem] ?? resist.elem.slice(0, 3).toUpperCase() : "—";
+
+  return `<span class="leveling-elem" aria-label="Element preview">
+    <span class="leveling-elem__w" title="${escapeHtml(weak ? `${weak.elem} ${weak.pct}%` : "No weakness")}">${escapeHtml(
+      w3,
+    )}↑</span>
+    <span class="leveling-elem__sep" aria-hidden="true">/</span>
+    <span class="leveling-elem__r" title="${escapeHtml(
+      resist ? `${resist.elem} ${resist.pct}%` : "No resist",
+    )}">${escapeHtml(r3)}↓</span>
+  </span>`;
 }
 
 function elementColumnHtml(monsterId: number): string {
@@ -482,6 +521,7 @@ function monsterRowHtml(s: ScoredMonster, isActive: boolean): string {
   return `<button type="button" class="leveling-row${active}" data-focus-mob="${id}">
     <span class="leveling-row__name">${name} <span class="leveling-row__id">#${id}</span></span>
     <span class="leveling-row__tag" aria-label="${s.m.isMvp ? "MVP" : s.m.isBoss ? "Mini Boss" : ""}">${badge}</span>
+    <span class="leveling-row__elem">${elementPreviewHtml(s.m)}</span>
     <span class="leveling-row__meta">Lv ${lv}</span>
     <span class="leveling-row__pct ${pctCls}">${escapeHtml(String(s.pct))}%</span>
     <span class="leveling-row__eff">${escapeHtml(eff)}</span>
@@ -604,6 +644,7 @@ function monsterListHtml(
       <div class="leveling-cols" aria-hidden="true">
         ${sortButtonHtml("name", opts.sortKey, opts.sortDir)}
         ${sortButtonHtml("tag", opts.sortKey, opts.sortDir)}
+        <div class="leveling-coltxt" title="Element preview">Elm</div>
         ${sortButtonHtml("level", opts.sortKey, opts.sortDir)}
         ${sortButtonHtml("pct", opts.sortKey, opts.sortDir)}
         ${sortButtonHtml("effBase", opts.sortKey, opts.sortDir)}

@@ -1576,9 +1576,9 @@ header.site-header .site-nav {
 
 .leveling-cols {
   display: grid;
-  grid-template-columns: 1fr 64px 72px 74px 92px 92px 56px;
-  gap: 0.5rem;
-  padding: 0 0.45rem;
+  grid-template-columns: 1fr 56px 120px 64px 64px 84px 84px 48px;
+  gap: 0.45rem;
+  padding: 0 0.55rem;
 }
 
 .leveling-section {
@@ -1626,11 +1626,11 @@ header.site-header .site-nav {
 .leveling-row {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 64px 72px 74px 92px 92px 56px;
-  gap: 0.5rem;
+  grid-template-columns: 1fr 56px 120px 64px 64px 84px 84px 48px;
+  gap: 0.45rem;
   align-items: center;
   text-align: left;
-  padding: 0.4rem 0.45rem;
+  padding: 0.42rem 0.55rem;
   border-radius: 10px;
   border: 1px solid rgba(140, 170, 210, 0.18);
   background: rgba(0, 0, 0, 0.12);
@@ -1659,6 +1659,36 @@ header.site-header .site-nav {
 .leveling-row__tag {
   display: inline-flex;
   align-items: center;
+}
+
+.leveling-row__elem {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+  padding-right: 0.2rem;
+}
+
+.leveling-elem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.18rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.leveling-elem__w {
+  color: rgba(255, 170, 170, 0.95);
+  font-weight: 900;
+}
+
+.leveling-elem__r {
+  color: rgba(170, 255, 200, 0.92);
+  font-weight: 900;
+}
+
+.leveling-elem__sep {
+  opacity: 0.45;
 }
 
 .leveling-badge {
@@ -1747,9 +1777,21 @@ header.site-header .site-nav {
 .leveling-cols > :nth-child(4),
 .leveling-cols > :nth-child(5),
 .leveling-cols > :nth-child(6),
-.leveling-cols > :nth-child(7) {
+.leveling-cols > :nth-child(7),
+.leveling-cols > :nth-child(8) {
   justify-self: end;
   text-align: right;
+}
+
+.leveling-coltxt {
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(220, 235, 255, 0.6);
+  white-space: nowrap;
+  align-self: center;
 }
 
 .leveling-colbtn:hover {
@@ -1788,6 +1830,9 @@ header.site-header .site-nav {
     grid-area: name;
   }
   .leveling-row__tag {
+    display: none;
+  }
+  .leveling-row__elem {
     display: none;
   }
   .leveling-row__pct {
