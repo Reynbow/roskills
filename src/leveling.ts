@@ -372,15 +372,17 @@ function monsterMatchesItemQuery(m: MonsterEntry, itemQn: string): boolean {
 function bestMatchingDropForItemQuery(
   m: MonsterEntry,
   itemQn: string,
-): { rate: number; isMvp: boolean } | null {
+): { rate: number; isMvp: boolean; itemLabel: string } | null {
   const qn = normalize(itemQn);
   if (!qn) return null;
   const drops = Array.isArray(m.drops) ? m.drops : [];
-  let best: { rate: number; isMvp: boolean } | null = null;
+  let best: { rate: number; isMvp: boolean; itemLabel: string } | null = null;
   for (const d of drops) {
     if (!d || typeof d.rate !== "number" || d.rate <= 0) continue;
     if (!dropMatchesItemQuery(d, qn)) continue;
-    if (!best || d.rate > best.rate) best = { rate: d.rate, isMvp: !!d.isMvp };
+    if (!best || d.rate > best.rate) {
+      best = { rate: d.rate, isMvp: !!d.isMvp, itemLabel: dropDisplayName(d) };
+    }
   }
   return best;
 }
@@ -639,6 +641,8 @@ function monsterRowItemSearchHtml(
   const id = escapeHtml(String(s.m.id));
   const det = bestMatchingDropForItemQuery(s.m, itemQueryRaw);
   const pctLabel = det ? dropRateLabel(det.rate, dropMult) : "—";
+  const itemLabel = det?.itemLabel ?? "—";
+  const itemTitle = det ? escapeHtml(det.itemLabel) : "";
   const pctColor =
     det && colorScale ? dropChanceColorForRate(det.rate, colorScale) : "";
   const pctStyle = pctColor ? ` style="color:${pctColor}"` : "";
@@ -656,6 +660,7 @@ function monsterRowItemSearchHtml(
       <span class="leveling-row__name">${name} <span class="leveling-row__id">#${id}</span></span>
       <span class="leveling-row__tag" aria-label="${s.m.isMvp ? "MVP" : s.m.isBoss ? "Mini Boss" : ""}">${badge}</span>
     </span>
+    <span class="leveling-row__matched-item"${itemTitle ? ` title="${itemTitle}"` : ""}>${escapeHtml(itemLabel)}</span>
     <span class="leveling-row__drop" aria-label="Drop chance for your search">
       <span class="leveling-row__drop-pct"${pctStyle}>${escapeHtml(pctLabel)}</span>${mvpDrop}
     </span>
@@ -802,6 +807,7 @@ function monsterListHtml(
   const listHeadCols = itemDropMode
     ? `<div class="leveling-cols leveling-cols--itemdrop" aria-hidden="true">
         <div class="leveling-coltxt">Monster</div>
+        <div class="leveling-coltxt">Matched item</div>
         <div class="leveling-coltxt leveling-coltxt--num" title="Chance for this item (uses Drops rate multiplier)">Drop chance</div>
       </div>`
     : `<div class="leveling-cols" aria-hidden="true">

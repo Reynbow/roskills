@@ -1700,7 +1700,7 @@ header.site-header .site-nav {
 }
 
 .leveling-cols--itemdrop {
-  grid-template-columns: 1fr minmax(6.75rem, auto);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(6.75rem, auto);
 }
 
 .leveling-coltxt--num {
@@ -1777,7 +1777,18 @@ header.site-header .site-nav {
 }
 
 .leveling-row--itemdrop {
-  grid-template-columns: 1fr minmax(6.75rem, auto);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(6.75rem, auto);
+}
+
+.leveling-row__matched-item {
+  min-width: 0;
+  font-size: 0.88rem;
+  line-height: 1.25;
+  opacity: 0.92;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-self: center;
 }
 
 .leveling-row__item-primary {
@@ -2020,12 +2031,19 @@ header.site-header .site-nav {
 
   .leveling-row--itemdrop {
     grid-template-columns: 1fr auto;
-    grid-template-areas: "prim drop";
+    grid-template-areas:
+      "prim prim"
+      "item drop";
     row-gap: 0.2rem;
   }
 
   .leveling-row--itemdrop .leveling-row__item-primary {
     grid-area: prim;
+  }
+
+  .leveling-row--itemdrop .leveling-row__matched-item {
+    grid-area: item;
+    min-width: 0;
   }
 
   .leveling-row--itemdrop .leveling-row__drop {
