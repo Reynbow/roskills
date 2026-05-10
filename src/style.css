@@ -1870,13 +1870,14 @@ header.site-header .site-nav {
   white-space: nowrap;
 }
 
+/* ↑ = strongest weakness (bonus damage); ↓ = strongest resist — match detail card (weak green / resist red). */
 .leveling-elem__w {
-  color: rgba(255, 170, 170, 0.95);
+  color: rgba(90, 235, 185, 0.95);
   font-weight: 900;
 }
 
 .leveling-elem__r {
-  color: rgba(170, 255, 200, 0.92);
+  color: rgba(240, 128, 136, 0.95);
   font-weight: 900;
 }
 
