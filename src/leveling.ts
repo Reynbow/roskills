@@ -158,17 +158,18 @@ const ELEMENTS: readonly string[] = [
   "Undead",
 ];
 
-const E3: Record<string, string> = {
-  Neutral: "NEU",
-  Water: "WAT",
-  Earth: "ERT",
-  Fire: "FIR",
-  Wind: "WND",
-  Poison: "PSN",
-  Holy: "HLY",
-  Dark: "SHW",
-  Ghost: "GST",
-  Undead: "UND",
+/** Four-letter column abbreviations for element preview (list view). */
+const E4: Record<string, string> = {
+  Neutral: "NEUT",
+  Water: "WATR",
+  Earth: "EART",
+  Fire: "FIRE",
+  Wind: "WIND",
+  Poison: "POIS",
+  Holy: "HOLY",
+  Dark: "SHDW",
+  Ghost: "GHST",
+  Undead: "UNDE",
 };
 
 /** Data / tables use "Dark"; UI label matches common RO naming. */
@@ -255,15 +256,15 @@ function elementPreviewHtml(m: MonsterEntry): string {
     .filter((r) => r.pct < 100)
     .sort((a, b) => a.pct - b.pct || a.elem.localeCompare(b.elem))[0];
 
-  const w3 = weak ? E3[weak.elem] ?? weak.elem.slice(0, 3).toUpperCase() : "—";
-  const r3 = resist ? E3[resist.elem] ?? resist.elem.slice(0, 3).toUpperCase() : "—";
+  const w4 = weak ? E4[weak.elem] ?? weak.elem.slice(0, 4).toUpperCase() : "—";
+  const r4 = resist ? E4[resist.elem] ?? resist.elem.slice(0, 4).toUpperCase() : "—";
 
   const weakTitle = weak ? `${elementDisplayName(weak.elem)} ${weak.pct}%` : "No weakness";
   const resistTitle = resist ? `${elementDisplayName(resist.elem)} ${resist.pct}%` : "No resist";
   return `<span class="leveling-elem" aria-label="Element preview">
-    <span class="leveling-elem__w" title="${escapeHtml(weakTitle)}">${escapeHtml(w3)}↑</span>
+    <span class="leveling-elem__w" title="${escapeHtml(weakTitle)}">${escapeHtml(w4)}↑</span>
     <span class="leveling-elem__sep" aria-hidden="true">/</span>
-    <span class="leveling-elem__r" title="${escapeHtml(resistTitle)}">${escapeHtml(r3)}↓</span>
+    <span class="leveling-elem__r" title="${escapeHtml(resistTitle)}">${escapeHtml(r4)}↓</span>
   </span>`;
 }
 
