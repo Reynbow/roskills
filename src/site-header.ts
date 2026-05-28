@@ -80,7 +80,6 @@ export function siteHeaderRowHtml(active: SiteNavId): string {
   return `<header class="site-header">
       <div class="site-header__left">
         <a class="site-brand" href="/">roskills.com</a>
-        <a class="site-crosspromo" href="http://roclassicplus.com/" target="_blank" rel="noopener noreferrer">ROClassic+ Server</a>
         ${gameModeToggleHtml()}
         <nav class="site-nav" aria-label="Site">
           ${siteNavHtml(active)}
@@ -94,7 +93,6 @@ export function plannerHeaderInnerHtml(active: SiteNavId): string {
   return `<header class="planner-header">
       <div class="planner-header__left">
         <h1 class="planner-header__title" id="planner-page-title">roskills.com</h1>
-        <a class="site-crosspromo" href="http://roclassicplus.com/" target="_blank" rel="noopener noreferrer">ROClassic+ Server</a>
         ${gameModeToggleHtml()}
         <nav class="site-nav" aria-label="Site">
           ${siteNavHtml(active)}
