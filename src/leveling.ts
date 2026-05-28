@@ -94,6 +94,18 @@ const monstersById = new Map<number, MonsterEntry>(
 
 const VARIANT_NAME_TOKENS = ["ringleader", "ringlea", "ringleade", "furious", "elusive", "swift", "solid"] as const;
 
+/** Renewal Illusion Investigation dungeons (e.g. pay_d03_i, gef_d01_i, iz_d04_i). */
+function mapIsIllusionDungeon(map: string): boolean {
+  const m = normalize(map);
+  if (!m) return false;
+  return m.endsWith("_i");
+}
+
+function monsterSpawnsOnIllusionDungeon(m: MonsterEntry): boolean {
+  const maps = Array.isArray(m.maps) ? m.maps : [];
+  return maps.some((x) => x && typeof x.map === "string" && mapIsIllusionDungeon(x.map));
+}
+
 function isVariantMonsterName(name: string): boolean {
   const n = normalize(name);
   // Prefer whole-word tokens to avoid false positives inside other words.
@@ -102,10 +114,16 @@ function isVariantMonsterName(name: string): boolean {
   return VARIANT_NAME_TOKENS.some((t) => new RegExp(`\\b${t}\\b`, "i").test(n));
 }
 
+/** Field Furious/Solid/etc. variants are hidden; Illusion dungeon spawns keep them. */
+function shouldHideVariantMonster(m: MonsterEntry): boolean {
+  if (monsterSpawnsOnIllusionDungeon(m)) return false;
+  return isVariantMonsterName(m.name);
+}
+
 const monstersAll: MonsterEntry[] = (monstersRaw as unknown as MonsterEntry[])
   .slice()
   .filter((m) => typeof m.id === "number" && typeof m.name === "string" && typeof m.level === "number")
-  .filter((m) => !isVariantMonsterName(m.name))
+  .filter((m) => !shouldHideVariantMonster(m))
   .filter((m) => Array.isArray(m.maps) && m.maps.length > 0);
 
 const DEFAULT_FOCUS_MOB_ID = 1015;
