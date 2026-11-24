@@ -35,11 +35,10 @@ let boards: Board[] = [];
 let selectedId: string | null = null;
 let hoverId: string | null = null;
 let order: string[] = [];
-let tappedId: string | null = null;
 let undoStack: Snapshot[] = [];
 let statusTimer: number | undefined;
-/** Touch screens have no hover: the first tap on a skill selects it, the next tap raises it. */
-const coarsePointer = window.matchMedia("(pointer: coarse)");
+/** Which skill the tile tooltip is open for (null when closed or showing from the inspector). */
+let tipForId: string | null = null;
 
 function esc(s: string): string {
   return String(s)
@@ -302,7 +301,8 @@ function tileHtml(s: SkillDef): string {
       <span class="bp-tile__name">${esc(s.name)}</span>
       <span class="bp-tile__lv"><span class="bp-tile__cur">0</span><span class="bp-tile__max">/${s.maxLevel}</span></span>
       <span class="bp-tile__need" aria-hidden="true"></span>
-      <span class="bp-tile__minus" data-minus aria-hidden="true">${ICON.minus}</span>
+      <span class="bp-tile__minus" data-minus title="Lower" aria-hidden="true">${ICON.minus}</span>
+      <span class="bp-tile__plus" data-plus title="Raise" aria-hidden="true">${ICON.plus}</span>
     </button>`;
 }
 
@@ -511,10 +511,15 @@ function refresh(): void {
     el.classList.toggle("bp-tile--over", cur > 0 && t != null && (info[t]?.used ?? 0) > (info[t]?.cap ?? 0));
     el.setAttribute(
       "aria-label",
-      `${s.name}, level ${cur} of ${s.maxLevel}. Click to raise, right-click to lower.`,
+      `${s.name}, level ${cur} of ${s.maxLevel}. Press for details, plus key to raise, minus key to lower.`,
     );
   });
   applyHover();
+  if (tipForId) {
+    const tip = document.querySelector<HTMLElement>("#tooltip");
+    const html = api.tooltipHtml(tipForId);
+    if (tip && html && !tip.hidden) tip.innerHTML = html;
+  }
   renderLedger();
   revealInLedger();
   renderInspector();
@@ -663,6 +668,7 @@ function showDetails(anchor: HTMLElement): void {
   tip.innerHTML = html;
   tip.hidden = false;
   tip.classList.add("tooltip--locked");
+  tipForId = null;
   const a = anchor.closest(".bp-ledger")!.getBoundingClientRect();
   const r = tip.getBoundingClientRect();
   const left = Math.max(12, a.left - r.width - 12);
@@ -672,11 +678,39 @@ function showDetails(anchor: HTMLElement): void {
   anchor.setAttribute("aria-expanded", "true");
 }
 
+/** The full in-game tooltip for a skill, beside its tile (right if it fits, else left). */
+function showTileTooltip(id: string, tile: HTMLElement): void {
+  const tip = document.querySelector<HTMLElement>("#tooltip");
+  if (!tip) return;
+  const html = api.tooltipHtml(id);
+  if (!html) return;
+  tip.innerHTML = html;
+  tip.hidden = false;
+  tip.classList.add("tooltip--locked");
+  tipForId = id;
+  placeTileTooltip(tile);
+}
+
+function placeTileTooltip(tile: HTMLElement): void {
+  const tip = document.querySelector<HTMLElement>("#tooltip");
+  if (!tip || tip.hidden) return;
+  const a = tile.getBoundingClientRect();
+  const r = tip.getBoundingClientRect();
+  const gap = 10;
+  let left = a.right + gap;
+  if (left + r.width > window.innerWidth - 12) left = a.left - r.width - gap;
+  left = Math.max(12, Math.min(left, window.innerWidth - r.width - 12));
+  const top = Math.max(12, Math.min(a.top, window.innerHeight - r.height - 12));
+  tip.style.left = `${left}px`;
+  tip.style.top = `${top}px`;
+}
+
 function hideDetails(): void {
   const tip = document.querySelector<HTMLElement>("#tooltip");
   if (!tip || tip.hidden) return;
   tip.hidden = true;
   tip.classList.remove("tooltip--locked");
+  tipForId = null;
   root.querySelector("#bp-details")?.setAttribute("aria-expanded", "false");
 }
 
@@ -721,18 +755,26 @@ function wire(): void {
     const tile = (e.target as HTMLElement).closest<HTMLElement>(".bp-tile");
     if (!tile) return;
     const id = tile.dataset.id!;
-    const minus = (e.target as HTMLElement).closest("[data-minus]");
-    if (coarsePointer.matches && !minus && id !== tappedId) {
-      tappedId = id;
-      selectedId = id;
+    const t = e.target as HTMLElement;
+    selectedId = id;
+    if (t.closest("[data-minus]") || e.shiftKey) {
+      lower(id);
       refresh();
       return;
     }
-    tappedId = id;
-    selectedId = id;
-    if (minus || e.shiftKey) lower(id);
-    else raise(id);
+    if (t.closest("[data-plus]")) {
+      raise(id);
+      refresh();
+      return;
+    }
+    // Clicking the skill itself reads it: its full tooltip opens beside the tile.
+    if (tipForId === id) {
+      hideDetails();
+      refresh();
+      return;
+    }
     refresh();
+    showTileTooltip(id, root.querySelector<HTMLElement>(`.bp-tile[data-id="${CSS.escape(id)}"]`)!);
   });
   grid.addEventListener("contextmenu", (e) => {
     const tile = (e.target as HTMLElement).closest<HTMLElement>(".bp-tile");
@@ -759,6 +801,13 @@ function wire(): void {
     const tile = (e.target as HTMLElement).closest<HTMLElement>(".bp-tile");
     if (!tile) return;
     const id = tile.dataset.id!;
+    if (e.key === "+" || e.key === "=") {
+      e.preventDefault();
+      selectedId = id;
+      raise(id);
+      refresh();
+      return;
+    }
     if (e.key === "-" || e.key === "Backspace" || e.key === "Delete") {
       e.preventDefault();
       selectedId = id;
@@ -861,7 +910,7 @@ function wire(): void {
   });
   document.addEventListener("pointerdown", (e) => {
     const t = e.target as HTMLElement;
-    if (t.closest("#tooltip, #bp-details")) return;
+    if (t.closest("#tooltip, #bp-details, .bp-tile")) return;
     hideDetails();
   });
 
@@ -912,7 +961,13 @@ export function mountBetaPlanner(appRoot: HTMLElement, plannerApi: PlannerApi): 
   let raf = 0;
   const onViewport = () => {
     cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(fitLedger);
+    raf = requestAnimationFrame(() => {
+      fitLedger();
+      if (tipForId) {
+        const tile = root.querySelector<HTMLElement>(`.bp-tile[data-id="${CSS.escape(tipForId)}"]`);
+        if (tile) placeTileTooltip(tile);
+      }
+    });
   };
   window.addEventListener("scroll", onViewport, { passive: true });
   window.addEventListener("resize", onViewport);

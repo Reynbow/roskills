@@ -199,28 +199,20 @@
 }
 
 .bp-board {
-  container: bp-board / inline-size;
+
   min-width: 0;
   padding: 14px 14px 8px;
 }
 
-/* All of the class's boards at once: base and second class side by side when the column is
-   wide enough for two 7-wide grids, otherwise one above the other; quest skills underneath. */
+/* All of the class's boards at once, one above the other: first class on top, then the
+   second (with transcendent), then quest skills. */
 .bp-boards {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 18px 20px;
 }
 
-@container bp-board (min-width: 1240px) {
-  .bp-boards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
-  .bp-boardsec--quest {
-    grid-column: 1 / -1;
-  }
-}
 
 /* Each board knows its own width, so its tiles go compact when the board is narrow
    (two boards side by side, or a phone), whatever the screen size. */
@@ -333,13 +325,11 @@
 
 .bp-tile__name {
   grid-area: name;
-  display: -webkit-box;
-  overflow: hidden;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.25;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .bp-tile__lv {
@@ -381,6 +371,34 @@
 .bp-tile__minus:hover {
   border-color: var(--bp-over);
   color: var(--bp-over);
+}
+
+/* Raise: the game's level-up button, on the tile's bottom-right corner. */
+.bp-tile__plus {
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  z-index: 2;
+  display: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: #14202f;
+  font-size: 12px;
+}
+
+.bp-tile__plus:hover {
+  border-color: #a9d3ff;
+  background: #a9d3ff;
+}
+
+.bp-tile:not(.bp-tile--max):hover .bp-tile__plus,
+.bp-tile:not(.bp-tile--max):focus-visible .bp-tile__plus,
+.bp-tile:not(.bp-tile--max).bp-tile--selected .bp-tile__plus {
+  display: grid;
 }
 
 .bp-tile--spent:hover .bp-tile__minus,
@@ -876,12 +894,21 @@
 }
 
 @media (pointer: coarse) {
-  .bp-tile__minus {
-    top: -10px;
-    right: -10px;
+  .bp-tile__minus,
+  .bp-tile__plus {
     width: 32px;
     height: 32px;
     font-size: 14px;
+  }
+
+  .bp-tile__minus {
+    top: -10px;
+    right: -10px;
+  }
+
+  .bp-tile__plus {
+    right: -10px;
+    bottom: -10px;
   }
 }
 
