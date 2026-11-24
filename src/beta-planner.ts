@@ -27,6 +27,9 @@ type Board = ReturnType<PlannerApi["boards"]>[number];
 type Snapshot = { levels: Record<string, number>; order: string[] };
 
 const ORDER_STORAGE_KEY = "ro-planner-beta-order";
+/** Shared with the classic planner's sprite dock. */
+const GENDER_STORAGE_KEY = "ro-sit-gender";
+type Gender = "male" | "female";
 const UNDO_LIMIT = 200;
 
 let api: PlannerApi;
@@ -39,6 +42,7 @@ let undoStack: Snapshot[] = [];
 let statusTimer: number | undefined;
 /** Which skill the tile tooltip is open for (null when closed or showing from the inspector). */
 let tipForId: string | null = null;
+let gender: Gender = localStorage.getItem(GENDER_STORAGE_KEY) === "female" ? "female" : "male";
 
 function esc(s: string): string {
   return String(s)
@@ -283,11 +287,23 @@ function shellHtml(): string {
           <div class="bp-boards" id="bp-grid"></div>
           <p class="bp-status" id="bp-status" role="status" aria-live="polite"></p>
         </section>
+        <div class="bp-side">
+        <section class="bp-art" aria-label="Class line">
+          <div class="bp-art__sprites" id="bp-art-sprites"></div>
+          <div class="bp-art__foot">
+            <span class="bp-art__line" id="bp-art-line"></span>
+            <div class="game-mode-toggle bp-gender" role="group" aria-label="Sprite gender">
+              <button type="button" class="game-mode-toggle__btn" data-gender="male" aria-pressed="false">${ICON.male} Male</button>
+              <button type="button" class="game-mode-toggle__btn" data-gender="female" aria-pressed="false">${ICON.female} Female</button>
+            </div>
+          </div>
+        </section>
         <aside class="bp-ledger" aria-label="Build">
           <div class="bp-ledger__head"><h2>Build</h2><span class="bp-ledger__total" id="bp-total"></span></div>
           <div class="bp-ledger__list" id="bp-ledger-list"></div>
           <div class="bp-inspector" id="bp-inspector"></div>
         </aside>
+        </div>
       </div>
     </section>
     <dialog class="bp-picker" id="bp-picker" aria-label="Choose a class"></dialog>`;
@@ -489,7 +505,56 @@ function renderClassButton(): void {
   img.onerror = () => {
     img.hidden = true;
   };
-  img.src = api.standSpriteUrl(api.getJobKey());
+  img.src = api.standSpriteUrl(api.getJobKey(), gender);
+}
+
+/**
+ * The class's line as it is played: its first class, the second class, then the class itself
+ * (Acolyte, Priest, High Priest), taken from the picker's class lines. Each stage keeps the
+ * same column, so the path through Priest rather than Monk is followed.
+ */
+function classChain(key: string): string[] {
+  for (const line of listClassLineShortcuts()) {
+    const rows = classLineModalJobRows(line.anchorKey);
+    const stage = rows.findIndex((r) => r.includes(key));
+    if (stage < 0) continue;
+    const col = rows[stage]!.indexOf(key);
+    return rows.slice(0, stage + 1).map((r, i) => (i === stage ? key : r[r.length === rows[stage]!.length ? col : 0]!));
+  }
+  return [key];
+}
+
+/** Standing sprites for the class line, drawn at a whole multiple of their size. */
+function renderArt(): void {
+  const host = root.querySelector<HTMLElement>("#bp-art-sprites")!;
+  const chain = classChain(api.getJobKey());
+  const labels = new Map(listJobs().map((j) => [j.key, j.label]));
+  host.innerHTML = chain
+    .map((key) => `<img class="bp-art__sprite" src="${esc(api.standSpriteUrl(key, gender))}" alt="" data-key="${esc(key)}" />`)
+    .join("");
+  host.querySelectorAll<HTMLImageElement>(".bp-art__sprite").forEach((img) => {
+    const size = () => {
+      img.style.width = `${img.naturalWidth * 2}px`;
+    };
+    img.addEventListener("load", size, { once: true });
+    if (img.complete && img.naturalWidth) size();
+    img.addEventListener(
+      "error",
+      () => {
+        // A class drawn in one gender only: show the one there is.
+        const other: Gender = gender === "male" ? "female" : "male";
+        img.addEventListener("error", () => img.remove(), { once: true });
+        img.src = api.standSpriteUrl(img.dataset.key!, other);
+      },
+      { once: true },
+    );
+  });
+  root.querySelector<HTMLElement>("#bp-art-line")!.textContent = chain.map((k) => labels.get(k) ?? k).join(", ");
+  root.querySelectorAll<HTMLButtonElement>(".bp-gender [data-gender]").forEach((b) => {
+    const on = b.dataset.gender === gender;
+    b.classList.toggle("game-mode-toggle__btn--active", on);
+    b.setAttribute("aria-pressed", String(on));
+  });
 }
 
 /** Update every live number and state without rebuilding the board. */
@@ -570,7 +635,9 @@ function fitLedger(): void {
     return;
   }
   const top = Math.max(ledger.getBoundingClientRect().top, 0);
-  ledger.style.maxHeight = `${Math.max(420, window.innerHeight - top - 20)}px`;
+  // Under the class sprites at the page top the list is short; it grows as they scroll away,
+  // and the inspector at its foot always stays on screen.
+  ledger.style.maxHeight = `${Math.max(300, window.innerHeight - top - 20)}px`;
 }
 
 // ---------------------------------------------------------------- class picker
@@ -600,7 +667,7 @@ function renderPicker(): void {
               const label = labels.get(key) ?? key;
               const on = key === current;
               return `<button type="button" class="bp-pick${on ? " is-current" : ""}" data-job="${esc(key)}" data-name="${esc(label.toLowerCase())}">
-                  <img src="${esc(api.standSpriteUrl(key))}" alt="" loading="lazy" />
+                  <img src="${esc(api.standSpriteUrl(key, gender))}" alt="" loading="lazy" />
                   <span>${esc(label)}</span>
                 </button>`;
             })
@@ -876,6 +943,18 @@ function wire(): void {
   });
 
   root.querySelector("#bp-classbtn")!.addEventListener("click", openPicker);
+  root.querySelector(".bp-gender")!.addEventListener("click", (e) => {
+    const g = (e.target as HTMLElement).closest<HTMLElement>("[data-gender]")?.dataset.gender as Gender | undefined;
+    if (!g || g === gender) return;
+    gender = g;
+    try {
+      localStorage.setItem(GENDER_STORAGE_KEY, g);
+    } catch {
+      /* ignore */
+    }
+    renderArt();
+    renderClassButton();
+  });
   const dlg = root.querySelector<HTMLDialogElement>("#bp-picker")!;
   dlg.addEventListener("click", (e) => {
     const t = e.target as HTMLElement;
@@ -947,6 +1026,7 @@ function startJob(): void {
   reconcileOrder();
   saveOrder();
   renderClassButton();
+  renderArt();
   renderBoards();
   refresh();
 }

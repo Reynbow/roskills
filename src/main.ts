@@ -2982,7 +2982,7 @@ const plannerApi = {
     u.searchParams.set(SHARE_QUERY, encodeSharePayload());
     return u.toString();
   },
-  standSpriteUrl: (key: string) => jobPickerStandSpriteUrl(key, sitGender),
+  standSpriteUrl: (key: string, gender: "male" | "female" = sitGender) => jobPickerStandSpriteUrl(key, gender),
 };
 export type PlannerApi = typeof plannerApi;
 

@@ -510,6 +510,69 @@
   font-size: 13px;
 }
 
+/* ---- Right column: class line sprites, then the ledger ---- */
+
+.bp-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bp-gap);
+  align-self: stretch; /* as tall as the boards, so the ledger can stay stuck while they scroll */
+  min-width: 0;
+}
+
+/* The class line standing together, as on roclassicplus.com's class pages: whole-pixel
+   scale, shoulders a little overlapped, feet on a shared floor. */
+.bp-art {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-panel);
+}
+
+.bp-art__sprites {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 214px;
+  padding: 14px 12px 10px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.bp-art__sprite {
+  display: block;
+  height: auto;
+  max-width: none;
+  image-rendering: pixelated;
+}
+
+.bp-art__sprite + .bp-art__sprite {
+  margin-left: -18px;
+}
+
+.bp-art__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border-panel);
+}
+
+.bp-art__line {
+  min-width: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.bp-gender .game-mode-toggle__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+}
+
 /* ---- Ledger ---- */
 
 .bp-ledger {
@@ -520,7 +583,7 @@
   /* Fits the window from the page top (under the bar, tab row and strip), so the inspector
      at its foot is never cut off; once scrolled it simply has room to spare. */
   max-height: calc(100vh - var(--header-h) - 196px);
-  min-height: 420px;
+  min-height: 300px;
   overflow: hidden;
 }
 
