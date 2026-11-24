@@ -1,6 +1,7 @@
 import plannerJson from "./data/skill-planner.json" with { type: "json" };
 import plannerRenewalJson from "./data/skill-planner-renewal.json" with { type: "json" };
-import { getPlannerGameMode } from "./game-mode";
+import plannerServerJson from "./data/skill-planner-server.json" with { type: "json" };
+import { getPlannerGameMode, usingServerSkillData } from "./game-mode";
 
 export type { GameMode } from "./game-mode";
 export {
@@ -9,7 +10,12 @@ export {
   initPlannerGameModeFromUrlOrStorage,
   persistPlannerGameMode,
   GAME_MODE_STORAGE_KEY,
+  getSkillDataSource,
+  setSkillDataSource,
+  setAndPersistSkillDataSource,
+  usingServerSkillData,
 } from "./game-mode";
+export type { SkillDataSource } from "./game-mode";
 
 export type SkillColumn = number;
 
@@ -25,6 +31,12 @@ export interface SkillDef {
   description: string;
   skidKey?: string;
   skidId?: number | null;
+  /** Skill icon id when it differs from `skidId` (a custom skill drawn with a stock icon). */
+  iconId?: number;
+  /** Server per-level SP cost, cast time (ms) and range: one value for all levels, or one per level. */
+  sp?: number | number[];
+  cast?: number | number[];
+  range?: number | number[];
   /** Client skilltree slot index → row/col via GRID_COLS (7). */
   gridIndex: number;
   gridCol: number;
@@ -58,9 +70,15 @@ export interface JobData {
       maxLevel: number;
       description: string;
       gridIndex?: number;
+      iconId?: number;
+      sp?: number | number[];
+      cast?: number | number[];
+      range?: number | number[];
     }
   >;
   edges: PrereqEdge[];
+  /** Class skill point caps by content column index, where this job's server differs from the default. */
+  tierCaps?: Record<string, number>;
 }
 
 type PlannerRoot = {
@@ -71,7 +89,8 @@ type PlannerRoot = {
 };
 
 function plannerRoot(): PlannerRoot {
-  return (getPlannerGameMode() === "renewal" ? plannerRenewalJson : plannerJson) as PlannerRoot;
+  if (getPlannerGameMode() === "renewal") return plannerRenewalJson as PlannerRoot;
+  return (usingServerSkillData() ? plannerServerJson : plannerJson) as PlannerRoot;
 }
 
 const ADVANCED_SUMMONER_KEY = "JT_ADVANCED_SUMMONER";
@@ -136,6 +155,7 @@ const EXPANDED_CLASS_KEYS = new Set([
   "JT_LINKER",
   "JT_NINJA",
   "JT_GUNSLINGER",
+  "JT_DRUID",
 ]);
 
 /** Shown in the Expanded tab when game mode is renewal (extra branches). */
@@ -509,7 +529,8 @@ export function listJobPickerTabs(): JobPickerTabDef[] {
       { jobs: ["JT_TAEKWON"], colSpan: 2 },
       { jobs: ["JT_NINJA"] },
       { jobs: ["JT_GUNSLINGER"] },
-      { empty: true },
+      // RO Classic Plus only; the cell stays empty with default data.
+      { jobs: ["JT_DRUID"] },
     ],
     [
       { empty: true },
@@ -795,6 +816,10 @@ export function buildSkillsForJob(jobKey: string): SkillDef[] {
         description: s.description,
         skidKey: s.skidKey,
         skidId: s.skidId,
+        iconId: s.iconId,
+        sp: s.sp,
+        cast: s.cast,
+        range: s.range,
         gridIndex: gi,
         gridCol,
         gridRow,

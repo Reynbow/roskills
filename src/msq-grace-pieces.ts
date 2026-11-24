@@ -5,7 +5,7 @@ const GRACE_SHARED: readonly RoArmourPiece[] = [
   {
     id: 480018,
     name: "Grace Attack Manteau [1]",
-    flavor: "A noble manteau with the Rune-Midgarts crest — physical Grace set (Grace Trader, Cor).",
+    flavor: "A noble manteau with the Rune-Midgarts crest, physical Grace set (Grace Trader, Cor).",
     effects: [
       "ASPD +7%",
       "If refined to +7 or higher: After Cast Delay -5%",
@@ -27,7 +27,7 @@ const GRACE_SHARED: readonly RoArmourPiece[] = [
   {
     id: 480019,
     name: "Grace Magic Manteau [1]",
-    flavor: "Noble manteau tuned for spellcasting — magic Grace set.",
+    flavor: "Noble manteau tuned for spellcasting, magic Grace set.",
     effects: [
       "Variable Cast Time -10%",
       "If refined to +7 or higher: After Cast Delay -5%",
@@ -183,7 +183,7 @@ function graceBody(p: GraceBody): RoArmourPiece {
   return {
     id: p.id,
     name: p.name,
-    flavor: `${short} — exchanged from Grace Trader in Cor (sp_cor) for Mysterious Components after the Illusion questline.`,
+    flavor: `${short}, exchanged from Grace Trader in Cor (sp_cor) for Mysterious Components after the Illusion questline.`,
     effects: [
       `Class / skill focus: ${p.focus}.`,
       "Four-piece Grace bonuses use the matching Attack or Magic manteau, boots, and ring (see iRO Wiki: Grace Equipment).",

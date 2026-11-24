@@ -1,4 +1,5 @@
 import type { RoArmourPiece, RoWeaponPiece } from "./msq-types";
+import { ICON } from "./icons";
 
 export function escapeHtmlRoItem(s: string): string {
   return String(s)
@@ -67,7 +68,7 @@ export function roItemTooltipHtml(p: RoArmourPiece, options?: RoItemTooltipOptio
     <div class="ro-item-tooltip__chrome-top" aria-hidden="true">
       <span class="ro-item-tooltip__stripes"></span>
       <span class="ro-item-tooltip__chrome-spacer"></span>
-      <span class="ro-item-tooltip__chrome-x">×</span>
+      <span class="ro-item-tooltip__chrome-x">${ICON.close}</span>
     </div>
     <div class="ro-item-tooltip__scroll">
       <div class="ro-item-tooltip__head">
@@ -141,7 +142,7 @@ export function roWeaponTooltipHtml(w: RoWeaponPiece, options?: RoItemTooltipOpt
     <div class="ro-item-tooltip__chrome-top" aria-hidden="true">
       <span class="ro-item-tooltip__stripes"></span>
       <span class="ro-item-tooltip__chrome-spacer"></span>
-      <span class="ro-item-tooltip__chrome-x">×</span>
+      <span class="ro-item-tooltip__chrome-x">${ICON.close}</span>
     </div>
     <div class="ro-item-tooltip__scroll">
       <div class="ro-item-tooltip__head">
@@ -195,7 +196,7 @@ export function roScrapedItemTooltipHtml(p: F2pScrapedItemTooltip): string {
     <div class="ro-item-tooltip__chrome-top" aria-hidden="true">
       <span class="ro-item-tooltip__stripes"></span>
       <span class="ro-item-tooltip__chrome-spacer"></span>
-      <span class="ro-item-tooltip__chrome-x">×</span>
+      <span class="ro-item-tooltip__chrome-x">${ICON.close}</span>
     </div>
     <div class="ro-item-tooltip__scroll">
       <div class="ro-item-tooltip__head">
@@ -233,7 +234,7 @@ export function roFallbackItemTooltipHtml(id: number, displayName: string): stri
     <div class="ro-item-tooltip__chrome-top" aria-hidden="true">
       <span class="ro-item-tooltip__stripes"></span>
       <span class="ro-item-tooltip__chrome-spacer"></span>
-      <span class="ro-item-tooltip__chrome-x">×</span>
+      <span class="ro-item-tooltip__chrome-x">${ICON.close}</span>
     </div>
     <div class="ro-item-tooltip__scroll">
       <div class="ro-item-tooltip__head">

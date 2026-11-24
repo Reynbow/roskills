@@ -1,4 +1,5 @@
 import "./style.css";
+import { ICON } from "./icons";
 import { inject } from "@vercel/analytics";
 import {
   listJobPickerTabs,
@@ -18,7 +19,12 @@ import {
   persistPlannerGameMode,
   isThirdClassKey,
   jobPickerDisplayLabel,
+  getSkillDataSource,
+  setSkillDataSource,
+  setAndPersistSkillDataSource,
+  usingServerSkillData,
   type GameMode,
+  type SkillDataSource,
   type JobData,
   type JobPickerSection,
   type JobPickerTabDef,
@@ -28,8 +34,14 @@ import {
 import { jobPartyFrameIconImgClass, jobPartyFrameIconUrl } from "./job-party-icon";
 import { jobPickerStandSpriteUrl } from "./job-previews";
 import { jobSitLocalPngUrl, jobSitPortraitFallbackUrl, jobStandDockLocalPngUrl } from "./job-sit-sprite";
-import { initPlannerGameModeFromUrlOrStorage } from "./game-mode";
+import {
+  initPlannerGameModeFromUrlOrStorage,
+  getPlannerLayout,
+  switchPlannerLayout,
+  type PlannerLayout,
+} from "./game-mode";
 import { plannerHeaderInnerHtml, syncGameModeToggleChrome } from "./site-header";
+import { skillTooltipHtml } from "./skill-tooltip";
 
 // Initialize Vercel Web Analytics (never block app shell if script fails)
 try {
@@ -240,13 +252,15 @@ type PlannerSlot = {
 type Stored = {
   lastJob?: string;
   jobs?: Record<string, { levels: Record<string, number>; budget?: number }>;
-  /** Per game version: class builds and last-opened job. */
-  plannerSlots?: Record<GameMode, PlannerSlot>;
+  /** Per game version: class builds and last-opened job. `server` = RO Classic Plus data. */
+  plannerSlots?: Record<PlannerSlotKey, PlannerSlot>;
   /** When true, prereq ring on hover stays but unrelated skills are not dimmed. */
   disableHoverSkillDimming?: boolean;
 };
 
-function normalizePlannerSlots(raw: Stored): Record<GameMode, PlannerSlot> {
+type PlannerSlotKey = GameMode | "server";
+
+function normalizePlannerSlots(raw: Stored): Record<PlannerSlotKey, PlannerSlot> {
   if (!raw.plannerSlots) {
     raw.plannerSlots = {
       pre: {
@@ -257,16 +271,20 @@ function normalizePlannerSlots(raw: Stored): Record<GameMode, PlannerSlot> {
         lastJob: DEFAULT_JOB_RENEWAL,
         jobs: {},
       },
-    };
+    } as Record<PlannerSlotKey, PlannerSlot>;
   }
-  for (const mode of ["pre", "renewal"] as const) {
+  if (!raw.plannerSlots.server) {
+    // First visit with RO Classic Plus data: start from the existing pre-renewal builds.
+    raw.plannerSlots.server = JSON.parse(JSON.stringify(raw.plannerSlots.pre)) as PlannerSlot;
+  }
+  for (const mode of ["pre", "renewal", "server"] as const) {
     if (!raw.plannerSlots[mode].jobs) raw.plannerSlots[mode].jobs = {};
   }
   return raw.plannerSlots;
 }
 
 function currentPlannerSlot(raw: Stored): PlannerSlot {
-  return normalizePlannerSlots(raw)[getPlannerGameMode()];
+  return normalizePlannerSlots(raw)[usingServerSkillData() ? "server" : getPlannerGameMode()];
 }
 
 let currentJob = DEFAULT_JOB;
@@ -398,8 +416,10 @@ function encodeSharePayload(): string {
     j: string;
     l: Record<string, number>;
     game?: GameMode;
+    data?: SkillDataSource;
   } = { v: SHARE_JSON_VERSION, j: currentJob, l };
   if (getPlannerGameMode() === "renewal") payload.game = "renewal";
+  else payload.data = getSkillDataSource();
   const json = JSON.stringify(payload);
   const bytes = new TextEncoder().encode(json);
   let bin = "";
@@ -408,7 +428,9 @@ function encodeSharePayload(): string {
   return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-function decodeSharePayload(token: string): { j: string; l: Record<string, number>; game?: GameMode } | null {
+type SharePayload = { j: string; l: Record<string, number>; game?: GameMode; data?: SkillDataSource };
+
+function decodeSharePayload(token: string): SharePayload | null {
   try {
     let b64 = token.replace(/-/g, "+").replace(/_/g, "/");
     while (b64.length % 4) b64 += "=";
@@ -421,6 +443,7 @@ function decodeSharePayload(token: string): { j: string; l: Record<string, numbe
       j?: string;
       l?: Record<string, unknown>;
       game?: string;
+      data?: string;
     };
     if (!o || typeof o.j !== "string") return null;
     if (!o.l || typeof o.l !== "object") return null;
@@ -431,13 +454,15 @@ function decodeSharePayload(token: string): { j: string; l: Record<string, numbe
     }
     const game: GameMode | undefined =
       o.game === "renewal" ? "renewal" : o.game === "pre" ? "pre" : undefined;
-    return { j: o.j, l, game };
+    // Links made before RO Classic Plus data existed carry no `data`: they were default builds.
+    const data: SkillDataSource = o.data === "server" ? "server" : "default";
+    return { j: o.j, l, game, data };
   } catch {
     return null;
   }
 }
 
-function readShareFromUrl(): { j: string; l: Record<string, number>; game?: GameMode } | null {
+function readShareFromUrl(): SharePayload | null {
   try {
     const token = new URL(window.location.href).searchParams.get(SHARE_QUERY);
     if (!token || !token.trim()) return null;
@@ -472,6 +497,8 @@ function getContentColumnIndices(job: JobData): number[] {
 function capForClassTier(tierIndex: number): number {
   const caps = classSkillCaps();
   const job = getJobData(currentJob);
+  const dataCap = job?.tierCaps?.[String(tierIndex)];
+  if (typeof dataCap === "number") return dataCap;
   const override = job ? CLASS_TIER_CAP_OVERRIDE[job.key]?.[tierIndex] : undefined;
   if (typeof override === "number") return override;
   if (job && shouldMergeTranscendentIntoSecondPanel(job)) {
@@ -639,37 +666,22 @@ let tooltipLockedSkillId: string | null = null;
 function buildSkillDetailHtml(skillId: string): string | null {
   const skill = getSkill(skillId);
   if (!skill) return null;
-  const pre = prereqsFor(skillId);
-  let preHtml = "";
-  if (pre.length) {
-    const items = pre
-      .map((p) => {
-        const sn = getSkill(p.fromId)?.name ?? p.fromId;
-        return `<li>${escapeHtml(sn)} <strong>${p.requiredLevel}</strong></li>`;
-      })
-      .join("");
-    preHtml = `<div class="prereq-hint"><div class="tooltip-hint-label">Requires</div><ul class="tooltip-skill-list">${items}</ul></div>`;
-  }
-  const post = edges.filter((e) => e.fromId === skillId);
-  let postHtml = "";
-  if (post.length) {
-    const items = post
-      .map((e) => {
-        const sn = getSkill(e.toId)?.name ?? e.toId;
-        return `<li>${escapeHtml(sn)} needs <strong>${e.requiredLevel}</strong></li>`;
-      })
-      .join("");
-    postHtml = `<div class="postreq-hint"><div class="tooltip-hint-label">Used by</div><ul class="tooltip-skill-list">${items}</ul></div>`;
-  }
-  const descRaw = stripLeadingDuplicateTitle(skill.description, skill.name);
-  const descHtml = skillDescriptionToHtml(descRaw);
-  return `
-        <h3 class="tooltip-skill-title">${escapeHtml(skill.name)}</h3>
-        <div class="tooltip-desc">${descHtml}</div>
-        <div class="lvl-cap">Maximum level: ${skill.maxLevel}</div>
-        ${preHtml}
-        ${postHtml}
-      `;
+  const nameOf = (id: string) => getSkill(id)?.name ?? id;
+  const iconId = skill.iconId ?? skill.skidId;
+  return skillTooltipHtml({
+    name: skill.name,
+    description: skill.description,
+    maxLevel: skill.maxLevel,
+    level: levels[skillId] ?? 0,
+    iconUrl: iconId != null && iconId > 0 ? skillIconUrl(iconId) : null,
+    sp: skill.sp,
+    cast: skill.cast,
+    range: skill.range,
+    requires: prereqsFor(skillId).map((p) => ({ name: nameOf(p.fromId), level: p.requiredLevel })),
+    unlocks: edges
+      .filter((e) => e.fromId === skillId)
+      .map((e) => ({ name: nameOf(e.toId), level: e.requiredLevel })),
+  });
 }
 
 function fillTooltipForSkill(skillId: string): boolean {
@@ -806,11 +818,8 @@ function scheduleFitJobPickerStageStarterLabels(root: HTMLElement): void {
 function fitTooltipDynamicText(): void {
   if (tooltip.hidden) return;
   const rf = rootFontPx();
-  const t = tooltip.querySelector("h3.tooltip-skill-title");
+  const t = tooltip.querySelector(".sd-name");
   if (t instanceof HTMLElement) fitSingleLineNoWrap(t, 0.62 * rf);
-  tooltip.querySelectorAll(".tooltip-skill-list li").forEach((li) => {
-    if (li instanceof HTMLElement) fitSingleLineNoWrap(li, 0.54 * rf);
-  });
 }
 
 function clearJobPickerCategoryTabSelection(root: HTMLElement): void {
@@ -837,7 +846,7 @@ function buildJobPickerInlineLineBodyHtml(rows: string[][]): string {
       if (picks.length === 0) return "";
       const cards = jobPickerRowHtml(picks, false);
       const arrow =
-        ri === 0 ? "" : `<div class="job-picker-stage-arrow" aria-hidden="true">→</div>`;
+        ri === 0 ? "" : `<div class="job-picker-stage-arrow" aria-hidden="true">${ICON.arrowRight}</div>`;
       return `${arrow}<div class="job-picker-stage" role="group" aria-label="Stage ${ri + 1}">
         <div class="job-picker-grid job-picker-grid--stage">${cards}</div>
       </div>`;
@@ -931,218 +940,6 @@ function buildClassLineOpenButtonsMarkup(): string {
         `<button type="button" class="job-picker-modal-line-shortcut" data-class-line-anchor="${escapeHtml(s.anchorKey)}" aria-pressed="false">${jobPickerModalLineShortcutIconHtml(s.anchorKey)}<span class="job-picker-modal-line-shortcut-label">${escapeHtml(s.label)}</span></button>`,
     )
     .join("");
-}
-
-const TOOLTIP_LV_LINE = /^\s*\[[Ll][Vv]\.?\s*\d+\]\s*:/i;
-const TOOLTIP_COMMENTS_LINE = /^\s*Comments:/i;
-const TOOLTIP_DESCRIPTION_LINE = /^\s*Description:/i;
-/** Lines like `[Lv 1]:`, `[100~81% SP]:`, `[Musical Lessons]:` */
-const TOOLTIP_BRACKET_LEADER = /^(\s*)(\[[^\]]+\]\s*:)(.*)$/;
-/** skilldescript header lines (also Range/Duration when on their own line) */
-const TOOLTIP_META_LABEL =
-  /^(\s*)(Max Level:|Requirement:|Skill Form:|Type:|Target:|Description:|Comments:|Range:|Duration:)\s*(.*)$/i;
-
-type TooltipHit = { start: number; end: number; cls: string; text: string };
-
-function rangesOverlap(
-  a: { start: number; end: number },
-  b: { start: number; end: number },
-): boolean {
-  return a.start < b.end && a.end > b.start;
-}
-
-/** Wrap stats, %, elements, etc. in spans (single pass, no nested re-matches). */
-function highlightTooltipPlain(escapedLine: string): string {
-  const patterns: { re: RegExp; cls: string }[] = [
-    { re: /\bAfter Cast Delay\b/gi, cls: "tooltip-hl-mechanic" },
-    { re: /\bCast Time\b/gi, cls: "tooltip-hl-mechanic" },
-    { re: /\b(?:Fixed Cast Time|Variable Cast Time)\b/gi, cls: "tooltip-hl-mechanic" },
-    { re: /\b(?:Neutral|Fire|Water|Wind|Earth|Holy|Shadow|Ghost|Poison|Undead)\b/g, cls: "tooltip-hl-elem" },
-    { re: /\d+(?:\.\d+)?%/g, cls: "tooltip-hl-pct" },
-    {
-      re: /\b(?:MATK|MDEF|HIT|DEF|VIT|INT|DEX|LUK|AGI|ATK|ASPD|CRIT)\b/gi,
-      cls: "tooltip-hl-stat",
-    },
-    { re: /\b(?:SP|HP)\b/g, cls: "tooltip-hl-res" },
-    { re: /\b(?:Lv\.?|Level)\s*\d+\b/gi, cls: "tooltip-hl-lvref" },
-    { re: /\d+(?:\.\d+)?\s+sec(?:onds?)?\b/gi, cls: "tooltip-hl-time" },
-  ];
-
-  const hits: TooltipHit[] = [];
-  for (const { re, cls } of patterns) {
-    const r = new RegExp(re.source, re.flags.includes("g") ? re.flags : `${re.flags}g`);
-    let m: RegExpExecArray | null;
-    while ((m = r.exec(escapedLine))) {
-      hits.push({
-        start: m.index,
-        end: m.index + m[0].length,
-        cls,
-        text: m[0],
-      });
-    }
-  }
-
-  hits.sort((a, b) => {
-    const la = a.end - a.start;
-    const lb = b.end - b.start;
-    if (lb !== la) return lb - la;
-    return a.start - b.start;
-  });
-
-  const chosen: TooltipHit[] = [];
-  for (const h of hits) {
-    if (chosen.some((c) => rangesOverlap(h, c))) continue;
-    chosen.push(h);
-  }
-  chosen.sort((a, b) => a.start - b.start);
-
-  let out = "";
-  let pos = 0;
-  for (const h of chosen) {
-    out += escapedLine.slice(pos, h.start);
-    out += `<span class="${h.cls}">${h.text}</span>`;
-    pos = h.end;
-  }
-  out += escapedLine.slice(pos);
-  return out;
-}
-
-function metaLabelKey(labelWithColon: string): string {
-  return labelWithColon.replace(/:\s*$/, "").trim().toLowerCase();
-}
-
-function metaValueWrapperClass(labelKey: string, rawValue: string): string | null {
-  const v = rawValue.toLowerCase();
-  if (labelKey === "type") {
-    if (/\bmagical\b|\bmagic\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--magic";
-    if (/\bphysical\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--phys";
-    if (/\brecovery\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--heal";
-    if (/\bdebuff\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--debuff";
-    if (/\bsupportive\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--support";
-    if (/\bcrafting\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--craft";
-    if (/\boffensive\b/.test(v)) return "tooltip-meta-type tooltip-meta-type--offense";
-    return null;
-  }
-  if (labelKey === "skill form") {
-    if (/\bpassive\b/.test(v)) return "tooltip-meta-form tooltip-meta-form--passive";
-    if (/\bactive\b/.test(v)) return "tooltip-meta-form tooltip-meta-form--active";
-    return null;
-  }
-  if (labelKey === "target") {
-    if (/\bcaster\b|\bself\b/.test(v)) return "tooltip-meta-target tooltip-meta-target--self";
-    if (/\benemy\b|\bfoes?\b/.test(v)) return "tooltip-meta-target tooltip-meta-target--enemy";
-    return null;
-  }
-  return null;
-}
-
-function formatMetaLineValue(labelWithColon: string, valueRaw: string): string {
-  const key = metaLabelKey(labelWithColon);
-  const inner = highlightTooltipPlain(escapeHtml(valueRaw));
-  const wrap = metaValueWrapperClass(key, valueRaw);
-  if (wrap) return `<span class="${wrap}">${inner}</span>`;
-  return inner;
-}
-
-/** First line of skilldescript.lub is the skill name — same as the tooltip `<h3>`, so drop it. */
-function stripLeadingDuplicateTitle(description: string, title: string): string {
-  const norm = (s: string) => s.trim().toLowerCase();
-  const want = norm(title);
-  if (!want) return description;
-  const lines = description.replace(/\r\n/g, "\n").split("\n");
-  let i = 0;
-  while (i < lines.length && lines[i]!.trim() === "") i++;
-  if (i >= lines.length || norm(lines[i]!) !== want) return description;
-  return lines
-    .slice(i + 1)
-    .join("\n")
-    .replace(/^\n+/, "");
-}
-
-function formatSkillDescriptionLine(raw: string): string {
-  const mBracket = raw.match(TOOLTIP_BRACKET_LEADER);
-  if (mBracket) {
-    const isLv = /^\s*\[[Ll][Vv]\.?\s*\d+\]\s*:\s*$/i.test(mBracket[2] ?? "");
-    const keyClass = isLv
-      ? "tooltip-desc-key tooltip-desc-key--lv"
-      : "tooltip-desc-key tooltip-desc-key--tag";
-    const tail = highlightTooltipPlain(escapeHtml(mBracket[3] ?? ""));
-    return `${mBracket[1]}<strong class="${keyClass}">${escapeHtml(
-      mBracket[2] ?? "",
-    )}</strong>${tail}`;
-  }
-  const mMeta = raw.match(TOOLTIP_META_LABEL);
-  if (mMeta) {
-    const label = mMeta[2] ?? "";
-    const labelKey = metaLabelKey(label);
-    const keyClass =
-      labelKey === "comments"
-        ? "tooltip-desc-key tooltip-desc-key--comments"
-        : labelKey === "description"
-          ? "tooltip-desc-key tooltip-desc-key--desc"
-          : "tooltip-desc-key tooltip-desc-key--meta";
-    const valueHtml = formatMetaLineValue(label, mMeta[3] ?? "");
-    return `${mMeta[1]}<strong class="${keyClass}">${escapeHtml(
-      label,
-    )}</strong>${valueHtml}`;
-  }
-  return highlightTooltipPlain(escapeHtml(raw));
-}
-
-/**
- * skilldescript.lub text: header, optional Description: block, [Lv n]: lines, optional Comments: footer.
- * Rules before Description (when present), before the level list, and before Comments.
- */
-function skillDescriptionToHtml(description: string): string {
-  const lines = description.replace(/\r\n/g, "\n").split("\n");
-  const out: string[] = [];
-  let i = 0;
-  let beforeFirstLv = true;
-  let beforeComments = true;
-  let commentsDivOpen = false;
-  let beforeDescriptionBlock = true;
-  let proseOpen = false;
-
-  const closeProse = (): void => {
-    if (!proseOpen) return;
-    out.push("</div>");
-    proseOpen = false;
-  };
-
-  while (i < lines.length) {
-    const raw = lines[i]!;
-    const t = raw.trim();
-
-    if (beforeComments && TOOLTIP_COMMENTS_LINE.test(t)) {
-      closeProse();
-      out.push('<hr class="tooltip-desc-sep" aria-hidden="true" />');
-      out.push('<div class="tooltip-desc-comments">');
-      commentsDivOpen = true;
-      beforeComments = false;
-    }
-
-    if (beforeFirstLv && TOOLTIP_LV_LINE.test(t)) {
-      closeProse();
-      out.push('<hr class="tooltip-desc-sep" aria-hidden="true" />');
-      beforeFirstLv = false;
-    }
-
-    if (beforeDescriptionBlock && TOOLTIP_DESCRIPTION_LINE.test(t)) {
-      out.push('<hr class="tooltip-desc-sep" aria-hidden="true" />');
-      out.push('<div class="tooltip-desc-prose">');
-      proseOpen = true;
-      beforeDescriptionBlock = false;
-    }
-
-    out.push(formatSkillDescriptionLine(raw));
-    out.push("<br/>");
-    i++;
-  }
-
-  closeProse();
-  let html = out.join("");
-  if (commentsDivOpen) html += "</div>";
-  return html.replace(/(?:<br\/>)+$/, "");
 }
 
 /** Novice + first job share one 7-col client grid (unique slot indices); merge into one panel. */
@@ -1472,16 +1269,16 @@ function jobPickerStandSpriteMode(jobKey: string): JobPickerStandSpriteMode {
 function jobPickerDualStandPairInnerHtml(): string {
   return `<span class="job-picker-stand-pair">
             <span class="job-picker-stand-pair__cell" data-stand-gender="male">
-              <span class="job-picker-sprite-fallback" aria-hidden="true">♂</span>
+              <span class="job-picker-sprite-fallback" aria-hidden="true">${ICON.male}</span>
             </span>
             <span class="job-picker-stand-pair__cell" data-stand-gender="female">
-              <span class="job-picker-sprite-fallback" aria-hidden="true">♀</span>
+              <span class="job-picker-sprite-fallback" aria-hidden="true">${ICON.female}</span>
             </span>
           </span>`;
 }
 
 function jobPickerSoloStandPairInnerHtml(g: "male" | "female"): string {
-  const sym = g === "male" ? "♂" : "♀";
+  const sym = g === "male" ? ICON.male : ICON.female;
   return `<span class="job-picker-stand-pair job-picker-stand-pair--solo" data-stand-top="${g}">
             <span class="job-picker-stand-pair__cell" data-stand-gender="${g}">
               <span class="job-picker-sprite-fallback" aria-hidden="true">${sym}</span>
@@ -1761,10 +1558,10 @@ function jobPickerJoinedPairHtml(
         <span class="job-picker-sprite job-picker-sprite--card job-picker-sprite--split" aria-hidden="true">
           <span class="job-picker-stand-pair job-picker-stand-pair--split">
             <span class="job-picker-stand-pair__cell job-picker-split-sprite-cell" data-split-job-key="${leftKey}" data-stand-gender="male">
-              <span class="job-picker-sprite-fallback" aria-hidden="true">♂</span>
+              <span class="job-picker-sprite-fallback" aria-hidden="true">${ICON.male}</span>
             </span>
             <span class="job-picker-stand-pair__cell job-picker-split-sprite-cell" data-split-job-key="${rightKey}" data-stand-gender="female">
-              <span class="job-picker-sprite-fallback" aria-hidden="true">♀</span>
+              <span class="job-picker-sprite-fallback" aria-hidden="true">${ICON.female}</span>
             </span>
           </span>
         </span>
@@ -1914,7 +1711,7 @@ function jobPickerMatrixArrowRowAfter(precedingRow: NonNullable<JobPickerSection
     .map((cell) => {
       const span = "colSpan" in cell && cell.colSpan != null ? cell.colSpan : 1;
       const spanAttr = span > 1 ? ` style="grid-column: span ${span}"` : "";
-      return `<div class="job-picker-matrix-cell job-picker-matrix-arrow-cell"${spanAttr} aria-hidden="true"><span class="job-picker-matrix-tier-arrow">↓</span></div>`;
+      return `<div class="job-picker-matrix-cell job-picker-matrix-arrow-cell"${spanAttr} aria-hidden="true"><span class="job-picker-matrix-tier-arrow">${ICON.arrowDown}</span></div>`;
     })
     .join("");
   return `<div class="job-picker-matrix-row job-picker-matrix-row--arrows">${cells}</div>`;
@@ -1943,7 +1740,7 @@ function isExpandedMatrixGapTierRow(
  */
 function jobPickerMatrixArrowRowCompactBeforeGap(): string {
   const down =
-    '<span class="job-picker-matrix-tier-arrow" aria-hidden="true">↓</span>';
+    `<span class="job-picker-matrix-tier-arrow" aria-hidden="true">${ICON.arrowDown}</span>`;
   const hold =
     '<div class="job-picker-matrix-cell job-picker-matrix-arrow-cell job-picker-matrix-arrow-cell--hold" aria-hidden="true"></div>';
   return `<div class="job-picker-matrix-row job-picker-matrix-row--arrows job-picker-matrix-row--arrows-compact-tier-skip" aria-hidden="true">
@@ -1957,7 +1754,7 @@ function jobPickerMatrixArrowRowCompactBeforeGap(): string {
 /** Leaving SE/SR-only tier: full-width ↓ row so every final-tier column (incl. Shinkiro/Shiranui, Spirit Handler) aligns. */
 function jobPickerMatrixArrowRowCompactAfterGap(): string {
   const down =
-    '<span class="job-picker-matrix-tier-arrow" aria-hidden="true">↓</span>';
+    `<span class="job-picker-matrix-tier-arrow" aria-hidden="true">${ICON.arrowDown}</span>`;
   const cells = Array.from(
     { length: 6 },
     () =>
@@ -2002,7 +1799,7 @@ function jobPickerSectionHtml(g: JobPickerSection, sid: string): string {
           if (row.length === 0) return "";
           const cards = jobPickerRowHtml(row);
           const arrow =
-            ri === 0 ? "" : `<div class="job-picker-stage-arrow" aria-hidden="true">→</div>`;
+            ri === 0 ? "" : `<div class="job-picker-stage-arrow" aria-hidden="true">${ICON.arrowRight}</div>`;
           return `${arrow}<div class="job-picker-stage" role="group" aria-label="${labelEsc}, stage ${ri + 1}">
             <div class="job-picker-grid job-picker-grid--stage">${cards}</div>
           </div>`;
@@ -2166,7 +1963,7 @@ function buildJobPickerDialogInnerMarkup(
       <div class="job-picker-dialog-panel">
         <div class="job-picker-dialog-head">
           <h2 class="job-picker-dialog-title" id="job-picker-dialog-title">${escapeHtml(dialogTitle)}</h2>
-          <button type="button" class="job-picker-close" aria-label="Close class picker">×</button>
+          <button type="button" class="job-picker-close" aria-label="Close class picker">${ICON.close}</button>
         </div>
         <div class="job-picker-dialog-scroll">
           <div id="job-picker-body" role="region" aria-label="Character classes">
@@ -2295,6 +2092,16 @@ function wireJobPickerInteractions(root: HTMLElement, opts: { skipDialogShell?: 
 function applyGameModeFromUi(root: HTMLElement, mode: GameMode): void {
   persistPlannerGameMode(mode);
   setPlannerGameMode(mode);
+  reloadPlannerData(root);
+}
+
+function applySkillDataFromUi(root: HTMLElement, src: SkillDataSource): void {
+  setAndPersistSkillDataSource(src);
+  reloadPlannerData(root);
+}
+
+/** After the game mode or skill data source changes: reload builds, tree and picker. */
+function reloadPlannerData(root: HTMLElement): void {
   loadState();
   ensureCurrentJobInData();
   applyJob(currentJob);
@@ -2336,11 +2143,8 @@ function renderApp(root: HTMLElement): void {
         <span class="stat stat--total">Total: <strong id="used-total">0</strong></span>
       </div>
       <label class="toolbar-toggle">
+        <input type="checkbox" id="toggle-disable-hover-dim" class="check" />
         <span class="toolbar-toggle-text">Disable hover dimming</span>
-        <span class="toggle-switch">
-          <input type="checkbox" id="toggle-disable-hover-dim" class="toggle-switch-input" />
-          <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb"></span></span>
-        </span>
       </label>
       <button type="button" class="toolbar-iconbtn" id="btn-sit-gender" aria-label="Toggle gender">
         <svg class="toolbar-gender-svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -2357,7 +2161,7 @@ function renderApp(root: HTMLElement): void {
         </svg>
       </button>
       <div class="toolbar-actions" role="group" aria-label="Build actions">
-        <button type="button" id="btn-share">Share build</button>
+        <button type="button" id="btn-share" class="primary">Share build</button>
         <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
         <button type="button" id="btn-reset" class="danger">Reset</button>
       </div>
@@ -2528,11 +2332,24 @@ function renderApp(root: HTMLElement): void {
     else clearPrereqHighlights(root);
   });
 
-  root.querySelector(".game-mode-toggle--header")?.addEventListener("click", (e) => {
+  root.querySelector("#game-mode-toggle")?.addEventListener("click", (e) => {
     const btn = (e.target as HTMLElement).closest("[data-set-game-mode]") as HTMLButtonElement | null;
     const m = btn?.dataset.setGameMode as GameMode | undefined;
     if (!m || m === getPlannerGameMode()) return;
     applyGameModeFromUi(root, m);
+  });
+
+  root.querySelector("#planner-layout-toggle")?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("[data-set-layout]") as HTMLButtonElement | null;
+    const layout = btn?.dataset.setLayout as PlannerLayout | undefined;
+    if (layout && layout !== getPlannerLayout()) switchPlannerLayout(layout);
+  });
+
+  root.querySelector("#skill-data-toggle")?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("[data-set-skill-data]") as HTMLButtonElement | null;
+    const src = btn?.dataset.setSkillData as SkillDataSource | undefined;
+    if (!src || src === getSkillDataSource()) return;
+    applySkillDataFromUi(root, src);
   });
 
   renderColumns(root);
@@ -2591,7 +2408,7 @@ function skillNodeEl(skill: SkillDef): HTMLElement {
   const fallback = icon.querySelector(".skill-icon-fallback") as HTMLSpanElement;
   fallback.textContent = skill.name.slice(0, 1).toUpperCase();
 
-  const sid = skill.skidId;
+  const sid = skill.iconId ?? skill.skidId;
   if (sid != null && sid > 0) {
     const img = document.createElement("img");
     img.className = "skill-icon-img";
@@ -2663,13 +2480,13 @@ function tryIncrementSkillOnce(skillId: string): boolean {
   return raiseWithPrereqAutofill(skillId);
 }
 
-/** Set skill to `target` (0…max). Raising may auto-fill prereqs stepwise; stops early if blocked. */
-function setSkillLevel(skillId: string, target: number): void {
+/** Set skill to `target` (0…max) without touching the screen. Returns whether anything changed. */
+function setSkillLevelCore(skillId: string, target: number): boolean {
   const skill = getSkill(skillId);
-  if (!skill) return;
+  if (!skill) return false;
   const t = Math.max(0, Math.min(Math.floor(target), skill.maxLevel));
   const cur = levels[skillId] ?? 0;
-  if (t === cur) return;
+  if (t === cur) return false;
 
   if (t < cur) {
     const lv = { ...levels, [skillId]: t };
@@ -2680,25 +2497,35 @@ function setSkillLevel(skillId: string, target: number): void {
       if (!tryIncrementSkillOnce(skillId)) break;
     }
   }
+  return (levels[skillId] ?? 0) !== cur;
+}
 
+/** +1 (auto-filling prerequisites) or -1 (dropping dependents that lose their requirement). */
+function changeLevelCore(skillId: string, delta: number): boolean {
+  if (delta > 0) {
+    if (canRaise(skillId)) {
+      levels[skillId] = (levels[skillId] ?? 0) + 1;
+      return true;
+    }
+    return raiseWithPrereqAutofill(skillId);
+  }
+  const cur = levels[skillId] ?? 0;
+  if (cur <= 0) return false;
+  const lv = { ...levels, [skillId]: cur - 1 };
+  stabilizePrereqViolations(lv);
+  levels = lv;
+  return true;
+}
+
+/** Set skill to `target` (0…max). Raising may auto-fill prereqs stepwise; stops early if blocked. */
+function setSkillLevel(skillId: string, target: number): void {
+  if (!setSkillLevelCore(skillId, target)) return;
   saveState();
   refreshAll(document.querySelector("#app")!);
 }
 
 function changeLevel(skillId: string, delta = 1): void {
-  if (delta > 0) {
-    if (canRaise(skillId)) {
-      levels[skillId] = (levels[skillId] ?? 0) + 1;
-    } else if (!raiseWithPrereqAutofill(skillId)) {
-      return;
-    }
-  } else {
-    const cur = levels[skillId] ?? 0;
-    if (cur <= 0) return;
-    const lv = { ...levels, [skillId]: cur - 1 };
-    stabilizePrereqViolations(lv);
-    levels = lv;
-  }
+  if (!changeLevelCore(skillId, delta)) return;
   saveState();
   refreshAll(document.querySelector("#app")!);
 }
@@ -2726,6 +2553,72 @@ function setToolbarTierStat(
     if (over) wrap.setAttribute("title", "Over class skill point budget");
     else wrap.removeAttribute("title");
   }
+}
+
+/** Name of each skill point tier, in `pointsUsedPerClassTier` order. */
+function classTierLabels(): string[] {
+  const job = getJobData(currentJob);
+  if (!job) return [];
+  const n = pointsUsedPerClassTier(levels).length;
+  const unifiedTrans = shouldMergeTranscendentIntoSecondPanel(job);
+  const unifiedRenewalTransPath = shouldMergeRenewalTransPathSkillPanel(job);
+  const contentCols = getContentColumnIndices(job);
+  const out: string[] = [];
+  for (let t = 0; t < n; t++) {
+    let title = `Column ${t + 1}`;
+    if (unifiedTrans && t === 1) title = job.label;
+    else if (unifiedRenewalTransPath && t === 1) {
+      const a = contentCols[1];
+      const b = contentCols[2];
+      if (a !== undefined && b !== undefined) title = `${job.columns[a]?.title ?? ""} + ${job.columns[b]?.title ?? ""}`.trim();
+    } else if (unifiedRenewalTransPath && t >= 2) {
+      const c = contentCols[t + 1];
+      if (c !== undefined) title = job.columns[c]?.title ?? title;
+    } else {
+      const c = contentCols[t];
+      if (c !== undefined) title = job.columns[c]?.title ?? title;
+    }
+    out.push(title);
+  }
+  return out;
+}
+
+type PlannerBoard = { title: string; tier: number | null; quest: boolean; skills: SkillDef[] };
+
+/**
+ * Boards as the client shows them: one per class tier, transcendent sharing the second
+ * class's board, and the quest column apart. `tier` is the points tier the board spends.
+ */
+function plannerBoards(): PlannerBoard[] {
+  const job = getJobData(currentJob);
+  if (!job) return [];
+  const contentIdx = getContentColumnIndices(job);
+  const merged = (a: number, b: number) =>
+    [...skillsByColumn(a), ...skillsByColumn(b)].sort(
+      (x, y) => x.gridRow - y.gridRow || x.gridCol - y.gridCol || x.row - y.row,
+    );
+  const out: PlannerBoard[] = [];
+  if (mergeNoviceWithFirstJob(job)) {
+    out.push({ title: job.label, tier: null, quest: false, skills: contentIdx.flatMap((c) => skillsByColumn(c)) });
+  } else if (mergeTranscendentIntoSecond(job)) {
+    out.push({ title: job.columns[contentIdx[0]!]?.title ?? "", tier: 0, quest: false, skills: skillsByColumn(contentIdx[0]!) });
+    out.push({ title: job.label, tier: 1, quest: false, skills: merged(contentIdx[1]!, contentIdx[2]!) });
+  } else if (isRenewalTransPathThirdFourthLayout(job)) {
+    const n1 = job.columns[contentIdx[1]!]?.title ?? "";
+    const n2 = job.columns[contentIdx[2]!]?.title ?? "";
+    out.push({ title: job.columns[contentIdx[0]!]?.title ?? "", tier: 0, quest: false, skills: skillsByColumn(contentIdx[0]!) });
+    out.push({ title: `${n1} + ${n2}`.trim() || job.label, tier: 1, quest: false, skills: merged(contentIdx[1]!, contentIdx[2]!) });
+    for (let i = 3; i < contentIdx.length; i++) {
+      out.push({ title: job.columns[contentIdx[i]!]?.title ?? "", tier: i - 1, quest: false, skills: skillsByColumn(contentIdx[i]!) });
+    }
+  } else {
+    contentIdx.forEach((c, t) => out.push({ title: job.columns[c]?.title ?? "", tier: t, quest: false, skills: skillsByColumn(c) }));
+  }
+  const q = getQuestColumnIndex(job);
+  if (q >= 0 && skillsByColumn(q).length) {
+    out.push({ title: "Quest skills", tier: null, quest: true, skills: skillsByColumn(q) });
+  }
+  return out;
 }
 
 function updateToolbarClassStats(root: HTMLElement): void {
@@ -3042,6 +2935,7 @@ function attachSkillInteractionHandlers(root: HTMLElement): void {
 initPlannerGameModeFromUrlOrStorage();
 const fromShare = readShareFromUrl();
 if (fromShare?.game) setPlannerGameMode(fromShare.game);
+if (fromShare?.data && getPlannerGameMode() === "pre") setSkillDataSource(fromShare.data);
 loadState();
 ensureCurrentJobInData();
 if (fromShare && getJobData(fromShare.j)) {
@@ -3051,7 +2945,52 @@ if (fromShare && getJobData(fromShare.j)) {
   applyJob(currentJob);
 }
 const appRoot = document.querySelector("#app") as HTMLElement;
-renderApp(appRoot);
+
+/** What the beta planner (src/beta-planner.ts) uses of the planner's state and rules. */
+const plannerApi = {
+  getJobKey: () => currentJob,
+  getJob: () => getJobData(currentJob),
+  getLevels: () => levels,
+  setLevels: (lv: Record<string, number>) => {
+    levels = { ...lv };
+  },
+  getSkills: () => skills,
+  getSkill,
+  prereqsFor,
+  postreqsFor: (id: string) => edges.filter((e) => e.fromId === id),
+  changeLevel: changeLevelCore,
+  setLevel: setSkillLevelCore,
+  applyJob: (key: string) => {
+    applyJob(key);
+    saveState();
+  },
+  reload: () => {
+    loadState();
+    ensureCurrentJobInData();
+    applyJob(currentJob);
+  },
+  save: saveState,
+  boards: plannerBoards,
+  tierLabels: classTierLabels,
+  tierUsed: () => pointsUsedPerClassTier(levels),
+  tierCap: capForClassTier,
+  exemptFromCap: exemptFromClassSkillCap,
+  skillIconUrl,
+  tooltipHtml: buildSkillDetailHtml,
+  shareUrl: () => {
+    const u = new URL(window.location.href);
+    u.searchParams.set(SHARE_QUERY, encodeSharePayload());
+    return u.toString();
+  },
+  standSpriteUrl: (key: string) => jobPickerStandSpriteUrl(key, sitGender),
+};
+export type PlannerApi = typeof plannerApi;
+
+if (getPlannerLayout() === "beta") {
+  void import("./beta-planner").then((m) => m.mountBetaPlanner(appRoot, plannerApi));
+} else {
+  renderApp(appRoot);
+}
 
 let textFitResizeTimer: ReturnType<typeof setTimeout> | undefined;
 window.addEventListener("resize", () => {

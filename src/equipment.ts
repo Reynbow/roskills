@@ -188,7 +188,7 @@ function mount(root: HTMLElement): void {
     <section class="page f2p-equipment-page">
       <div class="cards-windowhead" role="banner">
         <div class="cards-windowhead__left">
-          <h1 class="cards-windowhead__title">Free-to-play Equipment</h1>
+          <h1 class="cards-windowhead__title">Free-to-play equipment</h1>
         </div>
       </div>
 

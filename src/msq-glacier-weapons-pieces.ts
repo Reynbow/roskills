@@ -15,7 +15,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Sword',
@@ -36,7 +36,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Sword',
@@ -57,7 +57,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Dagger',
@@ -78,7 +78,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Dagger',
@@ -99,7 +99,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Axe',
@@ -120,7 +120,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Spear',
@@ -141,7 +141,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Book',
@@ -162,7 +162,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Staff',
@@ -183,7 +183,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Staff',
@@ -204,7 +204,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Knuckle',
@@ -225,7 +225,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Instrument',
@@ -246,7 +246,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Whip',
@@ -267,7 +267,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Mace',
@@ -288,7 +288,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Mace',
@@ -309,7 +309,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Two-Handed Sword',
@@ -330,7 +330,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Katar',
@@ -351,7 +351,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Two-Handed Axe',
@@ -372,7 +372,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Two-Handed Spear',
@@ -393,7 +393,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Two-Handed Staff',
@@ -414,7 +414,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Huuma Shuriken',
@@ -435,7 +435,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Bow',
@@ -455,7 +455,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Revolver',
@@ -475,7 +475,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Rifle',
@@ -495,7 +495,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Shotgun',
@@ -515,7 +515,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Gatling Gun',
@@ -535,7 +535,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     flavor: 'Ice weapon from Issgard’s glaciers, enchantable with Ice Flower Magic Stones (per Divine Pride / iRO).',
     effects: [
       'No card slot; up to four Glacier Flower Spell enchant lines (iRO Wiki: Issgard weapon enchants).',
-      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment — Issgard 19).',
+      'Sold by NPC in Issgard for 150,000 zeny (Free-to-play Equipment, Issgard 19).',
     ],
     equipType: 'Weapon',
     subtype: 'Grenade Launcher',
@@ -559,7 +559,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Sword',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -581,7 +581,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Basic Sword',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -603,7 +603,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Rogue Knife',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -625,7 +625,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Basic Knife',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -647,7 +647,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Axe',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -669,7 +669,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Spear',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -691,7 +691,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Book',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -713,7 +713,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Wand',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -735,7 +735,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Foxtail',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -757,7 +757,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Knuckle',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -779,7 +779,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Violin',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -801,7 +801,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Whip',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -823,7 +823,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Mace',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -845,7 +845,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Mechanic Mace',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -867,7 +867,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Two-handed Sword',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -889,7 +889,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Katar',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -911,7 +911,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Mechanic Axe',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -933,7 +933,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Lance',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -955,7 +955,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Staff',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -977,7 +977,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Huuma Shuriken',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -999,7 +999,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Bow',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -1020,7 +1020,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Pistol',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -1041,7 +1041,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Rifle',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -1062,7 +1062,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Shotgun',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -1083,7 +1083,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Gatling Gun',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],
@@ -1104,7 +1104,7 @@ export const GLACIER_WEAPON_SEGMENTS: readonly MsqWeaponSegment[] = [
     name: 'Dim Glacier Grenade Launcher',
     flavor: 'Dim glacier-forged weapon from Issgard; stronger requirement than the shop line, with a card slot and Dim-only enchant layout.',
     effects: [
-      '[1] Card slot; three enchant lines — Slot{2} uses its own level 1–5 track (iRO Wiki).',
+      '[1] Card slot; three enchant lines: Slot{2} uses its own level 1–5 track (iRO Wiki).',
       'Monster drops: Abandoned Pit (jor_ab01 / jor_ab02) or Warmth of the Serpent God (jor_dun01 / jor_dun02).',
       'Unwanted copies can be extracted for Snow Flower / mana ores (see Issgard enchants on iRO Wiki).',
     ],

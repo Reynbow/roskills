@@ -509,6 +509,7 @@ function mount(root: HTMLElement): void {
       <div id="equip-tooltip" class="cards-filter-tooltip equip-tooltip" role="tooltip" aria-hidden="true"></div>
 
       <div class="cards-rowcards-wrap" id="rows-wrap">
+        <div class="cards-rowcard cards-rowcard--head" aria-hidden="true"><span data-area="art"></span><span data-area="name">Weapon</span><span data-area="jobs">Classes</span><span data-area="desc">Stats</span><span data-area="drops">How to get</span></div>
         <div class="cards-rowcards" id="rows"></div>
       </div>
     </section>

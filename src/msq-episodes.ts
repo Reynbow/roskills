@@ -83,11 +83,11 @@ export const EPISODES: MsqEpisode[] = [
       { label: "Quest Reward(s)", value: [L("Illusion", "Illusion")] },
     ],
     synopsis:
-      "Episode 16 continues as the narrative leaves the capital—new areas, allies, and chained quests that finish the Terra Gloria arc.",
+      "Episode 16 continues as the narrative leaves the capital, new areas, allies, and chained quests that finish the Terra Gloria arc.",
     armourSetName: "Imperial",
     armourPieces: IMPERIAL_ARMOUR_PIECES,
     armourIconNote:
-      "Imperial equipment is exchanged from Imperial trader in the Clana Nemieri Rebellion Base (reached during Terra Gloria) for Schwartz's Honor Tokens—10 tokens per piece, level 125, character bound. Class-specific body armor; shared Attack/Magic manteau, boots, and ring. See iRO Wiki: Imperial Equipment.",
+      "Imperial equipment is exchanged from Imperial trader in the Clana Nemieri Rebellion Base (reached during Terra Gloria) for Schwartz's Honor Tokens:10 tokens per piece, level 125, character bound. Class-specific body armor; shared Attack/Magic manteau, boots, and ring. See iRO Wiki: Imperial Equipment.",
   },
   {
     id: "17.1",
@@ -216,11 +216,11 @@ export const EPISODES: MsqEpisode[] = [
       { segmentName: "Snow Flower", pieces: SNOW_FLOWER_ARMOUR_PIECES },
     ],
     armourIconNote:
-      "Per iRO Wiki Free-to-play Equipment (Issgard 19 — Glacier weapon, Snow Flower armour): https://irowiki.org/wiki/Free-to-play_Equipment#Lv_210._Issgard_19_-_Glacier_Weapon,_Snow_Flower_Armor — Snow Flower is the level 210 ten-piece petal exchange at the Ice Castle (100 Snow Flower Petals each). Glacier is the level 230 ten-piece armour set paired with the Glacier weapon line. See Issgard Land of Snow Flowers and Divine Pride (iRO) for full stats.",
+      "Per iRO Wiki Free-to-play Equipment (Issgard 19, Glacier weapon, Snow Flower armour): https://irowiki.org/wiki/Free-to-play_Equipment#Lv_210._Issgard_19_-_Glacier_Weapon,_Snow_Flower_Armor, Snow Flower is the level 210 ten-piece petal exchange at the Ice Castle (100 Snow Flower Petals each). Glacier is the level 230 ten-piece armour set paired with the Glacier weapon line. See Issgard Land of Snow Flowers and Divine Pride (iRO) for full stats.",
     weaponSetName: "Glacier & Dim Glacier",
     weaponSegments: GLACIER_WEAPON_SEGMENTS,
     weaponIconNote:
-      "Glacier shop weapons cost 150,000 zeny each and have no card slot. Dim Glacier [1] weapons are level 230 drops (Abandoned Pit or Serpent God maps) with a different enchant layout — see iRO Wiki Issgard enchants and Free-to-play Equipment (Lv 230 Dim Glacier).",
+      "Glacier shop weapons cost 150,000 zeny each and have no card slot. Dim Glacier [1] weapons are level 230 drops (Abandoned Pit or Serpent God maps) with a different enchant layout, see iRO Wiki Issgard enchants and Free-to-play Equipment (Lv 230 Dim Glacier).",
   },
   {
     id: "20",
@@ -232,7 +232,7 @@ export const EPISODES: MsqEpisode[] = [
     armourSetName: "Undying",
     armourPieces: [],
     armourIconNote:
-      "Representative icons not listed yet—see iRO Wiki and patch notes as this episode’s gear is finalized.",
+      "Representative icons not listed yet, see iRO Wiki and patch notes as this episode’s gear is finalized.",
   },
 ];
 

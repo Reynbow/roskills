@@ -42,3 +42,9 @@ secrets/
 *.sw?
 
 .vercel
+
+# Impeccable working files (review screenshots, decision rounds)
+.impeccable/review/
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/decision-planner.json

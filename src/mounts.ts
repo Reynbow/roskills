@@ -227,15 +227,15 @@ function loadMountSpritePreview(
   loadImgSimpleChain(img, previewCell, [
     {
       src: mountClassSpriteUrl(jobKey, fileName),
-      alt: `${jobLabelHuman} — Riding ${angleHuman} (${jobKey})`,
+      alt: `${jobLabelHuman}, Riding ${angleHuman} (${jobKey})`,
     },
     {
       src: mountClassSpriteUrl(jobKey, "forward.png"),
-      alt: `${jobLabelHuman} — forward fallback (${jobKey})`,
+      alt: `${jobLabelHuman}, forward fallback (${jobKey})`,
     },
     {
       src: jobPickerStandSpriteUrl(jobKey, gender),
-      alt: `${jobLabelHuman} — class stand (${gender})`,
+      alt: `${jobLabelHuman}, class stand (${gender})`,
     },
   ]);
 }
@@ -430,7 +430,7 @@ function initMountsPage(root: HTMLElement): void {
     const mountId = meta.mountId;
     const mountDef = mountId ? mountsById.get(mountId) : undefined;
     const mountTitle = mountDef?.name ?? (mountId ? mountId : "No dedicated riding costume row in JSON");
-    const outfit = mountDef && typeof mountDef.outfit === "number" ? mountDef.outfit : "—";
+    const outfit = mountDef && typeof mountDef.outfit === "number" ? mountDef.outfit : "-";
 
     const boardingAngleFigs = MOUNT_CLASS_ANGLE_FILES.map(
       (v) =>
@@ -447,7 +447,7 @@ function initMountsPage(root: HTMLElement): void {
           <p class="mount-boarding-copy__note">${escapeHtml(meta.note)}</p>
           <dl class="mount-boarding-dl">
             <div><dt>Riding appearance</dt><dd>${escapeHtml(mountTitle)}</dd></div>
-            <div><dt>Preview files</dt><dd><code>mount-on-class/${escapeHtml(jobKey)}/</code> — <code>forward.png</code>, <code>angled-front.png</code>, <code>left.png</code>, <code>back.png</code>, <code>angled-back.png</code></dd></div>
+            <div><dt>Preview files</dt><dd><code>mount-on-class/${escapeHtml(jobKey)}/</code>: <code>forward.png</code>, <code>angled-front.png</code>, <code>left.png</code>, <code>back.png</code>, <code>angled-back.png</code></dd></div>
             ${
               mountId
                 ? `<div><dt>Gallery id</dt><dd><code>${escapeHtml(mountId)}</code></dd></div>

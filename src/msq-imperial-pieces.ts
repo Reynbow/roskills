@@ -183,7 +183,7 @@ function imperialBody(p: ImperialBody): RoArmourPiece {
   return {
     id: p.id,
     name: p.name,
-    flavor: `${short} — exchanged from Imperial trader (Clana Nemieri Rebellion Base) for Schwartz's Honor Tokens.`,
+    flavor: `${short}, exchanged from Imperial trader (Clana Nemieri Rebellion Base) for Schwartz's Honor Tokens.`,
     effects: [
       `Class / skill focus: ${p.focus}.`,
       "Four-piece Imperial bonuses use the matching Attack or Magic manteau, boots, and ring (see iRO Wiki: Imperial Equipment).",

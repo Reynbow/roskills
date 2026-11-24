@@ -1,4 +1,5 @@
 import "./style.css";
+import { ICON } from "./icons";
 import { inject } from "@vercel/analytics";
 import { getPlannerGameMode, initPlannerGameModeFromUrlOrStorage, setAndPersistPlannerGameMode } from "./game-mode";
 import { siteHeaderRowHtml, wireSiteGameModeToggle } from "./site-header";
@@ -274,15 +275,15 @@ function elementPreviewHtml(m: MonsterEntry): string {
     .filter((r) => r.pct < 100)
     .sort((a, b) => a.pct - b.pct || a.elem.localeCompare(b.elem))[0];
 
-  const w4 = weak ? E4[weak.elem] ?? weak.elem.slice(0, 4).toUpperCase() : "—";
-  const r4 = resist ? E4[resist.elem] ?? resist.elem.slice(0, 4).toUpperCase() : "—";
+  const w4 = weak ? E4[weak.elem] ?? weak.elem.slice(0, 4).toUpperCase() : "-";
+  const r4 = resist ? E4[resist.elem] ?? resist.elem.slice(0, 4).toUpperCase() : "-";
 
   const weakTitle = weak ? `${elementDisplayName(weak.elem)} ${weak.pct}%` : "No weakness";
   const resistTitle = resist ? `${elementDisplayName(resist.elem)} ${resist.pct}%` : "No resist";
   return `<span class="leveling-elem" aria-label="Element preview">
-    <span class="leveling-elem__w" title="${escapeHtml(weakTitle)}">${escapeHtml(w4)}↑</span>
+    <span class="leveling-elem__w" title="${escapeHtml(weakTitle)}">${escapeHtml(w4)}${ICON.caretUp}</span>
     <span class="leveling-elem__sep" aria-hidden="true">/</span>
-    <span class="leveling-elem__r" title="${escapeHtml(resistTitle)}">${escapeHtml(r4)}↓</span>
+    <span class="leveling-elem__r" title="${escapeHtml(resistTitle)}">${escapeHtml(r4)}${ICON.caretDown}</span>
   </span>`;
 }
 
@@ -294,7 +295,7 @@ function elementColumnHtml(monsterId: number): string {
     .filter((r) => Math.round(r.pct) !== 100)
     .sort((a, b) => Math.abs(b.pct - 100) - Math.abs(a.pct - 100));
 
-  if (!rows.length) return `<div class="leveling-elemcol__empty">—</div>`;
+  if (!rows.length) return `<div class="leveling-elemcol__empty">-</div>`;
 
   return `<div class="leveling-elemcol__list">${rows
     .map((r) => {
@@ -314,7 +315,7 @@ function locationsHtml(m: MonsterEntry): string {
     .filter((x) => x && typeof x.map === "string" && x.map.trim())
     .sort((a, b) => (b.count ?? 0) - (a.count ?? 0));
 
-  if (!rows.length) return `<div class="leveling-locs__empty">—</div>`;
+  if (!rows.length) return `<div class="leveling-locs__empty">-</div>`;
 
   return `<div class="leveling-locs__list">${rows
     .map((r) => {
@@ -424,7 +425,7 @@ function dropsHtml(m: MonsterEntry, mult: { drop: number }, itemQueryRaw: string
       searchHit: Boolean(iq && dropMatchesItemQuery(d, iq)),
     }));
 
-  if (!rows.length) return `<div class="leveling-drops__empty">—</div>`;
+  if (!rows.length) return `<div class="leveling-drops__empty">-</div>`;
 
   return `<div class="leveling-drops__list">${rows
     .map((r) => {
@@ -481,9 +482,9 @@ function monsterCardHtml(
     m.isMvp ? `<span class="leveling-badge leveling-badge--mvp">MVP</span>`
     : m.isBoss ? `<span class="leveling-badge leveling-badge--mini">Mini Boss</span>`
     : "";
-  const race = (m.race || "").trim() || "—";
-  const elemRaw = (m.element || "").trim() || "—";
-  const elemDisp = elemRaw === "—" ? "—" : elementDisplayName(elemRaw);
+  const race = (m.race || "").trim() || "-";
+  const elemRaw = (m.element || "").trim() || "-";
+  const elemDisp = elemRaw === "-" ? "-" : elementDisplayName(elemRaw);
   const elemLv = typeof m.elementLevel === "number" && Number.isFinite(m.elementLevel) ? m.elementLevel : null;
   const elemLabel = elemLv ? `${elemDisp} ${elemLv}` : elemDisp;
 
@@ -523,13 +524,13 @@ function monsterCardHtml(
                 )}–${escapeHtml(String(bonusMaxPlayerLv))}</span>
               </div>
 
-              <div class="leveling-card__kv">Base EXP: <span class="leveling-card__kv-v">${baseSrc ?? "-"}</span> → <b>${base ?? "-"}</b></div>
-              <div class="leveling-card__kv">Job EXP: <span class="leveling-card__kv-v">${jobSrc ?? "-"}</span> → <b>${job ?? "-"}</b></div>
+              <div class="leveling-card__kv">Base EXP: <span class="leveling-card__kv-v">${baseSrc ?? "-"}</span> ${ICON.arrowRight} <b>${base ?? "-"}</b></div>
+              <div class="leveling-card__kv">Job EXP: <span class="leveling-card__kv-v">${jobSrc ?? "-"}</span> ${ICON.arrowRight} <b>${job ?? "-"}</b></div>
 
               <div style="margin-top:.25rem;">
                 <a class="msq-step-card__wiki-cta" href="${escapeHtml(
                   rmsUrlForMob(m.id),
-                )}" target="_blank" rel="noreferrer noopener">View on ratemyserver →</a>
+                )}" target="_blank" rel="noreferrer noopener">View on ratemyserver ${ICON.external}</a>
               </div>
             </div>
           </div>
@@ -664,8 +665,8 @@ function monsterRowItemSearchHtml(
   const name = escapeHtml(s.m.name);
   const id = escapeHtml(String(s.m.id));
   const det = bestMatchingDropForItemQuery(s.m, itemQueryRaw);
-  const pctLabel = det ? dropRateLabel(det.rate, dropMult) : "—";
-  const itemLabel = det?.itemLabel ?? "—";
+  const pctLabel = det ? dropRateLabel(det.rate, dropMult) : "-";
+  const itemLabel = det?.itemLabel ?? "-";
   const itemTitle = det ? escapeHtml(det.itemLabel) : "";
   const itemIcon =
     !det ? ""
@@ -722,7 +723,7 @@ function sortLabel(key: SortKey): string {
 
 function sortButtonHtml(key: SortKey, activeKey: SortKey, dir: SortDir): string {
   const isActive = key === activeKey;
-  const arrow = !isActive ? "" : dir === "asc" ? " ▲" : " ▼";
+  const arrow = !isActive ? "" : dir === "asc" ? ` ${ICON.caretUp}` : ` ${ICON.caretDown}`;
   const cls = `leveling-colbtn${isActive ? " leveling-colbtn--active" : ""}`;
   return `<button type="button" class="${cls}" data-sort-key="${escapeHtml(
     key,
@@ -935,15 +936,12 @@ function mount(root: HTMLElement): void {
                 )}" />
                 <button type="button" class="leveling-clear" id="monsterClear" aria-label="Clear monster search" title="Clear" ${
                   initialQuery.trim() ? "" : "hidden"
-                }>×</button>
+                }>${ICON.close}</button>
               </span>
             </label>
             <label class="toolbar-toggle toolbar-toggle--compact leveling-toggle" title="Hide MVPs and Mini Bosses">
+              <input id="hideBosses" class="check" type="checkbox" ${initialHideBosses ? "checked" : ""} />
               <span class="toolbar-toggle-text">Hide bosses</span>
-              <span class="toggle-switch">
-                <input id="hideBosses" class="toggle-switch-input" type="checkbox" ${initialHideBosses ? "checked" : ""} />
-                <span class="toggle-switch-track" aria-hidden="true"><span class="toggle-switch-thumb" aria-hidden="true"></span></span>
-              </span>
             </label>
             </div>
             <div class="leveling-mults" aria-label="Rate multipliers">
@@ -981,7 +979,7 @@ function mount(root: HTMLElement): void {
               )}" />
               <button type="button" class="leveling-clear" id="itemDropClear" aria-label="Clear item search" title="Clear" ${
                 initialItemQuery.trim() ? "" : "hidden"
-              }>×</button>
+              }>${ICON.close}</button>
             </span>
           </label>
         </aside>

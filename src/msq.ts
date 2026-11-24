@@ -1,4 +1,5 @@
 import "./style.css";
+import { ICON } from "./icons";
 import { inject } from "@vercel/analytics";
 import { getPlannerGameMode, initPlannerGameModeFromUrlOrStorage, setAndPersistPlannerGameMode } from "./game-mode";
 import { EPISODE_TOTAL, EPISODES, episodeArmourPiecesFlat, episodeWeaponPiecesFlat } from "./msq-episodes";
@@ -54,9 +55,9 @@ function wikiArticleLabel(url: string): string {
   try {
     const u = new URL(url);
     const seg = u.pathname.split("/").filter(Boolean).pop() ?? "";
-    return decodeURIComponent(seg.replace(/_/g, " ")) || "—";
+    return decodeURIComponent(seg.replace(/_/g, " ")) || "-";
   } catch {
-    return "—";
+    return "-";
   }
 }
 
@@ -164,7 +165,7 @@ function armourStripHtml(ep: MsqEpisode, opts?: { omitOuterSetTitle?: boolean })
     : "";
 
   if (!flat.length && !ep.armourIconNote) {
-    return `<div class="msq-episode-card__armour">${nameHtml}<p class="msq-episode-card__armour-note">—</p></div>`;
+    return `<div class="msq-episode-card__armour">${nameHtml}<p class="msq-episode-card__armour-note">-</p></div>`;
   }
 
   return `<div class="msq-episode-card__armour">${nameHtml}${iconsHtml}${noteHtml}</div>`;
@@ -203,7 +204,7 @@ function weaponStripHtml(ep: MsqEpisode, opts?: { omitOuterSetTitle?: boolean })
     : "";
 
   if (!flat.length && !ep.weaponIconNote) {
-    return `<div class="msq-episode-card__weapons">${nameHtml}<p class="msq-episode-card__armour-note">—</p></div>`;
+    return `<div class="msq-episode-card__weapons">${nameHtml}<p class="msq-episode-card__armour-note">-</p></div>`;
   }
 
   return `<div class="msq-episode-card__weapons">${nameHtml}${iconsHtml}${noteHtml}</div>`;
@@ -353,7 +354,7 @@ function cardHtml(ep: MsqEpisode, index: number, query: string): string {
   const order = index + 1;
 
   const ariaStory = escapeHtml(`Open iRO Wiki walkthrough: ${ep.title}`);
-  const ariaEquip = escapeHtml(`${ep.title} — episode equipment`);
+  const ariaEquip = escapeHtml(`${ep.title}, episode equipment`);
   const equipAcquireUrl = episodeEquipmentAcquireUrl(ep);
 
   return `<div class="msq-step-row" role="group" aria-label="${escapeHtml(`${ep.episode}: ${ep.title}`)}">
@@ -379,7 +380,7 @@ function cardHtml(ep: MsqEpisode, index: number, query: string): string {
 
       ${wikiQuestMetaHtml(ep)}
 
-      <a class="msq-step-card__wiki-cta" href="${escapeHtml(ep.url)}" target="_blank" rel="noreferrer noopener">iRO Wiki →</a>
+      <a class="msq-step-card__wiki-cta" href="${escapeHtml(ep.url)}" target="_blank" rel="noreferrer noopener">iRO Wiki ${ICON.external}</a>
     </div>
 
     <div class="pets-card msq-episode-card msq-step-card msq-step-card--equip" aria-label="${ariaEquip}">

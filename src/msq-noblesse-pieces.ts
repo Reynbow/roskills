@@ -183,7 +183,7 @@ function noblesseBody(p: NoblesseBody): RoArmourPiece {
   return {
     id: p.id,
     name: p.name,
-    flavor: `${short} — exchanged from Noblesse Trader (Prontera Castle) for Honor Tokens.`,
+    flavor: `${short}, exchanged from Noblesse Trader (Prontera Castle) for Honor Tokens.`,
     effects: [
       `Class / skill focus: ${p.focus}.`,
       "Four-piece Noblesse bonuses use the matching Attack or Magic manteau, boots, and ring (see iRO Wiki: Noblesse Equipment).",

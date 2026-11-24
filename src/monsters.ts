@@ -523,6 +523,7 @@ function mount(root: HTMLElement): void {
       <div id="cards-copy-toast" class="cards-copy-toast" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true"></div>
 
       <div class="cards-rowcards-wrap" id="rows-wrap">
+        <div class="cards-rowcard cards-rowcard--head" aria-hidden="true"><span data-area="name">Monster</span><span data-area="desc">Stats and elements</span><span data-area="drops">Spawns</span><span data-area="mob"></span></div>
         <div class="cards-rowcards" id="rows"></div>
       </div>
     </section>

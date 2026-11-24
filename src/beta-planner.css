@@ -1,0 +1,930 @@
+/* Beta skill planner: board and build ledger. Loaded only when the beta layout is on. */
+
+.bp {
+  --bp-gap: 20px;
+  --bp-spent: #4af0b8;
+  --bp-spent-border: rgba(90, 210, 165, 0.55);
+  --bp-need: #f0d78c;
+  --bp-over: #f08088;
+  --bp-tile-h: 5.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.bp-btn:hover:not(:disabled) {
+  border-color: var(--btn-border-hover);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.bp-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.bp-btn--primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #14202f;
+  font-weight: 700;
+}
+
+.bp-btn--primary:hover:not(:disabled) {
+  border-color: #a9d3ff;
+  background: #a9d3ff;
+}
+
+/* ---- Strip: class, points left, actions ---- */
+
+.bp-strip {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--panel-solid);
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-panel);
+}
+
+.bp-classbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 14px 6px 6px;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius);
+  background: var(--bg-panel-deep);
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.bp-classbtn:hover {
+  border-color: var(--btn-border-hover);
+}
+
+.bp-classbtn__sprite {
+  display: grid;
+  place-items: end center;
+  width: 44px;
+  height: 52px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.bp-classbtn__sprite img {
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: pixelated;
+}
+
+.bp-classbtn__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.bp-classbtn__cap {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.bp-classbtn__name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.bp-classbtn__chev {
+  color: var(--text-muted);
+}
+
+.bp-meters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.bp-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.bp-meter__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.bp-meter__label {
+  color: var(--text-muted);
+}
+
+.bp-meter__value b {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.bp-meter__cap {
+  color: var(--text-muted);
+}
+
+.bp-meter__track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.bp-meter__fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s ease-out;
+}
+
+.bp-meter.is-over .bp-meter__value,
+.bp-meter.is-over .bp-meter__value b {
+  color: var(--bp-over);
+}
+
+.bp-meter.is-over .bp-meter__fill {
+  background: var(--bp-over);
+}
+
+.bp-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* ---- Main: board and ledger ---- */
+
+.bp-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 26vw, 400px);
+  gap: var(--bp-gap);
+  align-items: start;
+}
+
+.bp-board,
+.bp-ledger {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-panel);
+}
+
+.bp-board {
+  container: bp-board / inline-size;
+  min-width: 0;
+  padding: 14px 14px 8px;
+}
+
+/* All of the class's boards at once: base and second class side by side when the column is
+   wide enough for two 7-wide grids, otherwise one above the other; quest skills underneath. */
+.bp-boards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px 20px;
+}
+
+@container bp-board (min-width: 1240px) {
+  .bp-boards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bp-boardsec--quest {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Each board knows its own width, so its tiles go compact when the board is narrow
+   (two boards side by side, or a phone), whatever the screen size. */
+.bp-boardsec {
+  container: bp-sec / inline-size;
+  min-width: 0;
+}
+
+@container bp-sec (max-width: 760px) {
+  .bp-tile {
+    padding: 7px;
+  }
+
+  .bp-tile__cur {
+    font-size: 16px;
+  }
+
+  .bp-tile__max {
+    display: none;
+  }
+
+  .bp-tile__name {
+    font-size: 11px;
+  }
+}
+
+.bp-boardsec__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-panel);
+  font-size: 16px;
+}
+
+.bp-boardsec__count {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.bp-boardsec__count.is-over {
+  color: var(--bp-over);
+}
+
+.bp-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  padding: 14px 0 6px;
+}
+
+.bp-grid--quest {
+  grid-auto-rows: minmax(var(--bp-tile-h), auto);
+}
+
+/* Gaps in the client grid: darker blocks with a dashed edge, as the game draws them. */
+.bp-empty {
+  border: 2px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* ---- Skill tiles ---- */
+
+.bp-tile {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "icon lv"
+    "name name";
+  gap: 6px 8px;
+  align-items: start;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--border-node);
+  border-radius: var(--radius);
+  background: var(--bg-node);
+  color: var(--text);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.bp-tile:hover {
+  border-color: rgba(150, 190, 240, 0.5);
+  background: #3e4758;
+}
+
+.bp-tile__icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.bp-tile__img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.bp-tile__name {
+  grid-area: name;
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.bp-tile__lv {
+  grid-area: lv;
+  justify-self: end;
+  align-self: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.bp-tile__cur {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bp-tile__max {
+  color: #8b94a8;
+}
+
+/* A visible way to lower a skill, on the tile itself, once it has points. */
+.bp-tile__minus {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 2;
+  display: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--btn-border);
+  border-radius: 4px;
+  background: var(--bg-panel-deep);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.bp-tile__minus:hover {
+  border-color: var(--bp-over);
+  color: var(--bp-over);
+}
+
+.bp-tile--spent:hover .bp-tile__minus,
+.bp-tile--spent:focus-visible .bp-tile__minus,
+.bp-tile--spent.bp-tile--selected .bp-tile__minus {
+  display: grid;
+}
+
+.bp-tile--spent {
+  border-color: var(--bp-spent-border);
+  background: #3a4758;
+}
+
+.bp-tile--spent .bp-tile__cur {
+  color: var(--bp-spent);
+}
+
+.bp-tile--max .bp-tile__cur,
+.bp-tile--max .bp-tile__max {
+  color: #fff8d8;
+}
+
+/* Not learnable yet: a quieter icon (still clickable, the planner fills the requirements). */
+.bp-tile--locked .bp-tile__icon {
+  opacity: 0.5;
+}
+
+.bp-tile--locked .bp-tile__name {
+  color: var(--text-muted);
+}
+
+.bp-tile--over {
+  border-color: rgba(240, 128, 136, 0.6);
+}
+
+.bp-tile--selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Requirement marks while pointing at or selecting a skill. */
+.bp-tile__need {
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  translate: -50% 0;
+  display: none;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--bp-need);
+  color: #1a1f28;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.bp-tile--need {
+  border-color: var(--bp-need);
+}
+
+.bp-tile--need .bp-tile__need {
+  display: block;
+}
+
+.bp-tile--need-met .bp-tile__need {
+  background: var(--bp-spent);
+}
+
+/* What the skill opens: a solid blue edge and an "Opens at N" pill (dashes belong to empty slots). */
+.bp-tile--opens {
+  border-color: rgba(142, 197, 255, 0.7);
+}
+
+.bp-tile--opens .bp-tile__need {
+  display: block;
+  background: var(--accent);
+}
+
+/* Prerequisites the planner just raised for you: the border lights once and settles. */
+@keyframes bp-filled {
+  0% {
+    border-color: var(--bp-need);
+    background-color: rgba(240, 215, 140, 0.22);
+  }
+  100% {
+    border-color: var(--bp-spent-border);
+    background-color: #3a4758;
+  }
+}
+
+.bp-tile--filled {
+  animation: bp-filled 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-tile--filled {
+    animation: none;
+  }
+
+  .bp-meter__fill {
+    transition: none;
+  }
+}
+
+.bp-status {
+  min-height: 1.4em;
+  margin: 4px 0 0;
+  color: var(--bp-need);
+  font-size: 13px;
+}
+
+/* ---- Ledger ---- */
+
+.bp-ledger {
+  position: sticky;
+  top: calc(var(--header-h) + 98px);
+  display: flex;
+  flex-direction: column;
+  /* Fits the window from the page top (under the bar, tab row and strip), so the inspector
+     at its foot is never cut off; once scrolled it simply has room to spare. */
+  max-height: calc(100vh - var(--header-h) - 196px);
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.bp-ledger__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border-panel);
+}
+
+.bp-ledger__head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.bp-ledger__total {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.bp-ledger__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 16px 12px;
+  scrollbar-width: thin;
+}
+
+.bp-ledger__empty {
+  margin: 14px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.bp-group {
+  margin-top: 12px;
+}
+
+.bp-group__head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 4px;
+  color: var(--req);
+  font-size: 13px;
+}
+
+.bp-group__head .is-over {
+  color: var(--bp-over);
+}
+
+.bp-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bp-row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) auto;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 6px;
+  border: 0;
+  border-top: 1px solid rgba(140, 170, 210, 0.12);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bp-rows li:first-child .bp-row {
+  border-top: 0;
+}
+
+.bp-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.bp-row.is-selected {
+  background: rgba(142, 197, 255, 0.12);
+}
+
+.bp-row__job {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.bp-row__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bp-row__lv {
+  color: var(--bp-spent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.bp-row.is-over .bp-row__job,
+.bp-row.is-over .bp-row__lv {
+  color: var(--bp-over);
+}
+
+/* ---- Inspector (selected skill, at the ledger's foot) ---- */
+
+.bp-inspector {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  border-top: 1px solid var(--border-panel);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.bp-inspector__empty {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.bp-inspector__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bp-inspector__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.bp-inspector__icon img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.bp-inspector__title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bp-inspector__title h3 {
+  margin: 0;
+  overflow: hidden;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bp-inspector__title span {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.bp-stepper {
+  display: flex;
+  gap: 6px;
+}
+
+.bp-stepper__btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  font-size: 16px;
+}
+
+.bp-lvcells {
+  display: flex;
+  gap: 4px;
+}
+
+.bp-lvcell {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 6px 0;
+  border: 1px solid rgba(140, 170, 210, 0.22);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.bp-lvcell:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.bp-lvcell.is-on {
+  border-color: var(--bp-spent-border);
+  background: rgba(74, 240, 184, 0.16);
+  color: var(--text);
+}
+
+.bp-req {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  color: var(--bp-need);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.bp-req .is-met {
+  color: var(--bp-spent);
+}
+
+.bp-req__item {
+  white-space: nowrap;
+}
+
+.bp-req--unlocks {
+  color: var(--text-muted);
+}
+
+.bp-req__k {
+  flex: 0 0 5rem;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.bp-inspector__details {
+  align-self: flex-start;
+}
+
+/* ---- Class picker ---- */
+
+.bp-picker {
+  width: min(1180px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-panel);
+  background: var(--panel-solid);
+  color: var(--text);
+}
+
+.bp-picker::backdrop {
+  background: rgba(10, 12, 18, 0.72);
+}
+
+.bp-picker[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.bp-picker__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border-panel);
+}
+
+.bp-picker__head h2 {
+  margin: 0;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.bp-picker__search {
+  flex: 1 1 auto;
+  max-width: 360px;
+  padding: 8px 12px;
+  border: 1px solid rgba(140, 170, 210, 0.3);
+  border-radius: var(--radius);
+  background: var(--bg-panel-deep);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.bp-picker__close {
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+
+.bp-picker__body {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px 14px;
+  padding: 16px 18px 20px;
+  overflow-y: auto;
+}
+
+.bp-pick-line[hidden],
+.bp-pick-stage[hidden],
+.bp-pick[hidden] {
+  display: none;
+}
+
+.bp-pick-line {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.bp-pick-line h3 {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.bp-pick-stage {
+  display: flex;
+  gap: 6px;
+}
+
+.bp-pick {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 6px 4px 8px;
+  border: 1px solid rgba(140, 170, 210, 0.22);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bp-pick img {
+  height: 52px;
+  image-rendering: pixelated;
+}
+
+/* A class without a sprite keeps the same card height as the rest of its row. */
+.bp-pick {
+  justify-content: flex-end;
+  min-height: 86px;
+}
+
+.bp-pick:hover {
+  border-color: var(--accent);
+  background: rgba(142, 197, 255, 0.08);
+}
+
+.bp-pick.is-current {
+  border-color: var(--accent);
+  background: rgba(142, 197, 255, 0.14);
+}
+
+.bp-picker__none {
+  margin: 0;
+  padding: 0 18px 20px;
+  color: var(--text-muted);
+}
+
+@media (pointer: coarse) {
+  .bp-tile__minus {
+    top: -10px;
+    right: -10px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
+
+/* ---- Narrower screens ---- */
+
+@media (max-width: 1180px) {
+  .bp-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bp-ledger {
+    position: static;
+    max-height: none;
+  }
+
+  .bp-picker__body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .bp-strip {
+    position: static;
+  }
+
+  .bp-actions {
+    margin-left: 0;
+  }
+
+  .bp-boardsec__scroll {
+    overflow-x: auto;
+  }
+
+  .bp-grid {
+    min-width: 640px;
+  }
+
+
+  .bp-picker__body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bp-picker__head {
+    flex-wrap: wrap;
+  }
+}

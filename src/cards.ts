@@ -1,4 +1,5 @@
 import "./style.css";
+import { ICON } from "./icons";
 import { inject } from "@vercel/analytics";
 import { initPlannerGameModeFromUrlOrStorage } from "./game-mode";
 import { siteHeaderRowHtml, wireSiteGameModeToggle } from "./site-header";
@@ -607,7 +608,7 @@ const CATEGORY_LABELS: Record<CategoryKey, string> = {
 /** Hover tooltip — matches how `deriveCard` assigns each category. */
 const CATEGORY_TOOLTIPS: Record<CategoryKey, string> = {
   mvp: "Cards dropped only by MVP bosses.",
-  set: 'Cards that are part of an equipment set — the description includes a "set bonus with ..." line listing partner cards or gear.',
+  set: 'Cards that are part of an equipment set: the description includes a "set bonus with ..." line listing partner cards or gear.',
   autocast:
     'Effects that can cast or trigger skills automatically: "chance of using ...", "adds a ... level" lines, when attacking / when physically attacked, or other auto-cast style wording.',
   stats: "Card text mentions a bonus to STR, AGI, VIT, INT, DEX, or LUK.",
@@ -624,12 +625,12 @@ const CATEGORY_TOOLTIPS: Record<CategoryKey, string> = {
 
 /** Classic RO stat roles (pre-renewal) — what each primary stat does in-game. */
 const STAT_TOOLTIPS: Record<StatKey, string> = {
-  STR: "Strength — increases melee physical damage with most weapons, weight limit, and some skill damage.",
-  AGI: "Agility — increases flee, ASPD, and helps resist some status effects.",
-  VIT: "Vitality — increases Max HP, HP regeneration, soft DEF, and resilience to some status effects.",
-  INT: "Intelligence — increases Max SP, SP regeneration, MATK, MDEF, and lowers variable cast time.",
-  DEX: "Dexterity — increases HIT, damage with ranged weapons and some melee types, and lowers variable cast time.",
-  LUK: "Luck — increases critical hit rate, perfect dodge, and slightly influences many chance-based formulas.",
+  STR: "Strength: increases melee physical damage with most weapons, weight limit, and some skill damage.",
+  AGI: "Agility: increases flee, ASPD, and helps resist some status effects.",
+  VIT: "Vitality: increases Max HP, HP regeneration, soft DEF, and resilience to some status effects.",
+  INT: "Intelligence: increases Max SP, SP regeneration, MATK, MDEF, and lowers variable cast time.",
+  DEX: "Dexterity: increases HIT, damage with ranged weapons and some melee types, and lowers variable cast time.",
+  LUK: "Luck: increases critical hit rate, perfect dodge, and slightly influences many chance-based formulas.",
 };
 
 function mount(root: HTMLElement): void {
@@ -637,9 +638,9 @@ function mount(root: HTMLElement): void {
     ${siteHeaderRowHtml("cards")}
 
     <section class="page">
-      <div class="cards-windowhead" role="banner" aria-label="Card Library header">
+      <div class="cards-windowhead" role="banner" aria-label="Card library header">
         <div class="cards-windowhead__left">
-          <h1 class="cards-windowhead__title">Card Library</h1>
+          <h1 class="cards-windowhead__title">Card library</h1>
         </div>
         <div class="cards-windowhead__right">
           <button type="button" class="cards-overflow-btn cards-overflow-btn--window" id="cards-overflow-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cards-overflow">Menu</button>
@@ -681,7 +682,7 @@ function mount(root: HTMLElement): void {
         <div class="cards-overflow__panel" role="dialog" aria-label="Card library menu">
           <div class="cards-overflow__head">
             <div class="cards-overflow__title">Menu</div>
-            <button type="button" class="cards-overflow__close" data-cards-overflow-close="1" aria-label="Close">×</button>
+            <button type="button" class="cards-overflow__close" data-cards-overflow-close="1" aria-label="Close">${ICON.close}</button>
           </div>
           <div class="cards-overflow__body" id="cards-overflow-body"></div>
         </div>
@@ -692,17 +693,18 @@ function mount(root: HTMLElement): void {
       <div id="cards-copy-toast" class="cards-copy-toast" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true"></div>
 
       <div class="cards-rowcards-wrap" id="cards-rowcards-wrap">
+        <div class="cards-rowcard cards-rowcard--head" aria-hidden="true"><span data-area="art"></span><span data-area="name">Card</span><span data-area="desc">Effect</span><span data-area="drops">Dropped by</span><span data-area="mob"></span></div>
         <div class="cards-rowcards" id="cards-rowcards"></div>
       </div>
     </section>
 
     <dialog class="cards-modal" id="art-modal" aria-labelledby="art-modal-title">
-      <button type="button" class="cards-art-nav cards-art-nav--prev" id="art-modal-prev" aria-label="Previous card artwork">‹</button>
-      <button type="button" class="cards-art-nav cards-art-nav--next" id="art-modal-next" aria-label="Next card artwork">›</button>
+      <button type="button" class="cards-art-nav cards-art-nav--prev" id="art-modal-prev" aria-label="Previous card artwork">${ICON.chevronLeft}</button>
+      <button type="button" class="cards-art-nav cards-art-nav--next" id="art-modal-next" aria-label="Next card artwork">${ICON.chevronRight}</button>
       <div class="cards-modal__panel cards-art-modal__panel">
         <div class="cards-modal__head">
           <h2 class="cards-modal__title" id="art-modal-title">Card artwork</h2>
-          <button type="button" class="cards-modal__close" id="art-modal-close" aria-label="Close">×</button>
+          <button type="button" class="cards-modal__close" id="art-modal-close" aria-label="Close">${ICON.close}</button>
         </div>
         <div class="cards-modal__body">
           <img class="cards-art-full" id="art-modal-img" alt="" />
@@ -714,7 +716,7 @@ function mount(root: HTMLElement): void {
       <div class="cards-modal__panel">
         <div class="cards-modal__head">
           <h2 class="cards-modal__title" id="set-modal-title">Set bonus</h2>
-          <button type="button" class="cards-modal__close" id="set-modal-close" aria-label="Close">×</button>
+          <button type="button" class="cards-modal__close" id="set-modal-close" aria-label="Close">${ICON.close}</button>
         </div>
         <div class="cards-modal__body" id="set-modal-body"></div>
       </div>

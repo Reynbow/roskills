@@ -222,9 +222,9 @@ function mount(root: HTMLElement): void {
     ${siteHeaderRowHtml("pets")}
 
     <section class="page">
-      <div class="cards-windowhead" role="banner" aria-label="Pet Library header">
+      <div class="cards-windowhead" role="banner" aria-label="Pet library header">
         <div class="cards-windowhead__left">
-          <h1 class="cards-windowhead__title">Pet Library</h1>
+          <h1 class="cards-windowhead__title">Pet library</h1>
         </div>
       </div>
 
