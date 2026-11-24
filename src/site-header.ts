@@ -69,12 +69,12 @@ export function skillDataToggleHtml(): string {
   </div>`;
 }
 
-/** Skill planner only: the current planner or the beta. */
+/** Skill planner only: the new planner (default) or the classic one. */
 export function plannerLayoutToggleHtml(): string {
   const layout = getPlannerLayout();
   return `<div class="mode-tabs__group mode-tabs__group--end" id="planner-layout-toggle" role="group" aria-label="Planner layout">
-    ${modeTab("data-set-layout", "current", "Current planner", layout === "current")}
-    ${modeTab("data-set-layout", "beta", "Beta planner", layout === "beta")}
+    ${modeTab("data-set-layout", "beta", "New planner", layout === "beta")}
+    ${modeTab("data-set-layout", "current", "Classic planner", layout === "current")}
   </div>`;
 }
 

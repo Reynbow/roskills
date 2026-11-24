@@ -264,7 +264,7 @@ function tierOf(id: string): number | null {
 function shellHtml(): string {
   return `
     ${plannerHeaderInnerHtml("skills")}
-    <section class="bp" aria-label="Skill planner (beta)">
+    <section class="bp" aria-label="Skill planner">
       <div class="bp-strip">
         <button type="button" class="bp-classbtn" id="bp-classbtn" aria-haspopup="dialog">
           <span class="bp-classbtn__sprite"><img alt="" id="bp-class-sprite" /></span>

@@ -104,7 +104,7 @@ export type PlannerLayout = "current" | "beta";
 
 export const PLANNER_LAYOUT_STORAGE_KEY = "ro-planner-layout";
 
-/** `?layout=beta|current` wins (and is remembered), else the saved choice, else current. */
+/** `?layout=beta|current` wins (and is remembered), else the saved choice, else the new planner. */
 export function getPlannerLayout(): PlannerLayout {
   try {
     const q = new URL(window.location.href).searchParams.get("layout");
@@ -112,9 +112,9 @@ export function getPlannerLayout(): PlannerLayout {
       localStorage.setItem(PLANNER_LAYOUT_STORAGE_KEY, q);
       return q;
     }
-    return localStorage.getItem(PLANNER_LAYOUT_STORAGE_KEY) === "beta" ? "beta" : "current";
+    return localStorage.getItem(PLANNER_LAYOUT_STORAGE_KEY) === "current" ? "current" : "beta";
   } catch {
-    return "current";
+    return "beta";
   }
 }
 
