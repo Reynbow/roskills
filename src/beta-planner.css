@@ -3,7 +3,15 @@
 .bp {
   --bp-gap: 20px;
   --bp-spent: #4af0b8;
-  --bp-spent-border: rgba(90, 210, 165, 0.55);
+  --bp-spent-border: rgba(74, 240, 184, 0.7);
+  /* Learned tiles: a weak green while partly learned, a strong green once maxed. */
+  --bp-part-border: rgba(74, 240, 184, 0.45);
+  --bp-part-bg: #334850;
+  --bp-part-bg-hover: #3a535c;
+  --bp-max: #eafff6;
+  --bp-max-border: #4af0b8;
+  --bp-max-bg: #256b57;
+  --bp-max-bg-hover: #2b7762;
   --bp-need: #f0d78c;
   --bp-over: #f08088;
   --bp-tile-h: 5.25rem;
@@ -407,23 +415,61 @@
   display: grid;
 }
 
+/* No points yet: the icon and level step back, so learned skills stand out at a glance. */
+.bp-tile:not(.bp-tile--spent) .bp-tile__img {
+  filter: grayscale(0.75);
+  opacity: 0.7;
+  transition: filter 0.12s ease, opacity 0.12s ease;
+}
+
+.bp-tile:not(.bp-tile--spent) .bp-tile__cur {
+  color: #7d869a;
+}
+
+.bp-tile:not(.bp-tile--spent):hover .bp-tile__img,
+.bp-tile--selected .bp-tile__img {
+  filter: none;
+  opacity: 1;
+}
+
+/* Learned: a green fill and edge, with the icon in full colour. */
 .bp-tile--spent {
+  border-color: var(--bp-part-border);
+  background: var(--bp-part-bg);
+}
+
+.bp-tile--spent:hover {
   border-color: var(--bp-spent-border);
-  background: #3a4758;
+  background: var(--bp-part-bg-hover);
+}
+
+.bp-tile--spent .bp-tile__icon {
+  background: rgba(0, 0, 0, 0.28);
 }
 
 .bp-tile--spent .bp-tile__cur {
   color: var(--bp-spent);
 }
 
-.bp-tile--max .bp-tile__cur,
-.bp-tile--max .bp-tile__max {
-  color: #fff8d8;
+/* Fully learned: the same green, at full strength. */
+.bp-tile--max {
+  border-color: var(--bp-max-border);
+  background: var(--bp-max-bg);
 }
 
-/* Not learnable yet: a quieter icon (still clickable, the planner fills the requirements). */
+.bp-tile--max:hover {
+  border-color: #8ff7d2;
+  background: var(--bp-max-bg-hover);
+}
+
+.bp-tile--max .bp-tile__cur,
+.bp-tile--max .bp-tile__max {
+  color: var(--bp-max);
+}
+
+/* Not learnable yet: quieter still (still clickable, the planner fills the requirements). */
 .bp-tile--locked .bp-tile__icon {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .bp-tile--locked .bp-tile__name {
@@ -477,15 +523,12 @@
   background: var(--accent);
 }
 
-/* Prerequisites the planner just raised for you: the border lights once and settles. */
+/* Prerequisites the planner just raised for you: the border lights once and settles
+   on the tile's own colours (green when partly learned, gold when maxed). */
 @keyframes bp-filled {
   0% {
     border-color: var(--bp-need);
     background-color: rgba(240, 215, 140, 0.22);
-  }
-  100% {
-    border-color: var(--bp-spent-border);
-    background-color: #3a4758;
   }
 }
 
